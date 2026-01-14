@@ -1,0 +1,143 @@
+.nc-calculator {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #1f1f1f;
+  color: #ffffff;
+  font-family: 'Segoe UI Variable Display', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  user-select: none;
+}
+
+/* Display Styles */
+.nc-calculator-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 12px 16px;
+  min-height: 100px;
+  text-align: right;
+}
+
+.nc-calculator-expression {
+  font-size: 14px;
+  color: #a0a0a0;
+  height: 20px;
+  margin-bottom: 4px;
+}
+
+.nc-calculator-result {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Memory Styles */
+.nc-calculator-memory {
+  display: flex;
+  padding: 4px 12px;
+  gap: 4px;
+}
+
+.nc-calculator-memory button {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  padding: 8px 0;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.nc-calculator-memory button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nc-calculator-memory button:disabled {
+  color: #505050;
+  cursor: default;
+}
+
+/* Grid Styles */
+.nc-calculator-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 2px;
+  padding: 4px;
+  flex: 1;
+}
+
+.nc-calculator-button {
+  border: none;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.1s;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.nc-calculator-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nc-calculator-button:active {
+  background: rgba(255, 255, 255, 0.02);
+  transform: scale(0.98);
+}
+
+.nc-calculator-button.nc-number {
+  background: rgba(255, 255, 255, 0.08);
+  font-weight: 600;
+}
+
+.nc-calculator-button.nc-number:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.nc-calculator-button.nc-operator,
+.nc-calculator-button.nc-op-top {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.nc-calculator-button.nc-equals {
+  background: #76b9ed;
+  color: #000000;
+  font-size: 24px;
+}
+
+.nc-calculator-button.nc-equals:hover {
+  background: #67a1cf;
+}
+
+/* Special icons/symbols styling */
+.nc-calculator-button sub,
+.nc-calculator-button sup {
+  font-size: 10px;
+  line-height: 1;
+}
+
+.nc-calculator-button sub {
+  vertical-align: sub;
+}
+
+.nc-calculator-button sup {
+  vertical-align: super;
+}
+
+.nc-calculator-button.nc-equals:hover {
+  background: #059669;
+  border-color: #059669;
+}
+
+.nc-calculator-button.nc-wide {
+  grid-column: span 2;
+}

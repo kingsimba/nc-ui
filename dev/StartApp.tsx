@@ -6,7 +6,7 @@ import { runningAppsStore } from '../src/lib/runningAppsStore';
 import { createAppI18nFactory } from '../src/lib/appI18nFactory';
 
 // App IDs - currently only Game2048
-const GAME_APP_IDS = ['2048'];
+const GAME_APP_IDS = ['2048', 'calculator'];
 
 // i18n resources for StartApp
 const startAppResources = {

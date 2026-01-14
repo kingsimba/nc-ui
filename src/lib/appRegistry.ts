@@ -15,7 +15,7 @@ export interface AppDefinition {
   component: React.ComponentType;
   /** Panel width when the app is active (default: 400) */
   width?: number;
-  /** Padding inside the app container (default: 12) */
+  /** Padding inside the app container (default: 0) */
   padding?: number;
   /** If true, hides the title bar and close button. The app cannot be closed once launched. */
   hideTitleBar?: boolean;
@@ -40,7 +40,7 @@ class AppRegistry {
     this.apps.set(app.id, {
       ...app,
       width: app.width ?? 400,
-      padding: app.padding ?? 12,
+      padding: app.padding ?? 0,
     });
   }
 
