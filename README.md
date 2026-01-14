@@ -4,6 +4,10 @@ A reusable React UI component library with namespaced styles to prevent conflict
 
 Published on npm as [@kingsimba/nc-ui](https://www.npmjs.com/package/@kingsimba/nc-ui)
 
+**[View Demo](https://kingsimba.github.io/nc-ui/)**
+
+![Demo](./image.png)
+
 ## Installation
 
 ```bash

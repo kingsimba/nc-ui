@@ -35,7 +35,7 @@ import { IconsSection } from './IconsSection'
 export default function App() {
     const [loading, setLoading] = useState(false)
     const [refreshing, setRefreshing] = useState(false)
-    const [theme, setTheme] = useState<'dark' | 'light'>('dark')
+    const [theme, setTheme] = useState<'dark' | 'light'>('light')
     const [lang, setLang] = useState<SupportedLocale>('en')
     const [activeSection, setActiveSection] = useState('buttons')
     const [checked1, setChecked1] = useState(false)
