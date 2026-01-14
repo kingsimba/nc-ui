@@ -11,26 +11,52 @@ body {
     background: var(--nc-bg);
     color: var(--nc-text);
     min-height: 100vh;
-    padding: 20px;
+    padding: 0;
+}
+
+.dev-app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.dev-sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--nc-bg);
+    border-bottom: 1px solid var(--nc-border);
+    padding: 16px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dev-header-content {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.dev-header-content h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.dev-header-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
 }
 
 .dev-container {
     max-width: 900px;
     margin: 0 auto;
-}
-
-.dev-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--nc-border);
-}
-
-.dev-header h1 {
-    font-size: 24px;
-    font-weight: 600;
+    width: 100%;
+    padding: 20px;
+    flex: 1;
 }
 
 .dev-section {
