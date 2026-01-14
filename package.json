@@ -51,6 +51,8 @@
     },
     "dependencies": {
         "clsx": "^2.1.0",
+        "i18next": "^23.7.0",
+        "react-i18next": "^14.0.0",
         "tailwind-merge": "^2.2.0"
     }
 }

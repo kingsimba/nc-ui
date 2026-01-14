@@ -20,6 +20,9 @@ import {
     Slider,
     Tabs,
     Toggle,
+    AppPanel,
+    ViewportProvider,
+    runningAppsStore,
 } from '../src'
 import {
     ViewIcon,
@@ -35,7 +38,7 @@ export default function App() {
     const [refreshing, setRefreshing] = useState(false)
     const [theme, setTheme] = useState<'dark' | 'light'>('light')
     const [lang, setLang] = useState<SupportedLocale>('en')
-    const [activeSection, setActiveSection] = useState('buttons')
+    const [activeSection, setActiveSection] = useState('app-framework')
     const [checked1, setChecked1] = useState(false)
     const [checked2, setChecked2] = useState(true)
     const [checked3, setChecked3] = useState(false)
@@ -97,6 +100,7 @@ export default function App() {
     }
 
     const sections = [
+        { id: 'app-framework', label: 'App Framework' },
         { id: 'buttons', label: 'Button' },
         { id: 'activity', label: 'ActivityIndicator' },
         { id: 'checkbox', label: 'Checkbox' },
@@ -155,6 +159,50 @@ export default function App() {
                 </aside>
 
                 <div className="dev-container">
+                    {activeSection === 'app-framework' && (
+                        <section className="dev-section">
+                            <h2>App Framework Demo</h2>
+                            <p style={{ marginBottom: 16, color: 'var(--nc-text-weak)' }}>
+                                A Windows 11-style app launcher with AppPanel (taskbar) and StartApp.
+                                Click the buttons below to launch apps, or click in the panel on the right.
+                            </p>
+                            <div className="dev-row" style={{ marginBottom: 16 }}>
+                                <Button onClick={() => runningAppsStore.launchApp('start')}>
+                                    Open Start Menu
+                                </Button>
+                            </div>
+                            <div style={{
+                                display: 'flex',
+                                border: '1px solid var(--nc-border)',
+                                borderRadius: 8,
+                                height: 500,
+                                overflow: 'hidden',
+                                background: 'var(--nc-bg)'
+                            }}>
+                                {/* Main content area placeholder */}
+                                <div style={{
+                                    flex: 1,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    color: 'var(--nc-text-weak)',
+                                    padding: 20,
+                                    textAlign: 'center',
+                                    background: 'var(--nc-bg-secondary)',
+                                }}>
+                                    <div>
+                                        <p style={{ fontSize: 18, marginBottom: 8 }}>Main Content Area</p>
+                                        <p style={{ fontSize: 14 }}>Apps open in the panel on the right →</p>
+                                    </div>
+                                </div>
+                                {/* AppPanel - Windows 11 style taskbar */}
+                                <ViewportProvider>
+                                    <AppPanel />
+                                </ViewportProvider>
+                            </div>
+                        </section>
+                    )}
+
                     {activeSection === 'buttons' && (
                         <>
                             <section className="dev-section">

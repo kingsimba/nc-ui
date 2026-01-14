@@ -39,5 +39,26 @@ export type { ContextMenuProps, ContextMenuOption } from './components/ContextMe
 export { setLocale, getLocale, t } from './lib/i18n'
 export type { SupportedLocale } from './lib/i18n'
 
+// App-specific i18n factory for isolated instances
+export { createAppI18nFactory } from './lib/appI18nFactory'
+export type { AppI18nResources } from './lib/appI18nFactory'
+
+// App framework
+export { appRegistry } from './lib/appRegistry'
+export type { AppDefinition } from './lib/appRegistry'
+export { runningAppsStore } from './lib/runningAppsStore'
+export type { RunningApp, LaunchAppOptions } from './lib/runningAppsStore'
+export { AppContext, useApp } from './components/app/AppContext'
+export type { AppContextValue } from './components/app/AppContext'
+export { AppContainer } from './components/app/AppContainer'
+export { AppPanel } from './components/app/AppPanel'
+export { AppTitleBar } from './components/app/AppTitleBar'
+
+// App framework utilities
+export { appStateStore } from './stores/appStateStore'
+export { backHandlerRegistry, setAppInUrl, clearAppInUrl } from './utils/backHandlerRegistry'
+export { ViewportProvider, useViewport } from './contexts/ViewportContext'
+export type { ViewportContextValue } from './contexts/ViewportContext'
+
 // Utilities
 export { cn } from './lib/utils'
