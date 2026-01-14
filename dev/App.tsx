@@ -13,9 +13,36 @@ import {
     EditButton,
     TrashButton,
     Hyperlink,
+    CloseIcon,
+    HideAppsIcon,
+    ViewIcon,
+    WifiIcon,
+    LockIcon,
+    UnlockIcon,
+    ChevronRightIcon,
+    ChevronDownIcon,
+    RefreshIcon,
+    RevertIcon,
     EditIcon,
     DeleteIcon,
-    ViewIcon,
+    ClearAllIcon,
+    EmptyFolderIcon,
+    InfoIcon,
+    PieChartIcon,
+    PowerIcon,
+    CameraIcon,
+    PlusIcon,
+    MinusIcon,
+    DoubleClickMoveIcon,
+    MoreIcon,
+    Input,
+    ListGroup,
+    ListGroupItem,
+    MultiSelect,
+    NumberInput,
+    Slider,
+    Tabs,
+    Toggle,
 } from '../src'
 import type { SupportedLocale } from '../src'
 
@@ -34,6 +61,14 @@ export default function App() {
     const [alignment, setAlignment] = useState<'left' | 'center' | 'right'>('left')
     const [contextMenuOpen, setContextMenuOpen] = useState(false)
     const [contextMenuAnchor, setContextMenuAnchor] = useState<HTMLButtonElement | null>(null)
+
+    // New component states
+    const [inputValue, setInputValue] = useState('')
+    const [numberValue, setNumberValue] = useState(50)
+    const [sliderValue, setSliderValue] = useState(30)
+    const [toggleChecked, setToggleChecked] = useState(false)
+    const [multiSelectValues, setMultiSelectValues] = useState<string[]>(['opt1'])
+    const [activeTab, setActiveTab] = useState('Tab 1')
 
     const comboOptions = [
         { label: 'Option 1', value: 'opt1', default: true },
@@ -378,6 +413,239 @@ export default function App() {
                         disabled
                     />
                 </div>
+            </section>
+
+            <section className="dev-section">
+                <h2>Input</h2>
+                <div className="dev-col">
+                    <Input
+                        value={inputValue}
+                        onChange={setInputValue}
+                        placeholder="Type something..."
+                        label="Default Input"
+                    />
+                    <Input
+                        value={inputValue}
+                        onChange={setInputValue}
+                        placeholder="Small input"
+                        size="small"
+                        label="Small Input"
+                    />
+                    <Input
+                        value="Disabled"
+                        disabled
+                        label="Disabled Input"
+                    />
+                </div>
+            </section>
+
+            <section className="dev-section">
+                <h2>NumberInput</h2>
+                <div className="dev-col">
+                    <NumberInput
+                        value={numberValue}
+                        onChange={setNumberValue}
+                        min={0}
+                        max={100}
+                        label="Default (0-100)"
+                    />
+                    <NumberInput
+                        value={numberValue}
+                        onChange={setNumberValue}
+                        min={0}
+                        max={100}
+                        step={5}
+                        size="small"
+                        label="Small with step=5"
+                    />
+                </div>
+            </section>
+
+            <section className="dev-section">
+                <h2>Slider</h2>
+                <div className="dev-col">
+                    <Slider
+                        value={sliderValue}
+                        onChange={setSliderValue}
+                        label="Volume"
+                    />
+                    <Slider
+                        value={sliderValue}
+                        onChange={setSliderValue}
+                        min={0}
+                        max={1}
+                        step={0.1}
+                        formatValue={(v) => `${Math.round(v * 100)}%`}
+                        label="Percentage"
+                    />
+                    <Slider
+                        value={50}
+                        onChange={() => { }}
+                        disabled
+                        label="Disabled"
+                    />
+                </div>
+            </section>
+
+            <section className="dev-section">
+                <h2>Toggle</h2>
+                <div className="dev-row">
+                    <Toggle
+                        checked={toggleChecked}
+                        onChange={setToggleChecked}
+                        label="Enable feature"
+                    />
+                    <Toggle
+                        checked={true}
+                        onChange={() => { }}
+                        disabled
+                        label="Disabled on"
+                    />
+                </div>
+            </section>
+
+            <section className="dev-section">
+                <h2>MultiSelect</h2>
+                <div className="dev-col">
+                    <MultiSelect
+                        values={multiSelectValues}
+                        onChange={setMultiSelectValues}
+                        options={comboOptions}
+                        label="Select multiple options"
+                    />
+                </div>
+            </section>
+
+            <section className="dev-section">
+                <h2>Icons</h2>
+                <div className="dev-row" style={{ flexWrap: 'wrap', gap: '24px' }}>
+                    <div className="dev-item">
+                        <CloseIcon size={24} />
+                        <span>CloseIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <HideAppsIcon size={24} />
+                        <span>HideAppsIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <ViewIcon size={24} />
+                        <span>ViewIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <WifiIcon size={24} />
+                        <span>WifiIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <LockIcon size={24} />
+                        <span>LockIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <UnlockIcon size={24} />
+                        <span>UnlockIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <ChevronRightIcon size={24} />
+                        <span>ChevronRightIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <ChevronDownIcon size={24} />
+                        <span>ChevronDownIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <RefreshIcon size={24} />
+                        <span>RefreshIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <RevertIcon size={24} />
+                        <span>RevertIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <EditIcon size={24} />
+                        <span>EditIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <DeleteIcon size={24} />
+                        <span>DeleteIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <ClearAllIcon size={24} />
+                        <span>ClearAllIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <EmptyFolderIcon size={24} />
+                        <span>EmptyFolderIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <InfoIcon size={24} />
+                        <span>InfoIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <PieChartIcon size={24} />
+                        <span>PieChartIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <PowerIcon size={24} />
+                        <span>PowerIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <CameraIcon size={24} />
+                        <span>CameraIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <PlusIcon size={24} />
+                        <span>PlusIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <MinusIcon size={24} />
+                        <span>MinusIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <DoubleClickMoveIcon size={24} />
+                        <span>DoubleClickMoveIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <MoreIcon size={24} />
+                        <span>MoreIcon</span>
+                    </div>
+                </div>
+            </section>
+
+            <section className="dev-section">
+                <h2>Tabs</h2>
+                <div className="dev-col">
+                    <Tabs
+                        tabs={['Tab 1', 'Tab 2', 'Tab 3']}
+                        active={activeTab}
+                        onChange={setActiveTab}
+                    />
+                    <div style={{ padding: 16, background: 'var(--nc-button-bg)', borderRadius: 8 }}>
+                        Content for: {activeTab}
+                    </div>
+                </div>
+            </section>
+
+            <section className="dev-section">
+                <h2>ListGroup</h2>
+                <ListGroup title="Settings">
+                    <ListGroupItem onClick={() => alert('Account clicked')}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                            <span>Account</span>
+                            <ChevronRightIcon size={16} />
+                        </div>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                            <span>Dark Mode</span>
+                            <Toggle checked={theme === 'dark'} onChange={toggleTheme} />
+                        </div>
+                    </ListGroupItem>
+                    <ListGroupItem showBorder={false}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                            <span>Version</span>
+                            <span style={{ color: 'var(--nc-text-weak)' }}>1.0.0</span>
+                        </div>
+                    </ListGroupItem>
+                </ListGroup>
             </section>
         </div>
     )

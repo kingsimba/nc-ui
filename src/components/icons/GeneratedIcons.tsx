@@ -8,6 +8,31 @@ interface IconProps {
   size?: number;
   className?: string;
   style?: React.CSSProperties;
+  color?: string;
+  strokeWidth?: number;
+}
+
+/**
+ * Close icon - X symbol for closing dialogs, modals, or dismissing content.
+ */
+export function CloseIcon({ size = 24, color = 'currentColor', strokeWidth = 2, className, style }: IconProps & { color?: string; strokeWidth?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      style={style}
+    >
+      <line x1="20" y1="4" x2="4" y2="20" />
+      <line x1="4" y1="4" x2="20" y2="20" />
+    </svg>
+  );
 }
 
 /**

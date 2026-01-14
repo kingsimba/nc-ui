@@ -1,0 +1,100 @@
+.input { background: var(--button-bg); color: var(--text); border: 1px solid var(--button-border); border-radius: 8px; padding: 10px 12px; font-size: inherit; }
+.input.small { padding: 6px 12px; font-size: 12px; min-height: 32px; height: 32px; border-radius: 4px; }
+
+
+/* NumberInput specific styles */
+.number-input-container { display: flex; align-items: stretch; }
+.number-input-container.small { gap: 4px; }
+.number-input-container:not(.small) { gap: 6px; }
+.number-input { text-align: center; }
+.number-input.small { width: 80px; font-size: 12px; padding: 0 4px; border-radius: 4px; }
+.number-input:not(.small) { width: 120px; }
+.number-input-button { padding: 0; font-weight: normal; display: flex; align-items: center; justify-content: center; font-family: Arial, sans-serif; }
+.number-input-button.small { width: 28px; min-height: 28px; font-size: 16px; }
+.number-input-button:not(.small) { width: 42px; min-height: 42px; font-size: 24px; }
+.number-input-col.small { gap: 4px; }
+.number-input-col:not(.small) { gap: 6px; }
+
+/* Hide number input spinner arrows */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
+
+.label { color: var(--muted); font-size: 12px; }
+.row { display: flex; gap: 8px; align-items: center; }
+.col { display: flex; flex-direction: column; gap: 6px; }
+.section { padding: 12px; }
+.section+.section { border-top: 1px solid var(--border); }
+
+/* ComboBox dropdown: remove separators between options for a cleaner list */
+.combo-dropdown .section { padding: 8px 12px; }
+.combo-dropdown .section + .section { border-top: none; }
+.combo-dropdown .section:hover { background: var(--overlay-subtle); }
+
+
+/* Slider styles */
+.ui-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(
+    to right,
+    var(--primary) 0%,
+    var(--primary) var(--slider-percentage, 50%),
+    var(--button-bg) var(--slider-percentage, 50%),
+    var(--button-bg) 100%
+  );
+  border: 1px solid var(--button-border);
+  outline: none;
+  cursor: pointer;
+}
+
+.ui-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 2px solid var(--primary);
+  cursor: pointer;
+  transition: transform 100ms, box-shadow 100ms;
+}
+
+.ui-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+}
+
+.ui-slider::-webkit-slider-thumb:active {
+  transform: scale(0.95);
+}
+
+.ui-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 2px solid var(--primary);
+  cursor: pointer;
+  transition: transform 100ms, box-shadow 100ms;
+}
+
+.ui-slider::-moz-range-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+}
+
+.ui-slider:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ui-slider:disabled::-webkit-slider-thumb {
+  cursor: not-allowed;
+}
+
+.ui-slider:disabled::-moz-range-thumb {
+  cursor: not-allowed;
+}
