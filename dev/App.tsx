@@ -13,6 +13,16 @@ import {
     EditButton,
     TrashButton,
     Hyperlink,
+    Input,
+    ListGroup,
+    ListGroupItem,
+    MultiSelect,
+    NumberInput,
+    Slider,
+    Tabs,
+    Toggle,
+} from '../src'
+import {
     CloseIcon,
     HideAppsIcon,
     ViewIcon,
@@ -34,15 +44,7 @@ import {
     MinusIcon,
     DoubleClickIcon,
     MoreIcon,
-    Input,
-    ListGroup,
-    ListGroupItem,
-    MultiSelect,
-    NumberInput,
-    Slider,
-    Tabs,
-    Toggle,
-} from '../src'
+} from '../src/components/icons'
 import type { SupportedLocale } from '../src'
 
 export default function App() {

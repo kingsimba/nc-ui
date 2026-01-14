@@ -28,31 +28,6 @@ export type { SliderProps } from './components/Slider'
 export type { TabsProps } from './components/Tabs'
 export type { ToggleProps } from './components/Toggle'
 
-// Export icons
-export {
-    CloseIcon,
-    HideAppsIcon,
-    ViewIcon,
-    WifiIcon,
-    LockIcon,
-    UnlockIcon,
-    ChevronRightIcon,
-    ChevronDownIcon,
-    RefreshIcon,
-    RevertIcon,
-    EditIcon,
-    TrashIcon,
-    EmptyFolderIcon,
-    InfoIcon,
-    PieChartIcon,
-    PowerIcon,
-    CameraIcon,
-    PlusIcon,
-    MinusIcon,
-    DoubleClickIcon,
-    MoreIcon,
-} from './components/icons/GeneratedIcons'
-
 // Export types
 export type { CheckboxProps, CheckboxSize } from './components/Checkbox'
 export type { ComboBoxProps, ComboBoxOption } from './components/ComboBox'

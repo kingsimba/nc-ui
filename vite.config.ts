@@ -22,10 +22,16 @@ export default defineConfig({
     root: '.',
     build: {
         lib: {
-            entry: resolve(__dirname, 'src/index.ts'),
+            entry: {
+                main: resolve(__dirname, 'src/index.ts'),
+                icons: resolve(__dirname, 'src/components/icons/index.ts'),
+            },
             name: 'NcUI',
             formats: ['es', 'cjs'],
-            fileName: (format) => `index.${format === 'es' ? 'js' : 'cjs'}`,
+            fileName: (format, entryName) => {
+                const ext = format === 'es' ? 'js' : 'cjs'
+                return entryName === 'main' ? `index.${ext}` : `${entryName}.${ext}`
+            },
         },
         rollupOptions: {
             // Exclude dev folder and test files from library build

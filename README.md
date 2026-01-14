@@ -2,21 +2,23 @@
 
 A reusable React UI component library with namespaced styles to prevent conflicts.
 
+Published on npm as [@kingsimba/nc-ui](https://www.npmjs.com/package/@kingsimba/nc-ui)
+
 ## Installation
 
 ```bash
-npm install nc-ui
+npm install @kingsimba/nc-ui
 # or
-yarn add nc-ui
+yarn add @kingsimba/nc-ui
 # or
-pnpm add nc-ui
+pnpm add @kingsimba/nc-ui
 ```
 
 ## Usage
 
 ```tsx
-import { Button, ActivityIndicator } from 'nc-ui'
-import 'nc-ui/styles.css'
+import { Button, ActivityIndicator } from '@kingsimba/nc-ui'
+import '@kingsimba/nc-ui/styles.css'
 
 function App() {
   return (
@@ -25,6 +27,24 @@ function App() {
       <Button variant="danger" size="small">Delete</Button>
       <Button loading>Saving...</Button>
       <ActivityIndicator size="large" />
+    </div>
+  )
+}
+```
+
+### Using Icons
+
+Icons are imported from a separate entry point to keep the main bundle size small:
+
+```tsx
+import { CloseIcon, EditIcon, TrashIcon } from '@kingsimba/nc-ui/icons'
+
+function MyComponent() {
+  return (
+    <div>
+      <CloseIcon size={24} />
+      <EditIcon size={20} color="#3b82f6" />
+      <TrashIcon size={18} />
     </div>
   )
 }

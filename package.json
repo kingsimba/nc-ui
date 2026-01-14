@@ -11,6 +11,11 @@
             "require": "./dist/index.cjs",
             "types": "./dist/index.d.ts"
         },
+        "./icons": {
+            "import": "./dist/icons.js",
+            "require": "./dist/icons.cjs",
+            "types": "./dist/icons.d.ts"
+        },
         "./styles.css": "./dist/styles.css"
     },
     "files": [
