@@ -1,14 +1,21 @@
 import { useState } from 'react'
 import {
+    Alert,
+    Battery,
     Button,
+    ButtonGroup,
     ActivityIndicator,
     Checkbox,
     ComboBox,
+    ContextMenu,
     RefreshButton,
     CloseButton,
     EditButton,
     TrashButton,
-    Hyperlink
+    Hyperlink,
+    EditIcon,
+    DeleteIcon,
+    ViewIcon,
 } from '../src'
 import type { SupportedLocale } from '../src'
 
@@ -24,6 +31,9 @@ export default function App() {
     const [comboValue2, setComboValue2] = useState<string | undefined>()
     const [comboValue3, setComboValue3] = useState<string | undefined>('opt1')
     const [comboValue4, setComboValue4] = useState<string | undefined>('opt1')
+    const [alignment, setAlignment] = useState<'left' | 'center' | 'right'>('left')
+    const [contextMenuOpen, setContextMenuOpen] = useState(false)
+    const [contextMenuAnchor, setContextMenuAnchor] = useState<HTMLButtonElement | null>(null)
 
     const comboOptions = [
         { label: 'Option 1', value: 'opt1', default: true },
@@ -243,6 +253,130 @@ export default function App() {
                     <Hyperlink onClick={() => alert('Link clicked')}>Click me</Hyperlink>
                     <Hyperlink onClick={() => { }} size="small">Small link</Hyperlink>
                     <Hyperlink onClick={() => { }} disabled>Disabled link</Hyperlink>
+                </div>
+            </section>
+
+            <section className="dev-section">
+                <h2>Alert</h2>
+                <Alert
+                    code={404}
+                    text="The requested resource could not be found on this server."
+                    type="error"
+                    button={{ text: 'Retry' }}
+                    onAction={() => alert('Retry clicked')}
+                />
+                <Alert
+                    code={429}
+                    text="Rate limit exceeded. Please wait before making more requests."
+                    type="warning"
+                    button={{ text: 'Dismiss' }}
+                    onAction={() => alert('Dismiss clicked')}
+                />
+                <Alert
+                    code={500}
+                    text="Internal server error occurred."
+                    type="error"
+                />
+            </section>
+
+            <section className="dev-section">
+                <h2>Battery</h2>
+                <div className="dev-row">
+                    <div className="dev-item">
+                        <Battery percentage={0.05} colored />
+                        <span>5% (danger)</span>
+                    </div>
+                    <div className="dev-item">
+                        <Battery percentage={0.15} colored />
+                        <span>15% (warning)</span>
+                    </div>
+                    <div className="dev-item">
+                        <Battery percentage={0.75} colored />
+                        <span>75% (success)</span>
+                    </div>
+                    <div className="dev-item">
+                        <Battery percentage={1} colored />
+                        <span>100% (full)</span>
+                    </div>
+                    <div className="dev-item">
+                        <Battery percentage={0.6} status="charging" colored />
+                        <span>Charging</span>
+                    </div>
+                </div>
+                <h3>Monochrome</h3>
+                <div className="dev-row">
+                    <Battery percentage={0.5} darkMode={theme === 'dark'} />
+                    <Battery percentage={0.25} darkMode={theme === 'dark'} />
+                    <Battery percentage={0} darkMode={theme === 'dark'} />
+                </div>
+            </section>
+
+            <section className="dev-section">
+                <h2>ContextMenu</h2>
+                <div className="dev-row">
+                    <button
+                        className="nc-button"
+                        ref={setContextMenuAnchor}
+                        onClick={() => setContextMenuOpen(!contextMenuOpen)}
+                    >
+                        Open Menu
+                    </button>
+                    <ContextMenu
+                        open={contextMenuOpen}
+                        onClose={() => setContextMenuOpen(false)}
+                        anchor={contextMenuAnchor}
+                        options={[
+                            {
+                                id: 'view',
+                                label: 'View Details',
+                                icon: <ViewIcon size={16} />,
+                                onClick: () => alert('View clicked'),
+                            },
+                            {
+                                id: 'edit',
+                                label: 'Edit Item',
+                                icon: <EditIcon size={16} />,
+                                onClick: () => alert('Edit clicked'),
+                            },
+                            {
+                                id: 'disabled',
+                                label: 'Disabled Option',
+                                onClick: () => { },
+                                disabled: true,
+                            },
+                            {
+                                id: 'delete',
+                                label: 'Delete',
+                                icon: <DeleteIcon size={16} />,
+                                onClick: () => alert('Delete clicked'),
+                                variant: 'danger',
+                            },
+                        ]}
+                    />
+                </div>
+            </section>
+
+            <section className="dev-section">
+                <h2>ButtonGroup</h2>
+                <div className="dev-col">
+                    <ButtonGroup
+                        value={alignment}
+                        onChange={setAlignment}
+                        options={['left', 'center', 'right'] as const}
+                    />
+                    <ButtonGroup
+                        value={alignment}
+                        onChange={setAlignment}
+                        options={['left', 'center', 'right'] as const}
+                        size="small"
+                        labels={{ left: 'Left', center: 'Center', right: 'Right' }}
+                    />
+                    <ButtonGroup
+                        value="option1"
+                        onChange={() => { }}
+                        options={['option1', 'option2'] as const}
+                        disabled
+                    />
                 </div>
             </section>
         </div>
