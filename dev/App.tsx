@@ -15,8 +15,6 @@ import {
     TrashButton,
     Hyperlink,
     Input,
-    ListGroup,
-    ListGroupItem,
     MultiSelect,
     NumberInput,
     Slider,
@@ -24,13 +22,13 @@ import {
     Toggle,
 } from '../src'
 import {
-    ChevronRightIcon,
     ViewIcon,
     EditIcon,
     TrashIcon,
 } from '../src/components/icons'
 import type { SupportedLocale } from '../src'
 import { IconsSection } from './IconsSection'
+import { ListGroupSection } from './ListGroupSection'
 
 export default function App() {
     const [loading, setLoading] = useState(false)
@@ -649,59 +647,7 @@ export default function App() {
                     )}
 
                     {activeSection === 'list-group' && (
-                        <>
-                            <section className="dev-section">
-                                <h2>ListGroup</h2>
-                                <ListGroup title="Settings">
-                                    <ListGroupItem onClick={() => alert('Account clicked')}>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                                            <span>Account</span>
-                                            <ChevronRightIcon size={16} />
-                                        </div>
-                                    </ListGroupItem>
-                                    <ListGroupItem>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                                            <span>Dark Mode</span>
-                                            <Toggle checked={theme === 'dark'} onChange={toggleTheme} />
-                                        </div>
-                                    </ListGroupItem>
-                                    <ListGroupItem showBorder={false}>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                                            <span>Version</span>
-                                            <span style={{ color: 'var(--nc-text-weak)' }}>1.0.0</span>
-                                        </div>
-                                    </ListGroupItem>
-                                </ListGroup>
-                            </section>
-                        </>
-                    )}
-
-                    {activeSection === 'list-group' && (
-                        <>
-                            <section className="dev-section">
-                                <h2>ListGroup</h2>
-                                <ListGroup title="Settings">
-                                    <ListGroupItem onClick={() => alert('Account clicked')}>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                                            <span>Account</span>
-                                            <ChevronRightIcon size={16} />
-                                        </div>
-                                    </ListGroupItem>
-                                    <ListGroupItem>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                                            <span>Dark Mode</span>
-                                            <Toggle checked={theme === 'dark'} onChange={toggleTheme} />
-                                        </div>
-                                    </ListGroupItem>
-                                    <ListGroupItem showBorder={false}>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                                            <span>Version</span>
-                                            <span style={{ color: 'var(--nc-text-weak)' }}>1.0.0</span>
-                                        </div>
-                                    </ListGroupItem>
-                                </ListGroup>
-                            </section>
-                        </>
+                        <ListGroupSection theme={theme} toggleTheme={toggleTheme} />
                     )}
 
                     {activeSection === 'dialog' && (
