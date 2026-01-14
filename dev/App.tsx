@@ -8,6 +8,7 @@ import {
     Checkbox,
     ComboBox,
     ContextMenu,
+    Dialog,
     RefreshButton,
     CloseButton,
     EditButton,
@@ -24,7 +25,6 @@ import {
 } from '../src'
 import {
     ChevronRightIcon,
-    ChevronDownIcon,
     ViewIcon,
     EditIcon,
     TrashIcon,
@@ -56,6 +56,9 @@ export default function App() {
     const [toggleChecked, setToggleChecked] = useState(false)
     const [multiSelectValues, setMultiSelectValues] = useState<string[]>(['opt1'])
     const [activeTab, setActiveTab] = useState('Tab 1')
+    const [dialogOpen, setDialogOpen] = useState(false)
+    const [dialog2Open, setDialog2Open] = useState(false)
+    const [dialog3Open, setDialog3Open] = useState(false)
 
     const comboOptions = [
         { label: 'Option 1', value: 'opt1', default: true },
@@ -114,6 +117,7 @@ export default function App() {
         { id: 'icons', label: 'Icons' },
         { id: 'tabs', label: 'Tabs' },
         { id: 'list-group', label: 'ListGroup' },
+        { id: 'dialog', label: 'Dialog' },
     ]
 
     return (
@@ -697,6 +701,74 @@ export default function App() {
                                     </ListGroupItem>
                                 </ListGroup>
                             </section>
+                        </>
+                    )}
+
+                    {activeSection === 'dialog' && (
+                        <>
+                            <section className="dev-section">
+                                <h2>Dialog Variants</h2>
+                                <div className="dev-row">
+                                    <Button onClick={() => setDialogOpen(true)}>
+                                        Open Dialog (OK/Cancel)
+                                    </Button>
+                                    <Button onClick={() => setDialog2Open(true)}>
+                                        Save/Cancel Dialog
+                                    </Button>
+                                    <Button variant="danger" onClick={() => setDialog3Open(true)}>
+                                        Delete Dialog
+                                    </Button>
+                                </div>
+                            </section>
+
+                            <Dialog
+                                open={dialogOpen}
+                                onClose={() => setDialogOpen(false)}
+                                title="Confirm Action"
+                                footerType="ok-cancel"
+                                onOk={() => {
+                                    alert('OK clicked')
+                                    setDialogOpen(false)
+                                }}
+                            >
+                                <p>Are you sure you want to proceed with this action?</p>
+                            </Dialog>
+
+                            <Dialog
+                                open={dialog2Open}
+                                onClose={() => setDialog2Open(false)}
+                                title="Edit Profile"
+                                footerType="save-cancel"
+                                width={500}
+                                onSave={() => {
+                                    alert('Saved!')
+                                    setDialog2Open(false)
+                                }}
+                            >
+                                <div className="nc-col" style={{ gap: 12 }}>
+                                    <div>
+                                        <label className="nc-label">Name</label>
+                                        <Input placeholder="Enter your name" />
+                                    </div>
+                                    <div>
+                                        <label className="nc-label">Email</label>
+                                        <Input placeholder="Enter your email" type="email" />
+                                    </div>
+                                </div>
+                            </Dialog>
+
+                            <Dialog
+                                open={dialog3Open}
+                                onClose={() => setDialog3Open(false)}
+                                title="Delete Item"
+                                footerType="delete-cancel"
+                                onDelete={() => {
+                                    alert('Deleted!')
+                                    setDialog3Open(false)
+                                }}
+                            >
+                                <p>This action cannot be undone. Are you sure you want to delete this item?</p>
+                            </Dialog>
                         </>
                     )}
                 </div>

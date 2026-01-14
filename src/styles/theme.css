@@ -563,3 +563,80 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 
 .nc-toggle-thumb.nc-checked { background: var(--nc-text); transform: translateX(24px); box-shadow: 0 2px 6px rgba(59, 130, 246, 0.28); }
 .nc-toggle-thumb:not(.nc-checked) { background: var(--nc-muted); transform: translateX(0); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08); }
+
+/* Dialog component */
+.nc-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: nc-dialog-fade-in 150ms ease-out;
+}
+
+.nc-dialog-overlay.nc-fullscreen {
+  position: fixed;
+}
+
+.nc-dialog-container {
+  background: var(--nc-bg);
+  border-radius: 12px;
+  border: 1px solid var(--nc-border);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  animation: nc-dialog-slide-up 200ms ease-out;
+  outline: none;
+}
+
+.nc-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--nc-border);
+}
+
+.nc-dialog-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--nc-text);
+  margin: 0;
+}
+
+.nc-dialog-content {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+  color: var(--nc-text);
+}
+
+.nc-dialog-footer {
+  display: flex;
+  gap: 8px;
+  padding: 16px 20px;
+  border-top: 1px solid var(--nc-border);
+  justify-content: flex-end;
+}
+
+@keyframes nc-dialog-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes nc-dialog-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
