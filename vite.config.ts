@@ -20,7 +20,16 @@ export default defineConfig({
     },
     // Dev server serves the playground
     root: '.',
-    build: {
+    base: process.env.BUILD_DEMO === 'true' ? '/nc-ui/' : '/',
+    build: process.env.BUILD_DEMO === 'true' ? {
+        // Demo app build for GitHub Pages
+        outDir: 'dist',
+        emptyOutDir: true,
+        rollupOptions: {
+            input: resolve(__dirname, 'index.html'),
+        },
+    } : {
+        // Library build
         lib: {
             entry: {
                 main: resolve(__dirname, 'src/index.ts'),
