@@ -24,5 +24,9 @@ export { CloseIcon } from './components/icons/CloseIcon'
 export type { CheckboxProps, CheckboxSize } from './components/Checkbox'
 export type { ComboBoxProps, ComboBoxOption } from './components/ComboBox'
 
+// Localization
+export { setLocale, getLocale, t } from './lib/i18n'
+export type { SupportedLocale } from './lib/i18n'
+
 // Utilities
 export { cn } from './lib/utils'

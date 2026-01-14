@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { t } from '../lib/i18n';
 
 export type ComboBoxOption = { label: string; value: string; default?: boolean };
 
@@ -28,13 +29,9 @@ export interface ComboBoxProps {
   style?: React.CSSProperties;
   /** Additional CSS class names */
   className?: string;
-  /** Text to display for default option hint */
-  defaultText?: string;
-  /** Text to display when no results found */
-  noResultsText?: string;
 }
 
-function DropdownOption({ option, onChange, selected, small, defaultText }: { option: ComboBoxOption; onChange: (value: string) => void; selected?: boolean; small?: boolean; defaultText?: string }) {
+function DropdownOption({ option, onChange, selected, small }: { option: ComboBoxOption; onChange: (value: string) => void; selected?: boolean; small?: boolean }) {
   return (
     <div
       className={`nc-combo-dropdown-option ${small ? 'nc-small' : ''}`}
@@ -47,9 +44,9 @@ function DropdownOption({ option, onChange, selected, small, defaultText }: { op
       }}
     >
       {option.label}
-      {option.default && defaultText && (
+      {option.default && (
         <span style={{ fontSize: '0.85em', color: 'var(--nc-text-weak)', marginLeft: 6 }}>
-          ({defaultText})
+          ({t('default')})
         </span>
       )}
     </div>
@@ -64,8 +61,6 @@ function DropdownMenu({
   placement = 'bottom',
   anchorRef,
   small,
-  defaultText,
-  noResultsText = 'No results',
 }: {
   isOpen: boolean;
   options: ComboBoxOption[];
@@ -74,8 +69,6 @@ function DropdownMenu({
   placement?: 'top' | 'bottom';
   anchorRef: React.RefObject<HTMLDivElement>;
   small?: boolean;
-  defaultText?: string;
-  noResultsText?: string;
 }) {
   const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
   const [autoPlacement, setAutoPlacement] = useState<'top' | 'bottom'>(placement);
@@ -121,10 +114,10 @@ function DropdownMenu({
       }}
     >
       {options.length === 0 ? (
-        <div className={`nc-combo-dropdown-option nc-no-results ${small ? 'nc-small' : ''}`}>{noResultsText}</div>
+        <div className={`nc-combo-dropdown-option nc-no-results ${small ? 'nc-small' : ''}`}>{t('noResults')}</div>
       ) : (
         options.map((o) => (
-          <DropdownOption key={o.value} option={o} onChange={onSelect} selected={o.value === selectedValue} small={small} defaultText={defaultText} />
+          <DropdownOption key={o.value} option={o} onChange={onSelect} selected={o.value === selectedValue} small={small} />
         ))
       )}
     </div>
@@ -172,8 +165,6 @@ export function ComboBox({
   size = 'default',
   style,
   className,
-  defaultText = 'default',
-  noResultsText = 'No results',
 }: ComboBoxProps) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
@@ -279,13 +270,13 @@ export function ComboBox({
             }}
           >
             <span className={`nc-combo-overlay-text ${isSmall ? 'nc-small' : ''}`}>{selected?.label}</span>
-            {selected?.default && <span className={`nc-combo-overlay-default ${isSmall ? 'nc-small' : ''}`}>({defaultText})</span>}
+            {selected?.default && <span className={`nc-combo-overlay-default ${isSmall ? 'nc-small' : ''}`}>({t('default')})</span>}
           </div>
         )}
         {showClearButton && <ClearButton onClick={handleClear} small={isSmall} />}
         {showToggle && <ToggleButton open={open} onClick={() => setOpen((s) => !s)} small={isSmall} />}
       </div>
-      <DropdownMenu isOpen={open} options={filtered} onSelect={handleSelect} selectedValue={value} placement={placement} anchorRef={anchorRef} small={isSmall} defaultText={defaultText} noResultsText={noResultsText} />
+      <DropdownMenu isOpen={open} options={filtered} onSelect={handleSelect} selectedValue={value} placement={placement} anchorRef={anchorRef} small={isSmall} />
     </div>
   );
 }

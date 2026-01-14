@@ -10,11 +10,13 @@ import {
     TrashButton,
     Hyperlink
 } from '../src'
+import type { SupportedLocale } from '../src'
 
 export default function App() {
     const [loading, setLoading] = useState(false)
     const [refreshing, setRefreshing] = useState(false)
     const [theme, setTheme] = useState<'dark' | 'light'>('dark')
+    const [lang, setLang] = useState<SupportedLocale>('en')
     const [checked1, setChecked1] = useState(false)
     const [checked2, setChecked2] = useState(true)
     const [checked3, setChecked3] = useState(false)
@@ -30,10 +32,25 @@ export default function App() {
         { label: 'Long Option Name Here', value: 'opt4' },
     ]
 
+    const langOptions = [
+        { label: 'English', value: 'en' },
+        { label: '中文', value: 'zh' },
+        { label: 'Deutsch', value: 'de' },
+        { label: 'ไทย', value: 'th' },
+        { label: 'Español', value: 'es' },
+    ]
+
     const toggleTheme = () => {
         const newTheme = theme === 'dark' ? 'light' : 'dark'
         setTheme(newTheme)
         document.documentElement.classList.toggle('light', newTheme === 'light')
+    }
+
+    const changeLanguage = (newLang: string | undefined) => {
+        if (newLang) {
+            setLang(newLang as SupportedLocale)
+            document.documentElement.lang = newLang
+        }
     }
 
     const simulateLoading = () => {
@@ -50,9 +67,19 @@ export default function App() {
         <div className="dev-container">
             <header className="dev-header">
                 <h1>nc-ui Component Playground</h1>
-                <Button variant="ghost" size="small" onClick={toggleTheme}>
-                    Theme: {theme}
-                </Button>
+                <div className="dev-row">
+                    <ComboBox
+                        options={langOptions}
+                        value={lang}
+                        onChange={changeLanguage}
+                        size="small"
+                        clearable={false}
+                        style={{ width: 120 }}
+                    />
+                    <Button variant="ghost" size="small" onClick={toggleTheme}>
+                        Theme: {theme}
+                    </Button>
+                </div>
             </header>
 
             <section className="dev-section">

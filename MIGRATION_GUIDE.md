@@ -55,18 +55,31 @@ export { ComponentName } from './components/ComponentName'
 export type { ComponentNameProps } from './components/ComponentName'
 ```
 
-## Props Pattern
+## i18n Pattern
 
-Convert internal dependencies to props:
+nc-ui has built-in localization (en, zh, de, th, es) that auto-detects from `document.documentElement.lang`.
 
 ```tsx
 // ❌ Before: uses react-i18next
+import { useTranslation } from 'react-i18next';
 const { t } = useTranslation();
 const text = t('common.default');
 
-// ✅ After: use prop with default
-interface Props {
-  defaultText?: string;
+// ✅ After: use built-in t()
+import { t } from '../lib/i18n';
+
+function Component() {
+  const text = t('default');
+  // ...
 }
-function Component({ defaultText = 'default' }: Props) { ... }
 ```
+
+### Available i18n Keys
+
+- `default` - "default" / "默认" / "Standard" / etc.
+- `noResults` - "No results" / "无结果" / etc.
+- `close`, `clear`, `open`
+
+### Adding New Keys
+
+Add translations to `src/lib/i18n.ts`.
