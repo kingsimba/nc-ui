@@ -1,0 +1,513 @@
+:root {
+  color-scheme: dark;
+
+  /* Core colors */
+  --nc-bg: #151b23;
+  --nc-muted: #7a8a9a;
+  --nc-text: #e8eef6;
+  --nc-text-weak: #6b7280;
+  --nc-text-weaker: #4b5563;
+  --nc-primary: #3b82f6;
+  --nc-danger: #ef4444;
+  --nc-warning: #f59e0b;
+  --nc-success: #22c55e;
+
+  /* UI element colors */
+  --nc-border: #1f2937;
+  --nc-button-border: #223042;
+  --nc-button-bg: #0f1722;
+  --nc-button-hover: #162332;
+  --nc-button-active: #1d2e42;
+  --nc-overlay-hover: rgba(255, 255, 255, 0.05);
+}
+
+/* Light theme */
+:root.light {
+  color-scheme: light;
+
+  /* Core colors */
+  --nc-bg: #f1f5f9;
+  --nc-muted: #64748b;
+  --nc-text: #1e293b;
+  --nc-text-weak: #64748b;
+  --nc-text-weaker: #b5c2d5;
+  --nc-primary: #2563eb;
+  --nc-danger: #dc2626;
+  --nc-warning: #d97706;
+  --nc-success: #16a34a;
+
+  /* UI element colors */
+  --nc-border: #e2e8f0;
+  --nc-button-border: #cbd5e1;
+  --nc-button-bg: #f8fafc;
+  --nc-button-hover: #f1f5f9;
+  --nc-button-active: #e2e8f0;
+  --nc-overlay-hover: rgba(0, 0, 0, 0.05);
+}
+
+/* Button component */
+.nc-button {
+  padding: 9px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--nc-button-border);
+  background: var(--nc-button-bg);
+  color: var(--nc-text);
+  cursor: pointer;
+  transition: background 100ms, transform 80ms;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  position: relative;
+}
+
+.nc-button:hover {
+  background: var(--nc-button-hover);
+}
+
+.nc-button:active {
+  transform: scale(0.97);
+  background: var(--nc-button-active);
+}
+
+.nc-button.nc-block {
+  width: 100%;
+}
+
+.nc-button.nc-primary {
+  background: var(--nc-primary);
+  border-color: var(--nc-primary);
+  color: white;
+}
+
+.nc-button.nc-primary:hover {
+  filter: brightness(1.05);
+}
+
+.nc-button.nc-primary:active {
+  filter: brightness(0.95);
+  transform: scale(0.97);
+}
+
+.nc-button.nc-danger {
+  background: var(--nc-danger);
+  border-color: var(--nc-danger);
+  color: white;
+}
+
+.nc-button.nc-danger:hover {
+  filter: brightness(1.05);
+}
+
+.nc-button.nc-danger:active {
+  filter: brightness(0.9);
+  transform: scale(0.97);
+}
+
+.nc-button.nc-warning {
+  background: var(--nc-warning);
+  border-color: var(--nc-warning);
+  color: white;
+}
+
+.nc-button.nc-warning:hover {
+  filter: brightness(1.05);
+}
+
+.nc-button.nc-warning:active {
+  filter: brightness(0.9);
+  transform: scale(0.97);
+}
+
+.nc-button.nc-success {
+  background: var(--nc-success);
+  border-color: var(--nc-success);
+  color: white;
+}
+
+.nc-button.nc-success:hover {
+  filter: brightness(1.05);
+}
+
+.nc-button.nc-success:active {
+  filter: brightness(0.9);
+  transform: scale(0.97);
+}
+
+.nc-button.nc-ghost {
+  background: transparent;
+  border-width: 0;
+  color: var(--nc-text);
+}
+
+.nc-button.nc-ghost:hover {
+  background: var(--nc-button-hover);
+}
+
+.nc-button.nc-ghost:active {
+  background: var(--nc-button-active);
+  transform: scale(0.97);
+}
+
+.nc-button.nc-small {
+  padding: 2px 10px;
+  font-size: 12px;
+  margin: 0;
+  border-radius: 6px;
+  height: 32px;
+}
+
+.nc-button.nc-large {
+  padding: 12px 14px;
+  font-size: 16px;
+  min-height: 60px;
+  font-weight: bold;
+}
+
+.nc-button.nc-text-selectable {
+  user-select: text;
+  -webkit-user-select: text;
+  text-transform: none;
+}
+
+/* Disabled state */
+.nc-button.nc-disabled,
+.nc-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Loading state */
+.nc-button.nc-loading {
+  color: transparent;
+}
+
+.nc-button.nc-loading>*:not(.nc-button-spinner) {
+  visibility: hidden;
+}
+
+.nc-button-spinner {
+  position: absolute;
+}
+
+/* Activity Indicator */
+.nc-activity-indicator {
+  border: 2px solid transparent;
+  border-top-color: var(--nc-primary);
+  border-radius: 50%;
+  animation: nc-spin 0.8s linear infinite;
+  box-sizing: border-box;
+}
+
+.nc-activity-indicator.nc-small {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+
+.nc-activity-indicator.nc-default {
+  width: 24px;
+  height: 24px;
+  border-width: 2.5px;
+}
+
+.nc-activity-indicator.nc-large {
+  width: 32px;
+  height: 32px;
+  border-width: 3px;
+}
+
+/* Overlay mode - covers parent element (parent must have position: relative) */
+.nc-activity-indicator-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--nc-overlay-bg, rgba(128, 128, 128, 0.1));
+  border-radius: inherit;
+  pointer-events: all;
+  z-index: 1;
+}
+
+@keyframes nc-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Input component */
+.nc-input {
+  background: var(--nc-button-bg);
+  color: var(--nc-text);
+  border: 1px solid var(--nc-button-border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: inherit;
+}
+
+.nc-input.nc-small {
+  padding: 6px 12px;
+  font-size: 12px;
+  min-height: 32px;
+  height: 32px;
+  border-radius: 4px;
+}
+
+/* Label component */
+.nc-label {
+  font-size: 14px;
+  color: var(--nc-text);
+  margin-bottom: 4px;
+}
+
+.nc-label.nc-small {
+  font-size: 12px;
+}
+
+/* ComboBox component */
+.nc-combo-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.nc-combo-button {
+  position: absolute;
+  padding: 0;
+  min-height: 0;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+}
+
+.nc-combo-button.nc-small {
+  height: 24px;
+  width: 14px;
+  font-size: 10px;
+  padding: 2px;
+}
+
+.nc-combo-button:not(.nc-small) {
+  height: 34px;
+  width: 24px;
+  font-size: 14px;
+}
+
+.nc-combo-clear {
+  right: 4px;
+}
+
+.nc-combo-clear.nc-small {
+  right: 4px;
+}
+
+.nc-combo-toggle {
+  right: 4px;
+  transition: transform 140ms ease;
+}
+
+.nc-combo-toggle.nc-open {
+  transform: rotate(180deg);
+}
+
+.nc-combo-dropdown {
+  background: var(--nc-button-bg);
+  border: 1px solid var(--nc-button-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.nc-combo-dropdown-option {
+  padding: 6px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.nc-combo-dropdown-option:not(.nc-small) {
+  padding: 10px 12px;
+  font-size: inherit;
+}
+
+.nc-combo-dropdown-option:hover {
+  background: var(--nc-button-hover);
+}
+
+.nc-combo-overlay-text {
+  color: var(--nc-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nc-combo-overlay-text.nc-small {
+  font-size: 13px;
+}
+
+.nc-combo-overlay-default {
+  color: var(--nc-text-weak);
+}
+
+.nc-combo-overlay-default.nc-small {
+  font-size: 10px;
+}
+
+/* Checkbox component */
+.nc-checkbox-label {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+  padding: 6px 0;
+  width: 100%;
+  user-select: none;
+  font-size: 14px;
+}
+
+.nc-checkbox-label.nc-small {
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 12px;
+}
+
+.nc-checkbox-label.nc-disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.nc-checkbox-box {
+  border-radius: 4px;
+  border: 2px solid var(--nc-button-border);
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+  transition: border-color 160ms, background 160ms;
+  width: 18px;
+  height: 18px;
+}
+
+.nc-checkbox-box.nc-small {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+}
+
+.nc-checkbox-box.nc-checked {
+  border-color: var(--nc-primary);
+  background: var(--nc-primary);
+}
+
+.nc-checkbox-text {
+  flex: 1;
+  color: var(--nc-text);
+}
+
+.nc-checkbox-icon {
+  width: 12px;
+  height: 12px;
+}
+
+.nc-checkbox-icon.nc-small {
+  width: 10px;
+  height: 10px;
+}
+
+/* Icon button component (common buttons) */
+.nc-icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--nc-text-weak);
+  cursor: pointer;
+  transition: background 100ms, color 100ms;
+}
+
+.nc-icon-button[data-size="small"] {
+  width: 24px;
+  height: 24px;
+}
+
+.nc-icon-button[data-size="default"] {
+  width: 28px;
+  height: 28px;
+}
+
+.nc-icon-button[data-size="large"] {
+  width: 32px;
+  height: 32px;
+}
+
+.nc-icon-button:hover {
+  background: var(--nc-button-hover);
+  color: var(--nc-text);
+}
+
+.nc-icon-button:active {
+  transform: scale(0.95);
+}
+
+.nc-icon-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.nc-icon-button:disabled:active {
+  transform: none;
+}
+
+/* Close button variant */
+.nc-icon-button-close:hover {
+  background: var(--nc-danger);
+  color: white;
+}
+
+/* Edit button variant */
+.nc-icon-button-edit:hover {
+  background: var(--nc-primary);
+  color: white;
+}
+
+/* Trash button variant */
+.nc-icon-button-trash:hover {
+  background: var(--nc-danger);
+  color: white;
+}
+
+/* Spinning animation for refresh icon */
+.nc-spinning {
+  animation: nc-spin 1s linear infinite;
+}
+
+/* Hyperlink component */
+.nc-hyperlink {
+  background: none;
+  border: none;
+  color: var(--nc-primary);
+  cursor: pointer;
+  font-size: inherit;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.nc-hyperlink:hover {
+  filter: brightness(1.2);
+}
+
+.nc-hyperlink:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.nc-hyperlink[data-size="small"] {
+  font-size: 12px;
+}
