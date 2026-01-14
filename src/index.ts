@@ -41,8 +41,7 @@ export {
     RefreshIcon,
     RevertIcon,
     EditIcon,
-    DeleteIcon,
-    ClearAllIcon,
+    TrashIcon,
     EmptyFolderIcon,
     InfoIcon,
     PieChartIcon,
@@ -50,7 +49,7 @@ export {
     CameraIcon,
     PlusIcon,
     MinusIcon,
-    DoubleClickMoveIcon,
+    DoubleClickIcon,
     MoreIcon,
 } from './components/icons/GeneratedIcons'
 

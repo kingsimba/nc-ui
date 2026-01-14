@@ -98,7 +98,7 @@ export function WifiIcon({ size = 24, className, style }: IconProps) {
     <svg
       width={size}
       height={size}
-      viewBox="-5 -5 34 34"
+      viewBox="-2 -2 28 28"
       fill="none"
       stroke="currentColor"
       strokeWidth={2}
@@ -281,9 +281,9 @@ export function EditIcon({ size = 24, className, style }: IconProps) {
 }
 
 /**
- * Delete/Trash icon for deleting items.
+ * Trash icon for deleting items.
  */
-export function DeleteIcon({ size = 24, className, style }: IconProps) {
+export function TrashIcon({ size = 24, className, style }: IconProps) {
   return (
     <svg
       width={size}
@@ -305,31 +305,7 @@ export function DeleteIcon({ size = 24, className, style }: IconProps) {
   );
 }
 
-/**
- * ClearAll icon - Trash with multiple items for clearing all.
- */
-export function ClearAllIcon({ size = 24, className, style }: IconProps) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      style={style}
-    >
-      <path d="M3 6h18" />
-      <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-      <path d="M19 6v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
-      <path d="M10 11v6" />
-      <path d="M14 11v6" />
-    </svg>
-  );
-}
+
 
 /**
  * Empty folder icon - an open empty folder for empty state display.
@@ -497,10 +473,10 @@ export function MinusIcon({ size = 24, className, style }: IconProps) {
 }
 
 /**
- * DoubleClickMove icon - Mouse cursor with double-click indicators and movement arrow.
+ * DoubleClick icon - Mouse cursor with double-click indicators and movement arrow.
  * Used to enable/disable double-click to move robot feature.
  */
-export function DoubleClickMoveIcon({ size = 24, className, style }: IconProps) {
+export function DoubleClickIcon({ size = 24, className, style }: IconProps) {
   return (
     <svg
       width={size}

@@ -1,6 +1,6 @@
 import React from 'react';
-import { RefreshIcon, EditIcon, DeleteIcon } from './icons/GeneratedIcons';
-import { CloseIcon } from './icons/CloseIcon';
+import { RefreshIcon, EditIcon, TrashIcon } from './icons/GeneratedIcons';
+import { CloseIcon } from './icons/GeneratedIcons';
 
 interface RefreshButtonProps {
   onClick: () => void;
@@ -113,7 +113,7 @@ export function TrashButton({ onClick, disabled = false, size = 'default', title
       aria-label={ariaLabel}
       data-size={size}
     >
-      <DeleteIcon size={iconSize} />
+      <TrashIcon size={iconSize} />
     </button>
   );
 }

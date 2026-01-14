@@ -24,8 +24,7 @@ import {
     RefreshIcon,
     RevertIcon,
     EditIcon,
-    DeleteIcon,
-    ClearAllIcon,
+    TrashIcon,
     EmptyFolderIcon,
     InfoIcon,
     PieChartIcon,
@@ -33,7 +32,7 @@ import {
     CameraIcon,
     PlusIcon,
     MinusIcon,
-    DoubleClickMoveIcon,
+    DoubleClickIcon,
     MoreIcon,
     Input,
     ListGroup,
@@ -382,7 +381,7 @@ export default function App() {
                             {
                                 id: 'delete',
                                 label: 'Delete',
-                                icon: <DeleteIcon size={16} />,
+                                icon: <TrashIcon size={16} />,
                                 onClick: () => alert('Delete clicked'),
                                 variant: 'danger',
                             },
@@ -564,12 +563,8 @@ export default function App() {
                         <span>EditIcon</span>
                     </div>
                     <div className="dev-item">
-                        <DeleteIcon size={24} />
-                        <span>DeleteIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <ClearAllIcon size={24} />
-                        <span>ClearAllIcon</span>
+                        <TrashIcon size={24} />
+                        <span>TrashIcon</span>
                     </div>
                     <div className="dev-item">
                         <EmptyFolderIcon size={24} />
@@ -600,8 +595,8 @@ export default function App() {
                         <span>MinusIcon</span>
                     </div>
                     <div className="dev-item">
-                        <DoubleClickMoveIcon size={24} />
-                        <span>DoubleClickMoveIcon</span>
+                        <DoubleClickIcon size={24} />
+                        <span>DoubleClickIcon</span>
                     </div>
                     <div className="dev-item">
                         <MoreIcon size={24} />
