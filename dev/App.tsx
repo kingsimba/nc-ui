@@ -18,7 +18,6 @@ import {
     MultiSelect,
     NumberInput,
     Slider,
-    Tabs,
     Toggle,
     AppPanel,
     ViewportProvider,
@@ -33,6 +32,7 @@ import type { SupportedLocale } from '../src'
 import { IconsSection } from './IconsSection'
 import { ListGroupSection } from './ListGroupSection'
 import { ButtonSection } from './ButtonSection'
+import { TabsSection } from './TabsSection'
 export default function App() {
     const [refreshing, setRefreshing] = useState(false)
     const [theme, setTheme] = useState<'dark' | 'light'>('light')
@@ -55,7 +55,6 @@ export default function App() {
     const [sliderValue, setSliderValue] = useState(30)
     const [toggleChecked, setToggleChecked] = useState(false)
     const [multiSelectValues, setMultiSelectValues] = useState<string[]>(['opt1'])
-    const [activeTab, setActiveTab] = useState('Tab 1')
     const [dialogOpen, setDialogOpen] = useState(false)
     const [dialog2Open, setDialog2Open] = useState(false)
     const [dialog3Open, setDialog3Open] = useState(false)
@@ -620,23 +619,7 @@ export default function App() {
 
                     {activeSection === 'icons' && <IconsSection />}
 
-                    {activeSection === 'tabs' && (
-                        <>
-                            <section className="dev-section">
-                                <h2>Tabs</h2>
-                                <div className="dev-col">
-                                    <Tabs
-                                        tabs={['Tab 1', 'Tab 2', 'Tab 3']}
-                                        active={activeTab}
-                                        onChange={setActiveTab}
-                                    />
-                                    <div style={{ padding: 16, background: 'var(--nc-button-bg)', borderRadius: 8 }}>
-                                        Content for: {activeTab}
-                                    </div>
-                                </div>
-                            </section>
-                        </>
-                    )}
+                    {activeSection === 'tabs' && <TabsSection />}
 
                     {activeSection === 'list-group' && (
                         <ListGroupSection theme={theme} toggleTheme={toggleTheme} />
