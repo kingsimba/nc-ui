@@ -32,9 +32,8 @@ import {
 import type { SupportedLocale } from '../src'
 import { IconsSection } from './IconsSection'
 import { ListGroupSection } from './ListGroupSection'
-
+import { ButtonSection } from './ButtonSection'
 export default function App() {
-    const [loading, setLoading] = useState(false)
     const [refreshing, setRefreshing] = useState(false)
     const [theme, setTheme] = useState<'dark' | 'light'>('light')
     const [lang, setLang] = useState<SupportedLocale>('en')
@@ -60,6 +59,7 @@ export default function App() {
     const [dialogOpen, setDialogOpen] = useState(false)
     const [dialog2Open, setDialog2Open] = useState(false)
     const [dialog3Open, setDialog3Open] = useState(false)
+    const [dialog4Open, setDialog4Open] = useState(false)
 
     const comboOptions = [
         { label: 'Option 1', value: 'opt1', default: true },
@@ -92,11 +92,6 @@ export default function App() {
             setLang(newLang as SupportedLocale)
             document.documentElement.lang = newLang
         }
-    }
-
-    const simulateLoading = () => {
-        setLoading(true)
-        setTimeout(() => setLoading(false), 2000)
     }
 
     const simulateRefresh = () => {
@@ -209,40 +204,7 @@ export default function App() {
                     )}
 
                     {activeSection === 'buttons' && (
-                        <>
-                            <section className="dev-section">
-                                <h2>Button Variants</h2>
-                                <div className="dev-row">
-                                    <Button>Default</Button>
-                                    <Button variant="primary">Primary</Button>
-                                    <Button variant="danger">Danger</Button>
-                                    <Button variant="warning">Warning</Button>
-                                    <Button variant="success">Success</Button>
-                                    <Button variant="ghost">Ghost</Button>
-                                </div>
-                            </section>
-
-                            <section className="dev-section">
-                                <h2>Button Sizes</h2>
-                                <div className="dev-row">
-                                    <Button size="small">Small</Button>
-                                    <Button size="default">Default</Button>
-                                    <Button size="large">Large</Button>
-                                </div>
-                            </section>
-
-                            <section className="dev-section">
-                                <h2>Button States</h2>
-                                <div className="dev-row">
-                                    <Button disabled>Disabled</Button>
-                                    <Button variant="primary" disabled>Disabled Primary</Button>
-                                    <Button variant="primary" loading={loading} onClick={simulateLoading}>
-                                        {loading ? 'Loading...' : 'Click to Load'}
-                                    </Button>
-                                    <Button block>Block Button (Full Width)</Button>
-                                </div>
-                            </section>
-                        </>
+                        <ButtonSection />
                     )}
 
                     {activeSection === 'activity' && (
@@ -684,6 +646,10 @@ export default function App() {
                         <>
                             <section className="dev-section">
                                 <h2>Dialog Variants</h2>
+                                <p style={{ marginBottom: 16, color: 'var(--nc-text-weak)' }}>
+                                    By default, dialogs render via portal to document.body for proper viewport centering.
+                                    Use <code>usePortal=false</code> to render inline within a container.
+                                </p>
                                 <div className="dev-row">
                                     <Button onClick={() => setDialogOpen(true)}>
                                         Open Dialog (OK/Cancel)
@@ -694,6 +660,37 @@ export default function App() {
                                     <Button variant="danger" onClick={() => setDialog3Open(true)}>
                                         Delete Dialog
                                     </Button>
+                                </div>
+                            </section>
+
+                            <section className="dev-section">
+                                <h2>Inline Dialog (usePortal=false)</h2>
+                                <p style={{ marginBottom: 16, color: 'var(--nc-text-weak)' }}>
+                                    This dialog renders inline within the container below, not as a viewport overlay.
+                                </p>
+                                <div style={{
+                                    position: 'relative',
+                                    border: '2px dashed var(--nc-border)',
+                                    borderRadius: 8,
+                                    padding: 20,
+                                    minHeight: 300,
+                                    background: 'var(--nc-bg-secondary)',
+                                }}>
+                                    <Button onClick={() => setDialog4Open(true)}>
+                                        Open Inline Dialog
+                                    </Button>
+                                    <Dialog
+                                        open={dialog4Open}
+                                        onClose={() => setDialog4Open(false)}
+                                        title="Inline Dialog"
+                                        footerType="close"
+                                        fullScreen={false}
+                                    >
+                                        <p>This dialog is rendered inline within its parent container, not via portal.</p>
+                                        <p style={{ marginTop: 8, color: 'var(--nc-text-weak)' }}>
+                                            Useful for nested contexts or when you need the dialog scoped to a specific area.
+                                        </p>
+                                    </Dialog>
                                 </div>
                             </section>
 
