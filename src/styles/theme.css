@@ -572,18 +572,19 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 
 /* Dialog component */
 .nc-dialog-overlay {
-  position: fixed;
+  position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 100;
   animation: nc-dialog-fade-in 150ms ease-out;
 }
 
 .nc-dialog-overlay.nc-fullscreen {
   position: fixed;
+  z-index: 1000;
 }
 
 .nc-dialog-container {

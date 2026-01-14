@@ -85,7 +85,11 @@ export interface DialogProps {
   closeOnOverlay?: boolean;
   /** Whether the primary action button is disabled */
   primaryDisabled?: boolean;
-  /** Whether to render the dialog in a portal covering the full viewport (default: false) */
+  /** 
+   * Whether to render the dialog in a portal covering the full viewport (default: false).
+   * Set to true to use fixed positioning via portal to document.body.
+   * Set to false to render inline with absolute positioning within parent container.
+   */
   fullScreen?: boolean;
   /** Whether to hide the title bar (default: false) */
   hideTitleBar?: boolean;
@@ -257,7 +261,7 @@ export function Dialog({
     </DialogContext.Provider>
   );
 
-  // Render inline within the app container, or in a portal for fullScreen
+  // Render in a portal (default) for proper viewport positioning, or inline if fullScreen=false
   if (fullScreen) {
     return createPortal(dialogContent, document.body);
   }
