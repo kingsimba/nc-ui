@@ -647,8 +647,8 @@ export default function App() {
                             <section className="dev-section">
                                 <h2>Dialog Variants</h2>
                                 <p style={{ marginBottom: 16, color: 'var(--nc-text-weak)' }}>
-                                    By default, dialogs render via portal to document.body for proper viewport centering.
-                                    Use <code>usePortal=false</code> to render inline within a container.
+                                    By default, dialogs render inline with absolute positioning.
+                                    Use <code>fullScreen=true</code> to render via portal for full viewport centering.
                                 </p>
                                 <div className="dev-row">
                                     <Button onClick={() => setDialogOpen(true)}>
@@ -664,7 +664,7 @@ export default function App() {
                             </section>
 
                             <section className="dev-section">
-                                <h2>Inline Dialog (usePortal=false)</h2>
+                                <h2>Inline Dialog (fullScreen=false)</h2>
                                 <p style={{ marginBottom: 16, color: 'var(--nc-text-weak)' }}>
                                     This dialog renders inline within the container below, not as a viewport overlay.
                                 </p>
