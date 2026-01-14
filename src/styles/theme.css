@@ -62,114 +62,33 @@
   position: relative;
 }
 
-.nc-button:hover {
-  background: var(--nc-button-hover);
-}
+.nc-button:hover { background: var(--nc-button-hover); }
+.nc-button:active { transform: scale(0.97); background: var(--nc-button-active); }
+.nc-button.nc-block { width: 100%; }
 
-.nc-button:active {
-  transform: scale(0.97);
-  background: var(--nc-button-active);
-}
+.nc-button.nc-primary { background: var(--nc-primary); border-color: var(--nc-primary); color: white; }
+.nc-button.nc-primary:hover { filter: brightness(1.05); }
+.nc-button.nc-primary:active { filter: brightness(0.95); transform: scale(0.97); }
 
-.nc-button.nc-block {
-  width: 100%;
-}
+.nc-button.nc-danger { background: var(--nc-danger); border-color: var(--nc-danger); color: white; }
+.nc-button.nc-danger:hover { filter: brightness(1.05); }
+.nc-button.nc-danger:active { filter: brightness(0.9); transform: scale(0.97); }
 
-.nc-button.nc-primary {
-  background: var(--nc-primary);
-  border-color: var(--nc-primary);
-  color: white;
-}
+.nc-button.nc-warning { background: var(--nc-warning); border-color: var(--nc-warning); color: white; }
+.nc-button.nc-warning:hover { filter: brightness(1.05); }
+.nc-button.nc-warning:active { filter: brightness(0.9); transform: scale(0.97); }
 
-.nc-button.nc-primary:hover {
-  filter: brightness(1.05);
-}
+.nc-button.nc-success { background: var(--nc-success); border-color: var(--nc-success); color: white; }
+.nc-button.nc-success:hover { filter: brightness(1.05); }
+.nc-button.nc-success:active { filter: brightness(0.9); transform: scale(0.97); }
 
-.nc-button.nc-primary:active {
-  filter: brightness(0.95);
-  transform: scale(0.97);
-}
+.nc-button.nc-ghost { background: transparent; border-width: 0; color: var(--nc-text); }
+.nc-button.nc-ghost:hover { background: var(--nc-button-hover); }
+.nc-button.nc-ghost:active { background: var(--nc-button-active); transform: scale(0.97); }
 
-.nc-button.nc-danger {
-  background: var(--nc-danger);
-  border-color: var(--nc-danger);
-  color: white;
-}
-
-.nc-button.nc-danger:hover {
-  filter: brightness(1.05);
-}
-
-.nc-button.nc-danger:active {
-  filter: brightness(0.9);
-  transform: scale(0.97);
-}
-
-.nc-button.nc-warning {
-  background: var(--nc-warning);
-  border-color: var(--nc-warning);
-  color: white;
-}
-
-.nc-button.nc-warning:hover {
-  filter: brightness(1.05);
-}
-
-.nc-button.nc-warning:active {
-  filter: brightness(0.9);
-  transform: scale(0.97);
-}
-
-.nc-button.nc-success {
-  background: var(--nc-success);
-  border-color: var(--nc-success);
-  color: white;
-}
-
-.nc-button.nc-success:hover {
-  filter: brightness(1.05);
-}
-
-.nc-button.nc-success:active {
-  filter: brightness(0.9);
-  transform: scale(0.97);
-}
-
-.nc-button.nc-ghost {
-  background: transparent;
-  border-width: 0;
-  color: var(--nc-text);
-}
-
-.nc-button.nc-ghost:hover {
-  background: var(--nc-button-hover);
-}
-
-.nc-button.nc-ghost:active {
-  background: var(--nc-button-active);
-  transform: scale(0.97);
-}
-
-.nc-button.nc-small {
-  padding: 2px 10px;
-  font-size: 12px;
-  margin: 0;
-  border-radius: 6px;
-  height: 32px;
-}
-
-.nc-button.nc-large {
-  padding: 12px 14px;
-  font-size: 16px;
-  min-height: 60px;
-  font-weight: bold;
-}
-
-.nc-button.nc-text-selectable {
-  user-select: text;
-  -webkit-user-select: text;
-  text-transform: none;
-}
+.nc-button.nc-small { padding: 2px 10px; font-size: 12px; margin: 0; border-radius: 6px; height: 32px; }
+.nc-button.nc-large { padding: 12px 14px; font-size: 16px; min-height: 60px; font-weight: bold; }
+.nc-button.nc-text-selectable { user-select: text; -webkit-user-select: text; text-transform: none; }
 
 /* Disabled state */
 .nc-button.nc-disabled,
