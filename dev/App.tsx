@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
     Alert,
     Battery,
@@ -75,6 +75,11 @@ export default function App() {
         { label: 'ไทย', value: 'th' },
         { label: 'Español', value: 'es' },
     ]
+
+    // Apply light theme class on initial mount
+    useEffect(() => {
+        document.documentElement.classList.add('light')
+    }, [])
 
     const toggleTheme = () => {
         const newTheme = theme === 'dark' ? 'light' : 'dark'
