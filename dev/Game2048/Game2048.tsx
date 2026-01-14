@@ -458,7 +458,7 @@ function Game2048Content() {
         title={t('title')}
         width={400}
         footerType="gotit"
-
+        maxHeight={"80%"}
       >
         <div style={{ color: 'var(--text)', lineHeight: 1.6 }}>
           <h3 style={{ marginTop: 0, color: 'var(--primary)' }}>{t('howToPlay')}</h3>
