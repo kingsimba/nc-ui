@@ -59,6 +59,53 @@ body {
     flex: 1;
 }
 
+.dev-main {
+    display: flex;
+    flex: 1;
+    gap: 20px;
+}
+
+.dev-sidebar {
+    width: 200px;
+    padding-top: 20px;
+    border-right: 1px solid var(--nc-border);
+    height: calc(100vh - 90px);
+    overflow-y: auto;
+    position: sticky;
+    top: 90px;
+    flex-shrink: 0;
+}
+
+.dev-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0 12px;
+}
+
+.dev-nav-item {
+    background: transparent;
+    border: none;
+    padding: 10px 12px;
+    text-align: left;
+    color: var(--nc-text-weak);
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.dev-nav-item:hover {
+    background: var(--nc-button-bg);
+    color: var(--nc-text);
+}
+
+.dev-nav-item.active {
+    background: var(--nc-primary);
+    color: white;
+    font-weight: 600;
+}
+
 .dev-section {
     margin-bottom: 40px;
 }
