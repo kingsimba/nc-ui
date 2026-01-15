@@ -86,7 +86,7 @@ export function YamlTextArea({
   style = {},
 }: YamlTextAreaProps) {
   const [error, setError] = useState<YamlError | null>(null);
-  const validationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const validationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const onValidationChangeRef = useRef(onValidationChange);
   const isUserInputRef = useRef(false);
 
@@ -163,37 +163,6 @@ export function YamlTextArea({
   const lineCount = useMemo(() => {
     return value.split('\n').length;
   }, [value]);
-
-  // Highlight function for the editor
-  const highlightCode = useCallback(
-    (code: string) => (
-      <Highlight theme={themes.vsLight} code={code} language="yaml">
-        {({ tokens, getLineProps, getTokenProps }) => (
-          <>
-            {tokens.map((line, i) => {
-              const lineNumber = i + 1;
-              const isErrorLine = error?.line === lineNumber;
-              return (
-                <div
-                  key={i}
-                  {...getLineProps({ line })}
-                  style={{
-                    background: isErrorLine ? 'var(--danger-bg, rgba(220, 53, 69, 0.15))' : undefined,
-                    textDecoration: isErrorLine ? 'underline wavy var(--danger)' : undefined,
-                  }}
-                >
-                  {line.map((token, key) => (
-                    <span key={key} {...getTokenProps({ token })} />
-                  ))}
-                </div>
-              );
-            })}
-          </>
-        )}
-      </Highlight>
-    ),
-    [error]
-  );
 
   // Generate line numbers
   const lineNumbers = useMemo(() => {
