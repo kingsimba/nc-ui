@@ -218,6 +218,55 @@ const unsubscribe = runningAppsStore.subscribe(() => {
 });
 ```
 
+### Exposing App Methods via setAppRef
+
+Apps can expose methods that can be called externally by registering a ref object with `runningAppsStore.setAppRef()`. This is useful for controlling the app programmatically (e.g., from URL parameters or other apps).
+
+```tsx
+// Define the ref interface
+export interface MyAppRef {
+  navigateToTab: (tabId: string) => void;
+  reset: () => void;
+}
+
+// In your app component
+export function MyApp() {
+  const [activeTab, setActiveTab] = useState('home');
+
+  // Register methods with the store
+  useEffect(() => {
+    runningAppsStore.setAppRef('my-app', {
+      navigateToTab: (tabId: string) => {
+        setActiveTab(tabId);
+      },
+      reset: () => {
+        setActiveTab('home');
+      },
+    });
+  }, []);
+
+  // ... rest of component
+}
+```
+
+Then call these methods externally:
+
+```tsx
+// Launch app and call method
+const app = await runningAppsStore.launchApp<MyAppRef>('my-app');
+if (app?.ref) {
+  app.ref.navigateToTab('settings');
+}
+
+// From URL parameter handling
+const urlParams = new URLSearchParams(window.location.search);
+const tab = urlParams.get('tab');
+if (tab) {
+  const app = await runningAppsStore.launchApp<MyAppRef>('my-app');
+  app?.ref?.navigateToTab(tab);
+}
+```
+
 ---
 
 ## App Lifecycle
