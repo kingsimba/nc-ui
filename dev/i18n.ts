@@ -23,7 +23,7 @@ const demoResources = {
       '📱 Cross-Platform: Desktop & mobile ready',
     'welcome.features.components':
       '🛠️ 19+ Components: Library of UI essentials',
-    'welcome.startBtn': 'Launch Start App',
+    'welcome.startBtn': 'Start',
   },
   zh: {
     // App titles
@@ -41,7 +41,7 @@ const demoResources = {
     'welcome.features.framework': '🏗️ 应用框架: 灵活可扩展的窗口化应用',
     'welcome.features.crossPlatform': '📱 跨平台优化: 适配桌面端和移动端',
     'welcome.features.components': '🛠️ 19+ 组件: 开箱即用的 UI 组件库',
-    'welcome.startBtn': '启动开始应用',
+    'welcome.startBtn': '开始',
   },
   de: {
     // App titles

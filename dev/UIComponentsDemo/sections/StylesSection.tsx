@@ -1,6 +1,6 @@
 export function StylesSection() {
     return (
-        <>
+        <div style={{ background: 'var(--nc-bg)', padding: '20px' }}>
             <section className="dev-section">
                 <h2>Typography</h2>
                 <p style={{ marginBottom: '1rem', color: 'var(--nc-text-weak)' }}>
@@ -253,7 +253,7 @@ const config = {
 }`}
                 </div>
             </section>
-        </>
+        </div>
     )
 }
 
