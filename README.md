@@ -71,6 +71,7 @@ nc-ui provides 19+ ready-to-use components. Click any component to see it in the
 |-----------|-------------|
 | [ActivityIndicator](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=activity) | Loading spinner with size variants and overlay mode |
 | [Alert](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=alert) | Dismissible notification banners with status variants |
+| [AppDialog](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=app-dialog) | Render any registered app inside a dialog overlay |
 | [Battery](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=battery) | Visual battery level indicator |
 | [Button](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=buttons) | Primary action button with variants, sizes, and loading states |
 | [ButtonGroup](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=button-group) | Group related buttons with automatic styling |

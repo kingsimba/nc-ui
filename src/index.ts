@@ -70,6 +70,8 @@ export { AppPanel } from './components/app/AppPanel';
 export { AppTaskbar } from './components/app/AppTaskbar';
 export type { AppTaskbarProps } from './components/app/AppTaskbar';
 export { AppTitleBar } from './components/app/AppTitleBar';
+export { AppDialog } from './components/app/AppDialog';
+export type { AppDialogProps } from './components/app/AppDialog';
 
 // App framework utilities
 export { appStateStore } from './stores/appStateStore';
