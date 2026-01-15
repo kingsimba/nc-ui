@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, forwardRef, useImperativeHandle } from 'react';
 import { ButtonSection } from './sections/ButtonSection';
 import { IconsSection } from './sections/IconsSection';
 import { ListGroupSection } from './sections/ListGroupSection';
@@ -31,7 +31,11 @@ interface Section {
   component: React.ComponentType<any>;
 }
 
-export function UIComponents() {
+export interface UIComponentsRef {
+  setTab: (tabId: SectionId) => void;
+}
+
+export const UIComponents = forwardRef<UIComponentsRef>((props, ref) => {
   const [activeSection, setActiveSection] = useState<SectionId>('buttons');
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
@@ -56,6 +60,16 @@ export function UIComponents() {
     { id: 'list-group', label: 'ListGroup', component: ListGroupSection },
     { id: 'dialog', label: 'Dialog', component: DialogSection },
   ];
+
+  // Expose setTab method via ref
+  useImperativeHandle(ref, () => ({
+    setTab: (tabId: SectionId) => {
+      // Validate tab exists
+      if (sections.some(s => s.id === tabId)) {
+        setActiveSection(tabId);
+      }
+    },
+  }));
 
   const ActiveComponent = sections.find(s => s.id === activeSection)?.component;
 
@@ -84,4 +98,4 @@ export function UIComponents() {
       </div>
     </div>
   );
-}
+});

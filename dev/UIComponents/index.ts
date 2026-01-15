@@ -1,2 +1,2 @@
-export { UIComponents } from './UIComponents';
+export { UIComponents, type UIComponentsRef } from './UIComponents';
 export { UIComponentsIcon } from './UIComponentsIcon';

@@ -35,10 +35,16 @@ export function AppPanel() {
   }, []);
 
   // Launch the persisted active app on mount (if not already running)
+  // Skip restoration if URL parameters are present (for deep linking)
   useEffect(() => {
-    const persistedAppId = appStateStore.getActiveAppId();
-    if (persistedAppId && !runningAppsStore.isRunning(persistedAppId)) {
-      runningAppsStore.launchApp(persistedAppId);
+    const params = new URLSearchParams(window.location.search);
+    const hasAppParam = params.has('app');
+
+    if (!hasAppParam) {
+      const persistedAppId = appStateStore.getActiveAppId();
+      if (persistedAppId && !runningAppsStore.isRunning(persistedAppId)) {
+        runningAppsStore.launchApp(persistedAppId);
+      }
     }
   }, []);
 
