@@ -17,6 +17,14 @@ const demoResources = {
     'welcome.title': 'Welcome to nc-ui',
     'welcome.subtitle': 'A React component library with Windows 11 styling',
     'welcome.instruction': '👈 Click an app icon to explore components',
+    'welcome.features.title': 'Main Features',
+    'welcome.features.lightweight': '🚀 Lightweight: Only ~75KB bundle size',
+    'welcome.features.framework': '🏗️ App Framework: Flexible windowed apps',
+    'welcome.features.crossPlatform':
+      '📱 Cross-Platform: Desktop & mobile ready',
+    'welcome.features.components':
+      '🛠️ 19+ Components: Library of UI essentials',
+    'welcome.startBtn': 'Launch Start App',
   },
   zh: {
     // App titles
@@ -30,6 +38,12 @@ const demoResources = {
     'welcome.title': '欢迎使用 nc-ui',
     'welcome.subtitle': '采用 Windows 11 风格的 React 组件库',
     'welcome.instruction': '👈 点击应用图标探索组件',
+    'welcome.features.title': '核心特性',
+    'welcome.features.lightweight': '🚀 轻量高效: 包体积仅 ~75KB',
+    'welcome.features.framework': '🏗️ 应用框架: 灵活可扩展的窗口化应用',
+    'welcome.features.crossPlatform': '📱 跨平台优化: 适配桌面端和移动端',
+    'welcome.features.components': '🛠️ 19+ 组件: 开箱即用的 UI 组件库',
+    'welcome.startBtn': '启动开始应用',
   },
   de: {
     // App titles
@@ -42,7 +56,8 @@ const demoResources = {
     // Welcome page
     'welcome.title': 'Willkommen bei nc-ui',
     'welcome.subtitle': 'Eine React-Komponentenbibliothek im Windows 11-Stil',
-    'welcome.instruction': '👈 Klicken Sie auf ein App-Symbol, um Komponenten zu erkunden',
+    'welcome.instruction':
+      '👈 Klicken Sie auf ein App-Symbol, um Komponenten zu erkunden',
   },
   th: {
     // App titles
@@ -67,8 +82,10 @@ const demoResources = {
     'theme.dark': '🌙 Oscuro',
     // Welcome page
     'welcome.title': 'Bienvenido a nc-ui',
-    'welcome.subtitle': 'Una biblioteca de componentes React con estilo Windows 11',
-    'welcome.instruction': '👈 Haz clic en un icono de aplicación para explorar componentes',
+    'welcome.subtitle':
+      'Una biblioteca de componentes React con estilo Windows 11',
+    'welcome.instruction':
+      '👈 Haz clic en un icono de aplicación para explorar componentes',
   },
 };
 

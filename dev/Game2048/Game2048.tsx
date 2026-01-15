@@ -221,6 +221,8 @@ function Game2048Content() {
         flex: 1,
         minHeight: 0,
         overflow: 'hidden',
+        background: '#eee4da',
+        paddingBottom: Math.floor(16 * scale),
       }}
     >
       {/* CSS animations */}
@@ -238,29 +240,28 @@ function Game2048Content() {
         `}
       </style>
 
-      {/* Header with scores */}
+      {/* Header with rules and new game */}
       <div
         style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
           padding: '8px 12px',
-          background: 'var(--surface)',
-          borderRadius: 8,
-          border: '1px solid var(--border)',
+          background: '#bbada0',
           gap: 8,
         }}
       >
         <button
           onClick={() => setShowRules(true)}
           style={{
-            padding: '4px 8px',
+            padding: '6px 12px',
             borderRadius: 6,
-            border: '1px solid var(--border)',
-            background: 'var(--button-bg)',
-            color: 'var(--text)',
+            border: 'none',
+            background: '#8f7a66',
+            color: '#f9f6f2',
             cursor: 'pointer',
-            fontSize: 12,
+            fontSize: 14,
+            fontWeight: 'bold',
           }}
         >
           📖 {t('rules')}
@@ -271,11 +272,12 @@ function Game2048Content() {
           style={{
             padding: '6px 16px',
             borderRadius: 6,
-            border: '1px solid var(--border)',
-            background: 'var(--button-bg)',
-            color: 'var(--text)',
+            border: 'none',
+            background: '#8f7a66',
+            color: '#f9f6f2',
             cursor: 'pointer',
             fontSize: 14,
+            fontWeight: 'bold',
           }}
         >
           🔄 {t('newGame')}

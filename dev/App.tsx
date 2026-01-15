@@ -115,6 +115,27 @@ function AppContent() {
                         <div className="dev-welcome">
                             <h2>{t('welcome.title')}</h2>
                             <p>{t('welcome.subtitle')}</p>
+
+                            <div className="dev-features">
+                                <h3>{t('welcome.features.title')}</h3>
+                                <ul>
+                                    <li>{t('welcome.features.lightweight')}</li>
+                                    <li>{t('welcome.features.framework')}</li>
+                                    <li>{t('welcome.features.crossPlatform')}</li>
+                                    <li>{t('welcome.features.components')}</li>
+                                </ul>
+                            </div>
+
+                            <div className="dev-start-button-container">
+                                <Button
+                                    variant="primary"
+                                    size="large"
+                                    onClick={() => runningAppsStore.launchApp('start')}
+                                >
+                                    {t('welcome.startBtn')}
+                                </Button>
+                            </div>
+
                             <p className="dev-instruction">
                                 {t('welcome.instruction')}
                             </p>
