@@ -2,6 +2,7 @@ import {
     CloseIcon,
     HideAppsIcon,
     ViewIcon,
+    EyeHiddenIcon,
     WifiIcon,
     LockIcon,
     UnlockIcon,
@@ -39,6 +40,10 @@ export function IconsSection() {
                     <div className="dev-item">
                         <ViewIcon size={24} />
                         <span>ViewIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <EyeHiddenIcon size={24} />
+                        <span>EyeHiddenIcon</span>
                     </div>
                     <div className="dev-item">
                         <WifiIcon size={24} />
