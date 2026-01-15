@@ -68,6 +68,7 @@ export function DialogSection() {
                     alert('OK clicked')
                     setDialogOpen(false)
                 }}
+                fullScreen={true}
             >
                 <p>Are you sure you want to proceed with this action?</p>
             </Dialog>
@@ -82,6 +83,7 @@ export function DialogSection() {
                     alert('Saved!')
                     setDialog2Open(false)
                 }}
+                fullScreen={true}
             >
                 <div className="nc-col" style={{ gap: 12 }}>
                     <div>
@@ -104,6 +106,7 @@ export function DialogSection() {
                     alert('Deleted!')
                     setDialog3Open(false)
                 }}
+                fullScreen={true}
             >
                 <p>This action cannot be undone. Are you sure you want to delete this item?</p>
             </Dialog>

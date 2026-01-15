@@ -28,10 +28,22 @@ export function ActivityIndicator({
   className = '',
 }: ActivityIndicatorProps) {
   const spinner = (
-    <div
+    <svg
       className={`nc-activity-indicator nc-${size} ${className}`}
-      style={color ? { borderTopColor: color } : undefined}
-    />
+      viewBox="0 0 50 50"
+      style={color ? { color } : undefined}
+    >
+      <circle
+        className="nc-activity-indicator-circle"
+        cx="25"
+        cy="25"
+        r="20"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="5"
+        strokeLinecap="round"
+      />
+    </svg>
   );
 
   if (overlay) {

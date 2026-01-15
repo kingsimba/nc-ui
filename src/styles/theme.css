@@ -228,16 +228,21 @@ li::marker { color: var(--nc-text-weak); }
 
 /* Activity Indicator */
 .nc-activity-indicator {
-  border: 2px solid transparent;
-  border-top-color: var(--nc-primary);
-  border-radius: 50%;
-  animation: nc-spin 0.8s linear infinite;
+  animation: nc-spin 2s linear infinite;
   box-sizing: border-box;
+  color: var(--nc-primary);
 }
 
-.nc-activity-indicator.nc-small { width: 16px; height: 16px; border-width: 2px; }
-.nc-activity-indicator.nc-default { width: 24px; height: 24px; border-width: 2.5px; }
-.nc-activity-indicator.nc-large { width: 32px; height: 32px; border-width: 3px; }
+.nc-activity-indicator.nc-small { width: 16px; height: 16px; }
+.nc-activity-indicator.nc-default { width: 24px; height: 24px; }
+.nc-activity-indicator.nc-large { width: 32px; height: 32px; }
+
+.nc-activity-indicator-circle {
+  stroke: currentColor;
+  stroke-dasharray: 1, 150;
+  stroke-dashoffset: 0;
+  animation: nc-dash 1.5s ease-in-out infinite;
+}
 
 /* Overlay mode - covers parent element (parent must have position: relative) */
 .nc-activity-indicator-overlay {
@@ -255,6 +260,21 @@ li::marker { color: var(--nc-text-weak); }
 @keyframes nc-spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes nc-dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
   }
 }
 
