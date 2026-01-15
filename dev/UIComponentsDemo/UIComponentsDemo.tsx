@@ -40,7 +40,7 @@ export function UIComponentsDemo() {
   const [activeSection, setActiveSection] = useState<SectionId>('buttons');
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [canScrollRight, setCanScrollRight] = useState(false);
-  const sidebarRef = useRef<HTMLAsideElement>(null);
+  const sidebarRef = useRef<HTMLElement>(null);
 
   const sections: Section[] = [
     { id: 'buttons', label: 'Button', component: ButtonSection },
@@ -105,17 +105,20 @@ export function UIComponentsDemo() {
   return (
     <div className="ui-components-app">
       {/* Sidebar navigation */}
-      <aside className={`ui-nav-sidebar ${canScrollRight ? 'has-scroll' : ''}`} ref={sidebarRef}>
-        {sections.map(section => (
-          <button
-            key={section.id}
-            className={`ui-nav-item ${activeSection === section.id ? 'active' : ''}`}
-            onClick={() => setActiveSection(section.id)}
-          >
-            {section.label}
-          </button>
-        ))}
-      </aside>
+      <div className="ui-nav-container">
+        <aside className="ui-nav-sidebar" ref={sidebarRef}>
+          {sections.map(section => (
+            <button
+              key={section.id}
+              className={`ui-nav-item ${activeSection === section.id ? 'active' : ''}`}
+              onClick={() => setActiveSection(section.id)}
+            >
+              {section.label}
+            </button>
+          ))}
+        </aside>
+        {canScrollRight && <div className="ui-nav-scroll-indicator" />}
+      </div>
 
       {/* Content area */}
       <div className="ui-content">

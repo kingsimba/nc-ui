@@ -4,9 +4,16 @@
   overflow: hidden;
 }
 
+.ui-nav-container {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: relative;
+}
+
 .ui-nav-sidebar {
   width: 180px;
-  flex-shrink: 0;
+  flex: 1;
   border-right: 1px solid var(--nc-border);
   overflow-y: auto;
   padding: 12px 8px;
@@ -50,27 +57,30 @@
     flex-direction: column;
   }
 
+  .ui-nav-container {
+    width: 100%;
+    border-bottom: 1px solid var(--nc-border);
+  }
+
   .ui-nav-sidebar {
     width: 100%;
     border-right: none;
-    border-bottom: 1px solid var(--nc-border);
+    border-bottom: none;
     flex-direction: row;
     overflow-x: auto;
     padding: 8px;
-    position: relative;
-    mask-image: linear-gradient(to right, black 0%, black calc(100% - 24px), transparent 100%);
   }
 
-  /* Scroll indicator gradient */
-  .ui-nav-sidebar.has-scroll::after {
-    content: '';
+  /* Fixed scroll indicator gradient */
+  .ui-nav-scroll-indicator {
     position: absolute;
     right: 0;
     top: 0;
     bottom: 0;
-    width: 24px;
-    background: linear-gradient(to right, transparent, var(--nc-bg-secondary) 60%);
+    width: 40px;
+    background: linear-gradient(to right, transparent, var(--nc-bg-secondary) 80%);
     pointer-events: none;
+    z-index: 10;
   }
 
   .ui-content {
