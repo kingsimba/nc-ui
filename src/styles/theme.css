@@ -139,11 +139,28 @@ code, .code {
   background: transparent;
   border: 1px solid var(--nc-border);
   margin: 16px 0;
+  position: relative;
+}
+
+.block.icon { padding-left: 44px; }
+
+.block.icon::before {
+  position: absolute;
+  left: 14px;
+  top: 16px;
+  font-size: 18px;
+  line-height: 1;
 }
 
 .block.note { background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); }
+.block.note.icon::before { content: "ℹ️"; }
+
 .block.warning { background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.3); }
+.block.warning.icon::before { content: "⚠️"; }
+
 .block.danger { background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3); }
+.block.danger.icon::before { content: "🚨"; }
+
 .block.dashed { border-style: dashed; border-width: 2px; }
 
 /* Paragraph */

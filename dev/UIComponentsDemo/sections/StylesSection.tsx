@@ -95,7 +95,7 @@ const config = {
             <section className="dev-section">
                 <h2>Blocks</h2>
                 <p style={{ marginBottom: '1rem', color: 'var(--nc-text-weak)' }}>
-                    Container blocks for grouping content
+                    Container blocks for grouping content. Add <code>.icon</code> class to show an icon.
                 </p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                     <div>
@@ -111,9 +111,21 @@ const config = {
                         </div>
                     </div>
                     <div>
+                        <h4 style={{ marginBottom: '8px', color: 'var(--nc-text-weak)', fontSize: '13px' }}>.block.note.icon</h4>
+                        <div className="block note icon">
+                            A note block with an icon for informational content or tips
+                        </div>
+                    </div>
+                    <div>
                         <h4 style={{ marginBottom: '8px', color: 'var(--nc-text-weak)', fontSize: '13px' }}>.block.warning</h4>
                         <div className="block warning">
                             A warning block for important notices or cautions
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style={{ marginBottom: '8px', color: 'var(--nc-text-weak)', fontSize: '13px' }}>.block.warning.icon</h4>
+                        <div className="block warning icon">
+                            A warning block with an icon for important notices or cautions
                         </div>
                     </div>
                     <div>
@@ -123,8 +135,14 @@ const config = {
                         </div>
                     </div>
                     <div>
+                        <h4 style={{ marginBottom: '8px', color: 'var(--nc-text-weak)', fontSize: '13px' }}>.block.danger.icon</h4>
+                        <div className="block danger icon">
+                            A danger block with an icon for critical warnings or errors
+                        </div>
+                    </div>
+                    <div>
                         <h4 style={{ marginBottom: '8px', color: 'var(--nc-text-weak)', fontSize: '13px' }}>.block.dashed</h4>
-                        <div className="block dashed">
+                        <div className="block danger dashed">
                             A dashed border container, useful for drop zones or placeholder areas
                         </div>
                     </div>
