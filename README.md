@@ -11,8 +11,8 @@ Published on npm as [@kingsimba/nc-ui](https://www.npmjs.com/package/@kingsimba/
 **[View Demo](https://kingsimba.github.io/nc-ui/)**
 
 <div style="display: flex; gap: 1rem;">
-  <img src="./image.png" alt="Demo" height="400px" />
   <img src="image-2.png" alt="alt text" height="400px" />
+  <img src="./image.png" alt="Demo" height="300px" />
 </div>
 
 ## Installation
@@ -25,7 +25,7 @@ yarn add @kingsimba/nc-ui
 pnpm add @kingsimba/nc-ui
 ```
 
-## Usage
+## Quick Start
 
 ```tsx
 import { Button, ActivityIndicator } from '@kingsimba/nc-ui'
@@ -61,32 +61,105 @@ function MyComponent() {
 }
 ```
 
+> **See the [live demo](https://kingsimba.github.io/nc-ui/) for interactive examples and complete API documentation for all components.**
+
 ## Components
 
-### Button
+nc-ui provides 19+ ready-to-use components. Click any component to see it in the interactive demo:
+
+| Component | Description |
+|-----------|-------------|
+| [ActivityIndicator](https://kingsimba.github.io/nc-ui/) | Loading spinner with size variants and overlay mode |
+| [Alert](https://kingsimba.github.io/nc-ui/) | Dismissible notification banners with status variants |
+| [Battery](https://kingsimba.github.io/nc-ui/) | Visual battery level indicator |
+| [Button](https://kingsimba.github.io/nc-ui/) | Primary action button with variants, sizes, and loading states |
+| [ButtonGroup](https://kingsimba.github.io/nc-ui/) | Group related buttons with automatic styling |
+| [Checkbox](https://kingsimba.github.io/nc-ui/) | Toggle selection with indeterminate state support |
+| [ComboBox](https://kingsimba.github.io/nc-ui/) | Searchable dropdown with autocomplete |
+| [ContextMenu](https://kingsimba.github.io/nc-ui/) | Right-click menu with customizable items |
+| [Dialog](https://kingsimba.github.io/nc-ui/) | Modal dialogs with header, footer, and action buttons |
+| [Input](https://kingsimba.github.io/nc-ui/) | Text input with validation states and prefix/suffix support |
+| [ListGroup](https://kingsimba.github.io/nc-ui/) | Styled list items with selection and actions |
+| [MultiSelect](https://kingsimba.github.io/nc-ui/) | Multi-selection dropdown with tag display |
+| [NumberInput](https://kingsimba.github.io/nc-ui/) | Numeric input with increment/decrement controls |
+| [Slider](https://kingsimba.github.io/nc-ui/) | Range slider with value display |
+| [Tabs](https://kingsimba.github.io/nc-ui/) | Tabbed navigation component |
+| [Toggle](https://kingsimba.github.io/nc-ui/) | Switch/toggle with on/off states |
+| [Icons](https://kingsimba.github.io/nc-ui/) | 50+ SVG icons (separate import path) |
+| [CommonButtons](https://kingsimba.github.io/nc-ui/) | Pre-configured buttons (Close, Edit, Refresh, Trash) |
+| [Hyperlink](https://kingsimba.github.io/nc-ui/) | Styled anchor/link component |
+
+## App Framework
+
+nc-ui includes a complete framework for building panel-based applications that run in a right-side panel. Apps can have their own state management, isolated i18n translations, and integrate seamlessly with the container.
+
+### Key Features
+
+- **Panel Management**: Apps run in a responsive panel (inline on desktop, overlay on mobile)
+- **Lifecycle Control**: Launch, background, and close apps programmatically
+- **Isolated i18n**: Each app can have its own translations using `createAppI18nFactory`
+- **Title Bar API**: Control navigation, title, toolbar via `useApp()` hook
+- **Code Splitting**: Lazy-load apps for optimal performance
+
+### Quick Example
 
 ```tsx
-<Button
-  variant="default" | "primary" | "danger" | "warning" | "success" | "ghost"
-  size="default" | "small" | "large"
-  block={false}        // Full width
-  loading={false}      // Shows spinner, disables interaction
-  textSelectable={false}
-  disabled={false}
->
-  Click me
-</Button>
+import React from 'react'
+import { appRegistry, runningAppsStore, useApp } from '@kingsimba/nc-ui'
+import { MyAppIcon } from './MyAppIcon'
+
+// 1. Create your app component
+function MyApp() {
+  const { setTitle, close } = useApp()
+  
+  return (
+    <div>
+      <h1>My App</h1>
+      <button onClick={close}>Close</button>
+    </div>
+  )
+}
+
+// 2. Register the app (with lazy loading)
+const LazyMyApp = React.lazy(() => 
+  import('./MyApp').then(m => ({ default: m.MyApp }))
+)
+
+appRegistry.register({
+  id: 'my-app',
+  titleKey: 'apps.myApp.name',
+  icon: MyAppIcon,
+  component: LazyMyApp,
+  width: 400,
+})
+
+// 3. Launch the app
+await runningAppsStore.launchApp('my-app')
 ```
 
-### ActivityIndicator
+### App-Specific i18n
+
+Each app can have isolated translations that won't conflict with other apps:
 
 ```tsx
-<ActivityIndicator
-  size="default" | "small" | "large"
-  color="#custom-color"  // Optional, defaults to --nc-primary
-  overlay={false}        // If true, covers parent (parent needs position: relative)
-/>
+import { createAppI18nFactory } from '@kingsimba/nc-ui'
+import { I18nextProvider } from 'react-i18next'
+
+const myAppI18n = createAppI18nFactory({
+  en: { title: 'My App', save: 'Save' },
+  zh: { title: '我的应用', save: '保存' },
+})
+
+export function MyApp() {
+  return (
+    <I18nextProvider i18n={myAppI18n}>
+      <MyAppContent />
+    </I18nextProvider>
+  )
+}
 ```
+
+**[Read the complete App Framework guide →](docs/APP_FRAMEWORK.md)**
 
 ## Theming
 
@@ -104,6 +177,12 @@ The library uses CSS variables with `nc-` prefix. Override them in your app:
   --nc-primary: #your-light-primary;
 }
 ```
+
+## Documentation
+
+- **[Live Demo](https://kingsimba.github.io/nc-ui/)** - Interactive component playground with all props and variants
+- **[App Framework Guide](docs/APP_FRAMEWORK.md)** - Complete guide to building panel-based applications
+- **[Migration Guide](MIGRATION_GUIDE.md)** - Upgrading from previous versions
 
 ## Development
 
