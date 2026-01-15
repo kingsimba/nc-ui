@@ -129,7 +129,7 @@ export function UIComponentsDemo() {
       </div>
 
       {/* Content area */}
-      <div className="ui-content">
+      <div className="ui-content" style={{ backgroundColor: activeSection === 'styles' ? 'var(--nc-bg)' : undefined }}>
         {ActiveComponent && activeSection === 'list-group' ? (
           <ListGroupSection theme={theme} toggleTheme={() => setTheme(theme === 'dark' ? 'light' : 'dark')} />
         ) : (
