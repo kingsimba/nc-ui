@@ -20,7 +20,7 @@ import {
     MinusIcon,
     DoubleClickIcon,
     MoreIcon,
-} from '../src/components/icons'
+} from '../../../src/components/icons'
 
 export function IconsSection() {
     return (

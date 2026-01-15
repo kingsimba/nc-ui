@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Dialog, Input } from '../src'
+import { Button, Dialog, Input } from '../../../src'
 
 export function DialogSection() {
     const [dialogOpen, setDialogOpen] = useState(false)

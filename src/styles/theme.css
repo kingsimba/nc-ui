@@ -716,3 +716,114 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 .nc-app-content-wrapper {
   overflow-y: auto;
 }
+
+/* App Taskbar */
+.nc-app-taskbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  background: var(--nc-bg-secondary);
+  border-right: 1px solid var(--nc-border);
+  flex-shrink: 0;
+  width: 56px;
+}
+
+.nc-app-taskbar-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: var(--nc-text);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+  position: relative;
+  user-select: none;
+}
+
+.nc-app-taskbar-button:hover {
+  background-color: var(--nc-bg-tertiary);
+}
+
+.nc-app-taskbar-button:active {
+  transform: scale(0.95);
+  background-color: var(--nc-bg-quaternary);
+}
+
+.nc-app-taskbar-button.nc-active {
+  background-color: var(--nc-bg-tertiary);
+}
+
+.nc-app-taskbar-button.nc-active:hover {
+  background-color: var(--nc-bg-quaternary);
+}
+
+/* Running indicator dot under the icon */
+.nc-app-taskbar-indicator {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--nc-primary);
+}
+
+.nc-app-taskbar-button.nc-active .nc-app-taskbar-indicator {
+  width: 16px;
+  border-radius: 2px;
+}
+
+/* Separator between pinned and non-pinned apps */
+.nc-app-taskbar-separator {
+  width: 24px;
+  height: 1px;
+  background-color: var(--nc-border);
+  margin: 4px 0;
+}
+
+/* Desktop separator (keep horizontal) */
+.nc-app-taskbar.nc-desktop .nc-app-taskbar-separator {
+  width: 32px;
+  height: 1px;
+  background: var(--nc-border);
+  margin: 4px 0;
+}
+
+/* Mobile taskbar - horizontal at bottom */
+@media (max-width: 767px) {
+  .nc-app-taskbar.nc-mobile {
+    flex-direction: row;
+    width: 100%;
+    height: 56px;
+    border-right: none;
+    border-top: 1px solid var(--nc-border);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    justify-content: center;
+    overflow-x: auto;
+  }
+
+  /* Adjust running indicator for horizontal layout */
+  .nc-app-taskbar.nc-mobile .nc-app-taskbar-indicator {
+    bottom: auto;
+    top: 2px;
+  }
+
+  /* Separator becomes vertical divider */
+  .nc-app-taskbar.nc-mobile .nc-app-taskbar-separator {
+    width: 1px;
+    height: 32px;
+    background: var(--nc-border);
+    margin: 0 4px;
+  }
+}

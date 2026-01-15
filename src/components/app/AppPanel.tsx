@@ -62,9 +62,10 @@ export function AppPanel() {
     top: isMobile && expanded ? 0 : undefined,
     left: isMobile && expanded ? 0 : undefined,
     right: isMobile && expanded ? 0 : undefined,
-    bottom: isMobile && expanded ? 0 : undefined,
+    bottom: isMobile && expanded ? 56 : undefined,
     zIndex: isMobile && expanded ? 10 : undefined,
-    maxHeight: isMobile && expanded ? 'calc(100% - var(--status-bar-height))' : '100%',
+    maxHeight: isMobile && expanded ? 'calc(100% - 56px)' : '100%',
+    borderRight: expanded && !isMobile ? '1px solid var(--nc-border)' : undefined,
   };
 
   return (

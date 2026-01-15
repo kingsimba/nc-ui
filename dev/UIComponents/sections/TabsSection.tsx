@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Tabs, Button, Input, RefreshButton } from '../src'
+import { Tabs, Button, Input, RefreshButton } from '../../../src'
 
 export function TabsSection() {
     const [activeTab, setActiveTab] = useState('Tab 1')

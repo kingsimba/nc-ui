@@ -3,6 +3,7 @@ import React from 'react';
 import { appRegistry } from '../src/lib/appRegistry';
 import { Game2048Icon } from './Game2048/Game2048Icon';
 import { StartIcon, CalculatorIcon } from './AppIcons';
+import { UIComponentsIcon } from './UIComponents/UIComponentsIcon';
 import { StartApp } from './StartApp';
 
 const LazyGame2048 = React.lazy(() =>
@@ -14,6 +15,12 @@ const LazyGame2048 = React.lazy(() =>
 const LazyCalculator = React.lazy(() =>
   import('./Calculator/Calculator').then((m) => ({
     default: m.Calculator,
+  }))
+);
+
+const LazyUIComponents = React.lazy(() =>
+  import('./UIComponents/UIComponents').then((m) => ({
+    default: m.UIComponents,
   }))
 );
 
@@ -49,6 +56,15 @@ export function registerBuiltinApps(): void {
     icon: CalculatorIcon,
     component: LazyCalculator,
     width: 420,
+  });
+
+  // ========== UI Components ==========
+  appRegistry.register({
+    id: 'ui-components',
+    titleKey: 'UI Components',
+    icon: UIComponentsIcon,
+    component: LazyUIComponents,
+    width: 600,  // Wider for sidebar + content
   });
 
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button } from '../src'
+import { Button } from '../../../src'
 
 export function ButtonSection() {
     const [loading, setLoading] = useState(false)

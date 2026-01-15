@@ -5,35 +5,60 @@ import { appRegistry, AppDefinition } from '../src/lib/appRegistry';
 import { runningAppsStore } from '../src/lib/runningAppsStore';
 import { createAppI18nFactory } from '../src/lib/appI18nFactory';
 
-// App IDs - currently only Game2048
-const GAME_APP_IDS = ['2048', 'calculator'];
+// App IDs - all available apps
+const APP_IDS = ['ui-components', '2048', 'calculator'];
 
 // i18n resources for StartApp
 const startAppResources = {
   en: {
-    games: 'Games',
+    apps: 'Apps',
     clickToLaunch: 'Click to launch',
     noApps: 'No apps registered',
+    // App titles (needed for AppTile)
+    'apps.start': 'Start',
+    'apps.2048.name': '2048',
+    'apps.calculator': 'Calculator',
+    'UI Components': 'UI Components',
   },
   zh: {
-    games: '游戏',
+    apps: '应用',
     clickToLaunch: '点击启动',
     noApps: '没有注册的应用',
+    // App titles
+    'apps.start': '开始',
+    'apps.2048.name': '2048',
+    'apps.calculator': '计算器',
+    'UI Components': 'UI 组件',
   },
   de: {
-    games: 'Spiele',
+    apps: 'Apps',
     clickToLaunch: 'Klicken zum Starten',
     noApps: 'Keine Apps registriert',
+    // App titles
+    'apps.start': 'Start',
+    'apps.2048.name': '2048',
+    'apps.calculator': 'Rechner',
+    'UI Components': 'UI-Komponenten',
   },
   es: {
-    games: 'Juegos',
+    apps: 'Aplicaciones',
     clickToLaunch: 'Haz clic para iniciar',
-    noApps: 'No hay apps registradas',
+    noApps: 'No hay apps',
+    // App titles
+    'apps.start': 'Inicio',
+    'apps.2048.name': '2048',
+    'apps.calculator': 'Calculadora',
+    'UI Components': 'Componentes UI',
   },
   th: {
-    games: 'เกม',
+    apps: 'แอป',
     clickToLaunch: 'คลิกเพื่อเปิด',
-    noApps: 'ไม่มีแอปที่ลงทะเบียน',
+    noApps: 'ไม่มีแอป',
+    // App titles
+    'apps.start': 'เริ่ม',
+    'apps.2048.name': '2048',
+    'apps.calculator': 'เครื่องคิดเลข',
+    'UI Components': 'คอมโพเนนต์ UI',
   },
 };
 
@@ -168,7 +193,7 @@ function StartAppContent() {
     return unsub;
   }, []);
 
-  const gameApps = GAME_APP_IDS
+  const apps = APP_IDS
     .map(id => appRegistry.get(id))
     .filter((def): def is AppDefinition => !!def);
 
@@ -180,11 +205,11 @@ function StartAppContent() {
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: 'var(--nc-bg)', padding: 8 }}>
       {/* Scrollable apps area */}
       <div style={{ flex: 1, overflow: 'auto', padding: 8 }}>
-        {gameApps.length > 0 ? (
+        {apps.length > 0 ? (
           <AppSection
-            title={t('games')}
+            title={t('apps')}
             subtitle={t('clickToLaunch')}
-            apps={gameApps}
+            apps={apps}
             onAppClick={handleAppClick}
           />
         ) : (

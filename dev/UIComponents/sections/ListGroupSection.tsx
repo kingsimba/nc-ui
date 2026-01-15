@@ -1,11 +1,11 @@
-import { ListGroup, ListGroupItem, Toggle } from '../src'
+import { ListGroup, ListGroupItem, Toggle } from '../../../src'
 import {
     ChevronRightIcon,
     EditIcon,
     LockIcon,
     InfoIcon,
     PowerIcon,
-} from '../src/components/icons'
+} from '../../../src/components/icons'
 
 interface ListGroupSectionProps {
     theme: 'dark' | 'light'
