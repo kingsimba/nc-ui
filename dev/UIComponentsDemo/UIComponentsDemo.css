@@ -57,6 +57,20 @@
     flex-direction: row;
     overflow-x: auto;
     padding: 8px;
+    position: relative;
+    mask-image: linear-gradient(to right, black 0%, black calc(100% - 24px), transparent 100%);
+  }
+
+  /* Scroll indicator gradient */
+  .ui-nav-sidebar.has-scroll::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 24px;
+    background: linear-gradient(to right, transparent, var(--nc-bg-secondary) 60%);
+    pointer-events: none;
   }
 
   .ui-content {

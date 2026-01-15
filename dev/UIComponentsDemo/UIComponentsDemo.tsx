@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { runningAppsStore } from '../../src/lib/runningAppsStore';
 import { ButtonSection } from './sections/ButtonSection';
 import { IconsSection } from './sections/IconsSection';
@@ -19,7 +19,7 @@ import { NumberInputSection } from './sections/NumberInputSection';
 import { SliderSection } from './sections/SliderSection';
 import { ToggleSection } from './sections/ToggleSection';
 import { MultiSelectSection } from './sections/MultiSelectSection';
-import './UIComponents.css';
+import './UIComponentsDemo.css';
 
 type SectionId = 'buttons' | 'activity' | 'checkbox' | 'combobox' | 'buttons-icon' |
   'hyperlink' | 'alert' | 'battery' | 'context-menu' | 'button-group' | 'input' |
@@ -36,9 +36,11 @@ export interface UIComponentsRef {
   setTab: (tabId: SectionId) => void;
 }
 
-export function UIComponents() {
+export function UIComponentsDemo() {
   const [activeSection, setActiveSection] = useState<SectionId>('buttons');
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const sidebarRef = useRef<HTMLAsideElement>(null);
 
   const sections: Section[] = [
     { id: 'buttons', label: 'Button', component: ButtonSection },
@@ -75,12 +77,35 @@ export function UIComponents() {
     });
   }, []);
 
+  // Track scroll position to show/hide scroll indicator
+  useEffect(() => {
+    const handleScroll = () => {
+      if (sidebarRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = sidebarRef.current;
+        setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
+      }
+    };
+
+    const sidebar = sidebarRef.current;
+    if (sidebar) {
+      // Check initial state
+      handleScroll();
+      // Add scroll listener
+      sidebar.addEventListener('scroll', handleScroll);
+      window.addEventListener('resize', handleScroll);
+      return () => {
+        sidebar.removeEventListener('scroll', handleScroll);
+        window.removeEventListener('resize', handleScroll);
+      };
+    }
+  }, []);
+
   const ActiveComponent = sections.find(s => s.id === activeSection)?.component;
 
   return (
     <div className="ui-components-app">
       {/* Sidebar navigation */}
-      <aside className="ui-nav-sidebar">
+      <aside className={`ui-nav-sidebar ${canScrollRight ? 'has-scroll' : ''}`} ref={sidebarRef}>
         {sections.map(section => (
           <button
             key={section.id}
