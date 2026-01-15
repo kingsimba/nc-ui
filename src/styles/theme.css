@@ -70,10 +70,18 @@
 /* ===== REUSABLE PUBLIC STYLES ===== */
 
 /* Typography - Headings */
-h1, .h1 { font-size: 2rem; font-weight: 700; color: var(--nc-text); margin: 0 0 0.5em 0; line-height: 1.2; }
-h2, .h2 { font-size: 1.5rem; font-weight: 600; color: var(--nc-text); margin: 0 0 0.5em 0; line-height: 1.3; }
-h3, .h3 { font-size: 1.25rem; font-weight: 600; color: var(--nc-text); margin: 0 0 0.4em 0; line-height: 1.4; }
-h4, .h4 { font-size: 1rem; font-weight: 600; color: var(--nc-text); margin: 0 0 0.4em 0; line-height: 1.4; }
+h1, .h1 { font-size: 2rem; font-weight: 700; color: var(--nc-text); margin: 0.5em 0 0.5em 0; line-height: 1.2; }
+h1:first-child, .h1:first-child { margin-top: 0; }
+h2, .h2 { font-size: 1.5rem; font-weight: 600; color: var(--nc-text); margin: 0.5em 0 0.5em 0; line-height: 1.3; }
+h2:first-child, .h2:first-child { margin-top: 0; }
+h3, .h3 { font-size: 1.25rem; font-weight: 600; color: var(--nc-text); margin: 0.4em 0 0.4em 0; line-height: 1.4; }
+h3:first-child, .h3:first-child { margin-top: 0; }
+h4, .h4 { font-size: 1rem; font-weight: 600; color: var(--nc-text); margin: 0.4em 0 0.4em 0; line-height: 1.4; }
+h4:first-child, .h4:first-child { margin-top: 0; }
+
+/* Text colors */
+p.weak { color: var(--nc-text-weak); }
+p.weaker { color: var(--nc-text-weaker); }
 
 /* Inline code */
 code, .code {
@@ -123,6 +131,30 @@ code, .code {
 :root.light .tag.yellow { color: #d97706; }
 :root.light .tag.green { color: #16a34a; }
 :root.light .tag.blue { color: #2563eb; }
+
+/* Block container */
+.block {
+  padding: 16px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid var(--nc-border);
+  margin: 16px 0;
+}
+
+.block.note { background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); }
+.block.warning { background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.3); }
+.block.danger { background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3); }
+.block.dashed { border-style: dashed; border-width: 2px; }
+
+/* Paragraph */
+p { margin: 0.5em 0; color: var(--nc-text); }
+p:first-child { margin-top: 0; }
+
+/* Lists */
+ul, ol { margin: 0.5em 0; padding-left: 1.5em; color: var(--nc-text); }
+ul.no-dots { list-style-type: none; padding-left: 0; }
+li { margin: 0.75em 0; }
+li::marker { color: var(--nc-text-weak); }
 
 /* Button component */
 .nc-button {

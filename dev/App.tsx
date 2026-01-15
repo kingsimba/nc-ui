@@ -113,12 +113,12 @@ function AppContent() {
                     {/* Welcome content (visible when no app active) */}
                     <div className="dev-framework-content">
                         <div className="dev-welcome">
-                            <h2>{t('welcome.title')}</h2>
-                            <p>{t('welcome.subtitle')}</p>
+                            <h1 style={{ textAlign: 'center' }}>{t('welcome.title')}</h1>
+                            <p className="weak">{t('welcome.subtitle')}</p>
 
-                            <div className="dev-features">
+                            <div className="block">
                                 <h3>{t('welcome.features.title')}</h3>
-                                <ul>
+                                <ul className="no-dots">
                                     <li>{t('welcome.features.lightweight')}</li>
                                     <li>{t('welcome.features.framework')}</li>
                                     <li>{t('welcome.features.crossPlatform')}</li>

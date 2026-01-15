@@ -19,7 +19,7 @@ export function NavStackSection() {
                     Commonly used with ListGroup to create mobile-style settings interfaces.
                 </p>
 
-                <h3 style={{ marginBottom: 8, marginTop: 24 }}>How it Works</h3>
+                <h3>How it Works</h3>
                 <ul style={{ color: 'var(--nc-text-weak)', marginBottom: 16, paddingLeft: 20 }}>
                     <li>AppContainer provides the title bar and AppContext</li>
                     <li>NavStackProvider uses <code>useApp()</code> to control the title bar</li>
@@ -28,7 +28,7 @@ export function NavStackSection() {
                     <li>Views remain mounted to preserve state</li>
                 </ul>
 
-                <h3 style={{ marginBottom: 12 }}>Live Demo</h3>
+                <h3>Live Demo</h3>
                 <p style={{ marginBottom: 16, color: 'var(--nc-text-weak)', fontSize: 14 }}>
                     Click the button below to launch a Settings app that demonstrates NavStack
                     with ListGroup navigation. Try navigating to Wi-Fi → Network Detail,
@@ -93,7 +93,7 @@ function HomeView() {
             <section className="dev-section">
                 <h2>API Reference</h2>
 
-                <h3 style={{ marginTop: 16, marginBottom: 8 }}>useNavStack()</h3>
+                <h3>useNavStack()</h3>
                 <table style={{
                     width: '100%',
                     borderCollapse: 'collapse',
@@ -129,7 +129,7 @@ function HomeView() {
                     </tbody>
                 </table>
 
-                <h3 style={{ marginTop: 24, marginBottom: 8 }}>useNavView()</h3>
+                <h3>useNavView()</h3>
                 <table style={{
                     width: '100%',
                     borderCollapse: 'collapse',
