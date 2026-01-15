@@ -1,12 +1,19 @@
 # nc-ui
 
-A reusable React UI component library with namespaced styles to prevent conflicts.
+A high-performance, lightweight React UI component library and extensible application framework.
+
+- 🚀 **Small Footprint**: Only ~75KB bundle size.
+- 🏗️ **Application Framework**: Features a flexible, extensible framework for building windowed apps.
+- 📱 **Cross-Platform**: Optimized for both desktop and mobile experiences.
 
 Published on npm as [@kingsimba/nc-ui](https://www.npmjs.com/package/@kingsimba/nc-ui)
 
 **[View Demo](https://kingsimba.github.io/nc-ui/)**
 
-![Demo](./image.png)
+<div style="display: flex; gap: 1rem;">
+  <img src="./image.png" alt="Demo" height="400px" />
+  <img src="image-2.png" alt="alt text" height="400px" />
+</div>
 
 ## Installation
 
