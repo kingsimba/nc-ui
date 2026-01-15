@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { I18nextProvider } from 'react-i18next'
+import { I18nextProvider, useTranslation } from 'react-i18next'
 import {
     Button,
     ComboBox,
@@ -11,7 +11,8 @@ import type { SupportedLocale } from '../src'
 import { demoI18n } from './i18n'
 import './dev.css'
 
-export default function App() {
+function AppContent() {
+    const { t } = useTranslation()
     const [theme, setTheme] = useState<'dark' | 'light'>('light')
     const [lang, setLang] = useState<SupportedLocale>('en')
 
@@ -42,9 +43,8 @@ export default function App() {
     }
 
     return (
-        <I18nextProvider i18n={demoI18n}>
-            <ViewportProvider>
-                <div className="dev-app-framework">
+        <ViewportProvider>
+            <div className="dev-app-framework">
                 {/* Header with logo, language, theme toggle */}
                 <header className="dev-framework-header">
                     <div className="dev-header-content">
@@ -59,7 +59,7 @@ export default function App() {
                                 style={{ width: 120 }}
                             />
                             <Button variant="ghost" size="small" onClick={toggleTheme}>
-                                {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
+                                {theme === 'dark' ? t('theme.light') : t('theme.dark')}
                             </Button>
                         </div>
                     </div>
@@ -73,16 +73,23 @@ export default function App() {
                     {/* Welcome content (visible when no app active) */}
                     <div className="dev-framework-content">
                         <div className="dev-welcome">
-                            <h2>Welcome to nc-ui</h2>
-                            <p>A React component library with Windows 11 styling</p>
+                            <h2>{t('welcome.title')}</h2>
+                            <p>{t('welcome.subtitle')}</p>
                             <p className="dev-instruction">
-                                👈 Click an app icon to explore components
+                                {t('welcome.instruction')}
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
         </ViewportProvider>
+    )
+}
+
+export default function App() {
+    return (
+        <I18nextProvider i18n={demoI18n}>
+            <AppContent />
         </I18nextProvider>
     )
 }

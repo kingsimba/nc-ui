@@ -28,11 +28,12 @@ type SectionId = 'buttons' | 'activity' | 'checkbox' | 'combobox' | 'buttons-ico
 interface Section {
   id: SectionId;
   label: string;
-  component: React.ComponentType;
+  component: React.ComponentType<any>;
 }
 
 export function UIComponents() {
   const [activeSection, setActiveSection] = useState<SectionId>('buttons');
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   const sections: Section[] = [
     { id: 'buttons', label: 'Button', component: ButtonSection },
@@ -75,7 +76,11 @@ export function UIComponents() {
 
       {/* Content area */}
       <div className="ui-content">
-        {ActiveComponent && <ActiveComponent />}
+        {ActiveComponent && activeSection === 'list-group' ? (
+          <ListGroupSection theme={theme} toggleTheme={() => setTheme(theme === 'dark' ? 'light' : 'dark')} />
+        ) : (
+          ActiveComponent && <ActiveComponent />
+        )}
       </div>
     </div>
   );

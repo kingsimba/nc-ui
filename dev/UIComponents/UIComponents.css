@@ -24,7 +24,7 @@
   cursor: pointer;
   border-radius: 4px;
   font-size: 14px;
-  transition: all 0.2s;
+  transition: background 0.2s, color 0.2s;
   white-space: nowrap;
 }
 
@@ -36,7 +36,6 @@
 .ui-nav-item.active {
   background: var(--nc-primary);
   color: white;
-  font-weight: 600;
 }
 
 .ui-content {
