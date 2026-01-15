@@ -1,4 +1,5 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import { ViewIcon, EyeHiddenIcon } from './icons';
 
 export interface InputProps {
   /** Current value of the input */
@@ -25,9 +26,11 @@ export interface InputProps {
   size?: 'default' | 'small';
   /** Additional inline styles */
   style?: React.CSSProperties;
+  /** Whether to show a toggle button for password visibility (only works when type is 'password') */
+  showPasswordToggle?: boolean;
 }
 
-function ClearButton({ onClick, size = 'default' }: { onClick: () => void; size?: 'default' | 'small' }) {
+function ClearButton({ onClick, size = 'default', rightOffset = 4 }: { onClick: () => void; size?: 'default' | 'small'; rightOffset?: number }) {
   const buttonSize = size === 'small' ? 28 : 34;
   return (
     <button
@@ -38,7 +41,7 @@ function ClearButton({ onClick, size = 'default' }: { onClick: () => void; size?
       aria-label="Clear input"
       style={{
         position: 'absolute',
-        right: 4,
+        right: rightOffset,
         padding: 0,
         minHeight: 0,
         height: buttonSize,
@@ -51,6 +54,34 @@ function ClearButton({ onClick, size = 'default' }: { onClick: () => void; size?
       }}
     >
       ✕
+    </button>
+  );
+}
+
+function TogglePasswordButton({ visible, onClick, size = 'default' }: { visible: boolean; onClick: () => void; size?: 'default' | 'small' }) {
+  const buttonSize = size === 'small' ? 28 : 34;
+  const iconSize = size === 'small' ? 16 : 18;
+  return (
+    <button
+      className="nc-button nc-ghost"
+      onClick={onClick}
+      onMouseDown={(e) => e.stopPropagation()}
+      tabIndex={-1}
+      aria-label={visible ? 'Hide password' : 'Show password'}
+      style={{
+        position: 'absolute',
+        right: 4,
+        padding: 0,
+        minHeight: 0,
+        height: buttonSize,
+        width: buttonSize,
+        border: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      {visible ? <EyeHiddenIcon size={iconSize} /> : <ViewIcon size={iconSize} />}
     </button>
   );
 }
@@ -68,12 +99,22 @@ export function Input({
   className = '',
   size = 'default',
   style,
+  showPasswordToggle = false,
 }: InputProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
+  const isPasswordType = type === 'password';
+  const showToggle = isPasswordType && showPasswordToggle && !disabled;
   const showClearButton = clearable && value && !disabled;
-  const clearButtonWidth = size === 'small' ? 32 : 44;
-  const paddingRight = showClearButton ? clearButtonWidth : 12;
+
+  const buttonWidth = size === 'small' ? 32 : 44;
+  let paddingRight = 12;
+  if (showClearButton && showToggle) {
+    paddingRight = buttonWidth * 2;
+  } else if (showClearButton || showToggle) {
+    paddingRight = buttonWidth;
+  }
 
   const handleClear = () => {
     onChange?.('');
@@ -99,7 +140,7 @@ export function Input({
       <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
         <input
           ref={inputRef}
-          type={type}
+          type={isPasswordType && passwordVisible ? 'text' : type}
           className={inputClassName}
           placeholder={placeholder}
           value={value}
@@ -111,7 +152,8 @@ export function Input({
             paddingRight,
           }}
         />
-        {showClearButton && <ClearButton onClick={handleClear} size={size} />}
+        {showClearButton && <ClearButton onClick={handleClear} size={size} rightOffset={showToggle ? buttonWidth + 4 : 4} />}
+        {showToggle && <TogglePasswordButton visible={passwordVisible} onClick={() => setPasswordVisible(!passwordVisible)} size={size} />}
       </div>
     </div>
   );

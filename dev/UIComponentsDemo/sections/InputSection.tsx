@@ -3,6 +3,7 @@ import { Input } from '../../../src';
 
 export function InputSection() {
   const [inputValue, setInputValue] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
     <section className="dev-section">
@@ -25,6 +26,23 @@ export function InputSection() {
           value="Disabled"
           disabled
           label="Disabled Input"
+        />
+        <Input
+          value={password}
+          onChange={setPassword}
+          placeholder="Enter password"
+          type="password"
+          showPasswordToggle
+          label="Password Input"
+        />
+        <Input
+          value={password}
+          onChange={setPassword}
+          placeholder="Small password"
+          type="password"
+          showPasswordToggle
+          size="small"
+          label="Small Password Input"
         />
       </div>
     </section>
