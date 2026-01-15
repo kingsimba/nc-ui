@@ -1,4 +1,5 @@
-import { useState, forwardRef, useImperativeHandle } from 'react';
+import { useState, forwardRef, useImperativeHandle, useEffect } from 'react';
+import { runningAppsStore } from '../../src/lib/runningAppsStore';
 import { ButtonSection } from './sections/ButtonSection';
 import { IconsSection } from './sections/IconsSection';
 import { ListGroupSection } from './sections/ListGroupSection';
@@ -61,15 +62,18 @@ export const UIComponents = forwardRef<UIComponentsRef>((props, ref) => {
     { id: 'dialog', label: 'Dialog', component: DialogSection },
   ];
 
-  // Expose setTab method via ref
-  useImperativeHandle(ref, () => ({
-    setTab: (tabId: SectionId) => {
-      // Validate tab exists
-      if (sections.some(s => s.id === tabId)) {
-        setActiveSection(tabId);
-      }
-    },
-  }));
+
+  // Register ref with runningAppsStore
+  useEffect(() => {
+    runningAppsStore.setAppRef('ui-components', {
+      setTab: (tabId: SectionId) => {
+        // Validate tab exists
+        if (sections.some(s => s.id === tabId)) {
+          setActiveSection(tabId);
+        }
+      },
+    });
+  }, []);
 
   const ActiveComponent = sections.find(s => s.id === activeSection)?.component;
 
