@@ -69,25 +69,25 @@ nc-ui provides 19+ ready-to-use components. Click any component to see it in the
 
 | Component | Description |
 |-----------|-------------|
-| [ActivityIndicator](https://kingsimba.github.io/nc-ui/) | Loading spinner with size variants and overlay mode |
-| [Alert](https://kingsimba.github.io/nc-ui/) | Dismissible notification banners with status variants |
-| [Battery](https://kingsimba.github.io/nc-ui/) | Visual battery level indicator |
-| [Button](https://kingsimba.github.io/nc-ui/) | Primary action button with variants, sizes, and loading states |
-| [ButtonGroup](https://kingsimba.github.io/nc-ui/) | Group related buttons with automatic styling |
-| [Checkbox](https://kingsimba.github.io/nc-ui/) | Toggle selection with indeterminate state support |
-| [ComboBox](https://kingsimba.github.io/nc-ui/) | Searchable dropdown with autocomplete |
-| [ContextMenu](https://kingsimba.github.io/nc-ui/) | Right-click menu with customizable items |
-| [Dialog](https://kingsimba.github.io/nc-ui/) | Modal dialogs with header, footer, and action buttons |
-| [Input](https://kingsimba.github.io/nc-ui/) | Text input with validation states and prefix/suffix support |
-| [ListGroup](https://kingsimba.github.io/nc-ui/) | Styled list items with selection and actions |
-| [MultiSelect](https://kingsimba.github.io/nc-ui/) | Multi-selection dropdown with tag display |
-| [NumberInput](https://kingsimba.github.io/nc-ui/) | Numeric input with increment/decrement controls |
-| [Slider](https://kingsimba.github.io/nc-ui/) | Range slider with value display |
-| [Tabs](https://kingsimba.github.io/nc-ui/) | Tabbed navigation component |
-| [Toggle](https://kingsimba.github.io/nc-ui/) | Switch/toggle with on/off states |
-| [Icons](https://kingsimba.github.io/nc-ui/) | 50+ SVG icons (separate import path) |
-| [CommonButtons](https://kingsimba.github.io/nc-ui/) | Pre-configured buttons (Close, Edit, Refresh, Trash) |
-| [Hyperlink](https://kingsimba.github.io/nc-ui/) | Styled anchor/link component |
+| [ActivityIndicator](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=activity) | Loading spinner with size variants and overlay mode |
+| [Alert](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=alert) | Dismissible notification banners with status variants |
+| [Battery](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=battery) | Visual battery level indicator |
+| [Button](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=buttons) | Primary action button with variants, sizes, and loading states |
+| [ButtonGroup](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=button-group) | Group related buttons with automatic styling |
+| [Checkbox](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=checkbox) | Toggle selection with indeterminate state support |
+| [ComboBox](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=combobox) | Searchable dropdown with autocomplete |
+| [ContextMenu](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=context-menu) | Right-click menu with customizable items |
+| [Dialog](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=dialog) | Modal dialogs with header, footer, and action buttons |
+| [Input](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=input) | Text input with validation states and prefix/suffix support |
+| [ListGroup](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=list-group) | Styled list items with selection and actions |
+| [MultiSelect](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=multi-select) | Multi-selection dropdown with tag display |
+| [NumberInput](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=number-input) | Numeric input with increment/decrement controls |
+| [Slider](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=slider) | Range slider with value display |
+| [Tabs](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=tabs) | Tabbed navigation component |
+| [Toggle](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=toggle) | Switch/toggle with on/off states |
+| [Icons](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=icons) | 50+ SVG icons (separate import path) |
+| [CommonButtons](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=buttons-icon) | Pre-configured buttons (Close, Edit, Refresh, Trash) |
+| [Hyperlink](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=hyperlink) | Styled anchor/link component |
 
 ## App Framework
 
