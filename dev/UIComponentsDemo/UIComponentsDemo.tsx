@@ -22,9 +22,10 @@ import { MultiSelectSection } from './sections/MultiSelectSection';
 import { AppDialogSection } from './sections/AppDialogSection';
 import { NavStackSection } from './sections/NavStackSection';
 import { YamlTextAreaSection } from './sections/YamlTextAreaSection';
+import { StylesSection } from './sections/StylesSection';
 import './UIComponentsDemo.css';
 
-type SectionId = 'buttons' | 'activity' | 'checkbox' | 'combobox' | 'buttons-icon' |
+type SectionId = 'styles' | 'buttons' | 'activity' | 'checkbox' | 'combobox' | 'buttons-icon' |
   'hyperlink' | 'alert' | 'battery' | 'context-menu' | 'button-group' | 'input' |
   'number-input' | 'slider' | 'toggle' | 'multi-select' | 'icons' | 'tabs' |
   'list-group' | 'dialog' | 'app-dialog' | 'nav-stack' | 'yaml-textarea';
@@ -40,12 +41,13 @@ export interface UIComponentsRef {
 }
 
 export function UIComponentsDemo() {
-  const [activeSection, setActiveSection] = useState<SectionId>('buttons');
+  const [activeSection, setActiveSection] = useState<SectionId>('styles');
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [canScrollRight, setCanScrollRight] = useState(false);
   const sidebarRef = useRef<HTMLElement>(null);
 
   const sections: Section[] = [
+    { id: 'styles', label: 'Styles', component: StylesSection },
     { id: 'buttons', label: 'Button', component: ButtonSection },
     { id: 'activity', label: 'ActivityIndicator', component: ActivityIndicatorSection },
     { id: 'checkbox', label: 'Checkbox', component: CheckboxSection },

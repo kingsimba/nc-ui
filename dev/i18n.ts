@@ -16,7 +16,6 @@ const demoResources = {
     // Welcome page
     'welcome.title': 'Welcome to nc-ui',
     'welcome.subtitle': 'A React component library with Windows 11 styling',
-    'welcome.instruction': '👈 Click an app icon to explore components',
     'welcome.features.title': 'Main Features',
     'welcome.features.lightweight': '🚀 Lightweight: Only ~75KB bundle size',
     'welcome.features.framework': '🏗️ App Framework: Flexible windowed apps',
@@ -37,7 +36,6 @@ const demoResources = {
     // Welcome page
     'welcome.title': '欢迎使用 nc-ui',
     'welcome.subtitle': '采用 Windows 11 风格的 React 组件库',
-    'welcome.instruction': '👈 点击应用图标探索组件',
     'welcome.features.title': '核心特性',
     'welcome.features.lightweight': '🚀 轻量高效: 包体积仅 ~75KB',
     'welcome.features.framework': '🏗️ 应用框架: 灵活可扩展的窗口化应用',
@@ -56,8 +54,6 @@ const demoResources = {
     // Welcome page
     'welcome.title': 'Willkommen bei nc-ui',
     'welcome.subtitle': 'Eine React-Komponentenbibliothek im Windows 11-Stil',
-    'welcome.instruction':
-      '👈 Klicken Sie auf ein App-Symbol, um Komponenten zu erkunden',
   },
   th: {
     // App titles
@@ -70,7 +66,6 @@ const demoResources = {
     // Welcome page
     'welcome.title': 'ยินดีต้อนรับสู่ nc-ui',
     'welcome.subtitle': 'ไลบรารีคอมโพเนนต์ React สไตล์ Windows 11',
-    'welcome.instruction': '👈 คลิกไอคอนแอปเพื่อสำรวจคอมโพเนนต์',
   },
   es: {
     // App titles
@@ -84,8 +79,6 @@ const demoResources = {
     'welcome.title': 'Bienvenido a nc-ui',
     'welcome.subtitle':
       'Una biblioteca de componentes React con estilo Windows 11',
-    'welcome.instruction':
-      '👈 Haz clic en un icono de aplicación para explorar componentes',
   },
 };
 

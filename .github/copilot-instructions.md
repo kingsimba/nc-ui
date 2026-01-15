@@ -13,18 +13,32 @@ This is a React UI component library. Follow these conventions when contributing
 
 ### CSS Classes & Variables
 
-All CSS must use the `nc-` prefix to avoid conflicts with consumer applications:
+**UI Component styles** use the `nc-` prefix to avoid conflicts:
 
 ```css
-/* ✅ Correct */
+/* ✅ Component styles - use nc- prefix */
 .nc-button { }
 .nc-button.nc-primary { }
---nc-primary: #3b82f6;
+.nc-dialog { }
+```
 
-/* ❌ Wrong */
-.button { }
-.btn-primary { }
---primary: #3b82f6;
+**Reusable public styles** (typography, tags, utilities) don't need the prefix:
+
+```css
+/* ✅ Public utility styles - no prefix needed */
+.h1, .h2, .h3, .h4 { }
+.code { }
+.code-block { }
+.tag { }
+.tag.red { }
+```
+
+**CSS variables** always use the `nc-` prefix:
+
+```css
+/* ✅ Variables - always use nc- prefix */
+--nc-primary: #3b82f6;
+--nc-text: #e8eef6;
 ```
 
 ### Component Files
@@ -62,7 +76,8 @@ export function MyComponent({
 1. **All styles go in `src/styles/theme.css`**
 2. **Use CSS variables** for colors, not hardcoded values
 3. **Support dark/light themes** via `:root` and `:root.light`
-4. **Prefix everything** with `nc-`
+4. **Component styles** use `nc-` prefix (e.g., `.nc-button`, `.nc-dialog`)
+5. **Public utility styles** don't need prefix (e.g., `.h1`, `.code`, `.tag`)
 
 ### CSS Variable Categories
 
@@ -109,7 +124,7 @@ npm run build    # Build the library
 ## Do NOT
 
 - Use inline styles for theming (use CSS variables)
-- Create styles without `nc-` prefix
+- Forget `nc-` prefix for component styles
 - Hardcode colors (use `--nc-*` variables)
 - Forget to export new components from `index.ts`
 - Use external UI libraries (this IS the UI library)

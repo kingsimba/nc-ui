@@ -135,10 +135,6 @@ function AppContent() {
                                     {t('welcome.startBtn')}
                                 </Button>
                             </div>
-
-                            <p className="dev-instruction">
-                                {t('welcome.instruction')}
-                            </p>
                         </div>
                     </div>
                 </div>
