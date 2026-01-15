@@ -31,16 +31,26 @@ export interface ComboBoxProps {
   className?: string;
 }
 
-function DropdownOption({ option, onChange, selected, small }: { option: ComboBoxOption; onChange: (value: string) => void; selected?: boolean; small?: boolean }) {
+function DropdownOption({ option, onChange, selected, highlighted, small }: { option: ComboBoxOption; onChange: (value: string) => void; selected?: boolean; highlighted?: boolean; small?: boolean }) {
+  const optionRef = useRef<HTMLDivElement>(null);
+
+  // Scroll into view when highlighted
+  useEffect(() => {
+    if (highlighted && optionRef.current) {
+      optionRef.current.scrollIntoView({ block: 'nearest' });
+    }
+  }, [highlighted]);
+
   return (
     <div
-      className={`nc-combo-dropdown-option ${small ? 'nc-small' : ''}`}
+      ref={optionRef}
+      className={`nc-combo-dropdown-option ${small ? 'nc-small' : ''} ${highlighted ? 'nc-highlighted' : ''}`}
       role="option"
       onMouseDown={() => onChange(option.value)}
       aria-selected={selected}
       style={{
         cursor: 'pointer',
-        background: selected ? 'rgba(59,130,246,0.12)' : undefined,
+        background: highlighted ? 'rgba(59,130,246,0.18)' : selected ? 'rgba(59,130,246,0.12)' : undefined,
       }}
     >
       {option.label}
@@ -61,6 +71,7 @@ function DropdownMenu({
   placement = 'bottom',
   anchorRef,
   small,
+  highlightedIndex = -1,
 }: {
   isOpen: boolean;
   options: ComboBoxOption[];
@@ -69,6 +80,7 @@ function DropdownMenu({
   placement?: 'top' | 'bottom';
   anchorRef: React.RefObject<HTMLDivElement>;
   small?: boolean;
+  highlightedIndex?: number;
 }) {
   const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
   const [autoPlacement, setAutoPlacement] = useState<'top' | 'bottom'>(placement);
@@ -116,8 +128,8 @@ function DropdownMenu({
       {options.length === 0 ? (
         <div className={`nc-combo-dropdown-option nc-no-results ${small ? 'nc-small' : ''}`}>{t('noResults')}</div>
       ) : (
-        options.map((o) => (
-          <DropdownOption key={o.value} option={o} onChange={onSelect} selected={o.value === selectedValue} small={small} />
+        options.map((o, idx) => (
+          <DropdownOption key={o.value} option={o} onChange={onSelect} selected={o.value === selectedValue} highlighted={idx === highlightedIndex} small={small} />
         ))
       )}
     </div>
@@ -168,6 +180,7 @@ export function ComboBox({
 }: ComboBoxProps) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const anchorRef = useRef<HTMLDivElement | null>(null);
   const isSmall = size === 'small';
@@ -177,6 +190,13 @@ export function ComboBox({
     if (!allowTyping) return options;
     return options.filter((o) => o.label.toLowerCase().includes(q));
   }, [options, query, allowTyping]);
+
+  // Reset highlighted index when dropdown opens or filtered options change
+  useEffect(() => {
+    if (open) {
+      setHighlightedIndex(-1);
+    }
+  }, [open, filtered]);
 
   // Auto-select first option if not clearable and no value is set
   useEffect(() => {
@@ -202,14 +222,58 @@ export function ComboBox({
 
   const overlayVisible = !(open && allowTyping) && !!selected;
 
-  const handleSelect = (newValue: string) => {
+  const handleSelect = (newValue: string, fromKeyboard = false) => {
     onChange?.(newValue);
     setOpen(false);
     setQuery('');
+    // Blur input when selecting with keyboard to ensure consistent state
+    if (fromKeyboard) {
+      inputRef.current?.blur();
+    }
   };
 
   const handleClear = () => {
     onChange?.(undefined);
+    setQuery('');
+    setOpen(false);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!open) {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        setOpen(true);
+        e.preventDefault();
+      }
+      return;
+    }
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setHighlightedIndex((prev) => {
+          const next = prev + 1;
+          return next >= filtered.length ? 0 : next;
+        });
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setHighlightedIndex((prev) => {
+          const next = prev - 1;
+          return next < 0 ? filtered.length - 1 : next;
+        });
+        break;
+      case 'Enter':
+        e.preventDefault();
+        if (highlightedIndex >= 0 && highlightedIndex < filtered.length) {
+          handleSelect(filtered[highlightedIndex].value, true);
+        }
+        break;
+      case 'Escape':
+        e.preventDefault();
+        setOpen(false);
+        setQuery('');
+        break;
+    }
   };
 
   return (
@@ -223,10 +287,20 @@ export function ComboBox({
           // Clicking on child buttons will stop propagation.
           // If typing is allowed and the click target is the input, let the input handle focus.
           if (allowTyping && e.target === inputRef.current) return;
-          setOpen((s) => !s);
+          setOpen((s) => {
+            // When opening with allowTyping, initialize query with selected label
+            if (!s && allowTyping && selected) {
+              setQuery(selected.label);
+            }
+            return !s;
+          });
           // focus input only when typing is allowed and we're opening
           if (allowTyping && !open) {
-            setTimeout(() => inputRef.current?.focus(), 0);
+            setTimeout(() => {
+              inputRef.current?.focus();
+              // Select all text so user can easily replace it
+              inputRef.current?.select();
+            }, 0);
           }
         }}
       >
@@ -235,10 +309,18 @@ export function ComboBox({
           className={`nc-input ${isSmall ? 'nc-small' : ''}`}
           placeholder={placeholder}
           onFocus={() => {
-            if (!disabled && allowTyping) setOpen(true);
+            if (!disabled && allowTyping) {
+              setOpen(true);
+              // Initialize query with selected label when focusing
+              if (selected) {
+                setQuery(selected.label);
+                setTimeout(() => inputRef.current?.select(), 0);
+              }
+            }
             if (!allowTyping) inputRef.current?.blur();
           }}
           onChange={(e) => allowTyping && setQuery(e.target.value)}
+          onKeyDown={handleKeyDown}
           value={open && allowTyping ? query : (selected?.label || '')}
           readOnly={disabled || !allowTyping}
           style={{
@@ -276,7 +358,7 @@ export function ComboBox({
         {showClearButton && <ClearButton onClick={handleClear} small={isSmall} />}
         {showToggle && <ToggleButton open={open} onClick={() => setOpen((s) => !s)} small={isSmall} />}
       </div>
-      <DropdownMenu isOpen={open} options={filtered} onSelect={handleSelect} selectedValue={value} placement={placement} anchorRef={anchorRef} small={isSmall} />
+      <DropdownMenu isOpen={open} options={filtered} onSelect={handleSelect} selectedValue={value} placement={placement} anchorRef={anchorRef} small={isSmall} highlightedIndex={highlightedIndex} />
     </div>
   );
 }
