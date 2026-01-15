@@ -1,4 +1,4 @@
-import { useState, forwardRef, useImperativeHandle, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { runningAppsStore } from '../../src/lib/runningAppsStore';
 import { ButtonSection } from './sections/ButtonSection';
 import { IconsSection } from './sections/IconsSection';
@@ -36,7 +36,7 @@ export interface UIComponentsRef {
   setTab: (tabId: SectionId) => void;
 }
 
-export const UIComponents = forwardRef<UIComponentsRef>((props, ref) => {
+export function UIComponents() {
   const [activeSection, setActiveSection] = useState<SectionId>('buttons');
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
@@ -102,4 +102,4 @@ export const UIComponents = forwardRef<UIComponentsRef>((props, ref) => {
       </div>
     </div>
   );
-});
+}
