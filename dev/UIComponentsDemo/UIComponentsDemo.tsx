@@ -20,12 +20,13 @@ import { SliderSection } from './sections/SliderSection';
 import { ToggleSection } from './sections/ToggleSection';
 import { MultiSelectSection } from './sections/MultiSelectSection';
 import { AppDialogSection } from './sections/AppDialogSection';
+import { NavStackSection } from './sections/NavStackSection';
 import './UIComponentsDemo.css';
 
 type SectionId = 'buttons' | 'activity' | 'checkbox' | 'combobox' | 'buttons-icon' |
   'hyperlink' | 'alert' | 'battery' | 'context-menu' | 'button-group' | 'input' |
   'number-input' | 'slider' | 'toggle' | 'multi-select' | 'icons' | 'tabs' |
-  'list-group' | 'dialog' | 'app-dialog';
+  'list-group' | 'dialog' | 'app-dialog' | 'nav-stack';
 
 interface Section {
   id: SectionId;
@@ -64,6 +65,7 @@ export function UIComponentsDemo() {
     { id: 'list-group', label: 'ListGroup', component: ListGroupSection },
     { id: 'dialog', label: 'Dialog', component: DialogSection },
     { id: 'app-dialog', label: 'AppDialog', component: AppDialogSection },
+    { id: 'nav-stack', label: 'NavStack', component: NavStackSection },
   ];
 
 

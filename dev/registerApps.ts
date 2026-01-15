@@ -2,7 +2,7 @@ import React from 'react';
 
 import { appRegistry } from '../src/lib/appRegistry';
 import { Game2048Icon } from './Game2048/Game2048Icon';
-import { StartIcon, CalculatorIcon } from './AppIcons';
+import { StartIcon, CalculatorIcon, SettingsIcon } from './AppIcons';
 import { UIComponentsIcon } from './UIComponentsDemo/UIComponentsIcon';
 import { StartApp } from './StartApp';
 
@@ -21,6 +21,12 @@ const LazyCalculator = React.lazy(() =>
 const LazyUIComponents = React.lazy(() =>
   import('./UIComponentsDemo/UIComponentsDemo').then((m) => ({
     default: m.UIComponentsDemo,
+  }))
+);
+
+const LazyNavStackDemo = React.lazy(() =>
+  import('./NavStackDemo/NavStackDemo').then((m) => ({
+    default: m.NavStackDemo,
   }))
 );
 
@@ -66,5 +72,14 @@ export function registerBuiltinApps(): void {
     component: LazyUIComponents,
     width: 600, // Wider for sidebar + content
     hideTitleBar: true,
+  });
+
+  // ========== NavStack Demo ==========
+  appRegistry.register({
+    id: 'navstack-demo',
+    titleKey: 'Settings Demo',
+    icon: SettingsIcon,
+    component: LazyNavStackDemo,
+    width: 400,
   });
 }

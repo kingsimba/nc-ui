@@ -72,6 +72,17 @@ export type { AppTaskbarProps } from './components/app/AppTaskbar';
 export { AppTitleBar } from './components/app/AppTitleBar';
 export { AppDialog } from './components/app/AppDialog';
 export type { AppDialogProps } from './components/app/AppDialog';
+export {
+  NavStackProvider,
+  NavStackContainer,
+  useNavStack,
+  useNavView,
+} from './components/NavStack';
+export type {
+  NavView,
+  NavStackContextValue,
+  NavViewContextValue,
+} from './components/NavStack';
 
 // App framework utilities
 export { appStateStore } from './stores/appStateStore';
