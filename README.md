@@ -87,6 +87,7 @@ nc-ui provides 19+ ready-to-use components. Click any component to see it in the
 | [Slider](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=slider) | Range slider with value display |
 | [Tabs](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=tabs) | Tabbed navigation component |
 | [Toggle](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=toggle) | Switch/toggle with on/off states |
+| [YamlTextArea](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=yaml-textarea) | YAML editor with syntax highlighting and validation |
 | [Icons](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=icons) | 50+ SVG icons (separate import path) |
 | [CommonButtons](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=buttons-icon) | Pre-configured buttons (Close, Edit, Refresh, Trash) |
 | [Hyperlink](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=hyperlink) | Styled anchor/link component |

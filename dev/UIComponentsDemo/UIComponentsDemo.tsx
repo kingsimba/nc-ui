@@ -21,12 +21,13 @@ import { ToggleSection } from './sections/ToggleSection';
 import { MultiSelectSection } from './sections/MultiSelectSection';
 import { AppDialogSection } from './sections/AppDialogSection';
 import { NavStackSection } from './sections/NavStackSection';
+import { YamlTextAreaSection } from './sections/YamlTextAreaSection';
 import './UIComponentsDemo.css';
 
 type SectionId = 'buttons' | 'activity' | 'checkbox' | 'combobox' | 'buttons-icon' |
   'hyperlink' | 'alert' | 'battery' | 'context-menu' | 'button-group' | 'input' |
   'number-input' | 'slider' | 'toggle' | 'multi-select' | 'icons' | 'tabs' |
-  'list-group' | 'dialog' | 'app-dialog' | 'nav-stack';
+  'list-group' | 'dialog' | 'app-dialog' | 'nav-stack' | 'yaml-textarea';
 
 interface Section {
   id: SectionId;
@@ -66,6 +67,7 @@ export function UIComponentsDemo() {
     { id: 'dialog', label: 'Dialog', component: DialogSection },
     { id: 'app-dialog', label: 'AppDialog', component: AppDialogSection },
     { id: 'nav-stack', label: 'NavStack', component: NavStackSection },
+    { id: 'yaml-textarea', label: 'YamlTextArea', component: YamlTextAreaSection },
   ];
 
 
