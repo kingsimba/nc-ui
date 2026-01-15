@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import dts from 'vite-plugin-dts';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
   plugins: [
@@ -12,6 +13,19 @@ export default defineConfig({
       outDir: 'dist',
       rollupTypes: true,
     }),
+    ...(process.env.BUILD_DEMO !== 'true'
+      ? [
+          viteStaticCopy({
+            targets: [
+              {
+                src: 'src/styles/theme.css',
+                dest: '.',
+                rename: 'styles.css',
+              },
+            ],
+          }),
+        ]
+      : []),
   ],
   resolve: {
     alias: {
@@ -54,16 +68,15 @@ export default defineConfig({
           // Library build
           lib: {
             entry: {
-              main: resolve(__dirname, 'src/index.ts'),
+              index: resolve(__dirname, 'src/index.ts'),
               icons: resolve(__dirname, 'src/components/icons/index.ts'),
+              yaml: resolve(__dirname, 'src/components/YamlTextArea.tsx'),
             },
             name: 'NcUI',
             formats: ['es', 'cjs'],
             fileName: (format, entryName) => {
               const ext = format === 'es' ? 'js' : 'cjs';
-              return entryName === 'main'
-                ? `index.${ext}`
-                : `${entryName}.${ext}`;
+              return `${entryName}.${ext}`;
             },
           },
           rollupOptions: {

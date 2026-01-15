@@ -4,6 +4,7 @@ import { Input } from '../../../src';
 export function InputSection() {
   const [inputValue, setInputValue] = useState('');
   const [password, setPassword] = useState('');
+  const [multilineValue, setMultilineValue] = useState('');
 
   return (
     <section className="dev-section">
@@ -43,6 +44,23 @@ export function InputSection() {
           showPasswordToggle
           size="small"
           label="Small Password Input"
+        />
+        <Input
+          value={multilineValue}
+          onChange={setMultilineValue}
+          placeholder="Enter multiple lines..."
+          multiline
+          rows={4}
+          label="Multiline Input"
+        />
+        <Input
+          value={multilineValue}
+          onChange={setMultilineValue}
+          placeholder="Small multiline"
+          multiline
+          rows={3}
+          size="small"
+          label="Small Multiline Input"
         />
       </div>
     </section>

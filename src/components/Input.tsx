@@ -28,6 +28,10 @@ export interface InputProps {
   style?: React.CSSProperties;
   /** Whether to show a toggle button for password visibility (only works when type is 'password') */
   showPasswordToggle?: boolean;
+  /** Whether to use a textarea for multiline input */
+  multiline?: boolean;
+  /** Number of rows for multiline input */
+  rows?: number;
 }
 
 function ClearButton({ onClick, size = 'default', rightOffset = 4 }: { onClick: () => void; size?: 'default' | 'small'; rightOffset?: number }) {
@@ -100,12 +104,15 @@ export function Input({
   size = 'default',
   style,
   showPasswordToggle = false,
+  multiline = false,
+  rows = 3,
 }: InputProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const isPasswordType = type === 'password';
-  const showToggle = isPasswordType && showPasswordToggle && !disabled;
+  const showToggle = isPasswordType && showPasswordToggle && !disabled && !multiline;
   const showClearButton = clearable && value && !disabled;
 
   const buttonWidth = size === 'small' ? 32 : 44;
@@ -119,16 +126,20 @@ export function Input({
   const handleClear = () => {
     onChange?.('');
     onClear?.();
-    inputRef.current?.focus();
+    if (multiline) {
+      textareaRef.current?.focus();
+    } else {
+      inputRef.current?.focus();
+    }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !multiline) {
       onEnter?.();
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     onChange?.(e.target.value);
   };
 
@@ -137,21 +148,39 @@ export function Input({
   return (
     <div className="nc-col" style={{ position: 'relative', flex: 1, ...style }}>
       {label && <span className="nc-label">{label}</span>}
-      <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-        <input
-          ref={inputRef}
-          type={isPasswordType && passwordVisible ? 'text' : type}
-          className={inputClassName}
-          placeholder={placeholder}
-          value={value}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          disabled={disabled}
-          style={{
-            width: '100%',
-            paddingRight,
-          }}
-        />
+      <div style={{ position: 'relative', display: 'flex', alignItems: multiline ? 'flex-start' : 'center' }}>
+        {multiline ? (
+          <textarea
+            ref={textareaRef}
+            className={inputClassName}
+            placeholder={placeholder}
+            value={value}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            disabled={disabled}
+            rows={rows}
+            style={{
+              width: '100%',
+              paddingRight,
+              resize: 'vertical',
+            }}
+          />
+        ) : (
+          <input
+            ref={inputRef}
+            type={isPasswordType && passwordVisible ? 'text' : type}
+            className={inputClassName}
+            placeholder={placeholder}
+            value={value}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            disabled={disabled}
+            style={{
+              width: '100%',
+              paddingRight,
+            }}
+          />
+        )}
         {showClearButton && <ClearButton onClick={handleClear} size={size} rightOffset={showToggle ? buttonWidth + 4 : 4} />}
         {showToggle && <TogglePasswordButton visible={passwordVisible} onClick={() => setPasswordVisible(!passwordVisible)} size={size} />}
       </div>
