@@ -65,5 +65,6 @@ export function registerBuiltinApps(): void {
     icon: UIComponentsIcon,
     component: LazyUIComponents,
     width: 600, // Wider for sidebar + content
+    hideTitleBar: true,
   });
 }
