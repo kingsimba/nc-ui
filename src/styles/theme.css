@@ -670,7 +670,31 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 .nc-list-group-title-tools { display: flex; gap: 8px; }
 
 /* Tabs component */
-.nc-tab-container { border-bottom: 1px solid var(--nc-border); }
+.nc-tab-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--nc-border);
+  background: var(--nc-bg-secondary);
+}
+
+.nc-tab-scroll {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  flex: 1;
+  min-width: 0;
+}
+
+.nc-tab-scroll::-webkit-scrollbar { display: none; }
+
+.nc-tab-scroll.nc-multiline {
+  flex-wrap: wrap;
+  overflow-x: visible;
+}
 
 .nc-tab-item {
   padding: 12px 16px;
@@ -682,10 +706,97 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
   border-bottom: 2px solid transparent;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
+
+.nc-tab-scroll.nc-multiline .nc-tab-item { flex-shrink: 1; }
 
 .nc-tab-item:hover { color: var(--nc-text); }
 .nc-tab-item.nc-active { color: var(--nc-primary); border-bottom-color: var(--nc-primary); }
+
+.nc-tab-toolbar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-left: auto;
+  padding: 0 8px;
+  flex-shrink: 0;
+}
+
+.nc-tab-scroll-indicator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.nc-tab-scroll-indicator.nc-left {
+  left: 0;
+  background: linear-gradient(to right, var(--nc-bg-secondary) 20%, transparent);
+}
+
+.nc-tab-scroll-indicator.nc-right {
+  right: 0;
+  background: linear-gradient(to left, var(--nc-bg-secondary) 20%, transparent);
+}
+
+/* Vertical tabs */
+.nc-tab-container.nc-vertical {
+  flex-direction: column;
+  align-items: stretch;
+  border-bottom: none;
+  border-right: 1px solid var(--nc-border);
+}
+
+.nc-tab-container.nc-vertical .nc-tab-scroll {
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 8px;
+  gap: 4px;
+}
+
+.nc-tab-container.nc-vertical .nc-tab-item {
+  padding: 10px 12px;
+  font-size: 14px;
+  border-bottom: none;
+  border-radius: 4px;
+  text-transform: none;
+  letter-spacing: normal;
+  text-align: left;
+  width: 100%;
+}
+
+.nc-tab-container.nc-vertical .nc-tab-item:hover {
+  background: var(--nc-bg-tertiary);
+}
+
+.nc-tab-container.nc-vertical .nc-tab-item.nc-active {
+  background: var(--nc-primary);
+  color: white;
+}
+
+.nc-tab-container.nc-vertical .nc-tab-scroll-indicator {
+  left: 0;
+  right: 0;
+  width: auto;
+  height: 40px;
+}
+
+.nc-tab-container.nc-vertical .nc-tab-scroll-indicator.nc-top {
+  top: 0;
+  bottom: auto;
+  background: linear-gradient(to bottom, var(--nc-bg-secondary) 20%, transparent);
+}
+
+.nc-tab-container.nc-vertical .nc-tab-scroll-indicator.nc-bottom {
+  bottom: 0;
+  top: auto;
+  background: linear-gradient(to top, var(--nc-bg-secondary) 20%, transparent);
+}
 
 /* Toggle component */
 .nc-toggle {

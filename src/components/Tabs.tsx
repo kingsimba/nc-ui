@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
 export interface TabsProps {
   /** Array of tab labels */
@@ -13,14 +13,51 @@ export interface TabsProps {
   toolbar?: React.ReactNode;
   /** Whether tabs should wrap to multiple lines */
   multiline?: boolean;
+  /** Whether tabs should be displayed vertically */
+  vertical?: boolean;
   /** Additional inline styles */
   style?: React.CSSProperties;
 }
 
-export function Tabs({ tabs, active, onChange, className, toolbar, multiline, style }: TabsProps) {
+export function Tabs({ tabs, active, onChange, className, toolbar, multiline, vertical, style }: TabsProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollStart, setCanScrollStart] = useState(false);
+  const [canScrollEnd, setCanScrollEnd] = useState(false);
+
+  useEffect(() => {
+    const checkScroll = () => {
+      if (scrollRef.current) {
+        if (vertical) {
+          const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
+          setCanScrollStart(scrollTop > 1);
+          setCanScrollEnd(scrollTop < scrollHeight - clientHeight - 1);
+        } else {
+          const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+          setCanScrollStart(scrollLeft > 1);
+          setCanScrollEnd(scrollLeft < scrollWidth - clientWidth - 1);
+        }
+      }
+    };
+
+    const el = scrollRef.current;
+    if (el) {
+      checkScroll();
+      el.addEventListener('scroll', checkScroll);
+      window.addEventListener('resize', checkScroll);
+      return () => {
+        el.removeEventListener('scroll', checkScroll);
+        window.removeEventListener('resize', checkScroll);
+      };
+    }
+  }, [tabs, vertical]);
+
   return (
-    <div className={className ? className : 'nc-tab-container'} style={{ display: 'flex', justifyContent: 'space-between', alignItems: multiline ? 'flex-start' : 'center', overflow: 'hidden', ...style }}>
-      <div style={{ display: 'flex', flex: '1', alignItems: 'center', minWidth: 0, overflow: 'hidden', flexWrap: multiline ? 'wrap' : 'nowrap' }}>
+    <div className={`nc-tab-container ${vertical ? 'nc-vertical' : ''} ${className || ''}`} style={style}>
+      {canScrollStart && <div className={`nc-tab-scroll-indicator ${vertical ? 'nc-top' : 'nc-left'}`} />}
+      <div
+        ref={scrollRef}
+        className={`nc-tab-scroll ${multiline ? 'nc-multiline' : ''}`}
+      >
         {tabs.map((t) => (
           <div
             key={t}
@@ -29,18 +66,17 @@ export function Tabs({ tabs, active, onChange, className, toolbar, multiline, st
             role="button"
             tabIndex={0}
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onChange(t); }}
-            style={{ flexShrink: multiline ? 1 : 0 }}
           >
-            {t.toUpperCase()}
+            {vertical ? t : t.toUpperCase()}
           </div>
         ))}
-        <div style={{ flexGrow: 1 }}></div>
         {toolbar && (
-          <div style={{ display: 'flex', gap: '8px', height: "100%", alignItems: 'center' }}>
+          <div className="nc-tab-toolbar">
             {toolbar}
           </div>
         )}
       </div>
+      {canScrollEnd && <div className={`nc-tab-scroll-indicator ${vertical ? 'nc-bottom' : 'nc-right'}`} />}
     </div>
   );
 }

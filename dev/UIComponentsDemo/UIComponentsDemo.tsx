@@ -1,5 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { runningAppsStore } from '../../src/lib/runningAppsStore';
+import { Tabs } from '../../src/components/Tabs';
+import { useViewport } from '../../src/contexts/ViewportContext';
 import { ButtonSection } from './sections/ButtonSection';
 import { IconsSection } from './sections/IconsSection';
 import { ListGroupSection } from './sections/ListGroupSection';
@@ -43,8 +45,7 @@ export interface UIComponentsRef {
 export function UIComponentsDemo() {
   const [activeSection, setActiveSection] = useState<SectionId>('styles');
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
-  const [canScrollRight, setCanScrollRight] = useState(false);
-  const sidebarRef = useRef<HTMLElement>(null);
+  const { isMobile } = useViewport();
 
   const sections: Section[] = [
     { id: 'styles', label: 'Styles', component: StylesSection },
@@ -85,49 +86,21 @@ export function UIComponentsDemo() {
     });
   }, []);
 
-  // Track scroll position to show/hide scroll indicator
-  useEffect(() => {
-    const handleScroll = () => {
-      if (sidebarRef.current) {
-        const { scrollLeft, scrollWidth, clientWidth } = sidebarRef.current;
-        setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
-      }
-    };
-
-    const sidebar = sidebarRef.current;
-    if (sidebar) {
-      // Check initial state
-      handleScroll();
-      // Add scroll listener
-      sidebar.addEventListener('scroll', handleScroll);
-      window.addEventListener('resize', handleScroll);
-      return () => {
-        sidebar.removeEventListener('scroll', handleScroll);
-        window.removeEventListener('resize', handleScroll);
-      };
-    }
-  }, []);
-
   const ActiveComponent = sections.find(s => s.id === activeSection)?.component;
   const textSections = ['nav-stack', 'yaml-textarea', 'styles', 'dialog', 'app-dialog', 'tabs', 'buttons'];
 
   return (
-    <div className="ui-components-app">
-      {/* Sidebar navigation */}
-      <div className="ui-nav-container">
-        <aside className="ui-nav-sidebar" ref={sidebarRef}>
-          {sections.map(section => (
-            <button
-              key={section.id}
-              className={`ui-nav-item ${activeSection === section.id ? 'active' : ''}`}
-              onClick={() => setActiveSection(section.id)}
-            >
-              {section.label}
-            </button>
-          ))}
-        </aside>
-        {canScrollRight && <div className="ui-nav-scroll-indicator" />}
-      </div>
+    <div className={`ui-components-app ${!isMobile ? 'desktop' : ''}`}>
+      {/* Tab navigation */}
+      <Tabs
+        tabs={sections.map(s => s.label)}
+        active={sections.find(s => s.id === activeSection)?.label || ''}
+        onChange={(label) => {
+          const section = sections.find(s => s.label === label);
+          if (section) setActiveSection(section.id);
+        }}
+        vertical={!isMobile}
+      />
 
       {/* Content area */}
       <div className="ui-content" style={{ backgroundColor: textSections.includes(activeSection) ? 'var(--nc-bg-text)' : undefined }}>

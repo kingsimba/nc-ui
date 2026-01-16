@@ -205,6 +205,7 @@ const config = {
                     <ColorSwatch variable="--nc-bg-secondary" label="Background Secondary" />
                     <ColorSwatch variable="--nc-bg-tertiary" label="Background Tertiary" />
                     <ColorSwatch variable="--nc-bg-quaternary" label="Background Quaternary" />
+                    <ColorSwatch variable="--nc-bg-text" label="Background for Text Content" />
                 </div>
             </section>
 
