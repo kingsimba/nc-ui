@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { t } from '../lib/i18n';
+import { useTranslation } from 'react-i18next';
 
 export type ComboBoxOption = { label: string; value: string; default?: boolean };
 
@@ -33,6 +33,7 @@ export interface ComboBoxProps {
 
 function DropdownOption({ option, onChange, selected, highlighted, small }: { option: ComboBoxOption; onChange: (value: string) => void; selected?: boolean; highlighted?: boolean; small?: boolean }) {
   const optionRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   // Scroll into view when highlighted
   useEffect(() => {
@@ -56,7 +57,7 @@ function DropdownOption({ option, onChange, selected, highlighted, small }: { op
       {option.label}
       {option.default && (
         <span style={{ fontSize: '0.85em', color: 'var(--nc-text-weak)', marginLeft: 6 }}>
-          ({t('default')})
+          ({t('common.default')})
         </span>
       )}
     </div>
@@ -84,6 +85,7 @@ function DropdownMenu({
 }) {
   const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
   const [autoPlacement, setAutoPlacement] = useState<'top' | 'bottom'>(placement);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (isOpen && anchorRef.current) {
@@ -126,7 +128,7 @@ function DropdownMenu({
       }}
     >
       {options.length === 0 ? (
-        <div className={`nc-combo-dropdown-option nc-no-results ${small ? 'nc-small' : ''}`}>{t('noResults')}</div>
+        <div className={`nc-combo-dropdown-option nc-no-results ${small ? 'nc-small' : ''}`}>{t('common.noResults')}</div>
       ) : (
         options.map((o, idx) => (
           <DropdownOption key={o.value} option={o} onChange={onSelect} selected={o.value === selectedValue} highlighted={idx === highlightedIndex} small={small} />
@@ -184,6 +186,7 @@ export function ComboBox({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const anchorRef = useRef<HTMLDivElement | null>(null);
   const isSmall = size === 'small';
+  const { t } = useTranslation();
 
   const filtered = useMemo(() => {
     const q = query.toLowerCase();
@@ -352,7 +355,7 @@ export function ComboBox({
             }}
           >
             <span className={`nc-combo-overlay-text ${isSmall ? 'nc-small' : ''}`}>{selected?.label}</span>
-            {selected?.default && <span className={`nc-combo-overlay-default ${isSmall ? 'nc-small' : ''}`}>({t('default')})</span>}
+            {selected?.default && <span className={`nc-combo-overlay-default ${isSmall ? 'nc-small' : ''}`}>({t('common.default')})</span>}
           </div>
         )}
         {showClearButton && <ClearButton onClick={handleClear} small={isSmall} />}

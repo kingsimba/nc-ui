@@ -8,11 +8,12 @@ import {
     ViewportProvider,
     NotificationContainer,
 } from '../src'
-import type { SupportedLocale } from '../src'
 import { runningAppsStore } from '../src/lib/runningAppsStore'
 import { demoI18n } from './i18n'
 import type { UIComponentsRef } from './UIComponentsDemo'
 import './dev.css'
+
+type SupportedLocale = 'en' | 'zh' | 'de' | 'th' | 'es';
 
 function AppContent() {
     const { t } = useTranslation()

@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { useTranslation } from 'react-i18next';
 import { Button, ButtonProps } from './Button';
 import { CloseButton } from './CommonButtons';
-import { t } from '../lib/i18n';
 
 export type DialogFooterType = 'ok' | 'ok-cancel' | 'save-cancel' | 'delete-cancel' | 'connect' | 'close' | 'gotit' | 'custom' | 'none';
 
@@ -33,6 +33,7 @@ export function useDialog(): DialogContextValue {
  */
 export function DialogClose({ children, onClick, ...props }: ButtonProps) {
   const { close } = useDialog();
+  const { t } = useTranslation();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     onClick?.(e);
@@ -41,7 +42,7 @@ export function DialogClose({ children, onClick, ...props }: ButtonProps) {
 
   return (
     <Button onClick={handleClick} {...props}>
-      {children ?? t('close')}
+      {children ?? t('common.close')}
     </Button>
   );
 }
@@ -129,6 +130,7 @@ export function Dialog({
   hideTitleBar = false,
 }: DialogProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   // Context value for children to access
   const contextValue: DialogContextValue = { close: onClose };
@@ -156,7 +158,7 @@ export function Dialog({
         return (
           <div className="nc-dialog-footer">
             <Button variant="primary" onClick={onOk ?? onClose} disabled={primaryDisabled}>
-              {t('ok')}
+              {t('common.ok')}
             </Button>
           </div>
         );
@@ -164,10 +166,10 @@ export function Dialog({
         return (
           <div className="nc-dialog-footer">
             <Button variant="primary" onClick={onOk ?? onClose} disabled={primaryDisabled}>
-              {t('ok')}
+              {t('common.ok')}
             </Button>
             <DialogClose variant="ghost" onClick={onCancel}>
-              {t('cancel')}
+              {t('common.cancel')}
             </DialogClose>
           </div>
         );
@@ -175,10 +177,10 @@ export function Dialog({
         return (
           <div className="nc-dialog-footer">
             <Button variant="primary" onClick={onSave} disabled={primaryDisabled}>
-              {t('save')}
+              {t('common.save')}
             </Button>
             <DialogClose variant="ghost" onClick={onCancel}>
-              {t('cancel')}
+              {t('common.cancel')}
             </DialogClose>
           </div>
         );
@@ -186,10 +188,10 @@ export function Dialog({
         return (
           <div className="nc-dialog-footer">
             <Button variant="danger" onClick={onDelete} disabled={primaryDisabled}>
-              {t('delete')}
+              {t('common.delete')}
             </Button>
             <DialogClose variant="ghost" onClick={onCancel}>
-              {t('cancel')}
+              {t('common.cancel')}
             </DialogClose>
           </div>
         );
@@ -197,10 +199,10 @@ export function Dialog({
         return (
           <div className="nc-dialog-footer">
             <Button variant="primary" onClick={onConnect} disabled={primaryDisabled}>
-              {t('connect')}
+              {t('common.connect')}
             </Button>
             <DialogClose variant="ghost" onClick={onCancel}>
-              {t('cancel')}
+              {t('common.cancel')}
             </DialogClose>
           </div>
         );
@@ -214,7 +216,7 @@ export function Dialog({
         return (
           <div className="nc-dialog-footer">
             <DialogClose variant="primary">
-              {t('gotit')}
+              {t('common.gotit')}
             </DialogClose>
           </div>
         );

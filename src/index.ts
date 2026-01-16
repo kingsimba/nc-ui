@@ -54,10 +54,6 @@ export type {
   ContextMenuOption,
 } from './components/ContextMenu';
 
-// Localization
-export { setLocale, getLocale, t } from './lib/i18n';
-export type { SupportedLocale } from './lib/i18n';
-
 // App-specific i18n factory for isolated instances
 export { createAppI18nFactory } from './lib/appI18nFactory';
 export type { AppI18nResources } from './lib/appI18nFactory';
