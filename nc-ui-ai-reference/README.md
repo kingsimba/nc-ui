@@ -15,9 +15,9 @@ When using nc-ui in a new project, AI assistants might default to using native H
 
 ### For New Projects Using nc-ui
 
-1. **Copy this entire `ai-reference/` folder** to your project's root:
+1. **Copy this entire `nc-ui-ai-reference/` folder** to your project's `docs/` directory:
    ```bash
-   cp -r nc-ui/ai-reference /path/to/your-project/ai-reference
+   cp -r nc-ui/nc-ui-ai-reference /path/to/your-project/docs/nc-ui-ai-reference
    ```
 
 2. **Set up AI-specific entry files:**
@@ -25,18 +25,18 @@ When using nc-ui in a new project, AI assistants might default to using native H
    #### For GitHub Copilot:
    ```bash
    mkdir -p .github
-   cp ai-reference/copilot-instructions.md .github/copilot-instructions.md
+   cp docs/nc-ui-ai-reference/copilot-instructions.md .github/copilot-instructions.md
    ```
 
    #### For Claude Code:
    ```bash
    mkdir -p .claude
-   cp ai-reference/claude-context.md .claude/project-context.md
+   cp docs/nc-ui-ai-reference/claude-context.md .claude/project-context.md
    ```
 
 3. **Commit all files** so they're available to AIs:
    ```bash
-   git add ai-reference/ .github/ .claude/
+   git add docs/nc-ui-ai-reference/ .github/ .claude/
    git commit -m "Add nc-ui AI reference documentation"
    ```
 
@@ -46,19 +46,20 @@ After setup, your project structure should look like:
 
 ```
 your-project/
-├── ai-reference/
-│   ├── README.md                        # This file
-│   ├── architecture.md                  # Architecture & conventions
-│   ├── components-quick-reference.md    # All components API
-│   ├── global-utility-styles.md         # Global styles (h1, .tag, .block, etc.)
-│   ├── examples-and-antipatterns.md     # Usage examples
-│   ├── app-framework.md                 # App framework guide (optional)
-│   ├── copilot-instructions.md          # Template for Copilot
-│   └── claude-context.md                # Template for Claude
+├── docs/
+│   └── nc-ui-ai-reference/
+│       ├── README.md                        # This file
+│       ├── architecture.md                  # Architecture & conventions
+│       ├── components-quick-reference.md    # All components API
+│       ├── global-utility-styles.md         # Global styles (h1, .tag, .block, etc.)
+│       ├── examples-and-antipatterns.md     # Usage examples
+│       ├── app-framework.md                 # App framework guide (optional)
+│       ├── copilot-instructions.md          # Template for Copilot
+│       └── claude-context.md                # Template for Claude
 ├── .github/
-│   └── copilot-instructions.md          # → Copied from ai-reference/
+│   └── copilot-instructions.md          # → Copied from docs/nc-ui-ai-reference/
 └── .claude/
-    └── project-context.md               # → Copied from ai-reference/
+    └── project-context.md               # → Copied from docs/nc-ui-ai-reference/
 ```
 
 ## File Descriptions
@@ -128,14 +129,14 @@ When nc-ui is updated:
 1. **Update docs in nc-ui repo** (this folder)
 2. **Copy updated folder to your projects:**
    ```bash
-   cp -r nc-ui/ai-reference /path/to/your-project/ai-reference
+   cp -r nc-ui/nc-ui-ai-reference /path/to/your-project/docs/nc-ui-ai-reference
    ```
 3. **Recommit** to update AI knowledge
 
 ## Best Practices
 
 ### Do:
-- ✅ Copy the entire `ai-reference/` folder to new projects
+- ✅ Copy the entire `nc-ui-ai-reference/` folder to `docs/` in new projects
 - ✅ Set up AI-specific entry files (`.github/copilot-instructions.md`, `.claude/project-context.md`)
 - ✅ Commit all documentation to version control
 - ✅ Update when nc-ui version changes significantly
@@ -157,14 +158,14 @@ When nc-ui is updated:
 
 3. **Try mentioning nc-ui explicitly:**
    - "Use nc-ui Button component instead of button"
-   - "Follow nc-ui conventions from ai-reference/"
+   - "Follow nc-ui conventions from docs/nc-ui-ai-reference/"
 
 4. **Reference specific docs:**
-   - "Check ai-reference/components-quick-reference.md for Button API"
+   - "Check docs/nc-ui-ai-reference/components-quick-reference.md for Button API"
 
 ### AI not finding documentation?
 
-1. Ensure `ai-reference/` folder is in project root
+1. Ensure `nc-ui-ai-reference/` folder is in `docs/` directory
 2. Check files are committed and pushed
 3. Try referencing files directly in prompts
 
@@ -172,7 +173,7 @@ When nc-ui is updated:
 
 After setup, tell your AI:
 
-> "I'm using @kingsimba/nc-ui in this project. Please use nc-ui components instead of native HTML elements. Check ai-reference/ for the component API."
+> "I'm using @kingsimba/nc-ui in this project. Please use nc-ui components instead of native HTML elements. Check docs/nc-ui-ai-reference/ for the component API."
 
 The AI should then:
 - Use `<Button>` instead of `<button>`

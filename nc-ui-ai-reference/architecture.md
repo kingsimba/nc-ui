@@ -140,7 +140,7 @@ nc-ui/
 │   │   └── utils.ts         # Utility functions
 │   └── styles/
 │       └── theme.css        # All component styles (centralized)
-├── ai-reference/            # AI-friendly documentation (portable)
+├── nc-ui-ai-reference/      # AI-friendly documentation (portable)
 ├── docs/                    # Human-readable docs
 └── dev/                     # Development/demo apps
 ```

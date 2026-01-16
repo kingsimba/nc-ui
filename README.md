@@ -197,15 +197,17 @@ i18n.use(initReactI18next).init({
   resources: {
     en: {
       translation: {
-        'common.ok': 'OK',
-        'common.cancel': 'Cancel',
-        'common.save': 'Save',
-        'common.delete': 'Delete',
-        'common.close': 'Close',
-        'common.connect': 'Connect',
-        'common.gotit': 'Got it',
-        'common.default': 'default',
-        'common.noResults': 'No results',
+        common: {
+          ok: 'OK',
+          cancel: 'Cancel',
+          save: 'Save',
+          delete: 'Delete',
+          close: 'Close',
+          connect: 'Connect',
+          gotit: 'Got it',
+          default: 'default',
+          noResults: 'No results',
+        },
         // ... your other translations
       },
     },
@@ -221,6 +223,7 @@ If translations are not provided, the raw keys (e.g., `common.ok`) will be displ
 ## Documentation
 
 - **[Live Demo](https://kingsimba.github.io/nc-ui/)** - Interactive component playground with all props and variants
+- **[AI Reference Guide](AI_REFERENCE_GUIDE.md)** - Comprehensive documentation for AI assistants (GitHub Copilot, Claude, etc.)
 - **[App Framework Guide](docs/APP_FRAMEWORK.md)** - Complete guide to building panel-based applications
 - **[Migration Guide](MIGRATION_GUIDE.md)** - Upgrading from previous versions
 

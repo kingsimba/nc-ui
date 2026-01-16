@@ -1,13 +1,13 @@
 # AI Reference Documentation
 
-This nc-ui project includes **portable AI reference documentation** in the `ai-reference/` folder to help AI assistants understand and correctly use nc-ui components in other projects.
+This nc-ui project includes **portable AI reference documentation** in the `nc-ui-ai-reference/` folder to help AI assistants understand and correctly use nc-ui components in other projects.
 
 ## Quick Overview
 
-The `ai-reference/` folder contains:
+The `nc-ui-ai-reference/` folder contains:
 
 ```
-ai-reference/
+nc-ui-ai-reference/
 ├── README.md                         # Usage instructions
 ├── copilot-instructions.md          # GitHub Copilot entry point (copy to .github/)
 ├── claude-context.md                # Claude Code entry point (copy to .claude/)
@@ -33,8 +33,8 @@ When you use `@kingsimba/nc-ui` in a new project, AI assistants might default to
 ### Step 1: Copy to Your Project
 
 ```bash
-# Copy the entire ai-reference folder
-cp -r /path/to/nc-ui/ai-reference /path/to/your-project/ai-reference
+# Copy the entire nc-ui-ai-reference folder to docs
+cp -r /path/to/nc-ui/nc-ui-ai-reference /path/to/your-project/docs/nc-ui-ai-reference
 ```
 
 ### Step 2: Setup AI Entry Points
@@ -42,19 +42,19 @@ cp -r /path/to/nc-ui/ai-reference /path/to/your-project/ai-reference
 #### For GitHub Copilot:
 ```bash
 mkdir -p .github
-cp ai-reference/copilot-instructions.md .github/copilot-instructions.md
+cp docs/nc-ui-ai-reference/copilot-instructions.md .github/copilot-instructions.md
 ```
 
 #### For Claude Code:
 ```bash
 mkdir -p .claude
-cp ai-reference/claude-context.md .claude/project-context.md
+cp docs/nc-ui-ai-reference/claude-context.md .claude/project-context.md
 ```
 
 ### Step 3: Commit Everything
 
 ```bash
-git add ai-reference/ .github/ .claude/
+git add docs/nc-ui-ai-reference/ .github/ .claude/
 git commit -m "Add nc-ui AI reference documentation"
 ```
 
@@ -64,15 +64,16 @@ Your project structure will be:
 
 ```
 your-project/
-├── ai-reference/              # ← Shared documentation
-│   ├── README.md
-│   ├── architecture.md
-│   ├── components-quick-reference.md
-│   ├── global-utility-styles.md
-│   ├── examples-and-antipatterns.md
-│   ├── app-framework.md
-│   ├── copilot-instructions.md    # Template
-│   └── claude-context.md          # Template
+├── docs/
+│   └── nc-ui-ai-reference/    # ← Shared documentation
+│       ├── README.md
+│       ├── architecture.md
+│       ├── components-quick-reference.md
+│       ├── global-utility-styles.md
+│       ├── examples-and-antipatterns.md
+│       ├── app-framework.md
+│       ├── copilot-instructions.md    # Template
+│       └── claude-context.md          # Template
 ├── .github/
 │   └── copilot-instructions.md    # ← For GitHub Copilot
 └── .claude/
@@ -149,7 +150,7 @@ your-project/
 
 After setup, tell your AI:
 
-> "I'm using @kingsimba/nc-ui. Always use nc-ui components instead of native HTML elements. Check ai-reference/ for the API."
+> "I'm using @kingsimba/nc-ui. Always use nc-ui components instead of native HTML elements. Check docs/nc-ui-ai-reference/ for the API."
 
 The AI should then automatically:
 - Use `<Button>` instead of `<button>`
@@ -161,10 +162,10 @@ The AI should then automatically:
 
 When nc-ui is updated:
 
-1. **Update docs in nc-ui repo** (`ai-reference/` folder)
+1. **Update docs in nc-ui repo** (`nc-ui-ai-reference/` folder)
 2. **Copy to your projects:**
    ```bash
-   cp -r nc-ui/ai-reference /path/to/your-project/ai-reference
+   cp -r nc-ui/nc-ui-ai-reference /path/to/your-project/docs/nc-ui-ai-reference
    ```
 3. **Commit changes**
 
@@ -176,18 +177,18 @@ When nc-ui is updated:
 3. Explicitly mention nc-ui in your prompt
 
 **AI not finding docs?**
-1. Ensure `ai-reference/` is in project root
+1. Ensure `nc-ui-ai-reference/` is in `docs/` folder
 2. Check files are committed and pushed
-3. Reference files directly: "Check ai-reference/components-quick-reference.md"
+3. Reference files directly: "Check docs/nc-ui-ai-reference/components-quick-reference.md"
 
 ## Additional Resources
 
 - **Live Demo:** https://kingsimba.github.io/nc-ui/
 - **npm Package:** https://www.npmjs.com/package/@kingsimba/nc-ui
-- **Full README:** See `ai-reference/README.md` for detailed instructions
+- **Full README:** See `nc-ui-ai-reference/README.md` for detailed instructions
 
 ---
 
 **For nc-ui maintainers:** Keep this documentation up-to-date when adding new components or changing APIs. Users will copy this folder to their projects.
 
-**For nc-ui users:** Copy the `ai-reference/` folder to your project and follow the setup instructions above.
+**For nc-ui users:** Copy the `nc-ui-ai-reference/` folder to your project's `docs/` directory and follow the setup instructions above.

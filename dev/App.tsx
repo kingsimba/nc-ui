@@ -121,6 +121,7 @@ function AppContent() {
                             <div className="block">
                                 <h3>{t('welcome.features.title')}</h3>
                                 <ul className="no-dots">
+                                    <li>{t('welcome.features.aiGuide')}</li>
                                     <li>{t('welcome.features.lightweight')}</li>
                                     <li>{t('welcome.features.framework')}</li>
                                     <li>{t('welcome.features.crossPlatform')}</li>
