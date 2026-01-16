@@ -229,28 +229,36 @@ const config = {
                 </p>
                 <div className="code-block">
                     {`:root {
-  /* Text colors */
+  /* Core colors */
+  --nc-bg: #171e27;
+  --nc-bg-secondary: #1a2332;
+  --nc-bg-tertiary: #232d3d;
+  --nc-bg-quaternary: #2c3847;
+  --nc-bg-text: var(--nc-bg);
+  --nc-muted: #7a8a9a;
   --nc-text: #e8eef6;
   --nc-text-weak: #6b7280;
   --nc-text-weaker: #4b5563;
-
-  /* Theme colors */
   --nc-primary: #3b82f6;
   --nc-danger: #ef4444;
   --nc-warning: #f59e0b;
   --nc-success: #22c55e;
 
-  /* Background colors */
-  --nc-bg: #151b23;
-  --nc-bg-secondary: #1a2332;
-  --nc-bg-tertiary: #232d3d;
-  --nc-bg-quaternary: #2c3847;
-
   /* UI element colors */
   --nc-border: #1f2937;
-  --nc-button-bg: #0f1722;
   --nc-button-border: #223042;
+  --nc-button-bg: var(--nc-bg-tertiary);
   --nc-button-hover: #162332;
+  --nc-button-active: #1d2e42;
+  --nc-overlay-hover: rgba(255, 255, 255, 0.05);
+
+  /* YAML syntax highlighting */
+  --nc-code-string: #f48771;
+  --nc-code-boolean: #7cc5ff;
+  --nc-code-null: #7cc5ff;
+  --nc-code-number: #b5cea8;
+  --nc-code-key: #9cdcfe;
+  --nc-code-comment: #6a9955;
 }`}
                 </div>
             </section>
