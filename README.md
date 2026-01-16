@@ -182,6 +182,42 @@ The library uses CSS variables with `nc-` prefix. Override them in your app:
 }
 ```
 
+## Internationalization (i18n)
+
+nc-ui components use `react-i18next` for translations. Components like `Dialog` and `ComboBox` use translation keys prefixed with `common.` (e.g., `common.ok`, `common.cancel`, `common.save`).
+
+To provide translations, set up `react-i18next` in your app and include the common keys:
+
+```tsx
+// Your app's i18n setup
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+
+i18n.use(initReactI18next).init({
+  resources: {
+    en: {
+      translation: {
+        'common.ok': 'OK',
+        'common.cancel': 'Cancel',
+        'common.save': 'Save',
+        'common.delete': 'Delete',
+        'common.close': 'Close',
+        'common.connect': 'Connect',
+        'common.gotit': 'Got it',
+        'common.default': 'default',
+        'common.noResults': 'No results',
+        // ... your other translations
+      },
+    },
+    // Add other languages as needed
+  },
+  lng: 'en',
+  fallbackLng: 'en',
+});
+```
+
+If translations are not provided, the raw keys (e.g., `common.ok`) will be displayed.
+
 ## Documentation
 
 - **[Live Demo](https://kingsimba.github.io/nc-ui/)** - Interactive component playground with all props and variants
