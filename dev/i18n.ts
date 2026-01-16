@@ -22,7 +22,7 @@ const demoResources = {
     'welcome.features.crossPlatform':
       '📱 Cross-Platform: Desktop & mobile ready',
     'welcome.features.components':
-      '🛠️ 19+ Components: Library of UI essentials',
+      '🛠️ 22+ Components: Library of UI essentials',
     'welcome.startBtn': 'Start',
   },
   zh: {

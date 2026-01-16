@@ -65,7 +65,7 @@ function MyComponent() {
 
 ## Components
 
-nc-ui provides 19+ ready-to-use components. Click any component to see it in the interactive demo:
+nc-ui provides 22+ ready-to-use components. Click any component to see it in the interactive demo:
 
 | Component | Description |
 |-----------|-------------|
