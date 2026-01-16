@@ -678,6 +678,14 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
   background: var(--nc-bg-secondary);
 }
 
+.nc-tab-scroll-wrapper {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
 .nc-tab-scroll {
   display: flex;
   align-items: center;
@@ -719,9 +727,9 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
   display: flex;
   gap: 8px;
   align-items: center;
-  margin-left: auto;
-  padding: 0 8px;
+  padding: 0 12px;
   flex-shrink: 0;
+  border-left: 1px solid var(--nc-border);
 }
 
 .nc-tab-scroll-indicator {
@@ -731,16 +739,24 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
   width: 40px;
   pointer-events: none;
   z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--nc-text-weak);
 }
 
 .nc-tab-scroll-indicator.nc-left {
   left: 0;
   background: linear-gradient(to right, var(--nc-bg-secondary) 20%, transparent);
+  justify-content: flex-start;
+  padding-left: 4px;
 }
 
 .nc-tab-scroll-indicator.nc-right {
   right: 0;
   background: linear-gradient(to left, var(--nc-bg-secondary) 20%, transparent);
+  justify-content: flex-end;
+  padding-right: 4px;
 }
 
 /* Vertical tabs */
@@ -798,18 +814,23 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
   right: 0;
   width: auto;
   height: 40px;
+  flex-direction: column;
 }
 
 .nc-tab-container.nc-vertical .nc-tab-scroll-indicator.nc-top {
   top: 0;
   bottom: auto;
   background: linear-gradient(to bottom, var(--nc-bg-secondary) 20%, transparent);
+  justify-content: flex-start;
+  padding-top: 4px;
 }
 
 .nc-tab-container.nc-vertical .nc-tab-scroll-indicator.nc-bottom {
   bottom: 0;
   top: auto;
   background: linear-gradient(to top, var(--nc-bg-secondary) 20%, transparent);
+  justify-content: flex-end;
+  padding-bottom: 4px;
 }
 
 /* Toggle component */

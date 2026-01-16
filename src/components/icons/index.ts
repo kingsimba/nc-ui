@@ -8,6 +8,7 @@ export {
   LockIcon,
   UnlockIcon,
   ChevronRightIcon,
+  ChevronLeftIcon,
   ChevronDownIcon,
   RefreshIcon,
   RevertIcon,

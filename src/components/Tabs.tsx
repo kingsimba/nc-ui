@@ -1,4 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { ChevronLeftIcon, ChevronRightIcon, ChevronDownIcon } from './icons';
+
+// ChevronUpIcon - defined inline since it's not in GeneratedIcons
+const ChevronUpIcon = ({ size = 24, className, style }: { size?: number; className?: string; style?: React.CSSProperties }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} style={style}>
+    <polyline points="18 15 12 9 6 15" />
+  </svg>
+);
 
 export interface TabsProps {
   /** Array of tab labels */
@@ -118,35 +126,45 @@ export function Tabs({ tabs, active, onChange, className, toolbar, multiline, or
 
   return (
     <div className={`nc-tab-container ${isVertical ? `nc-vertical nc-${orientation}` : ''} ${className || ''}`} style={style}>
-      {canScrollStart && <div className={`nc-tab-scroll-indicator ${isVertical ? 'nc-top' : 'nc-left'}`} />}
-      <div
-        ref={scrollRef}
-        className={`nc-tab-scroll ${multiline ? 'nc-multiline' : ''}`}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseLeave}
-        style={{ cursor: 'grab' }}
-      >
-        {tabs.map((t) => (
-          <div
-            key={t}
-            className={`nc-tab-item ${active === t ? 'nc-active' : ''}`}
-            onClick={() => handleTabClick(t)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onChange(t); }}
-          >
-            {isVertical ? t : t.toUpperCase()}
+      <div className="nc-tab-scroll-wrapper">
+        {canScrollStart && (
+          <div className={`nc-tab-scroll-indicator ${isVertical ? 'nc-top' : 'nc-left'}`}>
+            {isVertical ? <ChevronUpIcon size={16} /> : <ChevronLeftIcon size={16} />}
           </div>
-        ))}
-        {toolbar && (
-          <div className="nc-tab-toolbar">
-            {toolbar}
+        )}
+        <div
+          ref={scrollRef}
+          className={`nc-tab-scroll ${multiline ? 'nc-multiline' : ''}`}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
+          style={{ cursor: 'grab' }}
+        >
+          {tabs.map((t) => (
+            <div
+              key={t}
+              className={`nc-tab-item ${active === t ? 'nc-active' : ''}`}
+              onClick={() => handleTabClick(t)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onChange(t); }}
+            >
+              {isVertical ? t : t.toUpperCase()}
+            </div>
+          ))}
+        </div>
+        {canScrollEnd && (
+          <div className={`nc-tab-scroll-indicator ${isVertical ? 'nc-bottom' : 'nc-right'}`}>
+            {isVertical ? <ChevronDownIcon size={16} /> : <ChevronRightIcon size={16} />}
           </div>
         )}
       </div>
-      {canScrollEnd && <div className={`nc-tab-scroll-indicator ${isVertical ? 'nc-bottom' : 'nc-right'}`} />}
+      {toolbar && (
+        <div className="nc-tab-toolbar">
+          {toolbar}
+        </div>
+      )}
     </div>
   );
 }
