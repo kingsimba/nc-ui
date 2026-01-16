@@ -109,7 +109,7 @@ export function UIComponentsDemo() {
   }, []);
 
   const ActiveComponent = sections.find(s => s.id === activeSection)?.component;
-  const textSections = ['nav-stack', 'yaml-textarea', 'styles', 'dialog', 'app-dialog'];
+  const textSections = ['nav-stack', 'yaml-textarea', 'styles', 'dialog', 'app-dialog', 'tabs', 'buttons'];
 
   return (
     <div className="ui-components-app">

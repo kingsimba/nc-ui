@@ -95,7 +95,7 @@ export function TabsSection() {
                     </div>
 
                     {/* Content Area */}
-                    <div style={{ padding: 20 }}>
+                    <div style={{ padding: 20, background: 'var(--nc-bg-text)' }}>
                         {toolbarActiveTab === 'Home' && (
                             <div>
                                 <h3>Home Content</h3>

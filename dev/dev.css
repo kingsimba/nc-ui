@@ -90,7 +90,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--nc-bg);
+    background: var(--nc-bg-tertiary);
     padding: 40px;
 }
 

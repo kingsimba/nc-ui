@@ -2,10 +2,10 @@
   color-scheme: dark;
 
   /* Core colors */
-  --nc-bg: #151b23;
+  --nc-bg: #171e27;
   --nc-bg-secondary: #1a2332;
-  --nc-bg-tertiary: #2c3847;
-  --nc-bg-quaternary: #000000;
+  --nc-bg-tertiary: #232d3d;
+  --nc-bg-quaternary: #2c3847;
   --nc-bg-text: var(--nc-bg);
   --nc-muted: #7a8a9a;
   --nc-text: #e8eef6;
@@ -19,7 +19,7 @@
   /* UI element colors */
   --nc-border: #1f2937;
   --nc-button-border: #223042;
-  --nc-button-bg: #0f1722;
+  --nc-button-bg: var(--nc-bg-tertiary);
   --nc-button-hover: #162332;
   --nc-button-active: #1d2e42;
   --nc-overlay-hover: rgba(255, 255, 255, 0.05);
@@ -55,7 +55,7 @@
   /* UI element colors */
   --nc-border: #e2e8f0;
   --nc-button-border: #cbd5e1;
-  --nc-button-bg: #f8fafc;
+  --nc-button-bg: var(--nc-bg-tertiary);
   --nc-button-hover: #f1f5f9;
   --nc-button-active: #e2e8f0;
   --nc-overlay-hover: rgba(0, 0, 0, 0.05);
@@ -138,7 +138,7 @@ code, .code {
 .block {
   padding: 16px;
   border-radius: 8px;
-  background: transparent;
+  background: var(--nc-bg-quaternary);
   border: 1px solid var(--nc-border);
   margin: 16px 0;
   position: relative;
@@ -217,7 +217,7 @@ li::marker { color: var(--nc-text-weak); }
 .nc-button.nc-ghost:active { background: var(--nc-button-active); transform: scale(0.97); }
 
 .nc-button.nc-small { padding: 2px 10px; font-size: 12px; margin: 0; border-radius: 6px; height: 32px; }
-.nc-button.nc-large { padding: 12px 14px; font-size: 16px; min-height: 60px; font-weight: bold; }
+.nc-button.nc-large { padding: 10px 24px; font-size: 16px; min-height: 60px; font-weight: bold; }
 .nc-button.nc-text-selectable { user-select: text; -webkit-user-select: text; text-transform: none; }
 
 /* Disabled state */
