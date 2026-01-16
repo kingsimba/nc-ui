@@ -99,7 +99,7 @@ export function UIComponentsDemo() {
           const section = sections.find(s => s.label === label);
           if (section) setActiveSection(section.id);
         }}
-        vertical={!isMobile}
+        orientation={!isMobile ? 'verticalLeft' : 'horizontal'}
       />
 
       {/* Content area */}
