@@ -202,7 +202,7 @@ function StartAppContent() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: 'var(--nc-bg)', padding: 8 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: 'var(--nc-bg-tertiary)', padding: 8 }}>
       {/* Scrollable apps area */}
       <div style={{ flex: 1, overflow: 'auto', padding: 8 }}>
         {apps.length > 0 ? (

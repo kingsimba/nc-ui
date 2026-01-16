@@ -4,8 +4,9 @@
   /* Core colors */
   --nc-bg: #151b23;
   --nc-bg-secondary: #1a2332;
-  --nc-bg-tertiary: #232d3d;
-  --nc-bg-quaternary: #2c3847;
+  --nc-bg-tertiary: #2c3847;
+  --nc-bg-quaternary: #000000;
+  --nc-bg-text: var(--nc-bg);
   --nc-muted: #7a8a9a;
   --nc-text: #e8eef6;
   --nc-text-weak: #6b7280;
@@ -37,10 +38,11 @@
   color-scheme: light;
 
   /* Core colors */
-  --nc-bg: #f8fafc;
-  --nc-bg-secondary: #f1f5f9;
-  --nc-bg-tertiary: #e8eef5;
-  --nc-bg-quaternary: #dde5ef;
+  --nc-bg: #dde5ef;
+  --nc-bg-secondary: #e8eef5;
+  --nc-bg-tertiary: #f8fafc;
+  --nc-bg-quaternary: #ffffff;
+  --nc-bg-text: var(--nc-bg-quaternary);
   --nc-muted: #64748b;
   --nc-text: #1e293b;
   --nc-text-weak: #64748b;
@@ -644,7 +646,7 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 }
 
 .nc-list-group-content {
-  background: var(--nc-button-bg);
+  background: var(--nc-bg-tertiary);
   border: 1px solid var(--nc-border);
   border-radius: 8px;
   overflow: hidden;

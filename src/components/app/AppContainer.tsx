@@ -183,7 +183,7 @@ export function AppContainer({ appId, isActive, onClose }: AppContainerProps) {
           minHeight: 0,
           display: 'flex',
           flexDirection: 'column',
-          backgroundColor: 'var(--nc-bg)',
+          backgroundColor: 'var(--nc-bg-secondary)',
           position: 'relative',
         }}
       >

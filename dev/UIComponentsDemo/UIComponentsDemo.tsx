@@ -109,6 +109,7 @@ export function UIComponentsDemo() {
   }, []);
 
   const ActiveComponent = sections.find(s => s.id === activeSection)?.component;
+  const textSections = ['nav-stack', 'yaml-textarea', 'styles', 'dialog', 'app-dialog'];
 
   return (
     <div className="ui-components-app">
@@ -129,7 +130,7 @@ export function UIComponentsDemo() {
       </div>
 
       {/* Content area */}
-      <div className="ui-content" style={{ backgroundColor: activeSection === 'styles' ? 'var(--nc-bg)' : undefined }}>
+      <div className="ui-content" style={{ backgroundColor: textSections.includes(activeSection) ? 'var(--nc-bg-text)' : undefined }}>
         {ActiveComponent && activeSection === 'list-group' ? (
           <ListGroupSection theme={theme} toggleTheme={() => setTheme(theme === 'dark' ? 'light' : 'dark')} />
         ) : (

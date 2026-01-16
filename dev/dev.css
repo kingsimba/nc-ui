@@ -24,7 +24,7 @@ body {
 
 .dev-framework-header {
     flex-shrink: 0;
-    background: var(--nc-bg);
+    background: var(--nc-bg-tertiary);
     border-bottom: 1px solid var(--nc-border);
     padding: 16px 24px;
     z-index: 50;
