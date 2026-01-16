@@ -25,12 +25,13 @@ import { AppDialogSection } from './sections/AppDialogSection';
 import { NavStackSection } from './sections/NavStackSection';
 import { YamlTextAreaSection } from './sections/YamlTextAreaSection';
 import { StylesSection } from './sections/StylesSection';
+import { NotificationSection } from './sections/NotificationSection';
 import './UIComponentsDemo.css';
 
 type SectionId = 'styles' | 'buttons' | 'activity' | 'checkbox' | 'combobox' | 'buttons-icon' |
   'hyperlink' | 'alert' | 'battery' | 'context-menu' | 'button-group' | 'input' |
   'number-input' | 'slider' | 'toggle' | 'multi-select' | 'icons' | 'tabs' |
-  'list-group' | 'dialog' | 'app-dialog' | 'nav-stack' | 'yaml-textarea';
+  'list-group' | 'dialog' | 'app-dialog' | 'nav-stack' | 'yaml-textarea' | 'notification';
 
 interface Section {
   id: SectionId;
@@ -71,6 +72,7 @@ export function UIComponentsDemo() {
     { id: 'app-dialog', label: 'AppDialog', component: AppDialogSection },
     { id: 'nav-stack', label: 'NavStack', component: NavStackSection },
     { id: 'yaml-textarea', label: 'YamlTextArea', component: YamlTextAreaSection },
+    { id: 'notification', label: 'Notification', component: NotificationSection },
   ];
 
 
@@ -87,7 +89,7 @@ export function UIComponentsDemo() {
   }, []);
 
   const ActiveComponent = sections.find(s => s.id === activeSection)?.component;
-  const textSections = ['nav-stack', 'yaml-textarea', 'styles', 'dialog', 'app-dialog', 'tabs', 'buttons'];
+  const textSections = ['nav-stack', 'yaml-textarea', 'styles', 'dialog', 'app-dialog', 'tabs', 'buttons', 'notification'];
 
   return (
     <div className={`ui-components-app ${!isMobile ? 'desktop' : ''}`}>

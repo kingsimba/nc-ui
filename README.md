@@ -65,7 +65,7 @@ function MyComponent() {
 
 ## Components
 
-nc-ui provides 22+ ready-to-use components. Click any component to see it in the interactive demo:
+nc-ui provides 23+ ready-to-use components. Click any component to see it in the interactive demo:
 
 | Component | Description |
 |-----------|-------------|
@@ -76,21 +76,22 @@ nc-ui provides 22+ ready-to-use components. Click any component to see it in the
 | [Button](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=buttons) | Primary action button with variants, sizes, and loading states |
 | [ButtonGroup](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=button-group) | Group related buttons with automatic styling |
 | [Checkbox](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=checkbox) | Toggle selection with indeterminate state support |
+| [CommonButtons](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=buttons-icon) | Pre-configured buttons (Close, Edit, Refresh, Trash) |
 | [ComboBox](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=combobox) | Searchable dropdown with autocomplete |
 | [ContextMenu](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=context-menu) | Right-click menu with customizable items |
 | [Dialog](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=dialog) | Modal dialogs with header, footer, and action buttons |
+| [Hyperlink](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=hyperlink) | Styled anchor/link component |
+| [Icons](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=icons) | 50+ SVG icons (separate import path) |
 | [Input](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=input) | Text input with validation states and prefix/suffix support |
 | [ListGroup](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=list-group) | Styled list items with selection and actions |
 | [MultiSelect](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=multi-select) | Multi-selection dropdown with tag display |
 | [NavStack](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=nav-stack) | Stack-based navigation for mobile-style settings UIs |
+| [Notification](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=notification) | Toast-style notifications with auto-dismiss and stacking |
 | [NumberInput](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=number-input) | Numeric input with increment/decrement controls |
 | [Slider](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=slider) | Range slider with value display |
 | [Tabs](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=tabs) | Tabbed navigation component |
 | [Toggle](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=toggle) | Switch/toggle with on/off states |
 | [YamlTextArea](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=yaml-textarea) | YAML editor with syntax highlighting and validation |
-| [Icons](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=icons) | 50+ SVG icons (separate import path) |
-| [CommonButtons](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=buttons-icon) | Pre-configured buttons (Close, Edit, Refresh, Trash) |
-| [Hyperlink](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=hyperlink) | Styled anchor/link component |
 
 ## App Framework
 

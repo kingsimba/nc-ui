@@ -22,8 +22,13 @@ const demoResources = {
     'welcome.features.crossPlatform':
       '📱 Cross-Platform: Desktop & mobile ready',
     'welcome.features.components':
-      '🛠️ 22+ Components: Library of UI essentials',
+      '🛠️ 23+ Components: Library of UI essentials',
     'welcome.startBtn': 'Start',
+    // Common notification titles
+    'common.success': 'Success',
+    'common.error': 'Error',
+    'common.warning': 'Warning',
+    'common.info': 'Info',
   },
   zh: {
     // App titles
@@ -42,6 +47,11 @@ const demoResources = {
     'welcome.features.crossPlatform': '📱 跨平台优化: 适配桌面端和移动端',
     'welcome.features.components': '🛠️ 19+ 组件: 开箱即用的 UI 组件库',
     'welcome.startBtn': '开始',
+    // Common notification titles
+    'common.success': '成功',
+    'common.error': '错误',
+    'common.warning': '警告',
+    'common.info': '提示',
   },
   de: {
     // App titles
@@ -54,6 +64,11 @@ const demoResources = {
     // Welcome page
     'welcome.title': 'Willkommen bei nc-ui',
     'welcome.subtitle': 'Eine React-Komponentenbibliothek im Windows 11-Stil',
+    // Common notification titles
+    'common.success': 'Erfolg',
+    'common.error': 'Fehler',
+    'common.warning': 'Warnung',
+    'common.info': 'Info',
   },
   th: {
     // App titles
@@ -66,6 +81,11 @@ const demoResources = {
     // Welcome page
     'welcome.title': 'ยินดีต้อนรับสู่ nc-ui',
     'welcome.subtitle': 'ไลบรารีคอมโพเนนต์ React สไตล์ Windows 11',
+    // Common notification titles
+    'common.success': 'สำเร็จ',
+    'common.error': 'ข้อผิดพลาด',
+    'common.warning': 'คำเตือน',
+    'common.info': 'ข้อมูล',
   },
   es: {
     // App titles
@@ -79,6 +99,11 @@ const demoResources = {
     'welcome.title': 'Bienvenido a nc-ui',
     'welcome.subtitle':
       'Una biblioteca de componentes React con estilo Windows 11',
+    // Common notification titles
+    'common.success': 'Éxito',
+    'common.error': 'Error',
+    'common.warning': 'Advertencia',
+    'common.info': 'Información',
   },
 };
 

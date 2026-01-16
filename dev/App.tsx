@@ -6,6 +6,7 @@ import {
     AppPanel,
     AppTaskbar,
     ViewportProvider,
+    NotificationContainer,
 } from '../src'
 import type { SupportedLocale } from '../src'
 import { runningAppsStore } from '../src/lib/runningAppsStore'
@@ -147,6 +148,7 @@ export default function App() {
     return (
         <I18nextProvider i18n={demoI18n}>
             <AppContent />
+            <NotificationContainer />
         </I18nextProvider>
     )
 }

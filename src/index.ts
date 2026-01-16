@@ -22,6 +22,9 @@ export { NumberInput } from './components/NumberInput';
 export { Slider } from './components/Slider';
 export { Tabs } from './components/Tabs';
 export { Toggle } from './components/Toggle';
+export { Notification } from './components/Notification';
+export { NotificationContainer } from './components/NotificationContainer';
+export { notificationManager } from './lib/notificationManager';
 
 // Export types
 export type { AlertProps, AlertType } from './components/Alert';
@@ -41,6 +44,7 @@ export type { NumberInputProps } from './components/NumberInput';
 export type { SliderProps } from './components/Slider';
 export type { TabsProps } from './components/Tabs';
 export type { ToggleProps } from './components/Toggle';
+export type { Notification as NotificationType } from './stores/notificationStore';
 
 // Export types
 export type { CheckboxProps, CheckboxSize } from './components/Checkbox';
