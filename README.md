@@ -2,8 +2,9 @@
 
 A high-performance, lightweight React UI component library and extensible application framework.
 
+- 🤖 **AI-Optimized**: Comprehensive [AI reference guide](AI_REFERENCE_GUIDE.md) included
 - 🚀 **Small Footprint**: Only ~75KB bundle size.
-- 🏗️ **Application Framework**: Features a flexible, extensible framework for building windowed apps.
+- 🏗️ **[Application Framework](docs/APP_FRAMEWORK.md)**: Features a flexible, extensible framework for building windowed apps, with [app-specific i18n](./nc-ui-ai-reference/translation-guide.md)
 - 📱 **Cross-Platform**: Optimized for both desktop and mobile experiences.
 
 Published on npm as [@kingsimba/nc-ui](https://www.npmjs.com/package/@kingsimba/nc-ui)
@@ -181,51 +182,6 @@ The library uses CSS variables with `nc-` prefix. Override them in your app:
   --nc-primary: #your-light-primary;
 }
 ```
-
-## Internationalization (i18n)
-
-nc-ui components use `react-i18next` for translations. Components like `Dialog` and `ComboBox` use translation keys prefixed with `common.` (e.g., `common.ok`, `common.cancel`, `common.save`).
-
-To provide translations, set up `react-i18next` in your app and include the common keys:
-
-```tsx
-// Your app's i18n setup
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-
-i18n.use(initReactI18next).init({
-  resources: {
-    en: {
-      translation: {
-        common: {
-          ok: 'OK',
-          cancel: 'Cancel',
-          save: 'Save',
-          delete: 'Delete',
-          close: 'Close',
-          connect: 'Connect',
-          gotit: 'Got it',
-          default: 'default',
-          noResults: 'No results',
-        },
-        // ... your other translations
-      },
-    },
-    // Add other languages as needed
-  },
-  lng: 'en',
-  fallbackLng: 'en',
-});
-```
-
-If translations are not provided, the raw keys (e.g., `common.ok`) will be displayed.
-
-## Documentation
-
-- **[Live Demo](https://kingsimba.github.io/nc-ui/)** - Interactive component playground with all props and variants
-- **[AI Reference Guide](AI_REFERENCE_GUIDE.md)** - Comprehensive documentation for AI assistants (GitHub Copilot, Claude, etc.)
-- **[App Framework Guide](docs/APP_FRAMEWORK.md)** - Complete guide to building panel-based applications
-- **[Migration Guide](MIGRATION_GUIDE.md)** - Upgrading from previous versions
 
 ## Development
 
