@@ -59,6 +59,7 @@
     "dependencies": {
         "clsx": "^2.1.0",
         "i18next": "^23.7.0",
+        "i18next-browser-languagedetector": "^8.2.0",
         "js-yaml": "^4.1.0",
         "prism-react-renderer": "^2.3.1",
         "react-i18next": "^14.0.0",

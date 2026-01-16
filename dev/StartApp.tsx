@@ -1,68 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { I18nextProvider } from 'react-i18next';
 import { appRegistry, AppDefinition } from '../src/lib/appRegistry';
 import { runningAppsStore } from '../src/lib/runningAppsStore';
-import { createAppI18nFactory } from '../src/lib/appI18nFactory';
 
 // App IDs - all available apps
 const APP_IDS = ['ui-components', '2048', 'calculator'];
-
-// i18n resources for StartApp
-const startAppResources = {
-  en: {
-    apps: 'Apps',
-    clickToLaunch: 'Click to launch',
-    noApps: 'No apps registered',
-    // App titles (needed for AppTile)
-    'apps.start': 'Start',
-    'apps.2048.name': '2048',
-    'apps.calculator': 'Calculator',
-    'UI Components': 'UI Components',
-  },
-  zh: {
-    apps: '应用',
-    clickToLaunch: '点击启动',
-    noApps: '没有注册的应用',
-    // App titles
-    'apps.start': '开始',
-    'apps.2048.name': '2048',
-    'apps.calculator': '计算器',
-    'UI Components': 'UI 组件',
-  },
-  de: {
-    apps: 'Apps',
-    clickToLaunch: 'Klicken zum Starten',
-    noApps: 'Keine Apps registriert',
-    // App titles
-    'apps.start': 'Start',
-    'apps.2048.name': '2048',
-    'apps.calculator': 'Rechner',
-    'UI Components': 'UI-Komponenten',
-  },
-  es: {
-    apps: 'Aplicaciones',
-    clickToLaunch: 'Haz clic para iniciar',
-    noApps: 'No hay apps',
-    // App titles
-    'apps.start': 'Inicio',
-    'apps.2048.name': '2048',
-    'apps.calculator': 'Calculadora',
-    'UI Components': 'Componentes UI',
-  },
-  th: {
-    apps: 'แอป',
-    clickToLaunch: 'คลิกเพื่อเปิด',
-    noApps: 'ไม่มีแอป',
-    // App titles
-    'apps.start': 'เริ่ม',
-    'apps.2048.name': '2048',
-    'apps.calculator': 'เครื่องคิดเลข',
-    'UI Components': 'คอมโพเนนต์ UI',
-  },
-};
-
-const startAppI18n = createAppI18nFactory(startAppResources);
 
 /** Individual app tile with hover state */
 function AppTile({
@@ -207,14 +149,14 @@ function StartAppContent() {
       <div style={{ flex: 1, overflow: 'auto', padding: 8 }}>
         {apps.length > 0 ? (
           <AppSection
-            title={t('apps')}
-            subtitle={t('clickToLaunch')}
+            title={t('startApp.apps')}
+            subtitle={t('startApp.clickToLaunch')}
             apps={apps}
             onAppClick={handleAppClick}
           />
         ) : (
           <div style={{ textAlign: 'center', padding: 40, color: 'var(--nc-text-weak)' }}>
-            {t('noApps')}
+            {t('startApp.noApps')}
           </div>
         )}
       </div>
@@ -223,9 +165,5 @@ function StartAppContent() {
 }
 
 export function StartApp() {
-  return (
-    <I18nextProvider i18n={startAppI18n}>
-      <StartAppContent />
-    </I18nextProvider>
-  );
+  return <StartAppContent />;
 }

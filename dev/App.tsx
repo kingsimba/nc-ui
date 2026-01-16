@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { I18nextProvider, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import {
     Button,
     ComboBox,
@@ -9,7 +9,7 @@ import {
     NotificationContainer,
 } from '../src'
 import { runningAppsStore } from '../src/lib/runningAppsStore'
-import { demoI18n } from './i18n'
+import i18n from './i18n'
 import type { UIComponentsRef } from './UIComponentsDemo'
 import './dev.css'
 
@@ -66,7 +66,7 @@ function AppContent() {
     const changeLanguage = (newLang: string | undefined) => {
         if (newLang) {
             setLang(newLang as SupportedLocale)
-            document.documentElement.lang = newLang
+            i18n.changeLanguage(newLang)
         }
     }
 
@@ -148,9 +148,9 @@ function AppContent() {
 
 export default function App() {
     return (
-        <I18nextProvider i18n={demoI18n}>
+        <>
             <AppContent />
             <NotificationContainer />
-        </I18nextProvider>
+        </>
     )
 }
