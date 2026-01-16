@@ -121,6 +121,9 @@ code, .code {
   background: var(--nc-bg-tertiary);
   color: var(--nc-text);
   border: 1px solid var(--nc-border);
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .tag.red { background: rgba(239, 68, 68, 0.15); color: #f87171; border-color: rgba(239, 68, 68, 0.3); }
