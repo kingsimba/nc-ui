@@ -297,6 +297,12 @@ li::marker { color: var(--nc-text-weak); }
   border-color: var(--nc-danger);
 }
 
+.nc-input:disabled {
+  color: var(--nc-text-weak);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .nc-error-message {
   font-size: 13px;
   color: var(--nc-danger);
@@ -891,7 +897,7 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 }
 
 .nc-dialog-container {
-  background: var(--nc-bg);
+  background: var(--nc-bg-secondary);
   border-radius: 12px;
   border: 1px solid var(--nc-border);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
