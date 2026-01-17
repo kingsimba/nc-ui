@@ -23,4 +23,5 @@ export {
   MinusIcon,
   DoubleClickIcon,
   MoreIcon,
+  MoreHorizontalIcon,
 } from './GeneratedIcons';

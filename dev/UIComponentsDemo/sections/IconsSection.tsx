@@ -21,6 +21,7 @@ import {
     MinusIcon,
     DoubleClickIcon,
     MoreIcon,
+    MoreHorizontalIcon,
 } from '../../../src/components/icons'
 
 export function IconsSection() {
@@ -116,8 +117,10 @@ export function IconsSection() {
                     <div className="dev-item">
                         <MoreIcon size={24} />
                         <span>MoreIcon</span>
-                    </div>
-                </div>
+                    </div>                    <div className="icon-item">
+                        <MoreHorizontalIcon size={24} />
+                        <span>MoreHorizontalIcon</span>
+                    </div>                </div>
             </section>
         </>
     )

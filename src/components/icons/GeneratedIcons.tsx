@@ -547,6 +547,26 @@ export function MoreIcon({ size = 24, className, style }: IconProps) {
 }
 
 /**
+ * More Horizontal icon - Horizontal three dots for menu/options.
+ */
+export function MoreHorizontalIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      style={style}
+    >
+      <circle cx="5" cy="12" r="2" />
+      <circle cx="12" cy="12" r="2" />
+      <circle cx="19" cy="12" r="2" />
+    </svg>
+  );
+}
+
+/**
  * Eye Hidden icon - "eye with slash" icon for hiding passwords.
  */
 export function EyeHiddenIcon({ size = 24, className, style }: IconProps) {
