@@ -3,16 +3,22 @@ import { appStateStore } from '../../stores/appStateStore';
 import { runningAppsStore, RunningApp } from '../../lib/runningAppsStore';
 import { appRegistry } from '../../lib/appRegistry';
 import { AppContainer } from './AppContainer';
-import { useViewport } from '../../contexts/ViewportContext';
+
+export interface AppPanelProps {
+  /** When true, panel width is determined by the active app's registered width. When false, parent controls width via style/className. Default: true */
+  autoWidth?: boolean;
+  /** Additional CSS class names */
+  className?: string;
+  /** Custom styles (merged with internal styles, takes precedence) */
+  style?: React.CSSProperties;
+}
 
 /**
- * AppPanel component - Renders the right-side panel that displays running apps.
+ * AppPanel component - Renders the panel that displays running apps.
  * Each running app is rendered via AppContainer, but only the active app is visible.
- * On mobile devices, the panel overlays on top of the main area.
- * On desktop, the panel sits inline next to the main area.
+ * Layout positioning is controlled by the parent via style/className props.
  */
-export function AppPanel() {
-  const { isMobile } = useViewport();
+export function AppPanel({ autoWidth = true, className, style }: AppPanelProps) {
   const [activeAppId, setActiveAppId] = useState<string | null>(() => appStateStore.getActiveAppId());
   const [runningApps, setRunningApps] = useState<RunningApp[]>(() => runningAppsStore.getRunningApps());
 
@@ -57,25 +63,21 @@ export function AppPanel() {
   const fullPanelWidth = activeAppDef?.width ?? defaultPanelWidth;
   const expanded = activeAppId !== null;
 
-  // Mobile: overlay on top, Desktop: inline positioning
-  const panelStyle: React.CSSProperties = {
+  // Internal styles - only layout essentials
+  const internalStyle: React.CSSProperties = {
     overflow: 'hidden',
-    width: expanded ? (isMobile ? '100%' : fullPanelWidth) : 0,
-    flexShrink: 0,
     display: expanded ? 'flex' : 'none',
     flexDirection: 'column',
-    position: isMobile && expanded ? 'absolute' : 'relative',
-    top: isMobile && expanded ? 0 : undefined,
-    left: isMobile && expanded ? 0 : undefined,
-    right: isMobile && expanded ? 0 : undefined,
-    bottom: isMobile && expanded ? 56 : undefined,
-    zIndex: isMobile && expanded ? 10 : undefined,
-    maxHeight: isMobile && expanded ? 'calc(100% - 56px)' : '100%',
-    borderRight: expanded && !isMobile ? '1px solid var(--nc-border)' : undefined,
+    flexShrink: 0,
+    // Only set width if autoWidth is enabled
+    ...(autoWidth && expanded ? { width: fullPanelWidth } : {}),
   };
 
+  // Merge internal styles with prop styles (prop takes precedence)
+  const panelStyle: React.CSSProperties = { ...internalStyle, ...style };
+
   return (
-    <div className="panel" style={panelStyle}>
+    <div className={className} style={panelStyle}>
       {/* Render all running apps via AppContainer */}
       {runningApps.map((ra) => (
         <AppContainer

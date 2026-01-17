@@ -67,6 +67,7 @@ export { AppContext, useApp } from './components/app/AppContext';
 export type { AppContextValue } from './components/app/AppContext';
 export { AppContainer } from './components/app/AppContainer';
 export { AppPanel } from './components/app/AppPanel';
+export type { AppPanelProps } from './components/app/AppPanel';
 export { AppTaskbar } from './components/app/AppTaskbar';
 export type { AppTaskbarProps } from './components/app/AppTaskbar';
 export { AppTitleBar } from './components/app/AppTitleBar';

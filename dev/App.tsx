@@ -7,6 +7,7 @@ import {
     AppTaskbar,
     ViewportProvider,
     NotificationContainer,
+    useViewport,
 } from '../src'
 import { runningAppsStore } from '../src/lib/runningAppsStore'
 import i18n from './i18n'
@@ -17,8 +18,10 @@ type SupportedLocale = 'en' | 'zh' | 'de' | 'th' | 'es';
 
 function AppContent() {
     const { t } = useTranslation()
+    const { isMobile } = useViewport()
     const [theme, setTheme] = useState<'dark' | 'light'>('light')
     const [lang, setLang] = useState<SupportedLocale>('en')
+    const [layoutMode, setLayoutMode] = useState<'overlay' | 'side-by-side'>('overlay')
 
     const langOptions = [
         { label: 'English', value: 'en' },
@@ -100,6 +103,19 @@ function AppContent() {
                                 clearable={false}
                                 style={{ width: 120 }}
                             />
+                            {!isMobile && (
+                                <ComboBox
+                                    options={[
+                                        { label: 'Overlay', value: 'overlay' },
+                                        { label: 'Side by Side', value: 'side-by-side' },
+                                    ]}
+                                    value={layoutMode}
+                                    onChange={(v) => v && setLayoutMode(v as 'overlay' | 'side-by-side')}
+                                    size="small"
+                                    clearable={false}
+                                    style={{ width: 130 }}
+                                />
+                            )}
                             <Button variant="ghost" size="small" onClick={toggleTheme}>
                                 {theme === 'dark' ? t('theme.light') : t('theme.dark')}
                             </Button>
@@ -110,35 +126,83 @@ function AppContent() {
                 {/* App Framework - main demo */}
                 <div className="dev-framework-container">
                     <AppTaskbar pinnedAppIds={['start', 'ui-components', 'calculator', '2048']} />
-                    <AppPanel />
 
-                    {/* Welcome content (visible when no app active) */}
-                    <div className="dev-framework-content">
-                        <div className="dev-welcome">
-                            <h1 style={{ textAlign: 'center' }}>{t('welcome.title')}</h1>
-                            <p className="weak">{t('welcome.subtitle')}</p>
+                    {/* Content area with conditional overlay/side-by-side layout */}
+                    <div style={{ position: 'relative', flex: 1, display: 'flex', minHeight: 0 }}>
+                        {layoutMode === 'side-by-side' && !isMobile ? (
+                            // Side-by-side: AppPanel inline with content
+                            <>
+                                <AppPanel autoWidth={true} style={{ borderRight: '1px solid var(--nc-border)' }} />
+                                <div className="dev-framework-content">
+                                    <div className="dev-welcome">
+                                        <h1 style={{ textAlign: 'center' }}>{t('welcome.title')}</h1>
+                                        <p className="weak">{t('welcome.subtitle')}</p>
 
-                            <div className="block">
-                                <h3>{t('welcome.features.title')}</h3>
-                                <ul className="no-dots">
-                                    <li>{t('welcome.features.aiGuide')}</li>
-                                    <li>{t('welcome.features.lightweight')}</li>
-                                    <li>{t('welcome.features.framework')}</li>
-                                    <li>{t('welcome.features.crossPlatform')}</li>
-                                    <li>{t('welcome.features.components')}</li>
-                                </ul>
-                            </div>
+                                        <div className="block">
+                                            <h3>{t('welcome.features.title')}</h3>
+                                            <ul className="no-dots">
+                                                <li>{t('welcome.features.aiGuide')}</li>
+                                                <li>{t('welcome.features.lightweight')}</li>
+                                                <li>{t('welcome.features.framework')}</li>
+                                                <li>{t('welcome.features.crossPlatform')}</li>
+                                                <li>{t('welcome.features.components')}</li>
+                                            </ul>
+                                        </div>
 
-                            <div style={{ textAlign: 'center' }}>
-                                <Button
-                                    variant="primary"
-                                    size="large"
-                                    onClick={() => runningAppsStore.launchApp('start')}
-                                >
-                                    {t('welcome.startBtn')}
-                                </Button>
-                            </div>
-                        </div>
+                                        <div style={{ textAlign: 'center' }}>
+                                            <Button
+                                                variant="primary"
+                                                size="large"
+                                                onClick={() => runningAppsStore.launchApp('start')}
+                                            >
+                                                {t('welcome.startBtn')}
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        ) : (
+                            // Overlay: AppPanel covers content (mobile always uses this)
+                            <>
+                                <AppPanel
+                                    autoWidth={true}
+                                    style={{
+                                        position: 'absolute',
+                                        top: 0,
+                                        left: 0,
+                                        bottom: isMobile ? 56 : 0,
+                                        zIndex: 10,
+                                    }}
+                                />
+                                <div className="dev-framework-content">
+                                    <div className="dev-welcome">
+                                        <h1 style={{ textAlign: 'center' }}>{t('welcome.title')}</h1>
+                                        <p className="weak">{t('welcome.subtitle')}</p>
+
+                                        <div className="block">
+                                            <h3>{t('welcome.features.title')}</h3>
+                                            <ul className="no-dots">
+                                                <li>{t('welcome.features.aiGuide')}</li>
+                                                <li>{t('welcome.features.lightweight')}</li>
+                                                <li>{t('welcome.features.framework')}</li>
+                                                <li>{t('welcome.features.crossPlatform')}</li>
+                                                <li>{t('welcome.features.components')}</li>
+                                            </ul>
+                                        </div>
+
+                                        <div style={{ textAlign: 'center' }}>
+                                            <Button
+                                                variant="primary"
+                                                size="large"
+                                                onClick={() => runningAppsStore.launchApp('start')}
+                                            >
+                                                {t('welcome.startBtn')}
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
