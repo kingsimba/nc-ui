@@ -21,6 +21,7 @@ import { NumberInputSection } from './sections/NumberInputSection';
 import { SliderSection } from './sections/SliderSection';
 import { ToggleSection } from './sections/ToggleSection';
 import { MultiSelectSection } from './sections/MultiSelectSection';
+import { MonthRangePickerSection } from './sections/MonthRangePickerSection';
 import { AppDialogSection } from './sections/AppDialogSection';
 import { NavStackSection } from './sections/NavStackSection';
 import { YamlTextAreaSection } from './sections/YamlTextAreaSection';
@@ -30,7 +31,7 @@ import './UIComponentsDemo.css';
 
 type SectionId = 'styles' | 'buttons' | 'activity' | 'checkbox' | 'combobox' | 'buttons-icon' |
   'hyperlink' | 'alert' | 'battery' | 'context-menu' | 'button-group' | 'input' |
-  'number-input' | 'slider' | 'toggle' | 'multi-select' | 'icons' | 'tabs' |
+  'number-input' | 'slider' | 'toggle' | 'multi-select' | 'month-range' | 'icons' | 'tabs' |
   'list-group' | 'dialog' | 'app-dialog' | 'nav-stack' | 'yaml-textarea' | 'notification';
 
 interface Section {
@@ -65,6 +66,7 @@ export function UIComponentsDemo() {
     { id: 'slider', label: 'Slider', component: SliderSection },
     { id: 'toggle', label: 'Toggle', component: ToggleSection },
     { id: 'multi-select', label: 'MultiSelect', component: MultiSelectSection },
+    { id: 'month-range', label: 'MonthRange', component: MonthRangePickerSection },
     { id: 'icons', label: 'Icons', component: IconsSection },
     { id: 'tabs', label: 'Tabs', component: TabsSection },
     { id: 'list-group', label: 'ListGroup', component: ListGroupSection },

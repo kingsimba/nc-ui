@@ -34,6 +34,8 @@ export interface InputProps {
   rows?: number;
   /** Validation function that returns an error message string if invalid, or null/undefined if valid */
   validator?: (value: string) => string | null | undefined;
+  /** Whether to display the error message text (still shows red border when false) */
+  showErrorMessage?: boolean;
 }
 
 function ClearButton({ onClick, size = 'default', rightOffset = 4 }: { onClick: () => void; size?: 'default' | 'small'; rightOffset?: number }) {
@@ -109,6 +111,7 @@ export function Input({
   multiline = false,
   rows = 3,
   validator,
+  showErrorMessage = true,
 }: InputProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -191,7 +194,7 @@ export function Input({
         {showClearButton && <ClearButton onClick={handleClear} size={size} rightOffset={showToggle ? buttonWidth + 4 : 4} />}
         {showToggle && <TogglePasswordButton visible={passwordVisible} onClick={() => setPasswordVisible(!passwordVisible)} size={size} />}
       </div>
-      {hasError && <span className="nc-error-message">{validationError}</span>}
+      {hasError && showErrorMessage && <span className="nc-error-message">{validationError}</span>}
     </div>
   );
 }

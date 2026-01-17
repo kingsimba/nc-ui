@@ -18,6 +18,7 @@ export { Dialog, DialogClose, useDialog } from './components/Dialog';
 export { Input } from './components/Input';
 export { ListGroup, ListGroupItem } from './components/ListGroup';
 export { MultiSelect } from './components/MultiSelect';
+export { MonthRangePicker } from './components/MonthRangePicker';
 export { NumberInput } from './components/NumberInput';
 export { Slider } from './components/Slider';
 export { Tabs } from './components/Tabs';
@@ -40,6 +41,7 @@ export type {
   ListGroupItemProps,
 } from './components/ListGroup';
 export type { MultiSelectProps } from './components/MultiSelect';
+export type { MonthRangePickerProps } from './components/MonthRangePicker';
 export type { NumberInputProps } from './components/NumberInput';
 export type { SliderProps } from './components/Slider';
 export type { TabsProps } from './components/Tabs';

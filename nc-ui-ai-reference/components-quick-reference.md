@@ -114,9 +114,17 @@ import { Input } from '@kingsimba/nc-ui'
   }}
   placeholder="Enter email"
 />
+
+// Validation with only red border (no error text)
+<Input
+  value={username}
+  onChange={setUsername}
+  validator={usernameValidator}
+  showErrorMessage={false}
+/>
 ```
 
-**Props:** `value`, `onChange`, `onEnter`, `onClear`, `placeholder`, `disabled`, `label`, `clearable`, `type`, `size`, `showPasswordToggle`, `multiline`, `rows`, `validator`
+**Props:** `value`, `onChange`, `onEnter`, `onClear`, `placeholder`, `disabled`, `label`, `clearable`, `type`, `size`, `showPasswordToggle`, `multiline`, `rows`, `validator`, `showErrorMessage`
 
 ---
 
@@ -190,6 +198,51 @@ import { MultiSelect } from '@kingsimba/nc-ui'
 ```
 
 **Props:** `values` (array), `onChange`, `options`, `placeholder`, `disabled`
+
+---
+
+### MonthRangePicker
+**Replace:** Custom month range selector → `<MonthRangePicker>`
+
+```tsx
+import { MonthRangePicker } from '@kingsimba/nc-ui'
+
+// Basic usage
+<MonthRangePicker
+  startMonth="2023-01"
+  endMonth="2023-12"
+  onChange={(start, end) => {
+    console.log('Range:', start, end)
+  }}
+  label="Select Period"
+/>
+
+// Flexible format support (YY-M, YY-MM, YYYY-M, YYYY-MM)
+// Input: "23-1" → Output: "2023-01"
+// Input: "2023-12" → Output: "2023-12"
+<MonthRangePicker
+  startMonth={startMonth}
+  endMonth={endMonth}
+  onChange={(start, end) => {
+    setStartMonth(start)
+    setEndMonth(end)
+  }}
+/>
+
+// With disabled state
+<MonthRangePicker
+  startMonth="2024-01"
+  endMonth="2024-06"
+  onChange={handleChange}
+  disabled
+/>
+```
+
+**Format:** Accepts `YY-M(M)` (e.g., `23-1`, `23-12`) or `YYYY-M(M)` (e.g., `2023-1`, `2023-12`). Always outputs normalized `YYYY-MM` format.
+
+**Validation:** Automatically validates format, month range (1-12), and ensures end month ≥ start month.
+
+**Props:** `startMonth`, `endMonth`, `onChange`, `label`, `disabled`, `className`
 
 ---
 
