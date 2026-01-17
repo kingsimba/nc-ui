@@ -168,7 +168,7 @@ export function Dialog({
             <Button variant="primary" onClick={onOk ?? onClose} disabled={primaryDisabled}>
               {t('common.ok')}
             </Button>
-            <DialogClose variant="ghost" onClick={onCancel}>
+            <DialogClose onClick={onCancel}>
               {t('common.cancel')}
             </DialogClose>
           </div>
@@ -179,7 +179,7 @@ export function Dialog({
             <Button variant="primary" onClick={onSave} disabled={primaryDisabled}>
               {t('common.save')}
             </Button>
-            <DialogClose variant="ghost" onClick={onCancel}>
+            <DialogClose onClick={onCancel}>
               {t('common.cancel')}
             </DialogClose>
           </div>
@@ -190,7 +190,7 @@ export function Dialog({
             <Button variant="danger" onClick={onDelete} disabled={primaryDisabled}>
               {t('common.delete')}
             </Button>
-            <DialogClose variant="ghost" onClick={onCancel}>
+            <DialogClose onClick={onCancel}>
               {t('common.cancel')}
             </DialogClose>
           </div>
@@ -201,7 +201,7 @@ export function Dialog({
             <Button variant="primary" onClick={onConnect} disabled={primaryDisabled}>
               {t('common.connect')}
             </Button>
-            <DialogClose variant="ghost" onClick={onCancel}>
+            <DialogClose onClick={onCancel}>
               {t('common.cancel')}
             </DialogClose>
           </div>
