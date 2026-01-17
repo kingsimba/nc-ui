@@ -51,6 +51,7 @@ export function ContextMenu({
     const anchorRect = anchorElement.getBoundingClientRect();
     const menuRect = menuRef.current.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
+    const viewportWidth = window.innerWidth;
 
     // Calculate position for down direction (menu below anchor)
     const downTop = anchorRect.bottom + 8; // 8px gap
@@ -74,8 +75,15 @@ export function ContextMenu({
       finalTop = anchorRect.top - menuRect.height - 8;
     }
 
-    // Left position: align menu's left edge with anchor's left edge
-    const finalLeft = anchorRect.left;
+    // Horizontal position: default is align menu's left edge with anchor's left edge
+    let finalLeft = anchorRect.left;
+
+    // Check if menu overflows on the right side
+    const rightOverflow = finalLeft + menuRect.width > viewportWidth - 8;
+    if (rightOverflow) {
+      // Align menu's right edge with anchor's right edge
+      finalLeft = anchorRect.right - menuRect.width;
+    }
 
     setPosition({
       top: Math.max(8, finalTop), // Ensure minimum 8px from top

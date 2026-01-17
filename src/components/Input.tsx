@@ -32,6 +32,8 @@ export interface InputProps {
   multiline?: boolean;
   /** Number of rows for multiline input */
   rows?: number;
+  /** Validation function that returns an error message string if invalid, or null/undefined if valid */
+  validator?: (value: string) => string | null | undefined;
 }
 
 function ClearButton({ onClick, size = 'default', rightOffset = 4 }: { onClick: () => void; size?: 'default' | 'small'; rightOffset?: number }) {
@@ -106,10 +108,15 @@ export function Input({
   showPasswordToggle = false,
   multiline = false,
   rows = 3,
+  validator,
 }: InputProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
+
+  // Compute validation error
+  const validationError = validator ? validator(value) : null;
+  const hasError = !!validationError;
 
   const isPasswordType = type === 'password';
   const showToggle = isPasswordType && showPasswordToggle && !disabled && !multiline;
@@ -143,7 +150,7 @@ export function Input({
     onChange?.(e.target.value);
   };
 
-  const inputClassName = `nc-input ${size === 'small' ? `nc-small ` : ''} ${className}`;
+  const inputClassName = `nc-input ${size === 'small' ? `nc-small ` : ''} ${hasError ? 'nc-error ' : ''}${className}`;
 
   return (
     <div className="nc-col" style={{ position: 'relative', flex: 1, ...style }}>
@@ -184,6 +191,7 @@ export function Input({
         {showClearButton && <ClearButton onClick={handleClear} size={size} rightOffset={showToggle ? buttonWidth + 4 : 4} />}
         {showToggle && <TogglePasswordButton visible={passwordVisible} onClick={() => setPasswordVisible(!passwordVisible)} size={size} />}
       </div>
+      {hasError && <span className="nc-error-message">{validationError}</span>}
     </div>
   );
 }

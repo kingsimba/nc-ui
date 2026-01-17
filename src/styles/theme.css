@@ -295,6 +295,17 @@ li::marker { color: var(--nc-text-weak); }
 
 .nc-input.nc-small { padding: 6px 12px; font-size: 12px; min-height: 32px; height: 32px; border-radius: 4px; }
 
+.nc-input.nc-error {
+  border-color: var(--nc-danger);
+}
+
+.nc-error-message {
+  font-size: 13px;
+  color: var(--nc-danger);
+  margin-top: 4px;
+  display: block;
+}
+
 /* Label component */
 .nc-label { font-size: 14px; color: var(--nc-text); margin-bottom: 4px; }
 .nc-label.nc-small { font-size: 12px; }

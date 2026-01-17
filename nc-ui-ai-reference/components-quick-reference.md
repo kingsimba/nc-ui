@@ -101,9 +101,22 @@ import { Input } from '@kingsimba/nc-ui'
   onEnter={handleSearch}
   placeholder="Press Enter to search"
 />
+
+// With validation
+<Input
+  value={email}
+  onChange={setEmail}
+  validator={(value) => {
+    if (!value) return null;
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) 
+      ? null 
+      : 'Invalid email address';
+  }}
+  placeholder="Enter email"
+/>
 ```
 
-**Props:** `value`, `onChange`, `onEnter`, `onClear`, `placeholder`, `disabled`, `label`, `clearable`, `type`, `size`, `showPasswordToggle`, `multiline`, `rows`
+**Props:** `value`, `onChange`, `onEnter`, `onClear`, `placeholder`, `disabled`, `label`, `clearable`, `type`, `size`, `showPasswordToggle`, `multiline`, `rows`, `validator`
 
 ---
 

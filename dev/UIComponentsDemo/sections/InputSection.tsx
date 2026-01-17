@@ -5,6 +5,21 @@ export function InputSection() {
   const [inputValue, setInputValue] = useState('');
   const [password, setPassword] = useState('');
   const [multilineValue, setMultilineValue] = useState('');
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+
+  const emailValidator = (value: string) => {
+    if (!value) return null;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(value) ? null : 'Invalid email address';
+  };
+
+  const usernameValidator = (value: string) => {
+    if (value.length < 3) return 'Username must be at least 3 characters';
+    if (value.length > 20) return 'Username must be less than 20 characters';
+    if (!/^[a-zA-Z0-9_]+$/.test(value)) return 'Username can only contain letters, numbers, and underscores';
+    return null;
+  };
 
   return (
     <section className="dev-section">
@@ -61,6 +76,21 @@ export function InputSection() {
           rows={3}
           size="small"
           label="Small Multiline Input"
+        />
+        <Input
+          value={email}
+          onChange={setEmail}
+          placeholder="Enter your email"
+          type="email"
+          validator={emailValidator}
+          label="Email with Validator"
+        />
+        <Input
+          value={username}
+          onChange={setUsername}
+          placeholder="Enter username"
+          validator={usernameValidator}
+          label="Username with Validator"
         />
       </div>
     </section>
