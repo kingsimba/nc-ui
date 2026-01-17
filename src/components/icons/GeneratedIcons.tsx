@@ -36,6 +36,30 @@ export function CloseIcon({ size = 24, color = 'currentColor', strokeWidth = 2, 
 }
 
 /**
+ * External Link icon - "box with arrow" icon for opening external links.
+ */
+export function ExternalLinkIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      style={style}
+    >
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h8" />
+      <polyline points="17 4 20 4 20 7" />
+      <line x1="13" y1="11" x2="20" y2="4" />
+    </svg>
+  );
+}
+
+/**
  * HideApps icon - "Show Desktop" style icon to collapse the right toolbar panel.
  * Similar to Windows "Show Desktop" button.
  */

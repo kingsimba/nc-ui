@@ -24,4 +24,5 @@ export {
   DoubleClickIcon,
   MoreIcon,
   MoreHorizontalIcon,
+  ExternalLinkIcon,
 } from './GeneratedIcons';
