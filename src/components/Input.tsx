@@ -116,6 +116,7 @@ export function Input({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   // Compute validation error
   const validationError = validator ? validator(value) : null;
@@ -123,7 +124,7 @@ export function Input({
 
   const isPasswordType = type === 'password';
   const showToggle = isPasswordType && showPasswordToggle && !disabled && !multiline;
-  const showClearButton = clearable && value && !disabled;
+  const showClearButton = clearable && value && !disabled && isFocused;
 
   const buttonWidth = size === 'small' ? 32 : 44;
   let paddingRight = 12;
@@ -153,6 +154,14 @@ export function Input({
     onChange?.(e.target.value);
   };
 
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
+
   const inputClassName = `nc-input ${size === 'small' ? `nc-small ` : ''} ${hasError ? 'nc-error ' : ''}${className}`;
 
   return (
@@ -167,6 +176,8 @@ export function Input({
             value={value}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
             disabled={disabled}
             rows={rows}
             style={{
@@ -184,6 +195,8 @@ export function Input({
             value={value}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
             disabled={disabled}
             style={{
               width: '100%',
