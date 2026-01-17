@@ -141,7 +141,7 @@ code, .code {
   border-radius: 8px;
   background: var(--nc-bg-quaternary);
   border: 1px solid var(--nc-border);
-  margin: 16px 0;
+  margin: 0;
   position: relative;
 }
 
