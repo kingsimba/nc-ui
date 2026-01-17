@@ -1,6 +1,5 @@
 import { appRegistry, AppDefinition } from './appRegistry';
 import { appStateStore } from '../stores/appStateStore';
-import { setAppInUrl, clearAppInUrl } from '../utils/backHandlerRegistry';
 
 /**
  * Options for launching an app.
@@ -81,7 +80,6 @@ class RunningAppsStore {
     if (!launchInBackground) {
       this.activeAppId = appId;
       appStateStore._setActiveAppId(appId);
-      setAppInUrl(appId); // Push browser history entry with unique URL
     }
 
     this.notify();
@@ -146,12 +144,6 @@ class RunningAppsStore {
       const isDesktop = window.innerWidth >= 768;
       this.activeAppId = isDesktop && this.apps.length > 0 ? this.apps[this.apps.length - 1].appId : null;
       appStateStore._setActiveAppId(this.activeAppId);
-      // Update URL when app is closed
-      if (this.activeAppId) {
-        setAppInUrl(this.activeAppId);
-      } else {
-        clearAppInUrl();
-      }
     }
     this.notify();
   }

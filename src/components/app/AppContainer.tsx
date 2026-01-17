@@ -1,9 +1,8 @@
-import React, { useState, useCallback, useMemo, useEffect, Suspense } from 'react';
+import React, { useState, useCallback, useMemo, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import { appRegistry } from '../../lib/appRegistry';
 import { AppContext, AppContextValue } from './AppContext';
 import { AppTitleBar } from './AppTitleBar';
-import { backHandlerRegistry } from '../../utils/backHandlerRegistry';
 import { ActivityIndicator } from '../ActivityIndicator';
 
 interface AppContainerProps {
@@ -91,22 +90,6 @@ export function AppContainer({ appId, isActive, onClose }: AppContainerProps) {
       setTitleState(t(def.titleKey));
     }
   }, [def, t]);
-
-  // Register back handler when app is active (priority 50)
-  useEffect(() => {
-    if (!isActive) return;
-
-    return backHandlerRegistry.register(`app-${appId}`, 50, () => {
-      if (backHandler) {
-        // Has back handler = can go back in NavStack
-        backHandler();
-        return true;
-      }
-      // No back handler = at app root, close the app
-      onClose();
-      return true;
-    });
-  }, [isActive, backHandler, onClose, appId]);
 
   // Memoized callbacks for app component
   const setTitle = useCallback((newTitle: string) => {

@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { createPortal } from 'react-dom';
 import { AppContainer } from './AppContainer';
-import { backHandlerRegistry } from '../../utils/backHandlerRegistry';
 
 export interface AppDialogProps {
   /** The app ID to render */
@@ -39,17 +38,6 @@ export function AppDialog({
       onClose();
     }
   };
-
-  // Register back handler when dialog is open (priority 100 - highest, same as Dialog)
-  useEffect(() => {
-    if (!open) return;
-
-    const dialogId = `app-dialog-${appId}-${Date.now()}`;
-    return backHandlerRegistry.register(dialogId, 100, () => {
-      onClose();
-      return true;
-    });
-  }, [open, onClose, appId]);
 
   if (!open) return null;
 

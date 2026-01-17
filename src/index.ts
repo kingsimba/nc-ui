@@ -89,11 +89,6 @@ export type {
 
 // App framework utilities
 export { appStateStore } from './stores/appStateStore';
-export {
-  backHandlerRegistry,
-  setAppInUrl,
-  clearAppInUrl,
-} from './utils/backHandlerRegistry';
 export { ViewportProvider, useViewport } from './contexts/ViewportContext';
 export type { ViewportContextValue } from './contexts/ViewportContext';
 

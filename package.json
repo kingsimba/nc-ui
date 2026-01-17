@@ -36,9 +36,9 @@
         "build-storybook": "storybook build"
     },
     "peerDependencies": {
+        "i18next": "^23.0.0",
         "react": "^18.0.0",
         "react-dom": "^18.0.0",
-        "i18next": "^23.0.0",
         "react-i18next": "^14.0.0"
     },
     "devDependencies": {
@@ -55,9 +55,9 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-i18next": "^14.0.0",
-        "typescript": "^5.2.2",
+        "typescript": "~5.9.3",
         "vite": "^5.0.8",
-        "vite-plugin-dts": "^3.7.0",
+        "vite-plugin-dts": "^4.5.4",
         "vite-plugin-static-copy": "^3.1.4"
     },
     "dependencies": {
