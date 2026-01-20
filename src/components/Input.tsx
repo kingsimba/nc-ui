@@ -44,7 +44,10 @@ function ClearButton({ onClick, size = 'default', rightOffset = 4 }: { onClick: 
     <button
       className="nc-button nc-ghost"
       onClick={onClick}
-      onMouseDown={(e) => e.stopPropagation()}
+      onMouseDown={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }}
       tabIndex={-1}
       aria-label="Clear input"
       style={{
@@ -73,7 +76,10 @@ function TogglePasswordButton({ visible, onClick, size = 'default' }: { visible:
     <button
       className="nc-button nc-ghost"
       onClick={onClick}
-      onMouseDown={(e) => e.stopPropagation()}
+      onMouseDown={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }}
       tabIndex={-1}
       aria-label={visible ? 'Hide password' : 'Show password'}
       style={{
