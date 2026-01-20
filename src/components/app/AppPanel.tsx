@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { appStateStore } from '../../stores/appStateStore';
 import { runningAppsStore, RunningApp } from '../../lib/runningAppsStore';
 import { appRegistry } from '../../lib/appRegistry';
+import { useViewport } from '../../contexts/ViewportContext';
+import { cn } from '../../lib/utils';
 import { AppContainer } from './AppContainer';
 
 export interface AppPanelProps {
@@ -21,6 +23,7 @@ export interface AppPanelProps {
 export function AppPanel({ autoWidth = true, className, style }: AppPanelProps) {
   const [activeAppId, setActiveAppId] = useState<string | null>(() => appStateStore.getActiveAppId());
   const [runningApps, setRunningApps] = useState<RunningApp[]>(() => runningAppsStore.getRunningApps());
+  const { isMobile } = useViewport();
 
   // Subscribe to appStateStore for active app
   useEffect(() => {
@@ -63,6 +66,9 @@ export function AppPanel({ autoWidth = true, className, style }: AppPanelProps) 
   const fullPanelWidth = activeAppDef?.width ?? defaultPanelWidth;
   const expanded = activeAppId !== null;
 
+  // Use full width on mobile, otherwise use registered width
+  const panelWidth = isMobile ? '100%' : fullPanelWidth;
+
   // Internal styles - only layout essentials
   const internalStyle: React.CSSProperties = {
     overflow: 'hidden',
@@ -70,14 +76,14 @@ export function AppPanel({ autoWidth = true, className, style }: AppPanelProps) 
     flexDirection: 'column',
     flexShrink: 0,
     // Only set width if autoWidth is enabled
-    ...(autoWidth && expanded ? { width: fullPanelWidth } : {}),
+    ...(autoWidth && expanded ? { width: panelWidth } : {}),
   };
 
   // Merge internal styles with prop styles (prop takes precedence)
   const panelStyle: React.CSSProperties = { ...internalStyle, ...style };
 
   return (
-    <div className={className} style={panelStyle}>
+    <div className={cn('nc-app-panel', className)} style={panelStyle}>
       {/* Render all running apps via AppContainer */}
       {runningApps.map((ra) => (
         <AppContainer

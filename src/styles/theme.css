@@ -22,6 +22,7 @@
   --nc-button-bg: var(--nc-bg-tertiary);
   --nc-button-hover: #162332;
   --nc-button-active: #1d2e42;
+  --nc-input-bg: var(--nc-bg-tertiary);
   --nc-overlay-hover: rgba(255, 255, 255, 0.05);
 
   /* YAML syntax highlighting */
@@ -58,6 +59,7 @@
   --nc-button-bg: var(--nc-bg-tertiary);
   --nc-button-hover: #f1f5f9;
   --nc-button-active: #e2e8f0;
+  --nc-input-bg: var(--nc-bg-tertiary);
   --nc-overlay-hover: rgba(0, 0, 0, 0.05);
 
   /* YAML syntax highlighting */
@@ -283,7 +285,7 @@ li::marker { color: var(--nc-text-weak); }
 
 /* Input component */
 .nc-input {
-  background: var(--nc-button-bg);
+  background: var(--nc-input-bg);
   color: var(--nc-text);
   border: 1px solid var(--nc-button-border);
   border-radius: 8px;
@@ -1134,6 +1136,10 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
     height: 32px;
     background: var(--nc-border);
     margin: 0 4px;
+  }
+
+  .nc-app-panel {
+    width: 100% !important;
   }
 }
 

@@ -205,3 +205,10 @@ body {
     flex-direction: column;
     gap: 8px;
 }
+
+/* Utils */
+@media (max-width: 767px) {
+    .dev-desktop-only {
+        display: none !important;
+    }
+}
