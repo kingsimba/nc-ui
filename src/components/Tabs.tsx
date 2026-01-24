@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, Children, isValidElement, ReactNode } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon, ChevronDownIcon } from './icons';
 
 // ChevronUpIcon - defined inline since it's not in GeneratedIcons
@@ -7,6 +7,99 @@ const ChevronUpIcon = ({ size = 24, className, style }: { size?: number; classNa
     <polyline points="18 15 12 9 6 15" />
   </svg>
 );
+
+export interface TabPanelProps {
+  /** The tab label this panel corresponds to */
+  tab: string;
+  /** Panel content */
+  children: ReactNode;
+  /** Additional CSS class name */
+  className?: string;
+  /** Additional inline styles */
+  style?: React.CSSProperties;
+}
+
+/**
+ * Individual tab panel - use as children of TabPanels
+ */
+export function TabPanel({ children, className = '', style }: TabPanelProps) {
+  return (
+    <div className={`nc-tab-panel ${className}`} style={style}>
+      {children}
+    </div>
+  );
+}
+
+export interface TabPanelsProps {
+  /** Currently active tab label */
+  active: string;
+  /** Tab panel children (TabPanel components) */
+  children: ReactNode;
+  /** 
+   * When true, all panels remain mounted and are hidden via CSS.
+   * Use this when you need to preserve state (e.g., form inputs) across tab switches.
+   * When false (default), only the active panel is mounted.
+   */
+  keepMounted?: boolean;
+  /** Additional CSS class name */
+  className?: string;
+  /** Additional inline styles */
+  style?: React.CSSProperties;
+}
+
+/**
+ * Container for tab panels - renders content based on active tab.
+ * Use with TabPanel children to define content for each tab.
+ * 
+ * @example
+ * // Unmount inactive panels (default - better performance)
+ * <TabPanels active={activeTab}>
+ *   <TabPanel tab="Tab1">Content 1</TabPanel>
+ *   <TabPanel tab="Tab2">Content 2</TabPanel>
+ * </TabPanels>
+ * 
+ * @example
+ * // Keep all panels mounted (preserves form state)
+ * <TabPanels active={activeTab} keepMounted>
+ *   <TabPanel tab="Tab1"><input type="text" /></TabPanel>
+ *   <TabPanel tab="Tab2"><input type="text" /></TabPanel>
+ * </TabPanels>
+ */
+export function TabPanels({ active, children, keepMounted = false, className = '', style }: TabPanelsProps) {
+  const panels = Children.toArray(children).filter(
+    (child): child is React.ReactElement<TabPanelProps> =>
+      isValidElement(child) && (child.type === TabPanel || (child.type as any).displayName === 'TabPanel')
+  );
+
+  if (keepMounted) {
+    // Render all panels, hide inactive ones with CSS
+    return (
+      <div className={`nc-tab-panels ${className}`} style={style}>
+        {panels.map((panel) => {
+          const isActive = panel.props.tab === active;
+          return (
+            <div
+              key={panel.props.tab}
+              className={`nc-tab-panel-wrapper ${isActive ? 'nc-active' : ''}`}
+              style={{ display: isActive ? 'block' : 'none' }}
+              aria-hidden={!isActive}
+            >
+              {panel}
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
+  // Default: only render the active panel
+  const activePanel = panels.find((panel) => panel.props.tab === active);
+  return (
+    <div className={`nc-tab-panels ${className}`} style={style}>
+      {activePanel}
+    </div>
+  );
+}
 
 export interface TabsProps {
   /** Array of tab labels */

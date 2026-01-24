@@ -21,7 +21,7 @@ export { MultiSelect } from './components/MultiSelect';
 export { MonthRangePicker } from './components/MonthRangePicker';
 export { NumberInput } from './components/NumberInput';
 export { Slider } from './components/Slider';
-export { Tabs } from './components/Tabs';
+export { Tabs, TabPanel, TabPanels } from './components/Tabs';
 export { Toggle } from './components/Toggle';
 export { Notification } from './components/Notification';
 export { NotificationContainer } from './components/NotificationContainer';
@@ -44,7 +44,7 @@ export type { MultiSelectProps } from './components/MultiSelect';
 export type { MonthRangePickerProps } from './components/MonthRangePicker';
 export type { NumberInputProps } from './components/NumberInput';
 export type { SliderProps } from './components/Slider';
-export type { TabsProps } from './components/Tabs';
+export type { TabsProps, TabPanelProps, TabPanelsProps } from './components/Tabs';
 export type { ToggleProps } from './components/Toggle';
 export type { Notification as NotificationType } from './stores/notificationStore';
 

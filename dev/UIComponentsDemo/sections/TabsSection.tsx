@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { Tabs, Button, Input, RefreshButton } from '../../../src'
+import { Tabs, TabPanels, TabPanel, Button, Input, RefreshButton } from '../../../src'
 
 export function TabsSection() {
     const [activeTab, setActiveTab] = useState('Overview')
     const [toolbarActiveTab, setToolbarActiveTab] = useState('Home')
     const [verticalLeftTab, setVerticalLeftTab] = useState('Dashboard')
     const [verticalRightTab, setVerticalRightTab] = useState('Profile')
+    const [keepMountedTab, setKeepMountedTab] = useState('Personal')
     const [searchValue, setSearchValue] = useState('')
     const [filterValue, setFilterValue] = useState('')
     const [refreshing, setRefreshing] = useState(false)
@@ -164,6 +165,57 @@ export function TabsSection() {
                             </div>
                         )}
                     </div>
+                </div>
+            </section>
+
+            <section className="dev-section">
+                <h2>TabPanels with keepMounted</h2>
+                <p style={{ marginBottom: 16, color: 'var(--nc-text-weak)' }}>
+                    Use <code>keepMounted</code> to preserve input state when switching tabs. Try typing in the inputs, switch tabs, then come back - your text is preserved!
+                </p>
+                <div style={{
+                    border: '1px solid var(--nc-border)',
+                    borderRadius: 8,
+                    overflow: 'hidden',
+                }}>
+                    <Tabs
+                        tabs={['Personal', 'Work', 'Notes']}
+                        active={keepMountedTab}
+                        onChange={setKeepMountedTab}
+                    />
+                    <TabPanels active={keepMountedTab} keepMounted style={{ padding: 20, background: 'var(--nc-bg-text)' }}>
+                        <TabPanel tab="Personal">
+                            <h3>Personal Info</h3>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 300 }}>
+                                <Input placeholder="Your name" />
+                                <Input placeholder="Email address" />
+                            </div>
+                        </TabPanel>
+                        <TabPanel tab="Work">
+                            <h3>Work Info</h3>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 300 }}>
+                                <Input placeholder="Company name" />
+                                <Input placeholder="Job title" />
+                            </div>
+                        </TabPanel>
+                        <TabPanel tab="Notes">
+                            <h3>Notes</h3>
+                            <textarea
+                                placeholder="Write your notes here..."
+                                style={{
+                                    width: '100%',
+                                    maxWidth: 400,
+                                    height: 100,
+                                    padding: 8,
+                                    borderRadius: 6,
+                                    border: '1px solid var(--nc-border)',
+                                    background: 'var(--nc-bg)',
+                                    color: 'var(--nc-text)',
+                                    resize: 'vertical',
+                                }}
+                            />
+                        </TabPanel>
+                    </TabPanels>
                 </div>
             </section>
         </>

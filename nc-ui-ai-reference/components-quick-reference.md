@@ -510,21 +510,53 @@ import { ListGroup } from '@kingsimba/nc-ui'
 
 ### Tabs
 
+Tab navigation header with optional toolbar:
+
 ```tsx
 import { Tabs } from '@kingsimba/nc-ui'
 
+const [active, setActive] = useState('Overview')
+
 <Tabs
-  activeTab={activeTab}
-  onChange={setActiveTab}
-  tabs={[
-    { id: 'home', label: 'Home', content: <HomePage /> },
-    { id: 'settings', label: 'Settings', content: <SettingsPage /> },
-    { id: 'about', label: 'About', content: <AboutPage /> },
-  ]}
+  tabs={['Overview', 'Details', 'Settings']}
+  active={active}
+  onChange={setActive}
+  orientation="horizontal"  // 'horizontal' | 'verticalLeft' | 'verticalRight'
+  toolbar={<Button size="small">Action</Button>}  // optional
+  multiline={false}  // wrap tabs to multiple lines
 />
 ```
 
-**Props:** `activeTab`, `onChange`, `tabs` (array of `{ id, label, content }`)
+**Props:** `tabs` (string[]), `active`, `onChange`, `orientation`, `toolbar`, `multiline`, `className`, `style`
+
+---
+
+### TabPanels & TabPanel
+
+Content containers for tabs. Use `keepMounted` to preserve state (e.g., form inputs) when switching tabs:
+
+```tsx
+import { Tabs, TabPanels, TabPanel } from '@kingsimba/nc-ui'
+
+const [active, setActive] = useState('Tab1')
+
+<Tabs tabs={['Tab1', 'Tab2', 'Tab3']} active={active} onChange={setActive} />
+
+{/* keepMounted=false (default): only active panel is mounted */}
+<TabPanels active={active}>
+  <TabPanel tab="Tab1">Content 1</TabPanel>
+  <TabPanel tab="Tab2">Content 2</TabPanel>
+</TabPanels>
+
+{/* keepMounted=true: all panels stay mounted, preserves input state */}
+<TabPanels active={active} keepMounted>
+  <TabPanel tab="Tab1"><input type="text" /></TabPanel>
+  <TabPanel tab="Tab2"><input type="text" /></TabPanel>
+</TabPanels>
+```
+
+**TabPanels Props:** `active`, `keepMounted`, `className`, `style`  
+**TabPanel Props:** `tab` (string matching a tab label), `className`, `style`
 
 ---
 
