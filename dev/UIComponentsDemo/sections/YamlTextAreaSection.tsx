@@ -58,8 +58,7 @@ export function YamlTextAreaSection() {
                             value={yaml1}
                             onChange={setYaml1}
                             onValidationChange={(valid) => setIsValid1(valid)}
-                            minHeight={200}
-                            maxHeight={300}
+                            style={{ minHeight: 200, maxHeight: 300 }}
                         />
                     </div>
 
@@ -73,7 +72,7 @@ export function YamlTextAreaSection() {
                             value={yaml2}
                             onChange={setYaml2}
                             onValidationChange={(valid) => setIsValid2(valid)}
-                            minHeight={150}
+                            style={{ minHeight: 150 }}
                         />
                     </div>
 
@@ -84,8 +83,7 @@ export function YamlTextAreaSection() {
                             value={sampleYaml}
                             onChange={() => { }}
                             readOnly
-                            minHeight={150}
-                            maxHeight={200}
+                            style={{ minHeight: 150, maxHeight: 200 }}
                         />
                     </div>
 
@@ -95,8 +93,7 @@ export function YamlTextAreaSection() {
                         <YamlTextArea
                             value={yaml3}
                             onChange={setYaml3}
-                            minHeight={100}
-                            maxHeight={150}
+                            style={{ minHeight: 100, maxHeight: 150 }}
                         />
                     </div>
                 </div>

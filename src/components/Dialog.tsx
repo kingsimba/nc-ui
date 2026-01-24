@@ -56,18 +56,8 @@ export interface DialogProps {
   title: string;
   /** Dialog content */
   children: React.ReactNode;
-  /** Dialog width - number for pixels, string for CSS value (e.g., '50vw', '80%', 'auto') */
-  width?: number | string;
-  /** Dialog height - number for pixels, string for CSS value (e.g., '60vh', '70%', 'auto') */
-  height?: number | string;
-  /** Min width - number for pixels, string for CSS value */
-  minWidth?: number | string;
-  /** Min height - number for pixels, string for CSS value */
-  minHeight?: number | string;
-  /** Max width - number for pixels, string for CSS value (default: '95vw') */
-  maxWidth?: number | string;
-  /** Max height - number for pixels, string for CSS value (default: '95vh') */
-  maxHeight?: number | string;
+  /** Custom style for the dialog container */
+  style?: React.CSSProperties;
   /** Footer button preset type */
   footerType?: DialogFooterType;
   /** Custom footer content (used when footerType is 'custom') */
@@ -94,29 +84,20 @@ export interface DialogProps {
   fullScreen?: boolean;
   /** Whether to hide the title bar (default: false) */
   hideTitleBar?: boolean;
+  /** Additional CSS class for the dialog container */
+  className?: string;
 }
 
 /**
  * A reusable modal dialog component with overlay.
  * Renders in a portal to ensure proper z-index stacking.
  */
-// Helper to convert size value to CSS string
-function toCssSize(value: number | string | undefined): string | undefined {
-  if (value === undefined) return undefined;
-  return typeof value === 'number' ? `${value}px` : value;
-}
-
 export function Dialog({
   open,
   onClose,
   title,
   children,
-  width = 360,
-  height,
-  minWidth,
-  minHeight,
-  maxWidth = '95vw',
-  maxHeight = '95vh',
+  style,
   footerType = 'ok-cancel',
   footer,
   onOk,
@@ -128,6 +109,7 @@ export function Dialog({
   primaryDisabled = false,
   fullScreen = false,
   hideTitleBar = false,
+  className = '',
 }: DialogProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
@@ -234,15 +216,8 @@ export function Dialog({
       <div className={`nc-dialog-overlay${fullScreen ? ' nc-fullscreen' : ''}`} onClick={handleOverlayClick}>
         <div
           ref={dialogRef}
-          className="nc-dialog-container"
-          style={{
-            width: toCssSize(width),
-            height: toCssSize(height),
-            minWidth: toCssSize(minWidth),
-            minHeight: toCssSize(minHeight),
-            maxWidth: toCssSize(maxWidth),
-            maxHeight: toCssSize(maxHeight),
-          }}
+          className={`nc-dialog-container ${className}`}
+          style={style}
           tabIndex={-1}
           role="dialog"
           aria-modal="true"

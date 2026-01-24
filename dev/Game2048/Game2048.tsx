@@ -458,9 +458,8 @@ function Game2048Content() {
         open={showRules}
         onClose={() => setShowRules(false)}
         title={t('title')}
-        width={400}
+        style={{ width: 400, maxHeight: "80%" }}
         footerType="gotit"
-        maxHeight={"80%"}
       >
         <div style={{ color: 'var(--text)', lineHeight: 1.6 }}>
           <h3 style={{ marginTop: 0, color: 'var(--primary)' }}>{t('howToPlay')}</h3>

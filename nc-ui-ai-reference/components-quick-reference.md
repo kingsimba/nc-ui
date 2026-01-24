@@ -303,7 +303,7 @@ import { Dialog } from '@kingsimba/nc-ui'
 </Dialog>
 ```
 
-**Props:** `open`, `onClose`, `title`, `footer`, `children`
+**Props:** `open`, `onClose`, `title`, `footer`, `children`, `style`, `className`
 
 ---
 

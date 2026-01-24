@@ -64,9 +64,8 @@ interface YamlTextAreaProps {
   onChange: (value: string) => void;
   onValidationChange?: (isValid: boolean, error?: string) => void;
   readOnly?: boolean;
-  minHeight?: number;
-  maxHeight?: number;
   debounceMs?: number;
+  className?: string;
   style?: React.CSSProperties;
 }
 
@@ -80,9 +79,8 @@ export function YamlTextArea({
   onChange,
   onValidationChange,
   readOnly = false,
-  minHeight = 100,
-  maxHeight,
   debounceMs = 500,
+  className = '',
   style = {},
 }: YamlTextAreaProps) {
   const [error, setError] = useState<YamlError | null>(null);
@@ -236,7 +234,7 @@ export function YamlTextArea({
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 4, ...style }}>
+    <div className={`nc-yaml-textarea ${className}`} style={style}>
       {/* CSS to prevent wrapping in editor */}
       <style>{`
         .yaml-editor-container,
@@ -255,17 +253,7 @@ export function YamlTextArea({
           overflow-x: visible !important;
         }
       `}</style>
-      <div
-        style={{
-          display: 'flex',
-          border: `1px solid ${error ? 'var(--nc-danger)' : 'var(--nc-border)'}`,
-          borderRadius: 4,
-          overflow: 'hidden',
-          background: 'var(--nc-bg-secondary)',
-          minHeight,
-          maxHeight,
-        }}
-      >
+      <div className={`nc-yaml-textarea-container${error ? ' error' : ''}`}>
         {/* Line numbers gutter */}
         <div
           ref={lineNumbersRef}
@@ -300,7 +288,7 @@ export function YamlTextArea({
               fontFamily: 'Consolas, Monaco, "Courier New", monospace',
               fontSize: 13,
               lineHeight: '1.5',
-              minHeight: minHeight - 2,
+              minHeight: '100%',
               background: 'transparent',
               whiteSpace: 'pre',
               minWidth: 'max-content',

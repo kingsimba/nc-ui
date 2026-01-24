@@ -13,10 +13,8 @@ export interface AppDialogProps {
   closeOnBackdrop?: boolean;
   /** Optional CSS class name for the dialog container */
   className?: string;
-  /** Maximum width in pixels (default: 1200) */
-  maxWidth?: number;
-  /** Maximum height in pixels (default: 900) */
-  maxHeight?: number;
+  /** Custom style for the dialog container */
+  style?: React.CSSProperties;
 }
 
 /**
@@ -29,8 +27,7 @@ export function AppDialog({
   onClose,
   closeOnBackdrop = false,
   className = '',
-  maxWidth = 1200,
-  maxHeight = 900,
+  style,
 }: AppDialogProps) {
   // Handle backdrop click
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -48,10 +45,7 @@ export function AppDialog({
     >
       <div
         className={`nc-app-dialog-container ${className}`}
-        style={{
-          maxWidth: `${maxWidth}px`,
-          maxHeight: `${maxHeight}px`,
-        }}
+        style={style}
         onClick={(e) => e.stopPropagation()}
       >
         <AppContainer

@@ -23,8 +23,7 @@ export function AppDialogSection() {
                 appId="calculator"
                 open={calculatorOpen}
                 onClose={() => setCalculatorOpen(false)}
-                maxWidth={480}
-                maxHeight={700}
+                style={{ maxWidth: 480, maxHeight: 700 }}
             />
         </>
     );

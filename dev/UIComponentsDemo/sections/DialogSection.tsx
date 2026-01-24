@@ -78,7 +78,7 @@ export function DialogSection() {
                 onClose={() => setDialog2Open(false)}
                 title="Edit Profile"
                 footerType="save-cancel"
-                width={500}
+                style={{ width: 500 }}
                 onSave={() => {
                     alert('Saved!')
                     setDialog2Open(false)
