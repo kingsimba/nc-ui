@@ -2,8 +2,10 @@ import React, { useRef, useState } from 'react';
 import { ViewIcon, EyeHiddenIcon } from './icons';
 
 export interface InputProps {
-  /** Current value of the input */
+  /** Current value of the input (controlled mode) */
   value?: string;
+  /** Default value for uncontrolled mode */
+  defaultValue?: string;
   /** Callback when value changes */
   onChange?: (value: string) => void;
   /** Callback when Enter key is pressed */
@@ -101,7 +103,8 @@ function TogglePasswordButton({ visible, onClick, size = 'default' }: { visible:
 }
 
 export function Input({
-  value = '',
+  value: controlledValue,
+  defaultValue = '',
   onChange,
   onEnter,
   onClear,
@@ -124,6 +127,11 @@ export function Input({
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
 
+  // Support both controlled and uncontrolled modes
+  const isControlled = controlledValue !== undefined;
+  const [internalValue, setInternalValue] = useState(defaultValue);
+  const value = isControlled ? controlledValue : internalValue;
+
   // Compute validation error
   const validationError = validator ? validator(value) : null;
   const hasError = !!validationError;
@@ -141,6 +149,9 @@ export function Input({
   }
 
   const handleClear = () => {
+    if (!isControlled) {
+      setInternalValue('');
+    }
     onChange?.('');
     onClear?.();
     if (multiline) {
@@ -157,7 +168,11 @@ export function Input({
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    onChange?.(e.target.value);
+    const newValue = e.target.value;
+    if (!isControlled) {
+      setInternalValue(newValue);
+    }
+    onChange?.(newValue);
   };
 
   const handleFocus = () => {
