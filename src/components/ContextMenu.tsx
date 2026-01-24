@@ -3,11 +3,12 @@ import { createPortal } from 'react-dom';
 
 export interface ContextMenuOption {
   id: string;
-  label: string;
+  label?: string;
   icon?: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
   disabled?: boolean;
-  variant?: 'default' | 'danger';
+  variant?: 'default' | 'danger' | 'primary' | 'warning';
+  type?: 'item' | 'separator';
 }
 
 export interface ContextMenuProps {
@@ -124,11 +125,14 @@ export function ContextMenu({
   if (!open) return null;
 
   const handleOptionClick = (option: ContextMenuOption) => {
-    if (!option.disabled) {
+    if (option.type === 'separator') return;
+    if (!option.disabled && option.onClick) {
       option.onClick();
       onClose();
     }
   };
+
+  const hasAnyIcon = options.some((opt) => opt.icon);
 
   return createPortal(
     <div
@@ -142,18 +146,37 @@ export function ContextMenu({
       }}
       role="menu"
     >
-      {options.map((option) => (
-        <button
-          key={option.id}
-          className={`nc-context-menu-item ${option.variant === 'danger' ? 'nc-danger' : ''} ${option.disabled ? 'nc-disabled' : ''}`}
-          onClick={() => handleOptionClick(option)}
-          disabled={option.disabled}
-          role="menuitem"
-        >
-          {option.icon && <span className="nc-context-menu-icon">{option.icon}</span>}
-          <span className="nc-context-menu-label">{option.label}</span>
-        </button>
-      ))}
+      {options.map((option) => {
+        if (option.type === 'separator') {
+          return (
+            <div
+              key={option.id}
+              className="nc-context-menu-separator"
+              role="separator"
+            />
+          );
+        }
+
+        const itemCls = [
+          'nc-context-menu-item',
+          option.variant && option.variant !== 'default' ? `nc-${option.variant}` : '',
+          option.disabled ? 'nc-disabled' : '',
+          hasAnyIcon && !option.icon ? 'nc-indented' : '',
+        ].filter(Boolean).join(' ');
+
+        return (
+          <button
+            key={option.id}
+            className={itemCls}
+            onClick={() => handleOptionClick(option)}
+            disabled={option.disabled}
+            role="menuitem"
+          >
+            {option.icon && <span className="nc-context-menu-icon">{option.icon}</span>}
+            <span className="nc-context-menu-label">{option.label}</span>
+          </button>
+        );
+      })}
     </div>,
     document.body
   );

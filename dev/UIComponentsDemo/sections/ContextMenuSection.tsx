@@ -33,11 +33,22 @@ export function ContextMenuSection() {
               label: 'Edit Item',
               icon: <EditIcon size={16} />,
               onClick: () => alert('Edit clicked'),
+              variant: 'primary',
+            },
+            {
+              id: 'warning',
+              label: 'Warning Action',
+              onClick: () => alert('Warning clicked'),
+              variant: 'warning',
+            },
+            {
+              id: 'sep1',
+              type: 'separator',
             },
             {
               id: 'disabled',
               label: 'Disabled Option',
-              onClick: () => {},
+              onClick: () => { },
               disabled: true,
             },
             {

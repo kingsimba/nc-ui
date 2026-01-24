@@ -611,22 +611,29 @@ function SettingsApp() {
 ---
 
 ### ContextMenu
-Right-click menus:
+Floating context menu with icons and variants:
 
 ```tsx
 import { ContextMenu } from '@kingsimba/nc-ui'
+import { EditIcon, TrashIcon } from '@kingsimba/nc-ui/icons'
 
 <ContextMenu
-  items={[
-    { label: 'Edit', onClick: handleEdit },
-    { label: 'Delete', onClick: handleDelete, danger: true },
-    { type: 'separator' },
-    { label: 'Export', onClick: handleExport },
+  open={isOpen}
+  onClose={() => setOpen(false)}
+  anchor={anchorElement}
+  options={[
+    { id: 'view', label: 'View', onClick: handleView },
+    { id: 'edit', label: 'Edit', icon: <EditIcon />, variant: 'primary', onClick: handleEdit },
+    { id: 'sep1', type: 'separator' },
+    { id: 'warn', label: 'Reset', variant: 'warning', onClick: handleReset },
+    { id: 'del', label: 'Delete', icon: <TrashIcon />, variant: 'danger', onClick: handleDelete },
   ]}
->
-  <div>Right-click me</div>
-</ContextMenu>
+/>
 ```
+
+**Props:** `open`, `onClose`, `options`, `anchor`, `anchorRef`, `preferredDirection`
+
+**Option Props:** `id`, `label`, `icon`, `onClick`, `variant`, `disabled`
 
 ---
 

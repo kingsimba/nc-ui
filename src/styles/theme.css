@@ -544,9 +544,24 @@ li::marker { color: var(--nc-text-weak); }
 .nc-context-menu-item:not(.nc-disabled):hover { background-color: var(--nc-overlay-hover); }
 .nc-context-menu-item:not(.nc-disabled):active { background-color: var(--nc-button-active); }
 .nc-context-menu-item.nc-disabled { color: var(--nc-text-weak); cursor: not-allowed; }
+.nc-context-menu-item.nc-indented { padding-left: 40px; }
 .nc-context-menu-item.nc-danger { color: var(--nc-danger); }
 .nc-context-menu-item.nc-danger:not(.nc-disabled):hover { background-color: rgba(239, 68, 68, 0.1); }
 .nc-context-menu-item.nc-danger:not(.nc-disabled):active { background-color: rgba(239, 68, 68, 0.15); }
+
+.nc-context-menu-item.nc-primary { color: var(--nc-primary); }
+.nc-context-menu-item.nc-primary:not(.nc-disabled):hover { background-color: rgba(59, 130, 246, 0.1); }
+.nc-context-menu-item.nc-primary:not(.nc-disabled):active { background-color: rgba(59, 130, 246, 0.15); }
+
+.nc-context-menu-item.nc-warning { color: var(--nc-warning); }
+.nc-context-menu-item.nc-warning:not(.nc-disabled):hover { background-color: rgba(245, 158, 11, 0.1); }
+.nc-context-menu-item.nc-warning:not(.nc-disabled):active { background-color: rgba(245, 158, 11, 0.15); }
+
+.nc-context-menu-separator {
+  height: 1px;
+  background-color: var(--nc-border);
+  margin: 4px 8px;
+}
 
 .nc-context-menu-icon {
   display: flex;
