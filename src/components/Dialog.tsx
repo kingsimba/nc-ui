@@ -86,6 +86,8 @@ export interface DialogProps {
   hideTitleBar?: boolean;
   /** Additional CSS class for the dialog container */
   className?: string;
+  /** Called when the content height changes, returns the new height in pixels */
+  onContentHeightChange?: (height: number) => void;
 }
 
 /**
@@ -110,8 +112,10 @@ export function Dialog({
   fullScreen = false,
   hideTitleBar = false,
   className = '',
+  onContentHeightChange,
 }: DialogProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
 
   // Context value for children to access
@@ -130,6 +134,24 @@ export function Dialog({
       dialogRef.current.focus();
     }
   }, [open]);
+
+  // Monitor content height changes
+  useEffect(() => {
+    if (!onContentHeightChange || !contentRef.current) return;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const height = entry.contentRect.height;
+        onContentHeightChange(height);
+      }
+    });
+
+    resizeObserver.observe(contentRef.current);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [onContentHeightChange]);
 
   if (!open) return null;
 
@@ -229,7 +251,7 @@ export function Dialog({
               <CloseButton onClick={onClose} aria-label="Close dialog" />
             </div>
           )}
-          <div className="nc-dialog-content">
+          <div ref={contentRef} className="nc-dialog-content">
             {children}
           </div>
           {renderFooter()}
