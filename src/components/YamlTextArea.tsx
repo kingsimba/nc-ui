@@ -251,6 +251,7 @@ export function YamlTextArea({
           word-wrap: normal !important;
           word-break: keep-all !important;
           overflow-x: visible !important;
+          resize: none !important;
         }
       `}</style>
       <div className={`nc-yaml-textarea-container${error ? ' error' : ''}`}>

@@ -291,6 +291,7 @@ li::marker { color: var(--nc-text-weak); }
   border-radius: 8px;
   padding: 10px 12px;
   font-size: inherit;
+  resize: none;
 }
 
 .nc-input.nc-small { padding: 6px 12px; font-size: 12px; min-height: 32px; height: 32px; border-radius: 4px; }
@@ -908,8 +909,8 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
   animation: nc-dialog-slide-up 200ms ease-out;
   outline: none;
   width: 360px;
-  max-width: 95vw;
-  max-height: 95vh;
+  max-width: 90%;
+  max-height: 95%;
 }
 
 .nc-dialog-header {

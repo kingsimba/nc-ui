@@ -204,7 +204,6 @@ export function Input({
             style={{
               width: '100%',
               paddingRight,
-              resize: 'vertical',
             }}
           />
         ) : (
