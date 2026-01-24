@@ -23,6 +23,7 @@ import {
     MoreIcon,
     MoreHorizontalIcon,
     ExternalLinkIcon,
+    SearchIcon,
 } from '../../../src/components/icons'
 
 export function IconsSection() {
@@ -126,6 +127,10 @@ export function IconsSection() {
                     <div className="dev-item">
                         <ExternalLinkIcon size={24} />
                         <span>ExternalLinkIcon</span>
+                    </div>
+                    <div className="dev-item">
+                        <SearchIcon size={24} />
+                        <span>SearchIcon</span>
                     </div>
                 </div>
             </section>

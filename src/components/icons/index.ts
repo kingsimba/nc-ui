@@ -25,4 +25,5 @@ export {
   MoreIcon,
   MoreHorizontalIcon,
   ExternalLinkIcon,
+  SearchIcon,
 } from './GeneratedIcons';

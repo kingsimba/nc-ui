@@ -17,10 +17,6 @@ export interface MonthRangePickerProps {
     disabled?: boolean;
 }
 
-const MONTHS = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-];
 
 function validateMonthFormat(value: string): string | null {
     if (!value) return null;
@@ -65,8 +61,7 @@ function formatMonthDisplay(monthStr: string): string {
     const normalized = normalizeMonth(monthStr);
     if (!/^\d{4}-\d{2}$/.test(normalized)) return monthStr;
     const [year, month] = normalized.split('-');
-    const monthIndex = parseInt(month, 10) - 1;
-    return `${MONTHS[monthIndex]} ${year}`;
+    return `${year}/${month}`;
 }
 
 function getCurrentYearMonth(): string {
