@@ -303,7 +303,27 @@ import { Dialog } from '@kingsimba/nc-ui'
 </Dialog>
 ```
 
-**Props:** `open`, `onClose`, `title`, `footer`, `children`, `style`, `className`
+**Props:** `open`, `onClose`, `title`, `footer`, `children`, `style`, `className`, `onOk`, `onSave`, `onDelete`, `onCancel`, `onConnect`, `footerType`, `closeOnOverlay`, `primaryDisabled`, `fullScreen`, `hideTitleBar`
+
+---
+
+## App Components
+
+### AppDialog
+Renders an app in a fullscreen portal overlay:
+
+```tsx
+import { AppDialog } from '@kingsimba/nc-ui'
+
+<AppDialog
+  appId="calculator"
+  open={isOpen}
+  onClose={() => setOpen(false)}
+  style={{ maxWidth: 480, maxHeight: 700 }}
+/>
+```
+
+**Props:** `appId`, `open`, `onClose`, `closeOnBackdrop`, `className`, `style`
 
 ---
 
@@ -619,12 +639,12 @@ import { YamlTextArea } from '@kingsimba/nc-ui/yaml'
 <YamlTextArea
   value={yamlString}
   onChange={setYamlString}
-  onParse={setParsedYaml}
-  height={400}
+  onValidationChange={(isValid, error) => console.log(isValid, error)}
+  style={{ minHeight: 400 }}
 />
 ```
 
-**Props:** `value`, `onChange`, `onParse`, `height`, `readOnly`
+**Props:** `value`, `onChange`, `onValidationChange`, `readOnly`, `debounceMs`, `className`, `style`
 
 ---
 
