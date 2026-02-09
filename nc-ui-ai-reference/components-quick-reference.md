@@ -661,9 +661,7 @@ import { YamlTextArea } from '@kingsimba/nc-ui/yaml'
 Ready-to-use icon buttons:
 
 ```tsx
-import { CommonButtons } from '@kingsimba/nc-ui'
-
-const { CloseButton, EditButton, RefreshButton, TrashButton } = CommonButtons
+import { CloseButton, EditButton, RefreshButton, TrashButton } from '@kingsimba/nc-ui'
 
 <CloseButton onClick={handleClose} />
 <EditButton onClick={handleEdit} />
