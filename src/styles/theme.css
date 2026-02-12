@@ -870,6 +870,26 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
   padding-bottom: 4px;
 }
 
+.nc-tab-panels {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.nc-tab-panel {
+  height: 100%;
+}
+
+.nc-tab-panel-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+}
+
 /* Toggle component */
 .nc-toggle {
   position: relative;
@@ -1406,8 +1426,4 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
   gap: 8px;
   padding-top: 8px;
   border-top: 1px solid var(--nc-border);
-}
-
-.nc-tab-panel-wrapper {
-  height: 100%;
 }

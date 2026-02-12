@@ -81,7 +81,7 @@ export function TabPanels({ active, children, keepMounted = false, className = '
             <div
               key={panel.props.tab}
               className={`nc-tab-panel-wrapper ${isActive ? 'nc-active' : ''}`}
-              style={{ display: isActive ? 'block' : 'none' }}
+              style={{ display: isActive ? undefined : 'none' }}
               aria-hidden={!isActive}
             >
               {panel}
