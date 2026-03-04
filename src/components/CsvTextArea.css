@@ -110,6 +110,17 @@
     /* match line-height */
 }
 
+/* ── Highlighted line ── */
+.nc-csv-line.nc-csv-highlight {
+    background: color-mix(in srgb, var(--nc-primary) 18%, transparent);
+    border-radius: 2px;
+}
+
+.nc-csv-line-number.nc-csv-highlight {
+    color: var(--nc-primary);
+    font-weight: 600;
+}
+
 .nc-csv-tab-char {
     /* Make the tab character visible as spacing */
     white-space: pre;

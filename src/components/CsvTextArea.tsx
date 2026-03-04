@@ -1,4 +1,4 @@
-import { useRef, useCallback, useImperativeHandle, forwardRef, useMemo } from 'react';
+import { useRef, useCallback, useImperativeHandle, forwardRef, useMemo, useEffect } from 'react';
 import './CsvTextArea.css';
 
 // 10 distinct column colors – use CSS custom properties so light/dark themes
@@ -45,6 +45,8 @@ export interface CsvTextAreaProps {
     showLineNumbers?: boolean;
     /** Called whenever the cursor position changes (click, arrow keys, typing). */
     onCursorChange?: (position: CsvCursorPosition) => void;
+    /** 1-based line number to highlight with a background band. The line is scrolled into view automatically. */
+    highlightLine?: number;
 }
 
 /** Compute {line, column} (both 1-based) from a character offset in `text`. */
@@ -80,7 +82,7 @@ function lineToOffset(text: string, line: number): number {
  * the imperative `goToLine(line)` method.
  */
 export const CsvTextArea = forwardRef<CsvTextAreaHandle, CsvTextAreaProps>(
-    function CsvTextArea({ value, onChange, placeholder, className, style, showLineNumbers = false, onCursorChange }, ref) {
+    function CsvTextArea({ value, onChange, placeholder, className, style, showLineNumbers = false, onCursorChange, highlightLine }, ref) {
         const textareaRef = useRef<HTMLTextAreaElement>(null);
         const backdropRef = useRef<HTMLDivElement>(null);
         const gutterRef = useRef<HTMLDivElement>(null);
@@ -121,6 +123,22 @@ export const CsvTextArea = forwardRef<CsvTextAreaHandle, CsvTextAreaProps>(
             }
         }, []);
 
+        // ── Highlight-line scroll-into-view ─────────────────────────────
+        useEffect(() => {
+            if (highlightLine == null || highlightLine < 1) return;
+            const ta = textareaRef.current;
+            if (!ta) return;
+            const lineHeight = parseFloat(getComputedStyle(ta).lineHeight) || 18;
+            const targetTop = (highlightLine - 1) * lineHeight;
+            const targetBottom = targetTop + lineHeight;
+            // Only scroll if the highlighted line is not already visible
+            if (targetTop < ta.scrollTop || targetBottom > ta.scrollTop + ta.clientHeight) {
+                // Center the line in the viewport when possible
+                ta.scrollTop = targetTop - ta.clientHeight / 2 + lineHeight / 2;
+            }
+            handleScroll();
+        }, [highlightLine]); // eslint-disable-line react-hooks/exhaustive-deps
+
         // ── Line numbers ───────────────────────────────────────────────
         const lineCount = useMemo(() => value.split('\n').length, [value]);
 
@@ -128,7 +146,7 @@ export const CsvTextArea = forwardRef<CsvTextAreaHandle, CsvTextAreaProps>(
             const nums: React.ReactNode[] = [];
             for (let i = 1; i <= lineCount; i++) {
                 nums.push(
-                    <div className="nc-csv-line-number" key={i}>
+                    <div className={`nc-csv-line-number ${highlightLine === i ? 'nc-csv-highlight' : ''}`} key={i}>
                         {i}
                     </div>,
                 );
@@ -152,7 +170,7 @@ export const CsvTextArea = forwardRef<CsvTextAreaHandle, CsvTextAreaProps>(
             return lines.map((line, lineIdx) => {
                 const cols = line.split('\t');
                 return (
-                    <div className="nc-csv-line" key={lineIdx}>
+                    <div className={`nc-csv-line ${highlightLine === lineIdx + 1 ? 'nc-csv-highlight' : ''}`} key={lineIdx}>
                         {cols.map((col, colIdx) => (
                             <span key={colIdx}>
                                 {colIdx > 0 && <span className="nc-csv-tab-char">{'\t'}</span>}

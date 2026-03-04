@@ -14,6 +14,7 @@ export function CsvTextAreaSection() {
     const [value, setValue] = useState(sampleCsv);
     const [cursor, setCursor] = useState<CsvCursorPosition>({ line: 1, column: 1 });
     const [goToInput, setGoToInput] = useState('');
+    const [highlightLine, setHighlightLine] = useState<number | undefined>(3);
     const csvRef = useRef<CsvTextAreaHandle>(null);
 
     return (
@@ -53,6 +54,7 @@ export function CsvTextAreaSection() {
                     value={value}
                     onChange={setValue}
                     showLineNumbers
+                    highlightLine={highlightLine}
                     onCursorChange={setCursor}
                     placeholder="Paste tab-separated data here…"
                     style={{ height: 260, tabSize: 8 }}
@@ -72,7 +74,10 @@ export function CsvTextAreaSection() {
                             onKeyDown={e => {
                                 if (e.key === 'Enter') {
                                     const n = parseInt(goToInput, 10);
-                                    if (!isNaN(n)) csvRef.current?.goToLine(n);
+                                    if (!isNaN(n)) {
+                                        csvRef.current?.goToLine(n);
+                                        setHighlightLine(n);
+                                    }
                                 }
                             }}
                             style={{ width: 60 }}
@@ -80,10 +85,16 @@ export function CsvTextAreaSection() {
                         <button
                             onClick={() => {
                                 const n = parseInt(goToInput, 10);
-                                if (!isNaN(n)) csvRef.current?.goToLine(n);
+                                if (!isNaN(n)) {
+                                    csvRef.current?.goToLine(n);
+                                    setHighlightLine(n);
+                                }
                             }}
                         >
                             Go
+                        </button>
+                        <button onClick={() => setHighlightLine(undefined)} style={{ marginLeft: 4 }}>
+                            Clear
                         </button>
                     </span>
                 </div>
