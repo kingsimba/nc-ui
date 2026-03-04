@@ -80,6 +80,7 @@ nc-ui provides 23+ ready-to-use components. Click any component to see it in the
 | [CommonButtons](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=buttons-icon) | Pre-configured buttons (Close, Edit, Refresh, Trash) |
 | [ComboBox](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=combobox) | Searchable dropdown with autocomplete |
 | [ContextMenu](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=context-menu) | Right-click menu with customizable items |
+| [CsvTextArea](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=csv-textarea) | Tab-separated text editor with per-column color highlighting |
 | [Dialog](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=dialog) | Modal dialogs with header, footer, and action buttons |
 | [Hyperlink](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=hyperlink) | Styled anchor/link component |
 | [Icons](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=icons) | 50+ SVG icons (separate import path) |

@@ -657,6 +657,24 @@ import { YamlTextArea } from '@kingsimba/nc-ui/yaml'
 
 ---
 
+### CsvTextArea
+Tab-separated text editor with per-column color highlighting:
+
+```tsx
+import { CsvTextArea } from '@kingsimba/nc-ui'
+
+<CsvTextArea
+  value={csvString}
+  onChange={setCsvString}
+  placeholder="Paste tab-separated data here…"
+  style={{ height: 260 }}
+/>
+```
+
+**Props:** `value`, `onChange`, `placeholder`, `className`, `style`
+
+---
+
 ## Pre-configured Components
 
 ### CommonButtons

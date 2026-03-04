@@ -1,0 +1,113 @@
+/* ── CsvTextArea: overlay textarea with colored column backdrop ── */
+
+/* ── Column colors: dark theme (default) – softer / lighter ── */
+:root {
+    --nc-csv-col-0: #e06c75; /* red */
+    --nc-csv-col-1: #61afef; /* blue */
+    --nc-csv-col-2: #98c379; /* green */
+    --nc-csv-col-3: #d19a66; /* orange */
+    --nc-csv-col-4: #c678dd; /* purple */
+    --nc-csv-col-5: #56b6c2; /* cyan */
+    --nc-csv-col-6: #e5c07b; /* yellow */
+    --nc-csv-col-7: #be5046; /* dark red */
+    --nc-csv-col-8: #7ec8e3; /* light blue */
+    --nc-csv-col-9: #c3e88d; /* lime */
+}
+
+/* ── Column colors: light theme – strong, saturated ── */
+:root.light {
+    --nc-csv-col-0: #c0392b; /* red */
+    --nc-csv-col-1: #2471a3; /* blue */
+    --nc-csv-col-2: #1e8449; /* green */
+    --nc-csv-col-3: #ca6f1e; /* orange */
+    --nc-csv-col-4: #884ea0; /* purple */
+    --nc-csv-col-5: #148f77; /* teal */
+    --nc-csv-col-6: #b7950b; /* dark yellow */
+    --nc-csv-col-7: #a93226; /* dark red */
+    --nc-csv-col-8: #1a5276; /* navy */
+    --nc-csv-col-9: #6c8e23; /* olive */
+}
+
+.nc-csv-textarea-container {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--nc-border);
+    border-radius: 6px;
+    background: var(--nc-input-bg);
+    tab-size: 10;
+}
+
+.nc-csv-textarea-container:focus-within {
+    border-color: var(--nc-primary);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--nc-primary) 20%, transparent);
+}
+
+/* ── Shared typography between backdrop and textarea ── */
+.nc-csv-textarea-backdrop,
+.nc-csv-textarea-input {
+    font-family: monospace;
+    font-size: 0.7rem;
+    line-height: 1.4;
+    padding: 8px 12px;
+    margin: 0;
+    white-space: pre;
+    word-wrap: normal;
+    overflow-wrap: normal;
+    tab-size: inherit;
+}
+
+/* ── Backdrop: sits behind the textarea ── */
+.nc-csv-textarea-backdrop {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.nc-csv-textarea-highlights {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+    line-height: inherit;
+    white-space: pre;
+    color: transparent;
+    /* fallback, columns override color */
+}
+
+.nc-csv-line {
+    min-height: 1.4em;
+    /* match line-height */
+}
+
+.nc-csv-tab-char {
+    /* Make the tab character visible as spacing */
+    white-space: pre;
+}
+
+/* ── Textarea: transparent layer on top for editing ── */
+.nc-csv-textarea-input {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    resize: none;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: transparent;
+    caret-color: var(--nc-text);
+    /* cursor stays visible */
+    -webkit-text-fill-color: transparent;
+}
+
+.nc-csv-textarea-input::placeholder {
+    -webkit-text-fill-color: var(--nc-text-weak);
+    color: var(--nc-text-weak);
+}
+
+.nc-csv-textarea-input::selection {
+    background: color-mix(in srgb, var(--nc-primary) 30%, transparent);
+}

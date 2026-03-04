@@ -25,6 +25,7 @@ import { MonthRangePickerSection } from './sections/MonthRangePickerSection';
 import { AppDialogSection } from './sections/AppDialogSection';
 import { NavStackSection } from './sections/NavStackSection';
 import { YamlTextAreaSection } from './sections/YamlTextAreaSection';
+import { CsvTextAreaSection } from './sections/CsvTextAreaSection';
 import { StylesSection } from './sections/StylesSection';
 import { NotificationSection } from './sections/NotificationSection';
 import './UIComponentsDemo.css';
@@ -32,7 +33,7 @@ import './UIComponentsDemo.css';
 type SectionId = 'styles' | 'buttons' | 'activity' | 'checkbox' | 'combobox' | 'buttons-icon' |
   'hyperlink' | 'alert' | 'battery' | 'context-menu' | 'button-group' | 'input' |
   'number-input' | 'slider' | 'toggle' | 'multi-select' | 'month-range' | 'icons' | 'tabs' |
-  'list-group' | 'dialog' | 'app-dialog' | 'nav-stack' | 'yaml-textarea' | 'notification';
+  'list-group' | 'dialog' | 'app-dialog' | 'nav-stack' | 'yaml-textarea' | 'csv-textarea' | 'notification';
 
 interface Section {
   id: SectionId;
@@ -74,6 +75,7 @@ export function UIComponentsDemo() {
     { id: 'app-dialog', label: 'AppDialog', component: AppDialogSection },
     { id: 'nav-stack', label: 'NavStack', component: NavStackSection },
     { id: 'yaml-textarea', label: 'YamlTextArea', component: YamlTextAreaSection },
+    { id: 'csv-textarea', label: 'CsvTextArea', component: CsvTextAreaSection },
     { id: 'notification', label: 'Notification', component: NotificationSection },
   ];
 
