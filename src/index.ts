@@ -1,3 +1,6 @@
+// Import global styles so Vite bundles them into dist/style.css
+import './styles/theme.css';
+
 // Export all UI components from here
 export { Alert } from './components/Alert';
 export { Battery } from './components/Battery';

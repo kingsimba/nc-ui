@@ -13,19 +13,6 @@ export default defineConfig({
       outDir: 'dist',
       rollupTypes: true,
     }),
-    ...(process.env.BUILD_DEMO !== 'true'
-      ? [
-          viteStaticCopy({
-            targets: [
-              {
-                src: 'src/styles/theme.css',
-                dest: '.',
-                rename: 'styles.css',
-              },
-            ],
-          }),
-        ]
-      : []),
   ],
   resolve: {
     alias: {

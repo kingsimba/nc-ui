@@ -21,7 +21,7 @@
             "require": "./dist/yaml.cjs",
             "types": "./dist/yaml.d.ts"
         },
-        "./styles.css": "./dist/styles.css"
+        "./styles.css": "./dist/style.css"
     },
     "files": [
         "dist"
