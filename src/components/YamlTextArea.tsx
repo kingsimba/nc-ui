@@ -74,7 +74,7 @@ interface YamlError {
   message: string;
 }
 
-export function YamlTextArea({
+function YamlTextArea({
   value,
   onChange,
   onValidationChange,
@@ -317,5 +317,5 @@ export function YamlTextArea({
   );
 }
 
-// Default export for lazy loading
+export { YamlTextArea };
 export default YamlTextArea;

@@ -57,7 +57,7 @@ export function YamlTextAreaSection() {
                         <YamlTextArea
                             value={yaml1}
                             onChange={setYaml1}
-                            onValidationChange={(valid) => setIsValid1(valid)}
+                            onValidationChange={(valid: boolean) => setIsValid1(valid)}
                             style={{ minHeight: 200, maxHeight: 300 }}
                         />
                     </div>
@@ -71,7 +71,7 @@ export function YamlTextAreaSection() {
                         <YamlTextArea
                             value={yaml2}
                             onChange={setYaml2}
-                            onValidationChange={(valid) => setIsValid2(valid)}
+                            onValidationChange={(valid: boolean) => setIsValid2(valid)}
                             style={{ minHeight: 150 }}
                         />
                     </div>
