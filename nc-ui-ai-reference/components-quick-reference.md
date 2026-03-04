@@ -672,18 +672,21 @@ const csvRef = useRef<CsvTextAreaHandle>(null)
   onChange={setCsvString}
   showLineNumbers              // optional line-number gutter
   highlightLine={3}            // highlight & scroll-into-view (1-based)
-  onCursorChange={(pos) => {}} // { line, column } – both 1-based
+  onCursorChange={(pos) => {}} // { line, column, character, offset } – line/col/char are 1-based
   placeholder="Paste tab-separated data here…"
   style={{ height: 260 }}
 />
 
 // Jump to line 5 programmatically
 csvRef.current?.goToLine(5)
+
+// Jump to specific line, column, and character (all 1-based)
+csvRef.current?.goToPosition(2, 3, 1)
 ```
 
 **Props:** `value`, `onChange`, `placeholder`, `className`, `style`, `showLineNumbers`, `highlightLine`, `onCursorChange`
 
-**Ref methods:** `goToLine(line: number)`
+**Ref methods:** `goToLine(line: number)`, `goToPosition(line: number, column: number, character: number)`
 
 ---
 
