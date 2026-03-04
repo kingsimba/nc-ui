@@ -1,4 +1,3 @@
-````skill
 ---
 name: add-component-feature
 description: Add a new prop or feature to an existing nc-ui component. Use this skill when the user wants to extend a component with new behavior, a new prop, a callback, or a visual option.
@@ -34,6 +33,7 @@ export interface TabsProps {
 ```
 
 Guidelines:
+
 - Mark optional props with `?`
 - Always add a JSDoc comment explaining purpose and behavior
 - Export the updated interface (it is re-exported from `src/index.ts`)
@@ -53,6 +53,7 @@ export function Tabs({ ..., newProp }: TabsProps) {
 Open `src/styles/theme.css` and add styles near the existing styles for that component (search for its `nc-` prefix class).
 
 Rules:
+
 - All component class names use the `nc-` prefix: `.nc-tab-close`, `.nc-button-icon`, etc.
 - Use CSS variables for all colors: `var(--nc-text)`, `var(--nc-primary)`, `var(--nc-border)`, etc.
 - Never hardcode color values
@@ -60,7 +61,9 @@ Rules:
 ```css
 .nc-tab-close {
   opacity: 0.5;
-  transition: opacity 120ms, background 120ms;
+  transition:
+    opacity 120ms,
+    background 120ms;
 }
 
 .nc-tab-close:hover {
@@ -81,12 +84,13 @@ Open the corresponding section file in `dev/UIComponentsDemo/sections/`, e.g. `T
 - Show realistic usage: not just a toggle, but something that demonstrates real value
 
 Example structure:
+
 ```tsx
-<section className="dev-section">
+<section className='dev-section'>
   <h2>Closable Tabs</h2>
   <p style={{ marginBottom: 16, color: 'var(--nc-text-weak)' }}>
-    Provide <code>onClose</code> to show a close button on each tab.
-    Use <code>permanentTabs</code> to exclude specific tabs from being closable.
+    Provide <code>onClose</code> to show a close button on each tab. Use{' '}
+    <code>permanentTabs</code> to exclude specific tabs from being closable.
   </p>
   {/* demo JSX */}
 </section>
@@ -102,11 +106,13 @@ Open `nc-ui-ai-reference/components-quick-reference.md` and find the section for
 - Add it to the **Props** line at the bottom of the section
 
 Before:
+
 ```markdown
 **Props:** `tabs`, `active`, `onChange`, `orientation`, `toolbar`
 ```
 
 After:
+
 ```markdown
 **Props:** `tabs`, `active`, `onChange`, `onClose`, `permanentTabs`, `orientation`, `toolbar`
 ```
@@ -118,20 +124,24 @@ After:
 This feature was added following the checklist above:
 
 **Component (`Tabs.tsx`):**
+
 - Added `onClose?: (tab: string) => void` — triggers when a tab's × is clicked
 - Added `permanentTabs?: string[]` — tabs in this list never show a close button
 - In render: `const isClosable = onClose && !permanentTabs?.includes(t)`
 - Rendered a `<span className="nc-tab-close">` SVG × icon inside closable tabs
 
 **CSS (`theme.css`):**
+
 - `.nc-tab-item.nc-closable` — flex layout with reduced right padding
 - `.nc-tab-close` — always visible at 0.5 opacity, brightens on hover
 
 **Demo (`TabsSection.tsx`):**
+
 - New state: `closableTabs`, `closableActive`
 - New section showing close behavior with "File 1" marked as permanent
 
 **Docs (`components-quick-reference.md`):**
+
 - Added `onClose` and `permanentTabs` to the Tabs example and props list
 
 ---
@@ -142,4 +152,3 @@ This feature was added following the checklist above:
 - When reducing padding on a closable variant, use a specific override like `padding-right: 8px` rather than changing the base `.nc-tab-item`
 - Use `position: relative; top: Npx` for fine pixel-level vertical adjustments to inline icons
 - `e.stopPropagation()` is essential on close button click handlers to prevent triggering the parent tab's `onClick`
-````
