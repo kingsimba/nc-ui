@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { CsvTextArea } from '../../../src/components/CsvTextArea';
+import type { CsvTextAreaHandle, CsvCursorPosition } from '../../../src/components/CsvTextArea';
 
 const sampleCsv = [
     'Name\tAge\tCity\tOccupation\tEmail',
@@ -11,6 +12,9 @@ const sampleCsv = [
 
 export function CsvTextAreaSection() {
     const [value, setValue] = useState(sampleCsv);
+    const [cursor, setCursor] = useState<CsvCursorPosition>({ line: 1, column: 1 });
+    const [goToInput, setGoToInput] = useState('');
+    const csvRef = useRef<CsvTextAreaHandle>(null);
 
     return (
         <>
@@ -36,6 +40,54 @@ export function CsvTextAreaSection() {
                 </p>
             </section>
 
+            <section className="dev-section">
+                <h2>Line Numbers &amp; Cursor Tracking</h2>
+                <p style={{ marginBottom: 16, color: 'var(--nc-text-weak)' }}>
+                    Enable <code>showLineNumbers</code> for a line-number gutter. Use{' '}
+                    <code>onCursorChange</code> to track the cursor position, and{' '}
+                    <code>ref.goToLine(n)</code> to jump to a specific line programmatically.
+                </p>
+
+                <CsvTextArea
+                    ref={csvRef}
+                    value={value}
+                    onChange={setValue}
+                    showLineNumbers
+                    onCursorChange={setCursor}
+                    placeholder="Paste tab-separated data here…"
+                    style={{ height: 260, tabSize: 8 }}
+                />
+
+                <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', gap: 16, fontSize: '0.85rem' }}>
+                    <span style={{ color: 'var(--nc-text-weak)' }}>
+                        Cursor: Line {cursor.line}, Col {cursor.column}
+                    </span>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                        <label style={{ color: 'var(--nc-text-weak)' }}>Go to line:</label>
+                        <input
+                            type="number"
+                            min={1}
+                            value={goToInput}
+                            onChange={e => setGoToInput(e.target.value)}
+                            onKeyDown={e => {
+                                if (e.key === 'Enter') {
+                                    const n = parseInt(goToInput, 10);
+                                    if (!isNaN(n)) csvRef.current?.goToLine(n);
+                                }
+                            }}
+                            style={{ width: 60 }}
+                        />
+                        <button
+                            onClick={() => {
+                                const n = parseInt(goToInput, 10);
+                                if (!isNaN(n)) csvRef.current?.goToLine(n);
+                            }}
+                        >
+                            Go
+                        </button>
+                    </span>
+                </div>
+            </section>
         </>
     );
 }

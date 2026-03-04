@@ -30,6 +30,7 @@
 
 .nc-csv-textarea-container {
     position: relative;
+    display: flex;
     overflow: hidden;
     border: 1px solid var(--nc-border);
     border-radius: 6px;
@@ -40,6 +41,35 @@
 .nc-csv-textarea-container:focus-within {
     border-color: var(--nc-primary);
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--nc-primary) 20%, transparent);
+}
+
+/* ── Line-number gutter ── */
+.nc-csv-gutter {
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: 3em;
+    padding: 8px 6px 8px 0;
+    overflow: hidden;
+    text-align: right;
+    font-family: monospace;
+    font-size: 0.7rem;
+    line-height: 1.4;
+    color: var(--nc-text-weak);
+    background: var(--nc-bg-secondary, var(--nc-input-bg));
+    border-right: 1px solid var(--nc-border);
+    user-select: none;
+    pointer-events: none;
+}
+
+.nc-csv-line-number {
+    min-height: 1.4em;
+}
+
+/* ── Editor area (backdrop + textarea) ── */
+.nc-csv-textarea-editor {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
 }
 
 /* ── Shared typography between backdrop and textarea ── */

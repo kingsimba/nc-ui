@@ -54,7 +54,11 @@ export type {
   TabPanelsProps,
 } from './components/Tabs';
 export type { ToggleProps } from './components/Toggle';
-export type { CsvTextAreaProps } from './components/CsvTextArea';
+export type {
+  CsvTextAreaProps,
+  CsvCursorPosition,
+  CsvTextAreaHandle,
+} from './components/CsvTextArea';
 export type { Notification as NotificationType } from './stores/notificationStore';
 
 // Export types

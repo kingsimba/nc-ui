@@ -658,20 +658,31 @@ import { YamlTextArea } from '@kingsimba/nc-ui/yaml'
 ---
 
 ### CsvTextArea
-Tab-separated text editor with per-column color highlighting:
+Tab-separated text editor with per-column color highlighting, optional line numbers, and cursor tracking:
 
 ```tsx
 import { CsvTextArea } from '@kingsimba/nc-ui'
+import type { CsvTextAreaHandle, CsvCursorPosition } from '@kingsimba/nc-ui'
+
+const csvRef = useRef<CsvTextAreaHandle>(null)
 
 <CsvTextArea
+  ref={csvRef}
   value={csvString}
   onChange={setCsvString}
+  showLineNumbers              // optional line-number gutter
+  onCursorChange={(pos) => {}} // { line, column } – both 1-based
   placeholder="Paste tab-separated data here…"
   style={{ height: 260 }}
 />
+
+// Jump to line 5 programmatically
+csvRef.current?.goToLine(5)
 ```
 
-**Props:** `value`, `onChange`, `placeholder`, `className`, `style`
+**Props:** `value`, `onChange`, `placeholder`, `className`, `style`, `showLineNumbers`, `onCursorChange`
+
+**Ref methods:** `goToLine(line: number)`
 
 ---
 
