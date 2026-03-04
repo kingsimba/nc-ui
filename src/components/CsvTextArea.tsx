@@ -20,14 +20,20 @@ const COLUMN_COLORS = [
 export interface CsvCursorPosition {
     /** 1-based line number */
     line: number;
-    /** 1-based column number */
+    /** 1-based column (tab-separated index) number */
     column: number;
+    /** 1-based character position within that column */
+    character: number;
+    /** Absolute 0-based character offset in the entire text */
+    offset: number;
 }
 
 /** Imperative handle exposed via `ref` on CsvTextArea. */
 export interface CsvTextAreaHandle {
     /** Move the cursor to the beginning of the given 1-based line and scroll it into view. */
     goToLine: (line: number) => void;
+    /** Move the cursor to a specific line, column, and character (all 1-based) */
+    goToPosition: (line: number, column: number, character: number) => void;
 }
 
 export interface CsvTextAreaProps {
@@ -49,13 +55,44 @@ export interface CsvTextAreaProps {
     highlightLine?: number;
 }
 
-/** Compute {line, column} (both 1-based) from a character offset in `text`. */
+/** Compute {line, column, character} (all 1-based) from a character offset in `text`. */
 function offsetToPosition(text: string, offset: number): CsvCursorPosition {
     const before = text.slice(0, offset);
-    const line = before.split('\n').length;
-    const lastNewline = before.lastIndexOf('\n');
-    const column = offset - lastNewline; // works even when lastNewline is -1
-    return { line, column };
+    const lines = before.split('\n');
+    const line = lines.length;
+    const currentLineText = lines[line - 1];
+    const columns = currentLineText.split('\t');
+    const column = columns.length;
+    const character = columns[column - 1].length + 1; // 1-based char within column
+    return { line, column, character, offset };
+}
+
+/** Return the character offset for a given line, column, and character (all 1-based) in `text`. */
+function positionToOffset(text: string, line: number, column: number, character: number): number {
+    const lines = text.split('\n');
+    const clampedLine = Math.max(1, Math.min(line, lines.length));
+
+    let offset = 0;
+    // Sum previous lines
+    for (let i = 0; i < clampedLine - 1; i++) {
+        offset += lines[i].length + 1; // +1 for '\n'
+    }
+
+    // Process target line
+    const lineText = lines[clampedLine - 1];
+    const cols = lineText.split('\t');
+    const clampedColumn = Math.max(1, Math.min(column, cols.length));
+
+    // Sum previous columns in the target line
+    for (let j = 0; j < clampedColumn - 1; j++) {
+        offset += cols[j].length + 1; // +1 for '\t'
+    }
+
+    // Add character offset (handle out of bounds)
+    const clampedChar = Math.max(1, Math.min(character, cols[clampedColumn - 1].length + 1));
+    offset += (clampedChar - 1);
+
+    return offset;
 }
 
 /** Return the character offset of the start of a 1-based `line` in `text`. */
@@ -101,6 +138,18 @@ export const CsvTextArea = forwardRef<CsvTextAreaHandle, CsvTextAreaProps>(
                 handleScroll();
                 emitCursor();
             },
+            goToPosition(line: number, column: number, character: number) {
+                const ta = textareaRef.current;
+                if (!ta) return;
+                const offset = positionToOffset(value, line, column, character);
+                ta.focus();
+                ta.setSelectionRange(offset, offset);
+                // Scroll the target line into view (approximate via line-height)
+                const lineHeight = parseFloat(getComputedStyle(ta).lineHeight) || 18;
+                ta.scrollTop = (Math.max(1, line) - 1) * lineHeight;
+                handleScroll();
+                emitCursor();
+            }
         }), [value]); // eslint-disable-line react-hooks/exhaustive-deps
 
         // ── Cursor position helpers ────────────────────────────────────

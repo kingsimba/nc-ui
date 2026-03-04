@@ -12,8 +12,10 @@ const sampleCsv = [
 
 export function CsvTextAreaSection() {
     const [value, setValue] = useState(sampleCsv);
-    const [cursor, setCursor] = useState<CsvCursorPosition>({ line: 1, column: 1 });
-    const [goToInput, setGoToInput] = useState('');
+    const [cursor, setCursor] = useState<CsvCursorPosition>({ line: 1, column: 1, character: 1, offset: 0 });
+    const [goToLineInput, setGoToLineInput] = useState('');
+    const [goToColInput, setGoToColInput] = useState('1');
+    const [goToCharInput, setGoToCharInput] = useState('1');
     const [highlightLine, setHighlightLine] = useState<number | undefined>(3);
     const csvRef = useRef<CsvTextAreaHandle>(null);
 
@@ -60,43 +62,62 @@ export function CsvTextAreaSection() {
                     style={{ height: 260, tabSize: 8 }}
                 />
 
-                <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', gap: 16, fontSize: '0.85rem' }}>
-                    <span style={{ color: 'var(--nc-text-weak)' }}>
-                        Cursor: Line {cursor.line}, Col {cursor.column}
-                    </span>
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-                        <label style={{ color: 'var(--nc-text-weak)' }}>Go to line:</label>
-                        <input
-                            type="number"
-                            min={1}
-                            value={goToInput}
-                            onChange={e => setGoToInput(e.target.value)}
-                            onKeyDown={e => {
-                                if (e.key === 'Enter') {
-                                    const n = parseInt(goToInput, 10);
-                                    if (!isNaN(n)) {
-                                        csvRef.current?.goToLine(n);
-                                        setHighlightLine(n);
-                                    }
-                                }
-                            }}
-                            style={{ width: 60 }}
-                        />
+                <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 12, fontSize: '0.85rem' }}>
+                    <div style={{ color: 'var(--nc-text-weak)', display: 'flex', gap: 16 }}>
+                        <span>Cursor: Line {cursor.line}, Col {cursor.column}, Char {cursor.character}</span>
+                        <span>Offset: {cursor.offset}</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                            <label style={{ color: 'var(--nc-text-weak)' }}>L:</label>
+                            <input
+                                type="number"
+                                min={1}
+                                value={goToLineInput}
+                                onChange={e => setGoToLineInput(e.target.value)}
+                                style={{ width: 50 }}
+                            />
+                        </div>
+                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                            <label style={{ color: 'var(--nc-text-weak)' }}>C:</label>
+                            <input
+                                type="number"
+                                min={1}
+                                value={goToColInput}
+                                onChange={e => setGoToColInput(e.target.value)}
+                                style={{ width: 50 }}
+                            />
+                        </div>
+                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                            <label style={{ color: 'var(--nc-text-weak)' }}>Char:</label>
+                            <input
+                                type="number"
+                                min={1}
+                                value={goToCharInput}
+                                onChange={e => setGoToCharInput(e.target.value)}
+                                style={{ width: 50 }}
+                            />
+                        </div>
                         <button
                             onClick={() => {
-                                const n = parseInt(goToInput, 10);
-                                if (!isNaN(n)) {
-                                    csvRef.current?.goToLine(n);
-                                    setHighlightLine(n);
+                                const l = parseInt(goToLineInput, 10);
+                                const c = parseInt(goToColInput, 10);
+                                const ch = parseInt(goToCharInput, 10);
+                                if (!isNaN(l) && !isNaN(c) && !isNaN(ch)) {
+                                    csvRef.current?.goToPosition(l, c, ch);
+                                    setHighlightLine(l);
+                                } else if (!isNaN(l)) {
+                                    csvRef.current?.goToLine(l);
+                                    setHighlightLine(l);
                                 }
                             }}
                         >
-                            Go
+                            Go to Position
                         </button>
                         <button onClick={() => setHighlightLine(undefined)} style={{ marginLeft: 4 }}>
-                            Clear
+                            Clear Highlight
                         </button>
-                    </span>
+                    </div>
                 </div>
             </section>
         </>
