@@ -530,7 +530,7 @@ import { ListGroup } from '@kingsimba/nc-ui'
 
 ### Tabs
 
-Tab navigation header with optional toolbar:
+Tab navigation header with optional toolbar and closable tabs:
 
 ```tsx
 import { Tabs } from '@kingsimba/nc-ui'
@@ -544,10 +544,12 @@ const [active, setActive] = useState('Overview')
   orientation="horizontal"  // 'horizontal' | 'verticalLeft' | 'verticalRight'
   toolbar={<Button size="small">Action</Button>}  // optional
   multiline={false}  // wrap tabs to multiple lines
+  onClose={(tab) => handleClose(tab)}  // optional, shows close button on each tab
+  permanentTabs={['Overview']}  // optional, these tabs won't have a close button
 />
 ```
 
-**Props:** `tabs` (string[]), `active`, `onChange`, `orientation`, `toolbar`, `multiline`, `className`, `style`
+**Props:** `tabs` (string[]), `active`, `onChange`, `onClose`, `permanentTabs`, `orientation`, `toolbar`, `multiline`, `className`, `style`
 
 ---
 

@@ -10,6 +10,8 @@ export function TabsSection() {
     const [searchValue, setSearchValue] = useState('')
     const [filterValue, setFilterValue] = useState('')
     const [refreshing, setRefreshing] = useState(false)
+    const [closableTabs, setClosableTabs] = useState(['File 1', 'File 2', 'File 3', 'File 4'])
+    const [closableActive, setClosableActive] = useState('File 1')
 
     const simulateRefresh = () => {
         setRefreshing(true)
@@ -34,6 +36,46 @@ export function TabsSection() {
                     <div style={{ padding: 16, background: 'var(--nc-button-bg)', borderRadius: 8 }}>
                         Content for: {activeTab}
                     </div>
+                </div>
+            </section>
+
+            <section className="dev-section">
+                <h2>Closable Tabs</h2>
+                <p style={{ marginBottom: 16, color: 'var(--nc-text-weak)' }}>
+                    Tabs with a close button. Provide <code>onClose</code> to enable close buttons.
+                    Use <code>permanentTabs</code> to mark tabs that cannot be closed (e.g. "File 1" below).
+                </p>
+                <div className="dev-col">
+                    <div style={{ maxWidth: 500, border: '1px solid var(--nc-border)', borderRadius: 8, overflow: 'hidden' }}>
+                        <Tabs
+                            tabs={closableTabs}
+                            active={closableActive}
+                            onChange={setClosableActive}
+                            onClose={(tab) => {
+                                const remaining = closableTabs.filter(t => t !== tab)
+                                setClosableTabs(remaining)
+                                if (closableActive === tab && remaining.length > 0) {
+                                    const idx = closableTabs.indexOf(tab)
+                                    setClosableActive(remaining[Math.min(idx, remaining.length - 1)])
+                                }
+                            }}
+                            permanentTabs={['File 1']}
+                        />
+                    </div>
+                    <div style={{ padding: 16, background: 'var(--nc-button-bg)', borderRadius: 8 }}>
+                        {closableTabs.length > 0
+                            ? `Content for: ${closableActive}`
+                            : 'All tabs closed'}
+                    </div>
+                    {closableTabs.length < 4 && (
+                        <Button size="small" onClick={() => {
+                            const all = ['File 1', 'File 2', 'File 3', 'File 4']
+                            setClosableTabs(all)
+                            setClosableActive(all[0])
+                        }}>
+                            Reset Tabs
+                        </Button>
+                    )}
                 </div>
             </section>
 

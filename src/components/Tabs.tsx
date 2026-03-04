@@ -108,6 +108,10 @@ export interface TabsProps {
   active: string;
   /** Callback when a tab is selected */
   onChange: (tab: string) => void;
+  /** Callback when a tab's close button is clicked. When provided, each tab shows a close button. */
+  onClose?: (tab: string) => void;
+  /** Tabs that cannot be closed. These tabs won't show a close button even when onClose is provided. */
+  permanentTabs?: string[];
   /** Additional CSS class name for the container */
   className?: string;
   /** Optional toolbar content rendered at the end of the tab bar */
@@ -120,7 +124,7 @@ export interface TabsProps {
   style?: React.CSSProperties;
 }
 
-export function Tabs({ tabs, active, onChange, className, toolbar, multiline, orientation = 'horizontal', style }: TabsProps) {
+export function Tabs({ tabs, active, onChange, onClose, permanentTabs, className, toolbar, multiline, orientation = 'horizontal', style }: TabsProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollStart, setCanScrollStart] = useState(false);
   const [canScrollEnd, setCanScrollEnd] = useState(false);
@@ -234,18 +238,36 @@ export function Tabs({ tabs, active, onChange, className, toolbar, multiline, or
           onMouseLeave={handleMouseLeave}
           style={{ cursor: 'grab' }}
         >
-          {tabs.map((t) => (
-            <div
-              key={t}
-              className={`nc-tab-item ${active === t ? 'nc-active' : ''}`}
-              onClick={() => handleTabClick(t)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onChange(t); }}
-            >
-              {isVertical ? t : t.toUpperCase()}
-            </div>
-          ))}
+          {tabs.map((t) => {
+            const isClosable = onClose && !permanentTabs?.includes(t);
+            return (
+              <div
+                key={t}
+                className={`nc-tab-item ${active === t ? 'nc-active' : ''} ${isClosable ? 'nc-closable' : ''}`}
+                onClick={() => handleTabClick(t)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onChange(t); }}
+              >
+                <span className="nc-tab-label">{isVertical ? t : t.toUpperCase()}</span>
+                {isClosable && (
+                  <span
+                    className="nc-tab-close"
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`Close ${t}`}
+                    onClick={(e) => { e.stopPropagation(); onClose(t); }}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.stopPropagation(); onClose(t); } }}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18" />
+                      <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                  </span>
+                )}
+              </div>
+            );
+          })}
         </div>
         {canScrollEnd && (
           <div className={`nc-tab-scroll-indicator ${isVertical ? 'nc-bottom' : 'nc-right'}`}>
