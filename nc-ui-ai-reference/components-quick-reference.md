@@ -628,6 +628,7 @@ import { EditIcon, TrashIcon } from '@kingsimba/nc-ui/icons'
     { id: 'edit', label: 'Edit', icon: <EditIcon />, variant: 'primary', onClick: handleEdit },
     { id: 'sep1', type: 'separator' },
     { id: 'warn', label: 'Reset', variant: 'warning', onClick: handleReset },
+    { id: 'ok', label: 'Confirm', variant: 'success', onClick: handleConfirm },
     { id: 'del', label: 'Delete', icon: <TrashIcon />, variant: 'danger', onClick: handleDelete },
   ]}
 />
@@ -636,6 +637,8 @@ import { EditIcon, TrashIcon } from '@kingsimba/nc-ui/icons'
 **Props:** `open`, `onClose`, `options`, `anchor`, `anchorRef`, `preferredDirection`
 
 **Option Props:** `id`, `label`, `icon`, `onClick`, `variant`, `disabled`
+
+**Option variants:** `default`, `primary`, `warning`, `success`, `danger`
 
 ---
 

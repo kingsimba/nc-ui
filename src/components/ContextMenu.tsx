@@ -7,7 +7,7 @@ export interface ContextMenuOption {
   icon?: React.ReactNode;
   onClick?: () => void;
   disabled?: boolean;
-  variant?: 'default' | 'danger' | 'primary' | 'warning';
+  variant?: 'default' | 'danger' | 'primary' | 'warning' | 'success';
   type?: 'item' | 'separator';
 }
 

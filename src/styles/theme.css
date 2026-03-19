@@ -569,6 +569,10 @@ li::marker { color: var(--nc-text-weak); }
 .nc-context-menu-item.nc-warning:not(.nc-disabled):hover { background-color: rgba(245, 158, 11, 0.1); }
 .nc-context-menu-item.nc-warning:not(.nc-disabled):active { background-color: rgba(245, 158, 11, 0.15); }
 
+.nc-context-menu-item.nc-success { color: var(--nc-success); }
+.nc-context-menu-item.nc-success:not(.nc-disabled):hover { background-color: rgba(34, 197, 94, 0.1); }
+.nc-context-menu-item.nc-success:not(.nc-disabled):active { background-color: rgba(34, 197, 94, 0.15); }
+
 .nc-context-menu-separator {
   height: 1px;
   background-color: var(--nc-border);

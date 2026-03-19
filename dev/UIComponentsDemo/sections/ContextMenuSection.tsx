@@ -42,6 +42,12 @@ export function ContextMenuSection() {
               variant: 'warning',
             },
             {
+              id: 'success',
+              label: 'Success Action',
+              onClick: () => alert('Success clicked'),
+              variant: 'success',
+            },
+            {
               id: 'sep1',
               type: 'separator',
             },
