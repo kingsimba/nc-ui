@@ -117,8 +117,8 @@ export function MyComponent({
 ## Testing Components Locally
 
 ```bash
-npm run dev      # Start dev server
-npm run build    # Build the library
+pnpm run dev      # Start dev server
+pnpm run build    # Build the library
 ```
 
 ## Do NOT

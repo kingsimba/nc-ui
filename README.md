@@ -189,16 +189,16 @@ The library uses CSS variables with `nc-` prefix. Override them in your app:
 
 ```bash
 # Install dependencies
-npm install
+pnpm install
 
 # Start development server
-npm run dev
+pnpm run dev
 
 # Build the library
-npm run build
+pnpm run build
 
 # Run linting
-npm run lint
+pnpm run lint
 ```
 
 ## Adding Components
