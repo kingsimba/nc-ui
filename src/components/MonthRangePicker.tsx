@@ -82,18 +82,34 @@ export function MonthRangePicker({
     const [isOpen, setIsOpen] = useState(false);
     const [tempStartMonth, setTempStartMonth] = useState('');
     const [tempEndMonth, setTempEndMonth] = useState('');
-    const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
+    const [position, setPosition] = useState({ top: 0, left: 0, width: 0, right: undefined as number | undefined });
     const anchorRef = useRef<HTMLButtonElement>(null);
     const popupRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (isOpen && anchorRef.current) {
             const rect = anchorRef.current.getBoundingClientRect();
-            setPosition({
-                top: rect.bottom + 4,
-                left: rect.left,
-                width: rect.width,
-            });
+            const minWidth = 400;
+            const popupWidth = Math.max(rect.width, minWidth);
+            const spaceOnRight = window.innerWidth - rect.left;
+
+            if (spaceOnRight < popupWidth && rect.right >= popupWidth) {
+                // Not enough space on the right, but enough on the left -> Align to the right
+                setPosition({
+                    top: rect.bottom + 4,
+                    left: 0, // Not used but type needs it, let's just use 0
+                    right: window.innerWidth - rect.right,
+                    width: popupWidth,
+                });
+            } else {
+                // Default: align to the left
+                setPosition({
+                    top: rect.bottom + 4,
+                    left: rect.left,
+                    right: undefined,
+                    width: popupWidth,
+                });
+            }
         }
     }, [isOpen]);
 
@@ -161,8 +177,8 @@ export function MonthRangePicker({
             style={{
                 position: 'fixed',
                 top: position.top,
-                left: position.left,
-                width: Math.max(position.width, 400),
+                ...(position.right !== undefined ? { right: position.right } : { left: position.left }),
+                width: position.width,
                 zIndex: 1000,
             }}
         >
