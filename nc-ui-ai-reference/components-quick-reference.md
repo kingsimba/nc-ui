@@ -530,26 +530,38 @@ import { ListGroup } from '@kingsimba/nc-ui'
 
 ### Tabs
 
-Tab navigation header with optional toolbar and closable tabs:
+Tab navigation header with optional toolbar and closable tabs. Supports plain strings or localized tab objects:
 
 ```tsx
 import { Tabs } from '@kingsimba/nc-ui'
 
-const [active, setActive] = useState('Overview')
+const [active, setActive] = useState('overview')
 
+// 1. Simple string tabs
 <Tabs
   tabs={['Overview', 'Details', 'Settings']}
   active={active}
   onChange={setActive}
+/>
+
+// 2. Object tabs (recommended for i18n to keep stable keys)
+<Tabs
+  tabs={[
+    { id: 'overview', label: t('tab.overview') },
+    { id: 'details', label: t('tab.details') },
+    { id: 'settings', label: t('tab.settings') }
+  ]}
+  active={active} // holds the stable id: 'overview'
+  onChange={setActive}
   orientation="horizontal"  // 'horizontal' | 'verticalLeft' | 'verticalRight'
   toolbar={<Button size="small">Action</Button>}  // optional
   multiline={false}  // wrap tabs to multiple lines
-  onClose={(tab) => handleClose(tab)}  // optional, shows close button on each tab
-  permanentTabs={['Overview']}  // optional, these tabs won't have a close button
+  onClose={(tabId) => handleClose(tabId)}  // optional, shows close button on each tab
+  permanentTabs={['overview']}  // optional, these tabs won't have a close button
 />
 ```
 
-**Props:** `tabs` (string[]), `active`, `onChange`, `onClose`, `permanentTabs`, `orientation`, `toolbar`, `multiline`, `className`, `style`
+**Props:** `tabs` (`(string | TabItem)[]`), `active`, `onChange`, `onClose`, `permanentTabs`, `orientation`, `toolbar`, `multiline`, `className`, `style`
 
 ---
 

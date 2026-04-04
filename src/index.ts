@@ -25,6 +25,7 @@ export { MonthRangePicker } from './components/MonthRangePicker';
 export { NumberInput } from './components/NumberInput';
 export { Slider } from './components/Slider';
 export { Tabs, TabPanel, TabPanels } from './components/Tabs';
+export type { TabItem } from './components/Tabs';
 export { Toggle } from './components/Toggle';
 export { CsvTextArea } from './components/CsvTextArea';
 export { Notification } from './components/Notification';

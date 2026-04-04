@@ -101,10 +101,17 @@ export function TabPanels({ active, children, keepMounted = false, className = '
   );
 }
 
+export interface TabItem {
+  /** The stable key used for matching active state */
+  id: string;
+  /** The localized or formatted display label */
+  label: React.ReactNode;
+}
+
 export interface TabsProps {
-  /** Array of tab labels */
-  tabs: string[];
-  /** Currently active tab label */
+  /** Array of tab labels as strings, or tab objects with id and localized label */
+  tabs: (string | TabItem)[];
+  /** Currently active tab label or TabItem.id */
   active: string;
   /** Callback when a tab is selected */
   onChange: (tab: string) => void;
@@ -239,25 +246,32 @@ export function Tabs({ tabs, active, onChange, onClose, permanentTabs, className
           style={{ cursor: 'grab' }}
         >
           {tabs.map((t) => {
-            const isClosable = onClose && !permanentTabs?.includes(t);
+            const tabId = typeof t === 'string' ? t : t.id;
+            const tabLabel = typeof t === 'string' ? t : t.label;
+            const isClosable = onClose && !permanentTabs?.includes(tabId);
+
             return (
               <div
-                key={t}
-                className={`nc-tab-item ${active === t ? 'nc-active' : ''} ${isClosable ? 'nc-closable' : ''}`}
-                onClick={() => handleTabClick(t)}
+                key={tabId}
+                className={`nc-tab-item ${active === tabId ? 'nc-active' : ''} ${isClosable ? 'nc-closable' : ''}`}
+                onClick={() => handleTabClick(tabId)}
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onChange(t); }}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onChange(tabId); }}
               >
-                <span className="nc-tab-label">{isVertical ? t : t.toUpperCase()}</span>
+                <span className="nc-tab-label">
+                  {isVertical
+                    ? tabLabel
+                    : (typeof tabLabel === 'string' ? tabLabel.toUpperCase() : tabLabel)}
+                </span>
                 {isClosable && (
                   <span
                     className="nc-tab-close"
                     role="button"
                     tabIndex={0}
-                    aria-label={`Close ${t}`}
-                    onClick={(e) => { e.stopPropagation(); onClose(t); }}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.stopPropagation(); onClose(t); } }}
+                    aria-label={`Close ${typeof tabLabel === 'string' ? tabLabel : tabId}`}
+                    onClick={(e) => { e.stopPropagation(); onClose(tabId); }}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.stopPropagation(); onClose(tabId); } }}
                   >
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
                       <line x1="18" y1="6" x2="6" y2="18" />
