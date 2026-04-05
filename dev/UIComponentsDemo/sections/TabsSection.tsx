@@ -3,6 +3,7 @@ import { Tabs, TabPanels, TabPanel, Button, Input, RefreshButton } from '../../.
 
 export function TabsSection() {
     const [activeTab, setActiveTab] = useState('Overview')
+    const [objectTab, setObjectTab] = useState('profile')
     const [toolbarActiveTab, setToolbarActiveTab] = useState('Home')
     const [verticalLeftTab, setVerticalLeftTab] = useState('Dashboard')
     const [verticalRightTab, setVerticalRightTab] = useState('Profile')
@@ -35,6 +36,29 @@ export function TabsSection() {
                     </div>
                     <div style={{ padding: 16, background: 'var(--nc-button-bg)', borderRadius: 8 }}>
                         Content for: {activeTab}
+                    </div>
+                </div>
+            </section>
+
+            <section className="dev-section">
+                <h2>Object Tabs (TabItems)</h2>
+                <p style={{ marginBottom: 16, color: 'var(--nc-text-weak)' }}>
+                    Using object tabs with <code>id</code> and <code>label</code>. Recommended for localization or adding icons while maintaining stable selection values.
+                </p>
+                <div className="dev-col">
+                    <div style={{ maxWidth: 400, border: '1px solid var(--nc-border)', borderRadius: 8, overflow: 'hidden' }}>
+                        <Tabs
+                            tabs={[
+                                { id: 'profile', label: <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>👤 Profile</span> },
+                                { id: 'security', label: <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>🔒 Security</span> },
+                                { id: 'billing', label: <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>💳 Billing</span> }
+                            ]}
+                            active={objectTab}
+                            onChange={setObjectTab}
+                        />
+                    </div>
+                    <div style={{ padding: 16, background: 'var(--nc-button-bg)', borderRadius: 8 }}>
+                        Active Tab ID: {objectTab}
                     </div>
                 </div>
             </section>
