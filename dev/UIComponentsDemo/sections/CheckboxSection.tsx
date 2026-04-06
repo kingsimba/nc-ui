@@ -9,7 +9,7 @@ export function CheckboxSection() {
   return (
     <section className="dev-section">
       <h2>Checkbox</h2>
-      <div className="dev-col">
+      <div className="dev-row">
         <Checkbox
           checked={checked1}
           onChange={setChecked1}
@@ -20,6 +20,8 @@ export function CheckboxSection() {
           onChange={setChecked2}
           label="Checked checkbox"
         />
+      </div>
+      <div className="dev-row">
         <Checkbox
           checked={checked3}
           onChange={setChecked3}
@@ -28,7 +30,7 @@ export function CheckboxSection() {
         />
         <Checkbox
           checked={true}
-          onChange={() => {}}
+          onChange={() => { }}
           label="Disabled checkbox"
           disabled
         />
