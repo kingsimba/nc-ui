@@ -15,6 +15,8 @@ export interface MonthRangePickerProps {
     className?: string;
     /** Whether the picker is disabled */
     disabled?: boolean;
+    /** The scale/size of the component */
+    size?: 'small' | 'default';
 }
 
 
@@ -78,6 +80,7 @@ export function MonthRangePicker({
     label,
     className = '',
     disabled = false,
+    size = 'default',
 }: MonthRangePickerProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [tempStartMonth, setTempStartMonth] = useState('');
@@ -232,11 +235,11 @@ export function MonthRangePicker({
     ) : null;
 
     return (
-        <div className={`nc-month-range-picker ${className}`}>
-            {label && <label className="nc-label">{label}</label>}
+        <div className={`nc-month-range-picker ${size === 'small' ? 'nc-small ' : ''}${className}`}>
+            {label && <label className={`nc-label${size === 'small' ? ' nc-small' : ''}`}>{label}</label>}
             <button
                 ref={anchorRef}
-                className="nc-month-range-picker-input"
+                className={`nc-month-range-picker-input${size === 'small' ? ' nc-small' : ''}`}
                 onClick={handleOpen}
                 disabled={disabled}
             >

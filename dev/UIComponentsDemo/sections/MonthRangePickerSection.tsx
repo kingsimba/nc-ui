@@ -38,6 +38,14 @@ export function MonthRangePickerSection() {
                     disabled
                 />
 
+                <MonthRangePicker
+                    label="Small size"
+                    startMonth={startMonth}
+                    endMonth={endMonth}
+                    onChange={handleRangeChange}
+                    size="small"
+                />
+
                 <div className="dev-row" style={{ gap: '16px', marginTop: '16px' }}>
                     <div>
                         <strong>Selected Range:</strong>
