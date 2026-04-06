@@ -1192,7 +1192,7 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
   .nc-app-taskbar.nc-mobile {
     flex-direction: row;
     width: 100%;
-    height: 56px;
+    height: 60px;
     border-right: none;
     border-top: 1px solid var(--nc-border);
     position: fixed;
