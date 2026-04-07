@@ -199,7 +199,9 @@ export function Input({
             onKeyDown={handleKeyDown}
             onFocus={handleFocus}
             onBlur={handleBlur}
-            disabled={disabled}
+            readOnly={disabled}
+            aria-disabled={disabled}
+            tabIndex={disabled ? -1 : undefined}
             rows={rows}
             style={{
               width: '100%',
@@ -217,7 +219,9 @@ export function Input({
             onKeyDown={handleKeyDown}
             onFocus={handleFocus}
             onBlur={handleBlur}
-            disabled={disabled}
+            readOnly={disabled}
+            aria-disabled={disabled}
+            tabIndex={disabled ? -1 : undefined}
             style={{
               width: '100%',
               paddingRight,
