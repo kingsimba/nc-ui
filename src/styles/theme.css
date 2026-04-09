@@ -315,6 +315,7 @@ li::marker { color: var(--nc-text-weak); }
 .nc-input[aria-disabled="true"] {
   color: var(--nc-text-weak);
   caret-color: transparent;
+  cursor: default;
 }
 
 .nc-error-message {
