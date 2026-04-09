@@ -1,9 +1,8 @@
-import { Button } from '../../../src';
-import { notificationManager } from '../../../src/lib/notificationManager';
+import { Button, notificationManager, showNotification } from '../../../src';
 
 export function NotificationSection() {
     const showSuccess = () => {
-        notificationManager.show({
+        showNotification({
             type: 'success',
             message: 'Your changes have been saved successfully.',
         });
@@ -11,7 +10,7 @@ export function NotificationSection() {
 
     const showError = () => {
         notificationManager.show({
-            type: 'danger',
+            type: 'error',
             message: 'Failed to connect to the server. Please try again.',
         });
     };
@@ -41,16 +40,16 @@ export function NotificationSection() {
         notificationManager.show({
             type: 'warning',
             message: 'This notification will stay until dismissed manually.',
-            lastingTime: 0, // 0 means it won't auto-dismiss
+            duration: 0, // 0 means it won't auto-dismiss
         });
     };
 
     const showNonDismissible = () => {
         notificationManager.show({
-            type: 'danger',
+            type: 'error',
             message: 'This notification cannot be dismissed manually.',
             dismissible: false,
-            lastingTime: 3000,
+            duration: 3000,
         });
     };
 
@@ -67,7 +66,7 @@ export function NotificationSection() {
         }, 300);
         setTimeout(() => {
             notificationManager.show({
-                type: 'danger',
+                type: 'error',
                 message: 'Third notification',
             });
         }, 600);
@@ -119,23 +118,23 @@ function App() {
 
             <h4>Usage</h4>
             <p className="weak" style={{ marginBottom: '8px' }}>
-                Use <code>notificationManager.show()</code> to display notifications:
+                Use <code>showNotification()</code> for the simple root export, or <code>notificationManager.show()</code> if you prefer the namespaced API:
             </p>
-            <pre className="code-block" style={{ marginBottom: '24px' }}>{`import { notificationManager } from '@kingsimba/nc-ui';
+            <pre className="code-block" style={{ marginBottom: '24px' }}>{`import { showNotification } from '@kingsimba/nc-ui';
 
 // Basic usage
-notificationManager.show({
+showNotification({
   message: 'Operation completed',
   type: 'success',
 });
 
 // With all options
-notificationManager.show({
+showNotification({
   title: 'Custom Title',      // Optional: overrides default title
   message: 'Your message',    // Required
-  type: 'success',            // 'success' | 'danger' | 'warning' | null
+    type: 'error',              // 'info' | 'success' | 'warning' | 'error'
   dismissible: true,          // Default: true
-  lastingTime: 5000,          // Default: 5000ms, 0 = never auto-dismiss
+    duration: 5000,             // Default: 5000ms, 0 = never auto-dismiss
 });`}</pre>
 
             <h4>Options</h4>
@@ -163,8 +162,8 @@ notificationManager.show({
                     </tr>
                     <tr style={{ borderBottom: '1px solid var(--nc-border)' }}>
                         <td style={{ padding: '8px 12px' }}><code>type</code></td>
-                        <td style={{ padding: '8px 12px', color: 'var(--nc-text-weak)' }}>'success' | 'danger' | 'warning' | null</td>
-                        <td style={{ padding: '8px 12px', color: 'var(--nc-text-weak)' }}>null (info)</td>
+                        <td style={{ padding: '8px 12px', color: 'var(--nc-text-weak)' }}>'info' | 'success' | 'warning' | 'error'</td>
+                        <td style={{ padding: '8px 12px', color: 'var(--nc-text-weak)' }}>'info'</td>
                         <td style={{ padding: '8px 12px', color: 'var(--nc-text-weak)' }}>Visual style of the notification</td>
                     </tr>
                     <tr style={{ borderBottom: '1px solid var(--nc-border)' }}>
@@ -174,7 +173,7 @@ notificationManager.show({
                         <td style={{ padding: '8px 12px', color: 'var(--nc-text-weak)' }}>Show close button</td>
                     </tr>
                     <tr>
-                        <td style={{ padding: '8px 12px' }}><code>lastingTime</code></td>
+                        <td style={{ padding: '8px 12px' }}><code>duration</code></td>
                         <td style={{ padding: '8px 12px', color: 'var(--nc-text-weak)' }}>number</td>
                         <td style={{ padding: '8px 12px', color: 'var(--nc-text-weak)' }}>5000</td>
                         <td style={{ padding: '8px 12px', color: 'var(--nc-text-weak)' }}>Auto-dismiss delay in ms (0 = never)</td>

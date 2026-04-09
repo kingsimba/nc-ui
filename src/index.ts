@@ -30,7 +30,10 @@ export { Toggle } from './components/Toggle';
 export { CsvTextArea } from './components/CsvTextArea';
 export { Notification } from './components/Notification';
 export { NotificationContainer } from './components/NotificationContainer';
-export { notificationManager } from './lib/notificationManager';
+export {
+  notificationManager,
+  showNotification,
+} from './lib/notificationManager';
 
 // Export types
 export type { AlertProps, AlertType } from './components/Alert';
@@ -60,7 +63,11 @@ export type {
   CsvCursorPosition,
   CsvTextAreaHandle,
 } from './components/CsvTextArea';
-export type { Notification as NotificationType } from './stores/notificationStore';
+export type {
+  Notification as NotificationRecord,
+  NotificationType,
+  NotificationOptions,
+} from './stores/notificationStore';
 
 // Export types
 export type { CheckboxProps, CheckboxSize } from './components/Checkbox';

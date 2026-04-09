@@ -106,24 +106,24 @@ nc-ui components pass values directly (not event objects):
 
 **Alert**
 
-- Props: `type` (info|success|warning|danger), `onClose`, `dismissible`
+- Props: `type` (info|success|warning|error), `children`, `onClose`, `code`, `text`, `button`, `onAction`
 - Usage: `<Alert type="warning" onClose={handleClose}>Warning message</Alert>`
 
-**Notification** (via notificationManager)
+**Notification**
 
-- API: `notificationManager.show({ type, message, title, lastingTime, dismissible })`
-- Types: `success`, `danger`, `warning`, `info` (default)
-- Usage: `notificationManager.show({ type: 'success', message: 'Saved!' })`
+- API: `showNotification({ type, message, title, duration, dismissible })` or `notificationManager.show({ ... })`
+- Types: `info`, `success`, `error`, `warning`
+- Usage: `showNotification({ type: 'success', message: 'Saved!' })`
 
 **ButtonGroup**
 
-- Props: `children` (Button components)
-- Usage: `<ButtonGroup><Button>Left</Button><Button>Right</Button></ButtonGroup>`
+- Props: `value`, `onChange`, `options`, `labels`, `size`, `disabled`
+- Usage: `<ButtonGroup value={view} onChange={setView} options={['list', 'grid']} />`
 
 **Tabs**
 
-- Props: `activeTab`, `onTabChange`, `tabs` (array of { id, label })
-- Usage: `<Tabs activeTab={tab} onTabChange={setTab} tabs={[{id:'1',label:'Tab 1'}]} />`
+- Props: `active`, `onChange`, `tabs` (array of strings or `{ id, label }`), `onClose`, `permanentTabs`, `orientation`, `toolbar`, `multiline`
+- Usage: `<Tabs active={tab} onChange={setTab} tabs={[{id:'1',label:'Tab 1'}]} />`
 
 **Slider**
 
@@ -132,8 +132,8 @@ nc-ui components pass values directly (not event objects):
 
 **ListGroup**
 
-- Props: `items`, `onItemClick`, `selectedId`
-- Usage: `<ListGroup items={items} onItemClick={handleClick} selectedId={id} />`
+- Props: `title`, `titleTools`, `children`, `style`
+- Usage: `<ListGroup title="Settings"><ListGroupItem>Item</ListGroupItem></ListGroup>`
 
 **ContextMenu**
 

@@ -1,11 +1,21 @@
+export type NotificationType = 'warning' | 'danger' | 'success' | 'info' | null;
+
 export interface Notification {
   id: string;
   title?: string;
   message: string;
-  type?: 'warning' | 'danger' | 'success' | null;
+  type?: NotificationType;
   dismissible?: boolean;
-  lastingTime?: number; // in milliseconds
+  duration?: number; // in milliseconds
   isRemoving?: boolean; // Internal flag for fade animation
+}
+
+export interface NotificationOptions {
+  title?: string;
+  message: string;
+  type?: NotificationType | 'error';
+  dismissible?: boolean;
+  duration?: number;
 }
 
 type Subscriber = (notifications: Notification[]) => void;
@@ -37,23 +47,25 @@ export function subscribe(fn: Subscriber) {
   };
 }
 
-export function addNotification(notification: Omit<Notification, 'id'>): string {
+export function addNotification(notification: NotificationOptions): string {
   const id = `notification-${Date.now()}-${Math.random()}`;
+  const { duration, type, ...rest } = notification;
   const newNotification: Notification = {
     id,
     dismissible: true,
-    lastingTime: 5000,
-    ...notification,
+    ...rest,
+    type: type === 'error' ? 'danger' : (type ?? 'info'),
+    duration: duration ?? 5000,
   };
 
   state.notifications = [newNotification, ...state.notifications];
   notify();
 
-  // Auto-remove after lastingTime if specified
-  if (newNotification.lastingTime && newNotification.lastingTime > 0) {
+  // Auto-remove after duration if specified
+  if (newNotification.duration && newNotification.duration > 0) {
     setTimeout(() => {
       removeNotification(id);
-    }, newNotification.lastingTime);
+    }, newNotification.duration);
   }
 
   return id;

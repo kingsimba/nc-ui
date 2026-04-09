@@ -415,9 +415,18 @@ import { Alert } from '@kingsimba/nc-ui'
 <Alert type="error">
   An error occurred. Please try again.
 </Alert>
+
+// Legacy code + text layout is also supported
+<Alert
+  code={404}
+  text="The requested resource could not be found."
+  type="error"
+  button={{ text: 'Retry' }}
+  onAction={handleRetry}
+/>
 ```
 
-**Props:** `type` ('info' | 'success' | 'warning' | 'error'), `onClose`, `children`
+**Props:** `type` ('info' | 'success' | 'warning' | 'error'), `children`, `onClose`, `code`, `text`, `button`, `onAction`, `className`, `style`
 
 ---
 
@@ -487,6 +496,8 @@ showNotification({
 })
 ```
 
+`notificationManager.show({...})` is also exported if you prefer the namespaced API.
+
 ---
 
 ## Layout Components
@@ -496,35 +507,52 @@ showNotification({
 ```tsx
 import { ButtonGroup } from '@kingsimba/nc-ui'
 
-<ButtonGroup>
-  <Button>First</Button>
-  <Button>Second</Button>
-  <Button>Third</Button>
-</ButtonGroup>
+<ButtonGroup
+  value={alignment}
+  onChange={setAlignment}
+  options={['left', 'center', 'right']}
+/>
 
-// Vertical
-<ButtonGroup vertical>
-  <Button>Top</Button>
-  <Button>Middle</Button>
-  <Button>Bottom</Button>
-</ButtonGroup>
+<ButtonGroup
+  value={alignment}
+  onChange={setAlignment}
+  options={['left', 'center', 'right']}
+  labels={{ left: 'Left', center: 'Center', right: 'Right' }}
+  size="small"
+/>
+
+<ButtonGroup
+  value={selectedView}
+  onChange={setSelectedView}
+  options={['table', 'cards']}
+  disabled
+/>
 ```
 
-**Props:** `vertical`, `children`
+**Props:** `value`, `onChange`, `options`, `labels`, `size`, `disabled`
 
 ---
 
 ### ListGroup
 
 ```tsx
-import { ListGroup } from '@kingsimba/nc-ui'
+import { ListGroup, ListGroupItem } from '@kingsimba/nc-ui'
 
-<ListGroup>
-  <div className="nc-list-group-item">Item 1</div>
-  <div className="nc-list-group-item nc-active">Active Item</div>
-  <div className="nc-list-group-item">Item 3</div>
+<ListGroup title="Settings">
+  <ListGroupItem onClick={() => openAccount()}>
+    Account
+  </ListGroupItem>
+  <ListGroupItem>
+    Dark Mode
+  </ListGroupItem>
+  <ListGroupItem showBorder={false}>
+    Version 1.0.0
+  </ListGroupItem>
 </ListGroup>
 ```
+
+**ListGroup Props:** `title`, `titleTools`, `children`, `style`
+**ListGroupItem Props:** `children`, `onClick`, `showBorder`, `selectable`, `style`
 
 ---
 

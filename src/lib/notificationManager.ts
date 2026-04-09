@@ -1,10 +1,14 @@
 import {
   addNotification,
-  type Notification,
+  type NotificationOptions,
 } from '../stores/notificationStore';
 
+export function showNotification(notification: NotificationOptions): string {
+  return addNotification(notification);
+}
+
 export const notificationManager = {
-  show: (notification: Omit<Notification, 'id'>): string => {
-    return addNotification(notification);
+  show: (notification: NotificationOptions): string => {
+    return showNotification(notification);
   },
 };
