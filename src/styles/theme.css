@@ -3,9 +3,9 @@
 
   /* Core colors */
   --nc-bg: #171e27;
-  --nc-bg-secondary: #1a2332;
-  --nc-bg-tertiary: #232d3d;
-  --nc-bg-quaternary: #2c3847;
+  --nc-bg-secondary: #121820;
+  --nc-bg-tertiary: #0e1218;
+  --nc-bg-quaternary: #080a0e;
   --nc-bg-text: var(--nc-bg);
   --nc-muted: #7a8a9a;
   --nc-text: #e8eef6;
