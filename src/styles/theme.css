@@ -2,10 +2,10 @@
   color-scheme: dark;
 
   /* Core colors */
-  --nc-bg: #171e27;
-  --nc-bg-secondary: #121820;
-  --nc-bg-tertiary: #0e1218;
-  --nc-bg-quaternary: #080a0e;
+  --nc-bg: #1a222c;
+  --nc-bg-secondary: #161c24;
+  --nc-bg-tertiary: #12171d;
+  --nc-bg-quaternary: #0f1217;
   --nc-bg-text: var(--nc-bg);
   --nc-muted: #7a8a9a;
   --nc-text: #e8eef6;
