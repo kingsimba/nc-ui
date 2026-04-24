@@ -510,26 +510,36 @@ import { ButtonGroup } from '@kingsimba/nc-ui'
 <ButtonGroup
   value={alignment}
   onChange={setAlignment}
-  options={['left', 'center', 'right']}
+  options={[
+    { key: 'left', label: 'Left' },
+    { key: 'center', label: 'Center' },
+    { key: 'right', label: 'Right' },
+  ]}
 />
 
 <ButtonGroup
   value={alignment}
   onChange={setAlignment}
-  options={['left', 'center', 'right']}
-  labels={{ left: 'Left', center: 'Center', right: 'Right' }}
+  options={[
+    { key: 'left', label: 'Left' },
+    { key: 'center', label: 'Center' },
+    { key: 'right', label: 'Right' },
+  ]}
   size="small"
 />
 
 <ButtonGroup
   value={selectedView}
   onChange={setSelectedView}
-  options={['table', 'cards']}
+  options={[
+    { key: 'table', label: 'Table' },
+    { key: 'cards', label: 'Cards' },
+  ]}
   disabled
 />
 ```
 
-**Props:** `value`, `onChange`, `options`, `labels`, `size`, `disabled`
+**Props:** `value`, `onChange`, `options` (array of `{ key, label, disabled? }`), `size`, `disabled`
 
 ---
 

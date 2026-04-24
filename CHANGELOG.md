@@ -1,5 +1,6 @@
 # Changelog
 
+- 2026-04-24 ButtonGroup: Update options prop to accept object array
 - 2026-04-10 Alert: Add info and success variants with dismissible content alerts
 - 2026-04-10 Notification: Export showNotification and use duration for timeouts
 - 2026-04-10 Docs: Sync ButtonGroup, ListGroup, and Tabs references with the public API

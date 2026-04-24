@@ -118,7 +118,7 @@ nc-ui components pass values directly (not event objects):
 **ButtonGroup**
 
 - Props: `value`, `onChange`, `options`, `labels`, `size`, `disabled`
-- Usage: `<ButtonGroup value={view} onChange={setView} options={['list', 'grid']} />`
+- Usage: `<ButtonGroup value={view} onChange={setView} options={[{ key: 'list', label: 'List' }, { key: 'grid', label: 'Grid' }]} />`
 
 **Tabs**
 

@@ -11,19 +11,29 @@ export function ButtonGroupSection() {
         <ButtonGroup
           value={alignment}
           onChange={setAlignment}
-          options={['left', 'center', 'right'] as const}
+          options={[
+            { key: 'left', label: 'Left' },
+            { key: 'center', label: 'Center' },
+            { key: 'right', label: 'Right' },
+          ]}
         />
         <ButtonGroup
           value={alignment}
           onChange={setAlignment}
-          options={['left', 'center', 'right'] as const}
+          options={[
+            { key: 'left', label: 'Left' },
+            { key: 'center', label: 'Center' },
+            { key: 'right', label: 'Right' },
+          ]}
           size="small"
-          labels={{ left: 'Left', center: 'Center', right: 'Right' }}
         />
         <ButtonGroup
           value="option1"
-          onChange={() => {}}
-          options={['option1', 'option2'] as const}
+          onChange={() => { }}
+          options={[
+            { key: 'option1', label: 'Option 1' },
+            { key: 'option2', label: 'Option 2' },
+          ]}
           disabled
         />
       </div>
