@@ -318,6 +318,16 @@ li::marker { color: var(--nc-text-weak); }
   cursor: default;
 }
 
+.nc-input-leading-icon {
+  position: absolute;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  color: var(--nc-text-weak);
+  z-index: 1;
+}
+
 .nc-error-message {
   font-size: 13px;
   color: var(--nc-danger);

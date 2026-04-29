@@ -28,6 +28,8 @@ export interface InputProps {
   size?: 'default' | 'small';
   /** Additional inline styles */
   style?: React.CSSProperties;
+  /** Custom icon to display on the left side of the input */
+  leadingIcon?: React.ReactNode;
   /** Whether to show a toggle button for password visibility (only works when type is 'password') */
   showPasswordToggle?: boolean;
   /** Whether to use a textarea for multiline input */
@@ -116,6 +118,7 @@ export function Input({
   className = '',
   size = 'default',
   style,
+  leadingIcon,
   showPasswordToggle = false,
   multiline = false,
   rows = 3,
@@ -147,6 +150,9 @@ export function Input({
   } else if (showClearButton || showToggle) {
     paddingRight = buttonWidth;
   }
+
+  const iconWidth = size === 'small' ? 28 : 34;
+  const paddingLeft = leadingIcon ? iconWidth : undefined;
 
   const handleClear = () => {
     if (!isControlled) {
@@ -189,6 +195,11 @@ export function Input({
     <div className="nc-col" style={{ position: 'relative', flex: 1, ...style }}>
       {label && <span className="nc-label">{label}</span>}
       <div style={{ position: 'relative', display: 'flex', alignItems: multiline ? 'flex-start' : 'center' }}>
+        {leadingIcon && (
+          <span className="nc-input-leading-icon" style={{ height: multiline ? undefined : '100%', top: multiline ? 10 : undefined }}>
+            {leadingIcon}
+          </span>
+        )}
         {multiline ? (
           <textarea
             ref={textareaRef}
@@ -206,6 +217,7 @@ export function Input({
             style={{
               width: '100%',
               paddingRight,
+              ...(paddingLeft !== undefined ? { paddingLeft } : {}),
             }}
           />
         ) : (
@@ -225,6 +237,7 @@ export function Input({
             style={{
               width: '100%',
               paddingRight,
+              ...(paddingLeft !== undefined ? { paddingLeft } : {}),
             }}
           />
         )}

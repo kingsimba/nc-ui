@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Input } from '../../../src';
+import { EditIcon } from '../../../src/components/icons';
 
 export function InputSection() {
   const [inputValue, setInputValue] = useState('');
@@ -30,6 +31,21 @@ export function InputSection() {
           onChange={setInputValue}
           placeholder="Type something..."
           label="Default Input"
+        />
+        <Input
+          value={inputValue}
+          onChange={setInputValue}
+          placeholder="Search..."
+          leadingIcon={<EditIcon size={18} />}
+          label="Input with Leading Icon"
+        />
+        <Input
+          value={inputValue}
+          onChange={setInputValue}
+          placeholder="Small input"
+          size="small"
+          leadingIcon={<EditIcon size={16} />}
+          label="Small Input with Icon"
         />
         <Input
           value={inputValue}

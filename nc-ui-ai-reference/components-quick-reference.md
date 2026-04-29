@@ -68,9 +68,10 @@ import { Input } from '@kingsimba/nc-ui'
   clearable
 />
 
-// With label
+// With label and leading icon
 <Input
   label="Username"
+  leadingIcon={<UserIcon size={18} />}
   value={username}
   onChange={setUsername}
 />
@@ -124,7 +125,7 @@ import { Input } from '@kingsimba/nc-ui'
 />
 ```
 
-**Props:** `value`, `onChange`, `onEnter`, `onClear`, `placeholder`, `disabled`, `label`, `clearable`, `type`, `size`, `showPasswordToggle`, `multiline`, `rows`, `validator`, `showErrorMessage`
+**Props:** `value`, `defaultValue`, `onChange`, `onEnter`, `onClear`, `placeholder`, `disabled`, `label`, `clearable`, `type`, `size`, `leadingIcon`, `showPasswordToggle`, `multiline`, `rows`, `validator`, `showErrorMessage`
 
 ---
 
