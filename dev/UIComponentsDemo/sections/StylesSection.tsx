@@ -95,7 +95,7 @@ const config = {
             <section className="dev-section">
                 <h2>Blocks</h2>
                 <p style={{ marginBottom: '1rem', color: 'var(--nc-text-weak)' }}>
-                    Container blocks for grouping content. Add <code>.icon</code> class to show an icon.
+                    Use <code>.block</code> for semantic notice surfaces and callouts. Add <code>.icon</code> when the block should render a status icon.
                 </p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                     <div>
@@ -144,6 +144,40 @@ const config = {
                         <h4 style={{ marginBottom: '8px', color: 'var(--nc-text-weak)', fontSize: '13px' }}>.block.dashed</h4>
                         <div className="block danger dashed">
                             A dashed border container, useful for drop zones or placeholder areas
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className="dev-section">
+                <h2>Cards</h2>
+                <p style={{ marginBottom: '1rem', color: 'var(--nc-text-weak)' }}>
+                    Use <code>.card</code> for neutral layout surfaces, stacked panels, and card-over-card compositions.
+                </p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                    <div>
+                        <h4 style={{ marginBottom: '8px', color: 'var(--nc-text-weak)', fontSize: '13px' }}>.card</h4>
+                        <div className="card">
+                            A neutral card surface for grouping related content
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style={{ marginBottom: '8px', color: 'var(--nc-text-weak)', fontSize: '13px' }}>Card over card</h4>
+                        <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
+                                <div>
+                                    <h4 style={{ margin: 0 }}>Project summary</h4>
+                                    <p className="weak">Nested cards create hierarchy for dashboards, settings, and summaries.</p>
+                                </div>
+                                <span className="tag blue">Preview</span>
+                            </div>
+                            <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', alignItems: 'center' }}>
+                                    <strong>Revenue sync</strong>
+                                    <span className="tag green">Healthy</span>
+                                </div>
+                                <p className="weak">Inner cards work well for detail rows, settings groups, and dashboard summaries.</p>
+                            </div>
                         </div>
                     </div>
                 </div>

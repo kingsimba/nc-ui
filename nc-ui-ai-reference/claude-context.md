@@ -5,50 +5,63 @@ This project uses `@kingsimba/nc-ui` - a lightweight (75KB), production-ready Re
 ## Essential Rules
 
 ### Component Substitution
+
 **Replace ALL native HTML form elements with nc-ui components:**
 
-| Native HTML | nc-ui Component | Import |
-|-------------|----------------|--------|
-| `<button>` | `<Button>` | `@kingsimba/nc-ui` |
-| `<input type="text">` | `<Input>` | `@kingsimba/nc-ui` |
-| `<textarea>` | `<Input multiline>` | `@kingsimba/nc-ui` |
-| `<select>` | `<ComboBox>` | `@kingsimba/nc-ui` |
-| `<input type="number">` | `<NumberInput>` | `@kingsimba/nc-ui` |
-| `<input type="checkbox">` | `<Checkbox>` | `@kingsimba/nc-ui` |
-| `<input type="range">` | `<Slider>` | `@kingsimba/nc-ui` |
+| Native HTML               | nc-ui Component     | Import             |
+| ------------------------- | ------------------- | ------------------ |
+| `<button>`                | `<Button>`          | `@kingsimba/nc-ui` |
+| `<input type="text">`     | `<Input>`           | `@kingsimba/nc-ui` |
+| `<textarea>`              | `<Input multiline>` | `@kingsimba/nc-ui` |
+| `<select>`                | `<ComboBox>`        | `@kingsimba/nc-ui` |
+| `<input type="number">`   | `<NumberInput>`     | `@kingsimba/nc-ui` |
+| `<input type="checkbox">` | `<Checkbox>`        | `@kingsimba/nc-ui` |
+| `<input type="range">`    | `<Slider>`          | `@kingsimba/nc-ui` |
 
 ### CSS Naming
 
 #### Component Styles (WITH `nc-` prefix)
+
 - **Classes:** `.nc-button`, `.nc-input`, `.nc-combo-dropdown`, `.nc-primary`
 - **Variables:** `--nc-primary`, `--nc-text`, `--nc-danger`
 - **Modifiers:** `.nc-small`, `.nc-large`, `.nc-danger`, `.nc-primary`
 
 #### Global Utility Styles (WITHOUT `nc-` prefix)
+
 nc-ui provides global styles for common HTML elements:
+
 - **Headings:** `<h1>`, `<h2>`, `.h1`, `.h2`, `.h3`, `.h4`
 - **Text:** `<p className="weak">`, `<p className="weaker">`
 - **Code:** `<code>`, `.code-block`
 - **Tags:** `.tag`, `.tag.red`, `.tag.yellow`, `.tag.green`, `.tag.blue`
 - **Blocks:** `.block`, `.block.note`, `.block.warning`, `.block.danger`, `.block.icon`
+- **Cards:** `.card` for neutral layout surfaces and nested panels
 - **Lists:** `<ul>`, `<ol>`, `<ul className="no-dots">`
 
 **See `global-utility-styles.md` for complete details.**
 
 ### Import Patterns
+
 ```tsx
 // Main components
-import { Button, Input, ComboBox, Dialog, ActivityIndicator } from '@kingsimba/nc-ui'
-import '@kingsimba/nc-ui/styles.css'
+import {
+  Button,
+  Input,
+  ComboBox,
+  Dialog,
+  ActivityIndicator,
+} from "@kingsimba/nc-ui";
+import "@kingsimba/nc-ui/styles.css";
 
 // Icons - SEPARATE entry point to keep bundle small
-import { CloseIcon, EditIcon, TrashIcon } from '@kingsimba/nc-ui/icons'
+import { CloseIcon, EditIcon, TrashIcon } from "@kingsimba/nc-ui/icons";
 
 // YAML editor - Optional
-import { YamlTextArea } from '@kingsimba/nc-ui/yaml'
+import { YamlTextArea } from "@kingsimba/nc-ui/yaml";
 ```
 
 ### Event Handling
+
 Important: nc-ui components pass **values directly**, not event objects:
 
 ```tsx
@@ -76,37 +89,43 @@ Important: nc-ui components pass **values directly**, not event objects:
 ## Architecture Overview
 
 ### Styling System
+
 - All styles use CSS variables with `nc-` prefix
 - Theme can be overridden in root CSS
 - Light/dark mode support via `.light` class on `:root`
 
 ### CSS Variables & Theming
+
 - All theme colors use `--nc-` prefixed CSS variables
 - Support for light/dark themes via `:root.light` selector
 - Override variables to customize appearance
 
 ### App Framework (Optional)
+
 If this project uses nc-ui's app framework:
+
 ```tsx
-import { appRegistry, runningAppsStore, useApp } from '@kingsimba/nc-ui'
+import { appRegistry, runningAppsStore, useApp } from "@kingsimba/nc-ui";
 
 // Register apps with lazy loading
-const LazyMyApp = React.lazy(() => import('./MyApp').then(m => ({ default: m.MyApp })))
+const LazyMyApp = React.lazy(() =>
+  import("./MyApp").then((m) => ({ default: m.MyApp })),
+);
 
 appRegistry.register({
-  id: 'my-app',
-  titleKey: 'apps.myApp.name',
+  id: "my-app",
+  titleKey: "apps.myApp.name",
   icon: MyAppIcon,
   component: LazyMyApp,
   width: 400,
-})
+});
 
 // Launch apps
-await runningAppsStore.launchApp('my-app')
+await runningAppsStore.launchApp("my-app");
 
 // Inside app components
 function MyApp() {
-  const { setTitle, setBackHandler, setToolbar, close } = useApp()
+  const { setTitle, setBackHandler, setToolbar, close } = useApp();
   // ...
 }
 ```
@@ -114,41 +133,38 @@ function MyApp() {
 ## Common Patterns
 
 ### Form Example
+
 ```tsx
-import { Button, Input, ComboBox } from '@kingsimba/nc-ui'
+import { Button, Input, ComboBox } from "@kingsimba/nc-ui";
 
 function MyForm() {
-  const [name, setName] = useState('')
-  const [country, setCountry] = useState('')
+  const [name, setName] = useState("");
+  const [country, setCountry] = useState("");
 
   return (
     <div className="nc-col" style={{ gap: 16 }}>
-      <Input
-        label="Name"
-        value={name}
-        onChange={setName}
-        clearable
-      />
+      <Input label="Name" value={name} onChange={setName} clearable />
       <ComboBox
         label="Country"
         value={country}
         onChange={setCountry}
         options={[
-          { label: 'USA', value: 'us' },
-          { label: 'Canada', value: 'ca' },
+          { label: "USA", value: "us" },
+          { label: "Canada", value: "ca" },
         ]}
       />
       <Button variant="primary" onClick={handleSubmit}>
         Submit
       </Button>
     </div>
-  )
+  );
 }
 ```
 
 ### Dialog Pattern
+
 ```tsx
-import { Dialog, Button } from '@kingsimba/nc-ui'
+import { Dialog, Button } from "@kingsimba/nc-ui";
 
 <Dialog
   open={isOpen}
@@ -157,23 +173,26 @@ import { Dialog, Button } from '@kingsimba/nc-ui'
   footer={
     <>
       <Button onClick={() => setOpen(false)}>Cancel</Button>
-      <Button variant="danger" onClick={handleDelete}>Delete</Button>
+      <Button variant="danger" onClick={handleDelete}>
+        Delete
+      </Button>
     </>
   }
 >
   Are you sure?
-</Dialog>
+</Dialog>;
 ```
 
 ### Notification Pattern
+
 ```tsx
-import { showNotification } from '@kingsimba/nc-ui'
+import { showNotification } from "@kingsimba/nc-ui";
 
 showNotification({
-  message: 'Saved successfully',
-  type: 'success',
+  message: "Saved successfully",
+  type: "success",
   duration: 3000,
-})
+});
 ```
 
 ## Common Mistakes to Avoid
@@ -188,9 +207,10 @@ showNotification({
 ## Documentation References
 
 For detailed information, see:
+
 - `architecture.md` - Full architecture guide
 - `components-quick-reference.md` - Complete component API
-- `global-utility-styles.md` - Global utility styles (h1, p.weak, .tag, .block, etc.)
+- `global-utility-styles.md` - Global utility styles (h1, p.weak, .tag, .block, .card, etc.)
 - `examples-and-antipatterns.md` - Usage examples and common mistakes
 - `app-framework.md` - App framework documentation (if applicable)
 

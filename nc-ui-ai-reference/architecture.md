@@ -9,18 +9,22 @@
 ### 1. CSS Naming Convention
 
 #### Component Styles (with `nc-` prefix)
+
 - **All component classes use `nc-` prefix**: `.nc-button`, `.nc-input`, `.nc-combo-dropdown`
 - **All CSS variables use `nc-` prefix**: `--nc-primary`, `--nc-text`, `--nc-button-bg`
 - **Size modifiers**: `.nc-small`, `.nc-large` (never `small` or `large` alone)
 - **Variant modifiers**: `.nc-primary`, `.nc-danger`, `.nc-ghost`, etc.
 
 #### Global Utility Styles (WITHOUT `nc-` prefix)
+
 nc-ui also provides **global utility styles** for common HTML elements:
+
 - **Headings**: `<h1>`, `<h2>`, `<h3>`, `<h4>` or `.h1`, `.h2`, `.h3`, `.h4`
 - **Text**: `<p className="weak">`, `<p className="weaker">`
 - **Code**: `<code>`, `.code-block`
 - **Tags**: `.tag`, `.tag.red`, `.tag.yellow`, `.tag.green`, `.tag.blue`
 - **Blocks**: `.block`, `.block.note`, `.block.warning`, `.block.danger`, `.block.icon`
+- **Cards**: `.card` for neutral layout surfaces and nested panels
 - **Lists**: `<ul>`, `<ol>`, `<ul className="no-dots">`
 
 **See `global-utility-styles.md` for complete documentation.**
@@ -28,6 +32,7 @@ nc-ui also provides **global utility styles** for common HTML elements:
 ### 2. Component Patterns
 
 #### Always Use nc-ui Components
+
 ```tsx
 // ❌ NEVER do this
 <button onClick={...}>Click me</button>
@@ -43,27 +48,30 @@ import { Button, ComboBox, Input } from '@kingsimba/nc-ui'
 ```
 
 #### Component Import Pattern
+
 ```tsx
 // Main components
-import { Button, ComboBox, Input, Dialog } from '@kingsimba/nc-ui'
-import '@kingsimba/nc-ui/styles.css'
+import { Button, ComboBox, Input, Dialog } from "@kingsimba/nc-ui";
+import "@kingsimba/nc-ui/styles.css";
 
 // Icons (separate entry point)
-import { CloseIcon, EditIcon, TrashIcon } from '@kingsimba/nc-ui/icons'
+import { CloseIcon, EditIcon, TrashIcon } from "@kingsimba/nc-ui/icons";
 
 // YAML editor (optional, separate entry)
-import { YamlTextArea } from '@kingsimba/nc-ui/yaml'
+import { YamlTextArea } from "@kingsimba/nc-ui/yaml";
 ```
 
 #### TypeScript Props
+
 ```tsx
 // All components export their props interface
-import { ButtonProps, ComboBoxProps, InputProps } from '@kingsimba/nc-ui'
+import { ButtonProps, ComboBoxProps, InputProps } from "@kingsimba/nc-ui";
 ```
 
 ### 3. Styling System
 
 #### Theme Variables
+
 ```css
 /* Available theme variables (use these, not hard-coded colors) */
 --nc-primary          /* Primary brand color */
@@ -79,6 +87,7 @@ import { ButtonProps, ComboBoxProps, InputProps } from '@kingsimba/nc-ui'
 ```
 
 #### Theme Customization
+
 ```css
 /* Override in your app's CSS */
 :root {
@@ -97,27 +106,29 @@ import { ButtonProps, ComboBoxProps, InputProps } from '@kingsimba/nc-ui'
 nc-ui includes a framework for building panel-based applications:
 
 ```tsx
-import { appRegistry, runningAppsStore, useApp } from '@kingsimba/nc-ui'
+import { appRegistry, runningAppsStore, useApp } from "@kingsimba/nc-ui";
 
 // 1. Create app component
 function MyApp() {
-  const { setTitle, setBackHandler, setToolbar, close } = useApp()
-  return <div>...</div>
+  const { setTitle, setBackHandler, setToolbar, close } = useApp();
+  return <div>...</div>;
 }
 
 // 2. Register with lazy loading
-const LazyMyApp = React.lazy(() => import('./MyApp').then(m => ({ default: m.MyApp })))
+const LazyMyApp = React.lazy(() =>
+  import("./MyApp").then((m) => ({ default: m.MyApp })),
+);
 
 appRegistry.register({
-  id: 'my-app',
-  titleKey: 'apps.myApp.name',
+  id: "my-app",
+  titleKey: "apps.myApp.name",
   icon: MyAppIcon,
   component: LazyMyApp,
   width: 400,
-})
+});
 
 // 3. Launch
-await runningAppsStore.launchApp('my-app')
+await runningAppsStore.launchApp("my-app");
 ```
 
 ## Project Structure
@@ -148,7 +159,9 @@ nc-ui/
 ## Common Component Patterns
 
 ### Size Variants
+
 Most components support `size="small"` or `size="default"`:
+
 ```tsx
 <Button size="small">Small</Button>
 <Input size="small" />
@@ -156,7 +169,9 @@ Most components support `size="small"` or `size="default"`:
 ```
 
 ### Variant Styles
+
 Buttons and some components support variants:
+
 ```tsx
 <Button variant="primary">Primary Action</Button>
 <Button variant="danger">Delete</Button>
@@ -166,6 +181,7 @@ Buttons and some components support variants:
 ```
 
 ### Loading States
+
 ```tsx
 <Button loading>Saving...</Button>
 <ActivityIndicator size="large" />
@@ -173,6 +189,7 @@ Buttons and some components support variants:
 ```
 
 ### Form Components
+
 ```tsx
 <Input
   value={text}
@@ -214,8 +231,9 @@ Buttons and some components support variants:
 ```
 
 ### Dialogs
+
 ```tsx
-import { Dialog } from '@kingsimba/nc-ui'
+import { Dialog } from "@kingsimba/nc-ui";
 
 <Dialog
   open={isOpen}
@@ -224,34 +242,38 @@ import { Dialog } from '@kingsimba/nc-ui'
   footer={
     <>
       <Button onClick={() => setOpen(false)}>Cancel</Button>
-      <Button variant="danger" onClick={handleConfirm}>Delete</Button>
+      <Button variant="danger" onClick={handleConfirm}>
+        Delete
+      </Button>
     </>
   }
 >
   Are you sure you want to delete this item?
-</Dialog>
+</Dialog>;
 ```
 
 ### Notifications
+
 ```tsx
-import { showNotification } from '@kingsimba/nc-ui'
+import { showNotification } from "@kingsimba/nc-ui";
 
 showNotification({
-  message: 'Item saved successfully',
-  type: 'success',
+  message: "Item saved successfully",
+  type: "success",
   duration: 3000,
-})
+});
 
 showNotification({
-  message: 'An error occurred',
-  type: 'error',
+  message: "An error occurred",
+  type: "error",
   duration: 5000,
-})
+});
 ```
 
 ## Anti-Patterns (DON'T DO THIS)
 
 ### ❌ Using Native HTML Elements
+
 ```tsx
 // ❌ WRONG
 <button>Click me</button>
@@ -267,6 +289,7 @@ showNotification({
 ```
 
 ### ❌ Not Using CSS Prefix
+
 ```tsx
 // ❌ WRONG
 <div className="button primary"></div>
@@ -278,16 +301,18 @@ showNotification({
 ```
 
 ### ❌ Importing Everything Together
+
 ```tsx
 // ❌ WRONG - icons should be separate
-import { Button, CloseIcon } from '@kingsimba/nc-ui'
+import { Button, CloseIcon } from "@kingsimba/nc-ui";
 
 // ✅ CORRECT - separate entry points
-import { Button } from '@kingsimba/nc-ui'
-import { CloseIcon } from '@kingsimba/nc-ui/icons'
+import { Button } from "@kingsimba/nc-ui";
+import { CloseIcon } from "@kingsimba/nc-ui/icons";
 ```
 
 ### ❌ Hard-coding Colors
+
 ```tsx
 // ❌ WRONG
 <Button style={{ backgroundColor: '#3b82f6' }}>Click</Button>
@@ -298,6 +323,7 @@ import { CloseIcon } from '@kingsimba/nc-ui/icons'
 ```
 
 ### ❌ Not Using Lazy Loading for Apps
+
 ```tsx
 // ❌ WRONG
 import { MyApp } from './MyApp'

@@ -16,6 +16,7 @@ When using nc-ui in a new project, AI assistants might default to using native H
 ### For New Projects Using nc-ui
 
 1. **Copy this entire `nc-ui-ai-reference/` folder** to your project's `docs/` directory:
+
    ```bash
    cp -r nc-ui/nc-ui-ai-reference /path/to/your-project/docs/nc-ui-ai-reference
    ```
@@ -23,12 +24,14 @@ When using nc-ui in a new project, AI assistants might default to using native H
 2. **Set up AI-specific entry files:**
 
    #### For GitHub Copilot:
+
    ```bash
    mkdir -p .github
    cp docs/nc-ui-ai-reference/copilot-instructions.md .github/copilot-instructions.md
    ```
 
    #### For Claude Code:
+
    ```bash
    mkdir -p .claude
    cp docs/nc-ui-ai-reference/claude-context.md .claude/project-context.md
@@ -51,7 +54,7 @@ your-project/
 │       ├── README.md                        # This file
 │       ├── architecture.md                  # Architecture & conventions
 │       ├── components-quick-reference.md    # All components API
-│       ├── global-utility-styles.md         # Global styles (h1, .tag, .block, etc.)
+│       ├── global-utility-styles.md         # Global styles (h1, .tag, .block, .card, etc.)
 │       ├── examples-and-antipatterns.md     # Usage examples
 │       ├── app-framework.md                 # App framework guide (optional)
 │       ├── copilot-instructions.md          # Template for Copilot
@@ -76,6 +79,7 @@ Detailed entry point for Claude Code with architecture overview and common patte
 
 **`architecture.md`**
 Comprehensive guide covering:
+
 - CSS naming conventions (nc- prefix for components, no prefix for utilities)
 - Component patterns
 - Styling system
@@ -84,6 +88,7 @@ Comprehensive guide covering:
 
 **`components-quick-reference.md`**
 Complete API reference for all 23+ components:
+
 - Import patterns
 - Props and usage examples
 - Migration guide (HTML → nc-ui)
@@ -91,15 +96,18 @@ Complete API reference for all 23+ components:
 
 **`global-utility-styles.md`**
 Global utility styles (WITHOUT `nc-` prefix):
+
 - Typography (h1, h2, h3, h4)
 - Text colors (p.weak, p.weaker)
 - Code (code, .code-block)
 - Tags (.tag, .tag.red, .tag.yellow, etc.)
 - Blocks (.block, .block.note, .block.warning, .block.danger)
+- Cards (.card)
 - Lists (ul, ol, ul.no-dots)
 
 **`examples-and-antipatterns.md`**
 Practical examples and common mistakes:
+
 - ❌ Wrong patterns (using native HTML, wrong event handlers)
 - ✅ Correct patterns (using nc-ui components)
 - Complete real-world examples
@@ -108,16 +116,19 @@ Practical examples and common mistakes:
 ## Why This Approach?
 
 ### Portable and Reusable
+
 - Copy once, use in multiple projects
 - Same documentation for all AI tools
 - Update nc-ui docs, copy to projects again
 
 ### Discoverable
+
 - AIs can easily find and read these files
 - Separate entry points for different AIs
 - Shared core documentation reduces duplication
 
 ### Maintainable
+
 - Single source of truth (nc-ui repo)
 - Clear separation: entry files vs. reference docs
 - Easy to update when nc-ui changes
@@ -136,12 +147,14 @@ When nc-ui is updated:
 ## Best Practices
 
 ### Do:
+
 - ✅ Copy the entire `nc-ui-ai-reference/` folder to `docs/` in new projects
 - ✅ Set up AI-specific entry files (`.github/copilot-instructions.md`, `.claude/project-context.md`)
 - ✅ Commit all documentation to version control
 - ✅ Update when nc-ui version changes significantly
 
 ### Don't:
+
 - ❌ Manually edit these files in individual projects (edit in nc-ui repo, then copy)
 - ❌ Delete or modify the folder structure
 - ❌ Skip committing to git (AIs need access to these files)
@@ -176,6 +189,7 @@ After setup, tell your AI:
 > "I'm using @kingsimba/nc-ui in this project. Please use nc-ui components instead of native HTML elements. Check docs/nc-ui-ai-reference/ for the component API."
 
 The AI should then:
+
 - Use `<Button>` instead of `<button>`
 - Use `<Input>` instead of `<input>`
 - Use `<ComboBox>` instead of `<select>`

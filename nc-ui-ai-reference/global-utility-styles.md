@@ -28,6 +28,7 @@ All heading styles can be applied either via element or class:
 ```
 
 **Sizes:**
+
 - `.h1` - 2rem (32px), font-weight 700
 - `.h2` - 1.5rem (24px), font-weight 600
 - `.h3` - 1.25rem (20px), font-weight 600
@@ -48,6 +49,7 @@ All heading styles can be applied either via element or class:
 ```
 
 **CSS Variables:**
+
 - `--nc-text` - Primary text color
 - `--nc-text-weak` - Secondary/muted text
 - `--nc-text-weaker` - Tertiary/very muted text
@@ -89,6 +91,7 @@ For multi-line code:
 ```
 
 **Features:**
+
 - Monospace font (SF Mono, Menlo, Monaco, Consolas)
 - Horizontal scrolling for long lines
 - Pre-formatted whitespace
@@ -109,6 +112,7 @@ Colored tags for status indicators and labels:
 ```
 
 **Variants:**
+
 - `.tag` - Default (gray)
 - `.tag.red` - Error/danger states
 - `.tag.yellow` - Warning states
@@ -116,6 +120,7 @@ Colored tags for status indicators and labels:
 - `.tag.blue` - Info states
 
 **Use Cases:**
+
 - Status badges ("Active", "Pending", "Error")
 - Category labels
 - Notification counts
@@ -123,16 +128,14 @@ Colored tags for status indicators and labels:
 
 ---
 
-## Blocks (Containers)
+## Blocks (Callouts)
 
-Styled containers for grouping content:
+Styled containers for semantic notices, tips, warnings, and danger states.
 
 ### Basic Block
 
 ```tsx
-<div className="block">
-  A solid block container with background and border.
-</div>
+<div className="block">A solid block container with background and border.</div>
 ```
 
 ### Note Block
@@ -141,11 +144,11 @@ For informational content:
 
 ```tsx
 <div className="block note">
-  This is a note with blue styling.
+  This is a block with blue info styling.
 </div>
 
 <div className="block note icon">
-  ℹ️ This note includes an info icon.
+  This block includes an info icon.
 </div>
 ```
 
@@ -159,7 +162,7 @@ For important notices:
 </div>
 
 <div className="block warning icon">
-  ⚠️ This warning includes an icon.
+  This warning includes an icon.
 </div>
 ```
 
@@ -173,7 +176,7 @@ For critical warnings:
 </div>
 
 <div className="block danger icon">
-  🚨 Critical error with icon.
+  Critical error with icon.
 </div>
 ```
 
@@ -192,6 +195,7 @@ For drop zones or placeholders:
 ```
 
 **Block Variants:**
+
 - `.block` - Basic container
 - `.block.note` - Blue info styling
 - `.block.warning` - Yellow warning styling
@@ -200,9 +204,50 @@ For drop zones or placeholders:
 - `.block.dashed` - Dashed border style
 
 **Icons:**
+
 - `.note.icon` → ℹ️
 - `.warning.icon` → ⚠️
 - `.danger.icon` → 🚨
+
+---
+
+## Cards (Surfaces)
+
+Neutral containers for layouts, panels, and stacked surfaces.
+
+### Basic Card
+
+```tsx
+<div className="card">A neutral card surface for related content.</div>
+```
+
+### Card Over Card
+
+Nested cards create depth for dashboards, settings panels, and summary/detail layouts:
+
+```tsx
+<div className="card">
+  <h3 className="h3">Project summary</h3>
+  <p className="weak">Outer card provides the section surface.</p>
+
+  <div className="card" style={{ marginTop: 12 }}>
+    <strong>Revenue sync</strong>
+    <p className="weak">Inner card isolates one important detail.</p>
+  </div>
+</div>
+```
+
+**Card Variants:**
+
+- `.card` - Neutral surface for composition and hierarchy
+- Nested `.card` - Elevated inner surface for card-over-card layouts
+
+**Use Cases:**
+
+- Dashboard tiles
+- Settings panels
+- Summary/detail stacks
+- Card-over-card compositions
 
 ---
 
@@ -227,6 +272,7 @@ For drop zones or placeholders:
 ```
 
 **Auto-styling:**
+
 - Muted list markers (bullets/numbers)
 - Consistent spacing
 - Uses `--nc-text` for content
@@ -249,7 +295,7 @@ For drop zones or placeholders:
 ### Documentation Section
 
 ```tsx
-import { Button } from '@kingsimba/nc-ui'
+import { Button } from "@kingsimba/nc-ui";
 
 function DocsSection() {
   return (
@@ -258,9 +304,7 @@ function DocsSection() {
       <p className="weak">Learn how to use nc-ui in your project</p>
 
       <h2>Installation</h2>
-      <div className="code-block">
-        npm install @kingsimba/nc-ui
-      </div>
+      <div className="code-block">npm install @kingsimba/nc-ui</div>
 
       <h3>Import Components</h3>
       <p>Import the components you need:</p>
@@ -273,7 +317,7 @@ import '@kingsimba/nc-ui/styles.css'`}
         ℹ️ Make sure to import the styles.css file!
       </div>
     </div>
-  )
+  );
 }
 ```
 
@@ -284,7 +328,7 @@ function FeatureCard() {
   return (
     <div>
       <h3>New Features</h3>
-      <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
+      <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
         <span className="tag green">New</span>
         <span className="tag blue">Beta</span>
       </div>
@@ -299,7 +343,7 @@ function FeatureCard() {
         ⚠️ Some features are still in beta. Use with caution in production.
       </div>
     </div>
-  )
+  );
 }
 ```
 
@@ -314,7 +358,7 @@ function ErrorDisplay({ error }) {
         Error code: <code>{error.code}</code>
       </p>
     </div>
-  )
+  );
 }
 ```
 
@@ -340,7 +384,7 @@ function CodeExample() {
         Available variants: primary, danger, warning, success, ghost.
       </div>
     </div>
-  )
+  );
 }
 ```
 
@@ -352,7 +396,7 @@ function StatusDashboard() {
     <div>
       <h2>System Status</h2>
 
-      <div style={{ display: 'flex', gap: 12, marginBottom: 24 }}>
+      <div style={{ display: "flex", gap: 12, marginBottom: 24 }}>
         <div>
           <span className="tag green">API</span>
           <p className="weak">Operational</p>
@@ -371,7 +415,7 @@ function StatusDashboard() {
         ⚠️ Some services are experiencing issues. We're working on it.
       </div>
     </div>
-  )
+  );
 }
 ```
 
@@ -382,6 +426,7 @@ function StatusDashboard() {
 These global styles use nc-ui's theme variables:
 
 ### Colors
+
 ```css
 --nc-text           /* Primary text */
 --nc-text-weak      /* Secondary/muted text */
@@ -393,6 +438,7 @@ These global styles use nc-ui's theme variables:
 ```
 
 ### Backgrounds
+
 ```css
 --nc-bg             /* Main background */
 --nc-bg-secondary   /* Slightly elevated */
@@ -406,6 +452,7 @@ These global styles use nc-ui's theme variables:
 ## Styling Summary
 
 ### Component Styles (with `nc-` prefix)
+
 ```tsx
 <Button className="nc-button nc-primary" />
 <Input className="nc-input nc-small" />
@@ -413,25 +460,28 @@ These global styles use nc-ui's theme variables:
 ```
 
 ### Global Utility Styles (without prefix)
+
 ```tsx
 <h1>Heading</h1>
 <p className="weak">Text</p>
 <code>inline code</code>
 <div className="code-block">...</div>
 <span className="tag red">Error</span>
-<div className="block warning icon">⚠️ Warning</div>
+<div className="block warning icon">Warning</div>
 <ul className="no-dots">...</ul>
 ```
 
 **Rule of Thumb:**
+
 - **Components** → Use `nc-` prefix (Button, Input, ComboBox, etc.)
-- **HTML elements & utilities** → No prefix (h1, p.weak, code, .tag, .block)
+- **HTML elements & utilities** → No prefix (h1, p.weak, code, .tag, .block, .card)
 
 ---
 
 ## Best Practices
 
 ### ✅ DO:
+
 - Use headings (`<h1>` - `<h4>`) for semantic structure
 - Use `<p className="weak">` for secondary text
 - Use `<code>` for inline code, `.code-block` for blocks
@@ -442,6 +492,7 @@ These global styles use nc-ui's theme variables:
 - Use `<ul className="no-dots">` when you don't need bullets
 
 ### ❌ DON'T:
+
 - Don't add `nc-` prefix to these utility classes
 - Don't style paragraphs with inline colors (use `.weak`/`.weaker`)
 - Don't create custom code blocks (use `.code-block`)
@@ -456,7 +507,7 @@ All global styles support light theme automatically when `:root.light` is applie
 
 ```tsx
 // Toggle light theme
-document.documentElement.classList.add('light')
+document.documentElement.classList.add("light");
 
 // All styles adapt automatically:
 // - Tags get darker colors

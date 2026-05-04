@@ -1,5 +1,6 @@
 # Changelog
 
+- 2026-05-04 UI: Add card surfaces and optional taskbar indicators
 - 2026-05-04 CI: Fix pnpm workspace detection in GitHub Actions
 - 2026-05-04 Controls: Add transparent appearance for colored surfaces
 - 2026-04-29 Input: Add leading icon support

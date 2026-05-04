@@ -18,6 +18,17 @@ import { YamlTextArea } from '@kingsimba/nc-ui/yaml'
 
 ---
 
+## Global Utility Styles
+
+These are not nc-ui React components, so they are documented in `global-utility-styles.md` rather than in the component sections below.
+
+- **Blocks**: `.block`, `.block.note`, `.block.warning`, `.block.danger`, `.block.icon`, `.block.dashed`
+- **Cards**: `.card` for neutral layout surfaces and nested card-over-card layouts
+
+Use [global-utility-styles.md](./global-utility-styles.md) for examples and usage guidance.
+
+---
+
 ## Core Components
 
 ### Button

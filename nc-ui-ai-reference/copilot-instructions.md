@@ -29,17 +29,18 @@ All **component** classes and variables use `nc-` prefix:
 - Code: `<code>`, `.code-block`
 - Tags: `.tag`, `.tag.red`, `.tag.green`, `.tag.yellow`, `.tag.blue`
 - Blocks: `.block`, `.block.note`, `.block.warning`, `.block.danger`, `.block.icon`
+- Cards: `.card` for neutral layout surfaces and nested panels
 - Lists: `<ul>`, `<ol>`, `<ul className="no-dots">`
 
 ### 3. Import Pattern
 
 ```tsx
 // Components
-import { Button, Input, ComboBox, Dialog } from '@kingsimba/nc-ui';
-import '@kingsimba/nc-ui/styles.css';
+import { Button, Input, ComboBox, Dialog } from "@kingsimba/nc-ui";
+import "@kingsimba/nc-ui/styles.css";
 
 // Icons (separate entry point)
-import { CloseIcon, EditIcon } from '@kingsimba/nc-ui/icons';
+import { CloseIcon, EditIcon } from "@kingsimba/nc-ui/icons";
 ```
 
 ### 4. onChange Handlers
@@ -187,7 +188,7 @@ For complete documentation, see files in this directory:
 
 - `architecture.md` - Architecture and patterns
 - `components-quick-reference.md` - All components with examples
-- `global-utility-styles.md` - Global styles (h1, p.weak, .tag, .block, etc.)
+- `global-utility-styles.md` - Global styles (h1, p.weak, .tag, .block, .card, etc.)
 - `examples-and-antipatterns.md` - Usage examples and common mistakes
 - `app-framework.md` - App framework guide (if using apps)
 

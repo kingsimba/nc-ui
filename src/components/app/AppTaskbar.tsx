@@ -9,6 +9,8 @@ export interface AppTaskbarProps {
   pinnedAppIds: string[];
   /** Optional className for the taskbar container */
   className?: string;
+  /** Whether to show the running and active indicator beneath app icons */
+  showIndicators?: boolean;
 }
 
 /**
@@ -16,7 +18,11 @@ export interface AppTaskbarProps {
  * Displays pinned app icons that are always visible, plus any running non-pinned apps.
  * Clicking an icon launches the app or toggles its active state if already running.
  */
-export function AppTaskbar({ pinnedAppIds, className = '' }: AppTaskbarProps) {
+export function AppTaskbar({
+  pinnedAppIds,
+  className = '',
+  showIndicators = true,
+}: AppTaskbarProps) {
   const { isMobile } = useViewport();
   const [activeAppId, setActiveAppId] = useState<string | null>(() => appStateStore.getActiveAppId());
   const [runningApps, setRunningApps] = useState<RunningApp[]>(() => runningAppsStore.getRunningApps());
@@ -80,7 +86,7 @@ export function AppTaskbar({ pinnedAppIds, className = '' }: AppTaskbarProps) {
             title={def.titleKey || def.id}
           >
             <Icon size={iconSize} />
-            {isRunning && <span className="nc-app-taskbar-indicator" />}
+            {showIndicators && isRunning && <span className="nc-app-taskbar-indicator" />}
           </button>
         );
       })}
@@ -103,7 +109,7 @@ export function AppTaskbar({ pinnedAppIds, className = '' }: AppTaskbarProps) {
             title={def.titleKey || def.id}
           >
             <Icon size={iconSize} />
-            <span className="nc-app-taskbar-indicator" />
+            {showIndicators && <span className="nc-app-taskbar-indicator" />}
           </button>
         );
       })}

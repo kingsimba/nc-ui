@@ -23,6 +23,11 @@
   --nc-button-hover: #162332;
   --nc-button-active: #1d2e42;
   --nc-input-bg: var(--nc-bg-tertiary);
+  --nc-card-bg: var(--nc-bg-secondary);
+  --nc-card-nested-bg: var(--nc-bg-quaternary);
+  --nc-card-border: var(--nc-button-border);
+  --nc-card-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  --nc-card-nested-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
   --nc-overlay-hover: rgba(255, 255, 255, 0.05);
   --nc-transparent-control-text: #ffffff;
   --nc-transparent-control-border: rgba(255, 255, 255, 0.38);
@@ -64,6 +69,11 @@
   --nc-button-hover: #f1f5f9;
   --nc-button-active: #e2e8f0;
   --nc-input-bg: var(--nc-bg-tertiary);
+  --nc-card-bg: var(--nc-bg-quaternary);
+  --nc-card-nested-bg: var(--nc-bg-tertiary);
+  --nc-card-border: #dbe4ef;
+  --nc-card-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  --nc-card-nested-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
   --nc-overlay-hover: rgba(0, 0, 0, 0.05);
 
   /* YAML syntax highlighting */
@@ -171,6 +181,21 @@ code, .code {
 .block.danger.icon::before { content: "🚨"; }
 
 .block.dashed { border-style: dashed; border-width: 2px; }
+
+/* Card container */
+.card {
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--nc-card-bg);
+  border: 1px solid var(--nc-card-border);
+  margin: 0;
+  box-shadow: var(--nc-card-shadow);
+}
+
+.card .card {
+  background: var(--nc-card-nested-bg);
+  box-shadow: var(--nc-card-nested-shadow);
+}
 
 /* Paragraph */
 p { margin: 0.5em 0; color: var(--nc-text); }
@@ -1214,7 +1239,11 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
   color: var(--nc-text);
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.15s ease, transform 0.1s ease;
+  transition:
+    background-color 0.15s ease,
+    box-shadow 0.15s ease,
+    color 0.15s ease,
+    transform 0.1s ease;
   position: relative;
   user-select: none;
 }
@@ -1229,10 +1258,21 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 }
 
 .nc-app-taskbar-button.nc-active {
-  background-color: var(--nc-bg-tertiary);
+  background-color: color-mix(in srgb, var(--nc-bg-quaternary) 78%, white);
+  box-shadow: 0 6px 14px color-mix(in srgb, var(--nc-primary) 10%, transparent);
+  color: var(--nc-primary);
 }
 
 .nc-app-taskbar-button.nc-active:hover {
+  background-color: color-mix(in srgb, var(--nc-bg-quaternary) 72%, white);
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--nc-primary) 14%, transparent);
+}
+
+:root.light .nc-app-taskbar-button.nc-active {
+  background-color: var(--nc-bg-quaternary);
+}
+
+:root.light .nc-app-taskbar-button.nc-active:hover {
   background-color: var(--nc-bg-quaternary);
 }
 
@@ -1242,15 +1282,16 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
   bottom: 2px;
   left: 50%;
   transform: translateX(-50%);
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background-color: var(--nc-primary);
+  width: 7px;
+  height: 3px;
+  border-radius: 999px;
+  background-color: var(--nc-text-weaker);
 }
 
 .nc-app-taskbar-button.nc-active .nc-app-taskbar-indicator {
   width: 16px;
   border-radius: 2px;
+  background-color: var(--nc-primary);
 }
 
 /* Separator between pinned and non-pinned apps */
@@ -1284,12 +1325,6 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
     z-index: 100;
     justify-content: center;
     overflow-x: auto;
-  }
-
-  /* Adjust running indicator for horizontal layout */
-  .nc-app-taskbar.nc-mobile .nc-app-taskbar-indicator {
-    bottom: auto;
-    top: 2px;
   }
 
   /* Separator becomes vertical divider */

@@ -22,6 +22,7 @@ function AppContent() {
     const [theme, setTheme] = useState<'dark' | 'light'>('light')
     const [lang, setLang] = useState<SupportedLocale>('en')
     const [layoutMode, setLayoutMode] = useState<'overlay' | 'side-by-side'>('overlay')
+    const [showTaskbarIndicators, setShowTaskbarIndicators] = useState(true)
 
     const langOptions = [
         { label: 'English', value: 'en' },
@@ -120,13 +121,24 @@ function AppContent() {
                         <Button appearance="transparent" size="small" onClick={toggleTheme} className="dev-header-theme-toggle">
                             {theme === 'dark' ? t('theme.light') : t('theme.dark')}
                         </Button>
+                        <Button
+                            appearance="transparent"
+                            size="small"
+                            onClick={() => setShowTaskbarIndicators((value) => !value)}
+                            className="dev-header-theme-toggle dev-desktop-only"
+                        >
+                            {showTaskbarIndicators ? 'Hide Taskbar Dots' : 'Show Taskbar Dots'}
+                        </Button>
                     </div>
                 </div>
             </header>
 
             {/* App Framework - main demo */}
             <div className="dev-framework-container">
-                <AppTaskbar pinnedAppIds={['start', 'ui-components', 'calculator', '2048']} />
+                <AppTaskbar
+                    pinnedAppIds={['start', 'ui-components', 'calculator', '2048']}
+                    showIndicators={showTaskbarIndicators}
+                />
 
                 {/* Content area with conditional overlay/side-by-side layout */}
                 <div style={{ position: 'relative', flex: 1, display: 'flex', minHeight: 0 }}>
@@ -150,7 +162,7 @@ function AppContent() {
                                         </ul>
                                     </div>
 
-                                    <div style={{ textAlign: 'center' }}>
+                                    <div style={{ textAlign: 'center', paddingTop: 20 }}>
                                         <Button
                                             variant="primary"
                                             size="large"
@@ -171,7 +183,7 @@ function AppContent() {
                                     position: 'absolute',
                                     top: 0,
                                     left: 0,
-                                    bottom: isMobile ? 56 : 0,
+                                    bottom: 0,
                                     borderRight: '1px solid var(--nc-border)',
                                     boxShadow: '8px 0 24px rgba(15, 23, 42, 0.12)',
                                     zIndex: 10,
@@ -193,7 +205,7 @@ function AppContent() {
                                         </ul>
                                     </div>
 
-                                    <div style={{ textAlign: 'center' }}>
+                                    <div style={{ textAlign: 'center', paddingTop: 20 }}>
                                         <Button
                                             variant="primary"
                                             size="large"
