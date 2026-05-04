@@ -194,7 +194,7 @@ function AppContent() {
                                     <h1 style={{ textAlign: 'center' }}>{t('welcome.title')}</h1>
                                     <p className="weak">{t('welcome.subtitle')}</p>
 
-                                    <div className="block">
+                                    <div className="card">
                                         <h3>{t('welcome.features.title')}</h3>
                                         <ul className="no-dots">
                                             <li>{t('welcome.features.aiGuide')}</li>
