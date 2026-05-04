@@ -24,7 +24,7 @@ body {
 
 .dev-framework-header {
     flex-shrink: 0;
-    background: var(--nc-bg-tertiary);
+    background: #1D57C0;
     border-bottom: 1px solid var(--nc-border);
     padding: 16px 24px;
     z-index: 50;
@@ -55,27 +55,36 @@ body {
     display: flex;
     align-items: center;
     gap: 6px;
-    color: var(--nc-text-weak);
+    color: #ffffff;
     transition: color 0.2s, transform 0.2s;
     text-decoration: none;
     font-size: 14px;
 }
 
-.dev-github-text,
-
-.dev-github-link:hover {
-    color: var(--nc-text);
-    transform: scale(1.05);
+.dev-github-text {
+    color: inherit;
 }
 
-@media (min-width: 768px) {
-    .dev-github-text,
+.dev-github-link:hover {
+    color: rgba(255, 255, 255, 0.92);
+    transform: scale(1.05);
 }
 
 .dev-header-controls {
     display: flex;
     gap: 12px;
     align-items: center;
+}
+
+.dev-header-theme-toggle {
+    color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.45) !important;
+}
+
+.dev-header-theme-toggle:hover {
+    color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.7) !important;
+    background: rgba(255, 255, 255, 0.12) !important;
 }
 
 .dev-framework-container {

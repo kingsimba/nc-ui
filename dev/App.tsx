@@ -79,7 +79,7 @@ function AppContent() {
             <header className="dev-framework-header">
                 <div className="dev-header-content">
                     <div className="dev-header-left">
-                        <h1>nc-ui Library</h1>
+                        <h1 style={{ color: '#ffffff' }}>nc-ui Library</h1>
                         <a
                             href="https://github.com/kingsimba/nc-ui"
                             target="_blank"
@@ -114,7 +114,7 @@ function AppContent() {
                             style={{ width: 130 }}
                             className="dev-desktop-only"
                         />
-                        <Button variant="ghost" size="small" onClick={toggleTheme}>
+                        <Button variant="ghost" size="small" onClick={toggleTheme} className="dev-header-theme-toggle">
                             {theme === 'dark' ? t('theme.light') : t('theme.dark')}
                         </Button>
                     </div>
@@ -169,6 +169,8 @@ function AppContent() {
                                     top: 0,
                                     left: 0,
                                     bottom: isMobile ? 56 : 0,
+                                    borderRight: '1px solid var(--nc-border)',
+                                    boxShadow: '8px 0 24px rgba(15, 23, 42, 0.12)',
                                     zIndex: 10,
                                 }}
                             />
