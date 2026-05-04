@@ -1,5 +1,6 @@
 # Changelog
 
+- 2026-05-04 ButtonGroup: Improve segmented control styling
 - 2026-05-04 ComboBox: Add text alignment support
 - 2026-05-04 UI: Add card surfaces and optional taskbar indicators
 - 2026-05-04 CI: Fix pnpm workspace detection in GitHub Actions

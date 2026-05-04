@@ -28,12 +28,13 @@ export function ButtonGroup<T extends string>({
 }: ButtonGroupProps<T>) {
   return (
     <div className={`nc-button-group ${size === 'small' ? 'nc-small' : ''}`}>
-      {options.map((option, idx) => {
+      {options.map((option) => {
         const isDisabled = disabled || !!option.disabled;
         return (
           <button
             key={option.key}
-            className={`nc-button-group-item ${value === option.key ? 'nc-active' : ''} ${idx < options.length - 1 ? 'nc-has-border' : ''}`}
+            type="button"
+            className={`nc-button-group-item ${value === option.key ? 'nc-active' : ''}`}
             onClick={() => !isDisabled && onChange(option.key)}
             disabled={isDisabled}
           >

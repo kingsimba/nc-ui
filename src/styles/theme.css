@@ -22,6 +22,10 @@
   --nc-button-bg: var(--nc-bg-tertiary);
   --nc-button-hover: #162332;
   --nc-button-active: #1d2e42;
+  --nc-button-group-shell-bg: #eef1f5;
+  --nc-button-group-text: #555555;
+  --nc-button-group-hover: rgba(0, 0, 0, 0.05);
+  --nc-button-group-active-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   --nc-input-bg: var(--nc-bg-tertiary);
   --nc-card-bg: var(--nc-bg-secondary);
   --nc-card-nested-bg: var(--nc-bg-quaternary);
@@ -68,6 +72,10 @@
   --nc-button-bg: var(--nc-bg-tertiary);
   --nc-button-hover: #f1f5f9;
   --nc-button-active: #e2e8f0;
+  --nc-button-group-shell-bg: #eef1f5;
+  --nc-button-group-text: #555555;
+  --nc-button-group-hover: rgba(0, 0, 0, 0.05);
+  --nc-button-group-active-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   --nc-input-bg: var(--nc-bg-tertiary);
   --nc-card-bg: var(--nc-bg-quaternary);
   --nc-card-nested-bg: var(--nc-bg-tertiary);
@@ -613,35 +621,51 @@ input.nc-input:not(.nc-small) { height: 42px; }
 /* ButtonGroup component */
 .nc-button-group {
   display: inline-flex;
-  border-radius: 8px;
-  border: 1px solid var(--nc-button-border);
-  overflow: hidden;
-  background: var(--nc-button-bg);
+  align-items: center;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--nc-button-group-shell-bg);
   width: fit-content;
 }
 
 .nc-button-group.nc-small .nc-button-group-item {
-  padding: 6px 12px;
-  font-size: 13px;
+  min-height: 28px;
+  padding: 5px 12px;
+  font-size: 12px;
 }
 
 .nc-button-group-item {
-  padding: 10px 20px;
+  min-height: 31px;
+  padding: 6px 16px;
   border: none;
   background: transparent;
-  color: var(--nc-text);
+  border-radius: 999px;
+  color: var(--nc-button-group-text);
   cursor: pointer;
-  transition: background 120ms, color 120ms;
-  font-size: inherit;
+  transition: all 0.2s ease;
+  font-size: 13px;
   font-family: inherit;
-  text-transform: capitalize;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  user-select: none;
 }
 
-.nc-button-group-item.nc-has-border { border-right: 1px solid var(--nc-button-border); }
-.nc-button-group-item.nc-active { background: var(--nc-primary); color: white; }
-.nc-button-group-item:hover:not(:disabled):not(.nc-active) { background: var(--nc-button-hover); }
-.nc-button-group-item:active:not(:disabled) { transform: scale(0.98); }
-.nc-button-group-item:disabled { cursor: not-allowed; opacity: 0.5; }
+.nc-button-group-item.nc-active {
+  background: var(--nc-primary);
+  color: white;
+  box-shadow: var(--nc-button-group-active-shadow);
+}
+
+.nc-button-group-item:hover:not(:disabled):not(.nc-active) {
+  background: var(--nc-button-group-hover);
+}
+
+.nc-button-group-item:active:not(:disabled) { transform: none; }
+.nc-button-group-item:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
 
 /* ContextMenu component */
 .nc-context-menu {
