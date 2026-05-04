@@ -93,7 +93,6 @@ export function UIComponentsDemo() {
   }, []);
 
   const ActiveComponent = sections.find(s => s.id === activeSection)?.component;
-  const textSections = ['nav-stack', 'yaml-textarea', 'styles', 'dialog', 'app-dialog', 'tabs', 'buttons', 'notification'];
 
   return (
     <div className={`ui-components-app ${!isMobile ? 'desktop' : ''}`}>
@@ -106,10 +105,11 @@ export function UIComponentsDemo() {
           if (section) setActiveSection(section.id);
         }}
         orientation={!isMobile ? 'verticalLeft' : 'horizontal'}
+        style={{background:'var(--nc-bg-tertiary)'}}
       />
 
       {/* Content area */}
-      <div className="ui-content" style={{ backgroundColor: textSections.includes(activeSection) ? 'var(--nc-bg-text)' : undefined }}>
+      <div className="ui-content" style={{ backgroundColor: 'var(--nc-bg-quaternary)' }}>
         {ActiveComponent && activeSection === 'list-group' ? (
           <ListGroupSection theme={theme} toggleTheme={() => setTheme(theme === 'dark' ? 'light' : 'dark')} />
         ) : (
