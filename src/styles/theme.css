@@ -202,6 +202,7 @@ li::marker { color: var(--nc-text-weak); }
 .nc-button:hover { background: var(--nc-button-hover); }
 .nc-button:active { transform: scale(0.97); background: var(--nc-button-active); }
 .nc-button.nc-block { width: 100%; }
+.nc-button:not(.nc-small):not(.nc-large) { height: 42px; }
 
 .nc-button.nc-primary { background: var(--nc-primary); border-color: var(--nc-primary); color: white; }
 .nc-button.nc-primary:hover { filter: brightness(1.05); }
@@ -319,6 +320,8 @@ li::marker { color: var(--nc-text-weak); }
   border-color: var(--nc-primary);
   box-shadow: inset 0 0 0 1px var(--nc-primary);
 }
+
+input.nc-input:not(.nc-small) { height: 42px; }
 
 .nc-input.nc-small { padding: 6px 12px; font-size: 12px; min-height: 32px; height: 32px; border-radius: 4px; }
 
