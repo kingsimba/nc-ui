@@ -22,10 +22,10 @@
   --nc-button-bg: var(--nc-bg-tertiary);
   --nc-button-hover: #162332;
   --nc-button-active: #1d2e42;
-  --nc-button-group-shell-bg: #eef1f5;
-  --nc-button-group-text: #555555;
-  --nc-button-group-hover: rgba(0, 0, 0, 0.05);
-  --nc-button-group-active-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  --nc-button-group-shell-bg: #1b2430;
+  --nc-button-group-text: #a3afc2;
+  --nc-button-group-hover: rgba(255, 255, 255, 0.06);
+  --nc-button-group-active-shadow: 0 2px 6px rgba(0, 0, 0, 0.28);
   --nc-input-bg: var(--nc-bg-tertiary);
   --nc-card-bg: var(--nc-bg-secondary);
   --nc-card-nested-bg: var(--nc-bg-quaternary);

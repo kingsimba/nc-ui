@@ -48,6 +48,18 @@ export function ButtonGroupSection() {
             disabled
           />
         </div>
+        <div>
+          <h4 style={{ marginBottom: 8, color: 'var(--nc-text-weak)', fontSize: 13 }}>Option-level Disabled</h4>
+          <ButtonGroup
+            value={alignment}
+            onChange={setAlignment}
+            options={[
+              { key: 'left', label: 'Left' },
+              { key: 'center', label: 'Center', disabled: true },
+              { key: 'right', label: 'Right' },
+            ]}
+          />
+        </div>
       </div>
     </section>
   );
