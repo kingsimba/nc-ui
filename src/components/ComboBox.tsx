@@ -27,6 +27,8 @@ export interface ComboBoxProps {
   size?: 'default' | 'small';
   /** Visual appearance of the closed control */
   appearance?: 'default' | 'transparent';
+  /** Horizontal alignment for the selected text and typed query */
+  textAlign?: 'left' | 'center' | 'right';
   /** Custom styles */
   style?: React.CSSProperties;
   /** Additional CSS class names */
@@ -180,6 +182,7 @@ export function ComboBox({
   placement = 'bottom',
   size = 'default',
   appearance = 'default',
+  textAlign = 'left',
   style,
   className,
 }: ComboBoxProps) {
@@ -225,6 +228,7 @@ export function ComboBox({
   const selected = options.find((o) => o.value === value);
   const showClearButton = selected && clearable;
   const showToggle = !disabled && !showClearButton;
+  const alignmentClass = `nc-align-${textAlign}`;
 
   const overlayVisible = !(open && allowTyping) && !!selected;
 
@@ -283,7 +287,7 @@ export function ComboBox({
   };
 
   return (
-    <div className={`nc-combo-container ${appearance === 'transparent' ? 'nc-transparent' : ''} ${className || ''}`.trim()} style={{ position: 'relative', ...style }}>
+    <div className={`nc-combo-container ${appearance === 'transparent' ? 'nc-transparent' : ''} ${alignmentClass} ${className || ''}`.trim()} style={{ position: 'relative', ...style }}>
       {label && <span className={`nc-label ${isSmall ? 'nc-small' : ''}`}>{label}</span>}
       <div
         ref={anchorRef}
@@ -342,6 +346,7 @@ export function ComboBox({
         {overlayVisible && (
           <div
             aria-hidden
+            className={`nc-combo-overlay ${alignmentClass}`}
             style={{
               position: 'absolute',
               left: isSmall ? 8 : 12,
@@ -349,12 +354,6 @@ export function ComboBox({
               top: '50%',
               transform: 'translateY(-50%)',
               pointerEvents: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 6,
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
             }}
           >
             <span className={`nc-combo-overlay-text ${isSmall ? 'nc-small' : ''}`}>{selected?.label}</span>

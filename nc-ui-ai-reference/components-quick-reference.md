@@ -191,11 +191,14 @@ import { ComboBox } from '@kingsimba/nc-ui'
 // Transparent closed control for colored surfaces
 <ComboBox appearance="transparent" options={[...]} />
 
+// Center aligned text for compact toolbar controls
+<ComboBox size="small" appearance="transparent" textAlign="center" options={[...]} />
+
 // Placement
 <ComboBox placement="top" options={[...]} />
 ```
 
-**Props:** `value`, `onChange`, `options`, `placeholder`, `disabled`, `label`, `clearable`, `allowTyping`, `placement`, `size`, `appearance`
+**Props:** `value`, `onChange`, `options`, `placeholder`, `disabled`, `label`, `clearable`, `allowTyping`, `placement`, `size`, `appearance`, `textAlign`
 
 **Option type:** `{ label: string, value: string, default?: boolean }`
 

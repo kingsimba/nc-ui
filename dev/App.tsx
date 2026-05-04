@@ -102,7 +102,8 @@ function AppContent() {
                             size="small"
                             clearable={false}
                             appearance="transparent"
-                            style={{ width: 120 }}
+                            textAlign="center"
+                            style={{ width: 100 }}
                             className="dev-header-select"
                         />
                         <ComboBox
@@ -115,7 +116,8 @@ function AppContent() {
                             size="small"
                             clearable={false}
                             appearance="transparent"
-                            style={{ width: 130 }}
+                            textAlign="center"
+                            style={{ width: 100 }}
                             className="dev-header-select dev-desktop-only"
                         />
                         <Button appearance="transparent" size="small" onClick={toggleTheme} className="dev-header-theme-toggle">
@@ -151,7 +153,7 @@ function AppContent() {
                                     <h1 style={{ textAlign: 'center' }}>{t('welcome.title')}</h1>
                                     <p className="weak">{t('welcome.subtitle')}</p>
 
-                                    <div className="block">
+                                    <div className="card">
                                         <h3>{t('welcome.features.title')}</h3>
                                         <ul className="no-dots">
                                             <li>{t('welcome.features.aiGuide')}</li>

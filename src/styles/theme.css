@@ -413,7 +413,29 @@ input.nc-input:not(.nc-small) { height: 42px; }
 .nc-combo-dropdown-option:not(.nc-small) { padding: 10px 12px; font-size: inherit; }
 .nc-combo-dropdown-option:hover { background: var(--nc-button-hover); }
 
-.nc-combo-overlay-text { color: var(--nc-text); overflow: hidden; text-overflow: ellipsis; }
+.nc-combo-container.nc-align-center .nc-input { text-align: center; }
+.nc-combo-container.nc-align-right .nc-input { text-align: right; }
+
+.nc-combo-overlay {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nc-combo-overlay.nc-align-center {
+  justify-content: center;
+  text-align: center;
+}
+
+.nc-combo-overlay.nc-align-right {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.nc-combo-overlay-text { color: var(--nc-text); overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .nc-combo-overlay-text.nc-small { font-size: 13px; }
 .nc-combo-overlay-default { color: var(--nc-text-weak); }
 .nc-combo-overlay-default.nc-small { font-size: 10px; }

@@ -6,6 +6,7 @@ export function ComboBoxSection() {
   const [comboValue2, setComboValue2] = useState<string | undefined>();
   const [comboValue3, setComboValue3] = useState<string | undefined>('alice');
   const [comboValue4, setComboValue4] = useState<string | undefined>('opt1');
+  const [comboValue5, setComboValue5] = useState<string | undefined>('opt2');
 
   const comboOptions = [
     { label: 'Option 1', value: 'opt1', default: true },
@@ -46,6 +47,9 @@ export function ComboBoxSection() {
   return (
     <section className="dev-section">
       <h2>ComboBox</h2>
+      <p style={{ marginBottom: 16, color: 'var(--nc-text-weak)' }}>
+        Use <code>textAlign</code> when the closed control should read like a compact pill or toolbar item rather than a form field.
+      </p>
       <div className="dev-col" style={{ maxWidth: 300 }}>
         <ComboBox
           label="Default ComboBox"
@@ -85,6 +89,19 @@ export function ComboBoxSection() {
             onChange={setComboValue}
             appearance="transparent"
             clearable={false}
+          />
+        </div>
+        <div style={{ background: 'var(--nc-primary)', padding: 16, borderRadius: 8 }}>
+          <ComboBox
+            label="Centered toolbar text"
+            options={comboOptions}
+            value={comboValue5}
+            onChange={setComboValue5}
+            appearance="transparent"
+            clearable={false}
+            size="small"
+            textAlign="center"
+            style={{ width: 140 }}
           />
         </div>
       </div>
