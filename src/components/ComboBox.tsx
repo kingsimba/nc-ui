@@ -25,6 +25,8 @@ export interface ComboBoxProps {
   placement?: 'top' | 'bottom';
   /** Size variant */
   size?: 'default' | 'small';
+  /** Visual appearance of the closed control */
+  appearance?: 'default' | 'transparent';
   /** Custom styles */
   style?: React.CSSProperties;
   /** Additional CSS class names */
@@ -177,6 +179,7 @@ export function ComboBox({
   allowTyping = false,
   placement = 'bottom',
   size = 'default',
+  appearance = 'default',
   style,
   className,
 }: ComboBoxProps) {
@@ -280,7 +283,7 @@ export function ComboBox({
   };
 
   return (
-    <div className={`nc-combo-container ${className || ''}`.trim()} style={{ position: 'relative', ...style }}>
+    <div className={`nc-combo-container ${appearance === 'transparent' ? 'nc-transparent' : ''} ${className || ''}`.trim()} style={{ position: 'relative', ...style }}>
       {label && <span className={`nc-label ${isSmall ? 'nc-small' : ''}`}>{label}</span>}
       <div
         ref={anchorRef}

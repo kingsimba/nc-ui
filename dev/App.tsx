@@ -100,7 +100,9 @@ function AppContent() {
                             onChange={changeLanguage}
                             size="small"
                             clearable={false}
+                            appearance="transparent"
                             style={{ width: 120 }}
+                            className="dev-header-select"
                         />
                         <ComboBox
                             options={[
@@ -111,10 +113,11 @@ function AppContent() {
                             onChange={(v) => v && setLayoutMode(v as 'overlay' | 'side-by-side')}
                             size="small"
                             clearable={false}
+                            appearance="transparent"
                             style={{ width: 130 }}
-                            className="dev-desktop-only"
+                            className="dev-header-select dev-desktop-only"
                         />
-                        <Button variant="ghost" size="small" onClick={toggleTheme} className="dev-header-theme-toggle">
+                        <Button appearance="transparent" size="small" onClick={toggleTheme} className="dev-header-theme-toggle">
                             {theme === 'dark' ? t('theme.light') : t('theme.dark')}
                         </Button>
                     </div>

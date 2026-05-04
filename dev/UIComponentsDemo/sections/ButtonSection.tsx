@@ -33,6 +33,17 @@ export function ButtonSection() {
             </section>
 
             <section className="dev-section">
+                <h2>Transparent Appearance</h2>
+                <p style={{ marginBottom: '0.5rem', color: 'var(--nc-text-weak)' }}>
+                    Use transparent appearance for controls placed on colored surfaces.
+                </p>
+                <div style={{ display: 'inline-flex', gap: 12, background: 'var(--nc-primary)', padding: 16, borderRadius: 8 }}>
+                    <Button appearance="transparent">Default</Button>
+                    <Button appearance="transparent" size="small">Small</Button>
+                </div>
+            </section>
+
+            <section className="dev-section">
                 <h2>Button States</h2>
                 <div className="dev-row">
                     <Button disabled>Disabled</Button>

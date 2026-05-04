@@ -76,15 +76,10 @@ body {
     align-items: center;
 }
 
+.dev-header-select .nc-input,
 .dev-header-theme-toggle {
-    color: #ffffff !important;
-    border-color: rgba(255, 255, 255, 0.45) !important;
-}
-
-.dev-header-theme-toggle:hover {
-    color: #ffffff !important;
-    border-color: rgba(255, 255, 255, 0.7) !important;
-    background: rgba(255, 255, 255, 0.12) !important;
+    border-radius: 999px !important;
+    min-width: 80px;
 }
 
 .dev-framework-container {

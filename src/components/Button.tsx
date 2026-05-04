@@ -7,17 +7,20 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
   block?: boolean;
   size?: 'default' | 'small' | 'large';
+  /** Visual appearance of the button surface */
+  appearance?: 'default' | 'transparent';
   textSelectable?: boolean;
   loading?: boolean;
 };
 
-export function Button({ variant = 'default', block, size = 'default', className, disabled, textSelectable, loading, onClick, children, ...rest }: ButtonProps) {
+export function Button({ variant = 'default', block, size = 'default', appearance = 'default', className, disabled, textSelectable, loading, onClick, children, ...rest }: ButtonProps) {
   const cls = [
     'nc-button',
     variant !== 'default' ? `nc-${variant}` : '',
     block ? 'nc-block' : '',
     size === 'small' ? 'nc-small' : '',
     size === 'large' ? 'nc-large' : '',
+    appearance === 'transparent' ? 'nc-transparent' : '',
     (disabled || loading) ? 'nc-disabled' : '',
     textSelectable ? 'nc-text-selectable' : '',
     loading ? 'nc-loading' : '',
@@ -49,7 +52,7 @@ export function Button({ variant = 'default', block, size = 'default', className
         <ActivityIndicator
           size="small"
           className="nc-button-spinner"
-          color={variant !== 'default' && variant !== 'ghost' ? 'white' : undefined}
+          color={appearance === 'transparent' || (variant !== 'default' && variant !== 'ghost') ? 'white' : undefined}
         />
       )}
       {children}

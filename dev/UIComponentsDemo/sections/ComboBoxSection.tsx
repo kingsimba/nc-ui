@@ -77,6 +77,16 @@ export function ComboBoxSection() {
           onChange={setComboValue4}
           clearable={false}
         />
+        <div style={{ background: 'var(--nc-primary)', padding: 16, borderRadius: 8 }}>
+          <ComboBox
+            label="Transparent appearance"
+            options={comboOptions}
+            value={comboValue}
+            onChange={setComboValue}
+            appearance="transparent"
+            clearable={false}
+          />
+        </div>
       </div>
     </section>
   );

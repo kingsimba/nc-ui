@@ -24,6 +24,10 @@
   --nc-button-active: #1d2e42;
   --nc-input-bg: var(--nc-bg-tertiary);
   --nc-overlay-hover: rgba(255, 255, 255, 0.05);
+  --nc-transparent-control-text: #ffffff;
+  --nc-transparent-control-border: rgba(255, 255, 255, 0.38);
+  --nc-transparent-control-hover-bg: rgba(255, 255, 255, 0.12);
+  --nc-transparent-control-hover-border: rgba(255, 255, 255, 0.68);
 
   /* YAML syntax highlighting */
   --nc-code-string: #f48771;
@@ -219,6 +223,21 @@ li::marker { color: var(--nc-text-weak); }
 .nc-button.nc-ghost:hover { background: var(--nc-button-hover); }
 .nc-button.nc-ghost:active { background: var(--nc-button-active); transform: scale(0.97); }
 
+.nc-button.nc-transparent {
+  background: transparent;
+  border-color: var(--nc-transparent-control-border);
+  color: var(--nc-transparent-control-text);
+}
+
+.nc-button.nc-transparent:hover {
+  background: var(--nc-transparent-control-hover-bg);
+  border-color: var(--nc-transparent-control-hover-border);
+}
+
+.nc-button.nc-transparent:active {
+  background: var(--nc-transparent-control-hover-bg);
+}
+
 .nc-button.nc-small { padding: 2px 10px; font-size: 12px; margin: 0; border-radius: 6px; height: 32px; }
 .nc-button.nc-large { padding: 10px 24px; font-size: 16px; min-height: 60px; font-weight: bold; }
 .nc-button.nc-text-selectable { user-select: text; -webkit-user-select: text; text-transform: none; }
@@ -370,6 +389,23 @@ li::marker { color: var(--nc-text-weak); }
 .nc-combo-overlay-text.nc-small { font-size: 13px; }
 .nc-combo-overlay-default { color: var(--nc-text-weak); }
 .nc-combo-overlay-default.nc-small { font-size: 10px; }
+
+.nc-combo-container.nc-transparent .nc-input {
+  background: transparent;
+  border-color: var(--nc-transparent-control-border);
+}
+
+.nc-combo-container.nc-transparent .nc-input:hover {
+  background: var(--nc-transparent-control-hover-bg);
+  border-color: var(--nc-transparent-control-hover-border);
+}
+
+.nc-combo-container.nc-transparent .nc-combo-overlay-text,
+.nc-combo-container.nc-transparent .nc-combo-overlay-default,
+.nc-combo-container.nc-transparent .nc-combo-button,
+.nc-combo-container.nc-transparent .nc-label {
+  color: var(--nc-transparent-control-text);
+}
 
 /* Checkbox component */
 .nc-checkbox-label {

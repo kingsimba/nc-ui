@@ -21,6 +21,7 @@ import { YamlTextArea } from '@kingsimba/nc-ui/yaml'
 ## Core Components
 
 ### Button
+
 **Replace:** `<button>` → `<Button>`
 
 ```tsx
@@ -41,6 +42,9 @@ import { Button } from '@kingsimba/nc-ui'
 <Button size="default">Default</Button>
 <Button size="large">Large</Button>
 
+// Transparent surface for colored backgrounds
+<Button appearance="transparent">Action</Button>
+
 // States
 <Button loading>Saving...</Button>
 <Button disabled>Disabled</Button>
@@ -50,11 +54,12 @@ import { Button } from '@kingsimba/nc-ui'
 <Button type="submit" form="myForm">Submit</Button>
 ```
 
-**Props:** `variant`, `size`, `loading`, `disabled`, `block`, `textSelectable`, + all HTMLButtonElement props
+**Props:** `variant`, `size`, `appearance`, `loading`, `disabled`, `block`, `textSelectable`, + all HTMLButtonElement props
 
 ---
 
 ### Input
+
 **Replace:** `<input>` / `<textarea>` → `<Input>`
 
 ```tsx
@@ -109,8 +114,8 @@ import { Input } from '@kingsimba/nc-ui'
   onChange={setEmail}
   validator={(value) => {
     if (!value) return null;
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) 
-      ? null 
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+      ? null
       : 'Invalid email address';
   }}
   placeholder="Enter email"
@@ -130,6 +135,7 @@ import { Input } from '@kingsimba/nc-ui'
 ---
 
 ### ComboBox
+
 **Replace:** `<select>` → `<ComboBox>`
 
 ```tsx
@@ -171,31 +177,35 @@ import { ComboBox } from '@kingsimba/nc-ui'
 // Small size
 <ComboBox size="small" options={[...]} />
 
+// Transparent closed control for colored surfaces
+<ComboBox appearance="transparent" options={[...]} />
+
 // Placement
 <ComboBox placement="top" options={[...]} />
 ```
 
-**Props:** `value`, `onChange`, `options`, `placeholder`, `disabled`, `label`, `clearable`, `allowTyping`, `placement`, `size`
+**Props:** `value`, `onChange`, `options`, `placeholder`, `disabled`, `label`, `clearable`, `allowTyping`, `placement`, `size`, `appearance`
 
 **Option type:** `{ label: string, value: string, default?: boolean }`
 
 ---
 
 ### MultiSelect
+
 **Replace:** Multi-select `<select multiple>` → `<MultiSelect>`
 
 ```tsx
-import { MultiSelect } from '@kingsimba/nc-ui'
+import { MultiSelect } from "@kingsimba/nc-ui";
 
 <MultiSelect
   values={selectedIds}
   onChange={setSelectedIds}
   options={[
-    { label: 'Tag 1', value: '1' },
-    { label: 'Tag 2', value: '2' },
+    { label: "Tag 1", value: "1" },
+    { label: "Tag 2", value: "2" },
   ]}
   placeholder="Select tags..."
-/>
+/>;
 ```
 
 **Props:** `values` (array), `onChange`, `options`, `placeholder`, `disabled`
@@ -203,6 +213,7 @@ import { MultiSelect } from '@kingsimba/nc-ui'
 ---
 
 ### MonthRangePicker
+
 **Replace:** Custom month range selector → `<MonthRangePicker>`
 
 ```tsx
@@ -248,6 +259,7 @@ import { MonthRangePicker } from '@kingsimba/nc-ui'
 ---
 
 ### NumberInput
+
 **Replace:** `<input type="number">` → `<NumberInput>`
 
 ```tsx
@@ -274,6 +286,7 @@ import { NumberInput } from '@kingsimba/nc-ui'
 ---
 
 ### Dialog
+
 **Replace:** Custom modals → `<Dialog>`
 
 ```tsx
@@ -311,17 +324,18 @@ import { Dialog } from '@kingsimba/nc-ui'
 ## App Components
 
 ### AppDialog
+
 Renders an app in a fullscreen portal overlay:
 
 ```tsx
-import { AppDialog } from '@kingsimba/nc-ui'
+import { AppDialog } from "@kingsimba/nc-ui";
 
 <AppDialog
   appId="calculator"
   open={isOpen}
   onClose={() => setOpen(false)}
   style={{ maxWidth: 480, maxHeight: 700 }}
-/>
+/>;
 ```
 
 **Props:** `appId`, `open`, `onClose`, `closeOnBackdrop`, `className`, `style`
@@ -379,15 +393,9 @@ import { Toggle } from '@kingsimba/nc-ui'
 ### Slider
 
 ```tsx
-import { Slider } from '@kingsimba/nc-ui'
+import { Slider } from "@kingsimba/nc-ui";
 
-<Slider
-  value={volume}
-  onChange={setVolume}
-  min={0}
-  max={100}
-  label="Volume"
-/>
+<Slider value={volume} onChange={setVolume} min={0} max={100} label="Volume" />;
 ```
 
 **Props:** `value`, `onChange`, `min`, `max`, `label`, `disabled`
@@ -468,33 +476,33 @@ import { Battery } from '@kingsimba/nc-ui'
 ### Notification (Toast)
 
 ```tsx
-import { showNotification } from '@kingsimba/nc-ui'
+import { showNotification } from "@kingsimba/nc-ui";
 
 // Success
 showNotification({
-  message: 'Item saved successfully',
-  type: 'success',
+  message: "Item saved successfully",
+  type: "success",
   duration: 3000,
-})
+});
 
 // Error
 showNotification({
-  message: 'Failed to save item',
-  type: 'error',
+  message: "Failed to save item",
+  type: "error",
   duration: 5000,
-})
+});
 
 // Info
 showNotification({
-  message: 'Loading your data...',
-  type: 'info',
-})
+  message: "Loading your data...",
+  type: "info",
+});
 
 // Warning
 showNotification({
-  message: 'Please review your changes',
-  type: 'warning',
-})
+  message: "Please review your changes",
+  type: "warning",
+});
 ```
 
 `notificationManager.show({...})` is also exported if you prefer the namespaced API.
@@ -547,19 +555,13 @@ import { ButtonGroup } from '@kingsimba/nc-ui'
 ### ListGroup
 
 ```tsx
-import { ListGroup, ListGroupItem } from '@kingsimba/nc-ui'
+import { ListGroup, ListGroupItem } from "@kingsimba/nc-ui";
 
 <ListGroup title="Settings">
-  <ListGroupItem onClick={() => openAccount()}>
-    Account
-  </ListGroupItem>
-  <ListGroupItem>
-    Dark Mode
-  </ListGroupItem>
-  <ListGroupItem showBorder={false}>
-    Version 1.0.0
-  </ListGroupItem>
-</ListGroup>
+  <ListGroupItem onClick={() => openAccount()}>Account</ListGroupItem>
+  <ListGroupItem>Dark Mode</ListGroupItem>
+  <ListGroupItem showBorder={false}>Version 1.0.0</ListGroupItem>
+</ListGroup>;
 ```
 
 **ListGroup Props:** `title`, `titleTools`, `children`, `style`
@@ -636,53 +638,67 @@ const [active, setActive] = useState('Tab1')
 ## Advanced Components
 
 ### NavStack
+
 Mobile-style stacked navigation:
 
 ```tsx
-import { NavStack } from '@kingsimba/nc-ui'
+import { NavStack } from "@kingsimba/nc-ui";
 
 function SettingsApp() {
   return (
     <NavStack
       pages={[
         {
-          id: 'home',
-          title: 'Settings',
-          render: () => <SettingsHome />
+          id: "home",
+          title: "Settings",
+          render: () => <SettingsHome />,
         },
         {
-          id: 'profile',
-          title: 'Profile',
-          render: () => <ProfileSettings />
-        }
+          id: "profile",
+          title: "Profile",
+          render: () => <ProfileSettings />,
+        },
       ]}
     />
-  )
+  );
 }
 ```
 
 ---
 
 ### ContextMenu
+
 Floating context menu with icons and variants:
 
 ```tsx
-import { ContextMenu } from '@kingsimba/nc-ui'
-import { EditIcon, TrashIcon } from '@kingsimba/nc-ui/icons'
+import { ContextMenu } from "@kingsimba/nc-ui";
+import { EditIcon, TrashIcon } from "@kingsimba/nc-ui/icons";
 
 <ContextMenu
   open={isOpen}
   onClose={() => setOpen(false)}
   anchor={anchorElement}
   options={[
-    { id: 'view', label: 'View', onClick: handleView },
-    { id: 'edit', label: 'Edit', icon: <EditIcon />, variant: 'primary', onClick: handleEdit },
-    { id: 'sep1', type: 'separator' },
-    { id: 'warn', label: 'Reset', variant: 'warning', onClick: handleReset },
-    { id: 'ok', label: 'Confirm', variant: 'success', onClick: handleConfirm },
-    { id: 'del', label: 'Delete', icon: <TrashIcon />, variant: 'danger', onClick: handleDelete },
+    { id: "view", label: "View", onClick: handleView },
+    {
+      id: "edit",
+      label: "Edit",
+      icon: <EditIcon />,
+      variant: "primary",
+      onClick: handleEdit,
+    },
+    { id: "sep1", type: "separator" },
+    { id: "warn", label: "Reset", variant: "warning", onClick: handleReset },
+    { id: "ok", label: "Confirm", variant: "success", onClick: handleConfirm },
+    {
+      id: "del",
+      label: "Delete",
+      icon: <TrashIcon />,
+      variant: "danger",
+      onClick: handleDelete,
+    },
   ]}
-/>
+/>;
 ```
 
 **Props:** `open`, `onClose`, `options`, `anchor`, `anchorRef`, `preferredDirection`
@@ -694,17 +710,18 @@ import { EditIcon, TrashIcon } from '@kingsimba/nc-ui/icons'
 ---
 
 ### YamlTextArea
+
 YAML editor with syntax highlighting:
 
 ```tsx
-import { YamlTextArea } from '@kingsimba/nc-ui/yaml'
+import { YamlTextArea } from "@kingsimba/nc-ui/yaml";
 
 <YamlTextArea
   value={yamlString}
   onChange={setYamlString}
   onValidationChange={(isValid, error) => console.log(isValid, error)}
   style={{ minHeight: 400 }}
-/>
+/>;
 ```
 
 **Props:** `value`, `onChange`, `onValidationChange`, `readOnly`, `debounceMs`, `className`, `style`
@@ -712,6 +729,7 @@ import { YamlTextArea } from '@kingsimba/nc-ui/yaml'
 ---
 
 ### CsvTextArea
+
 Tab-separated text editor with per-column color highlighting, optional line numbers, and cursor tracking:
 
 ```tsx
@@ -747,6 +765,7 @@ csvRef.current?.goToPosition(2, 3, 1)
 ## Pre-configured Components
 
 ### CommonButtons
+
 Ready-to-use icon buttons:
 
 ```tsx
@@ -785,19 +804,19 @@ import {
 
 ## Migration Quick Reference
 
-| HTML Element | nc-ui Component |
-|--------------|----------------|
-| `<button>` | `<Button>` |
-| `<input type="text">` | `<Input>` |
+| HTML Element              | nc-ui Component           |
+| ------------------------- | ------------------------- |
+| `<button>`                | `<Button>`                |
+| `<input type="text">`     | `<Input>`                 |
 | `<input type="password">` | `<Input type="password">` |
-| `<input type="number">` | `<NumberInput>` |
-| `<textarea>` | `<Input multiline>` |
-| `<select>` | `<ComboBox>` |
-| `<select multiple>` | `<MultiSelect>` |
-| `<input type="checkbox">` | `<Checkbox>` |
-| `<input type="range">` | `<Slider>` |
-| Custom modal | `<Dialog>` |
-| Custom toast | `showNotification()` |
+| `<input type="number">`   | `<NumberInput>`           |
+| `<textarea>`              | `<Input multiline>`       |
+| `<select>`                | `<ComboBox>`              |
+| `<select multiple>`       | `<MultiSelect>`           |
+| `<input type="checkbox">` | `<Checkbox>`              |
+| `<input type="range">`    | `<Slider>`                |
+| Custom modal              | `<Dialog>`                |
+| Custom toast              | `showNotification()`      |
 
 ---
 
@@ -812,11 +831,11 @@ import type {
   ComboBoxProps,
   DialogProps,
   // ... etc
-} from '@kingsimba/nc-ui'
+} from "@kingsimba/nc-ui";
 
 // Extend or reuse in your components
 interface MyCustomButtonProps extends ButtonProps {
-  customProp: string
+  customProp: string;
 }
 ```
 
