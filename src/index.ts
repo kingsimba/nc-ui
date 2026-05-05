@@ -28,7 +28,6 @@ export { Tabs, TabPanel, TabPanels } from './components/Tabs';
 export type { TabItem } from './components/Tabs';
 export { Toggle } from './components/Toggle';
 export { CsvTextArea } from './components/CsvTextArea';
-export { YamlTextArea } from './components/YamlTextArea';
 export { Notification } from './components/Notification';
 export { NotificationContainer } from './components/NotificationContainer';
 export {
@@ -64,7 +63,6 @@ export type {
   CsvCursorPosition,
   CsvTextAreaHandle,
 } from './components/CsvTextArea';
-export type { YamlTextAreaProps } from './components/YamlTextArea';
 export type {
   Notification as NotificationRecord,
   NotificationType,

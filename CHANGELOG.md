@@ -1,5 +1,6 @@
 # Changelog
 
+- 2026-05-06 YamlTextArea: Remove root export and require yaml entry point
 - 2026-05-06 Battery: Improve percentage contrast across themes
 - 2026-05-06 Dialog: Improve action layout and spacing
 - 2026-05-06 AppTaskbar: Add badges, translated tooltips, and right-side support

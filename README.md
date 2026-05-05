@@ -70,33 +70,33 @@ function MyComponent() {
 
 nc-ui provides 23+ ready-to-use components. Click any component to see it in the interactive demo:
 
-| Component                                                                                | Description                                                                          |
-| ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| [ActivityIndicator](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=activity)   | Loading spinner with size variants and overlay mode                                  |
-| [Alert](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=alert)                  | Status banners with simple content, optional dismissal, and legacy code/text support |
-| [AppDialog](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=app-dialog)         | Render any registered app inside a dialog overlay                                    |
-| [Battery](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=battery)              | Visual battery level indicator                                                       |
-| [Button](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=buttons)               | Primary action button with variants, sizes, and loading states                       |
-| [ButtonGroup](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=button-group)     | Segmented control for switching between predefined options                           |
-| [Checkbox](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=checkbox)            | Toggle selection with indeterminate state support                                    |
-| [CommonButtons](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=buttons-icon)   | Pre-configured buttons (Close, Edit, Refresh, Trash)                                 |
-| [ComboBox](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=combobox)            | Searchable dropdown with autocomplete                                                |
-| [ContextMenu](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=context-menu)     | Right-click menu with customizable items                                             |
-| [CsvTextArea](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=csv-textarea)     | Tab-separated text editor with per-column color highlighting                         |
-| [Dialog](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=dialog)                | Modal dialogs with header, footer, and action buttons                                |
-| [Hyperlink](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=hyperlink)          | Styled anchor/link component                                                         |
-| [Icons](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=icons)                  | 50+ SVG icons (separate import path)                                                 |
-| [Input](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=input)                  | Text input with validation states and prefix/suffix support                          |
-| [ListGroup](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=list-group)         | Grouped content sections built from `ListGroupItem` children                         |
-| [MonthRangePicker](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=month-range) | Month range selector with validation (YY-M(M) or YYYY-M(M) format)                   |
-| [MultiSelect](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=multi-select)     | Multi-selection dropdown with tag display                                            |
-| [NavStack](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=nav-stack)           | Stack-based navigation for mobile-style settings UIs                                 |
-| [Notification](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=notification)    | Toast-style notifications with auto-dismiss and stacking                             |
-| [NumberInput](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=number-input)     | Numeric input with increment/decrement controls                                      |
-| [Slider](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=slider)                | Range slider with value display                                                      |
-| [Tabs](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=tabs)                    | Tabbed navigation component                                                          |
-| [Toggle](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=toggle)                | Switch/toggle with on/off states                                                     |
-| [YamlTextArea](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=yaml-textarea)   | YAML editor with syntax highlighting and validation                                  |
+| Component                                                                                | Description                                                                               |
+| ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| [ActivityIndicator](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=activity)   | Loading spinner with size variants and overlay mode                                       |
+| [Alert](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=alert)                  | Status banners with simple content, optional dismissal, and legacy code/text support      |
+| [AppDialog](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=app-dialog)         | Render any registered app inside a dialog overlay                                         |
+| [Battery](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=battery)              | Visual battery level indicator                                                            |
+| [Button](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=buttons)               | Primary action button with variants, sizes, and loading states                            |
+| [ButtonGroup](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=button-group)     | Segmented control for switching between predefined options                                |
+| [Checkbox](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=checkbox)            | Toggle selection with indeterminate state support                                         |
+| [CommonButtons](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=buttons-icon)   | Pre-configured buttons (Close, Edit, Refresh, Trash)                                      |
+| [ComboBox](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=combobox)            | Searchable dropdown with autocomplete                                                     |
+| [ContextMenu](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=context-menu)     | Right-click menu with customizable items                                                  |
+| [CsvTextArea](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=csv-textarea)     | Tab-separated text editor with per-column color highlighting                              |
+| [Dialog](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=dialog)                | Modal dialogs with header, footer, and action buttons                                     |
+| [Hyperlink](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=hyperlink)          | Styled anchor/link component                                                              |
+| [Icons](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=icons)                  | 50+ SVG icons (separate import path)                                                      |
+| [Input](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=input)                  | Text input with validation states and prefix/suffix support                               |
+| [ListGroup](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=list-group)         | Grouped content sections built from `ListGroupItem` children                              |
+| [MonthRangePicker](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=month-range) | Month range selector with validation (YY-M(M) or YYYY-M(M) format)                        |
+| [MultiSelect](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=multi-select)     | Multi-selection dropdown with tag display                                                 |
+| [NavStack](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=nav-stack)           | Stack-based navigation for mobile-style settings UIs                                      |
+| [Notification](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=notification)    | Toast-style notifications with auto-dismiss and stacking                                  |
+| [NumberInput](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=number-input)     | Numeric input with increment/decrement controls                                           |
+| [Slider](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=slider)                | Range slider with value display                                                           |
+| [Tabs](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=tabs)                    | Tabbed navigation component                                                               |
+| [Toggle](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=toggle)                | Switch/toggle with on/off states                                                          |
+| [YamlTextArea](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=yaml-textarea)   | YAML editor with syntax highlighting and validation (import from `@kingsimba/nc-ui/yaml`) |
 
 ## App Framework
 

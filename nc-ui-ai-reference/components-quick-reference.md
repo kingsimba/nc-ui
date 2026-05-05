@@ -728,7 +728,7 @@ import { EditIcon, TrashIcon } from "@kingsimba/nc-ui/icons";
 YAML or JSON editor with syntax highlighting and validation:
 
 ```tsx
-import { YamlTextArea } from "@kingsimba/nc-ui";
+import { YamlTextArea } from "@kingsimba/nc-ui/yaml";
 
 <YamlTextArea
   value={yamlString}
