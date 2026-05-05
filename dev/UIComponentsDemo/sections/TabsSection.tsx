@@ -121,7 +121,7 @@ export function TabsSection() {
                         onChange={setVerticalLeftTab}
                         orientation="verticalLeft"
                     />
-                    <div style={{ flex: 1, padding: 20, background: 'var(--nc-bg-text)' }}>
+                    <div style={{ flex: 1, padding: 20}}>
                         <h3>{verticalLeftTab}</h3>
                         <p>Content for the {verticalLeftTab} tab.</p>
                     </div>
@@ -140,7 +140,7 @@ export function TabsSection() {
                     overflow: 'hidden',
                     height: 200,
                 }}>
-                    <div style={{ flex: 1, padding: 20, background: 'var(--nc-bg-text)' }}>
+                    <div style={{ flex: 1, padding: 20 }}>
                         <h3>{verticalRightTab}</h3>
                         <p>Content for the {verticalRightTab} tab.</p>
                     </div>
@@ -161,8 +161,7 @@ export function TabsSection() {
                 <div style={{
                     border: '1px solid var(--nc-border)',
                     borderRadius: 8,
-                    overflow: 'hidden',
-                    background: 'var(--nc-bg)',
+                    overflow: 'hidden'
                 }}>
                     <Tabs
                         tabs={['Home', 'Settings', 'About']}
@@ -210,27 +209,20 @@ export function TabsSection() {
                         }
                     />
 
-                    {/* Content Area */}
-                    <div style={{ padding: 20, background: 'var(--nc-bg-text)' }}>
-                        {toolbarActiveTab === 'Home' && (
-                            <div>
-                                <h3>Home Content</h3>
-                                <p>Welcome to the home tab. This toolbar pattern is useful for applications with tabbed navigation and action buttons.</p>
-                            </div>
-                        )}
-                        {toolbarActiveTab === 'Settings' && (
-                            <div>
-                                <h3>Settings Content</h3>
-                                <p>Configure your preferences here. The toolbar stays in place as you switch between tabs.</p>
-                            </div>
-                        )}
-                        {toolbarActiveTab === 'About' && (
-                            <div>
-                                <h3>About Content</h3>
-                                <p>This demo shows how to combine tabs with a toolbar for application layouts.</p>
-                            </div>
-                        )}
-                    </div>
+                    <TabPanels active={toolbarActiveTab} style={{ padding: 20 }}>
+                        <TabPanel tab="Home">
+                            <h3>Home Content</h3>
+                            <p>Welcome to the home tab. This toolbar pattern is useful for applications with tabbed navigation and action buttons.</p>
+                        </TabPanel>
+                        <TabPanel tab="Settings">
+                            <h3>Settings Content</h3>
+                            <p>Configure your preferences here. The toolbar stays in place as you switch between tabs.</p>
+                        </TabPanel>
+                        <TabPanel tab="About">
+                            <h3>About Content</h3>
+                            <p>This demo shows how to combine tabs with a toolbar for application layouts.</p>
+                        </TabPanel>
+                    </TabPanels>
                 </div>
             </section>
 
@@ -249,7 +241,7 @@ export function TabsSection() {
                         active={keepMountedTab}
                         onChange={setKeepMountedTab}
                     />
-                    <TabPanels active={keepMountedTab} keepMounted style={{ padding: 20, background: 'var(--nc-bg-text)' }}>
+                    <TabPanels active={keepMountedTab} keepMounted style={{ padding: 20 }}>
                         <TabPanel tab="Personal">
                             <h3>Personal Info</h3>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 300 }}>

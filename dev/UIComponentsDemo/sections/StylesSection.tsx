@@ -239,7 +239,6 @@ const config = {
                     <ColorSwatch variable="--nc-bg-secondary" label="Background Secondary" />
                     <ColorSwatch variable="--nc-bg-tertiary" label="Background Tertiary" />
                     <ColorSwatch variable="--nc-bg-quaternary" label="Background Quaternary" />
-                    <ColorSwatch variable="--nc-bg-text" label="Background for Text Content" />
                 </div>
             </section>
 
@@ -268,7 +267,6 @@ const config = {
   --nc-bg-secondary: #1a2332;
   --nc-bg-tertiary: #232d3d;
   --nc-bg-quaternary: #2c3847;
-  --nc-bg-text: var(--nc-bg);
   --nc-muted: #7a8a9a;
   --nc-text: #e8eef6;
   --nc-text-weak: #6b7280;

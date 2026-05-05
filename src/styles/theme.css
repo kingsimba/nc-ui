@@ -6,7 +6,6 @@
   --nc-bg-secondary: #242d38;
   --nc-bg-tertiary: #28323d;
   --nc-bg-quaternary: #2c3743;
-  --nc-bg-text: var(--nc-bg);
   --nc-muted: #7a8a9a;
   --nc-text: #e8eef6;
   --nc-text-weak: #8a94a5;
@@ -56,7 +55,6 @@
   --nc-bg-secondary: #e8eef5;
   --nc-bg-tertiary: #f8fafc;
   --nc-bg-quaternary: #ffffff;
-  --nc-bg-text: var(--nc-bg-quaternary);
   --nc-muted: #64748b;
   --nc-text: #1e293b;
   --nc-text-weak: #8493a7;
