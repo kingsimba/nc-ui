@@ -67,7 +67,7 @@ export function registerBuiltinApps(): void {
   // ========== UI Components ==========
   appRegistry.register({
     id: 'ui-components',
-    titleKey: 'UI Components',
+    titleKey: 'apps.uiComponents',
     icon: UIComponentsIcon,
     component: LazyUIComponents,
     width: 600, // Wider for sidebar + content
@@ -77,7 +77,7 @@ export function registerBuiltinApps(): void {
   // ========== NavStack Demo ==========
   appRegistry.register({
     id: 'navstack-demo',
-    titleKey: 'Settings Demo',
+    titleKey: 'apps.settingsDemo',
     icon: SettingsIcon,
     component: LazyNavStackDemo,
     width: 400,

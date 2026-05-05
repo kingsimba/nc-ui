@@ -102,6 +102,27 @@ function AppContent() {
             zIndex: 10,
         }
 
+    const taskbarControlOptions = {
+        layout: [
+            { key: 'overlay', label: t('welcome.taskbarDemo.options.overlay') },
+            { key: 'side-by-side', label: t('welcome.taskbarDemo.options.sideBySide') },
+        ] as const,
+        side: [
+            { key: 'left', label: t('welcome.taskbarDemo.options.left') },
+            { key: 'right', label: t('welcome.taskbarDemo.options.right') },
+        ] as const,
+        toggled: [
+            { key: 'on', label: t('welcome.taskbarDemo.options.on') },
+            { key: 'off', label: t('welcome.taskbarDemo.options.off') },
+        ] as const,
+        badge: [
+            { key: '0', label: t('welcome.taskbarDemo.options.off') },
+            { key: '3', label: '3' },
+            { key: '12', label: '12' },
+            { key: '100', label: '100' },
+        ] as const,
+    }
+
     const welcomeContent = (
         <div className="dev-welcome">
             <h1 style={{ textAlign: 'center' }}>{t('welcome.title')}</h1>
@@ -119,55 +140,41 @@ function AppContent() {
             </div>
 
             <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 20 }}>
-                <h3>Taskbar Demo Controls</h3>
+                <h3>{t('welcome.taskbarDemo.title')}</h3>
                 <div className="dev-row" style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
                     <div className="dev-col">
-                        <span className="weak" style={{ fontSize: 12 }}>Panel Layout</span>
+                        <span className="weak" style={{ fontSize: 12 }}>{t('welcome.taskbarDemo.layout')}</span>
                         <ButtonGroup
                             value={layoutMode}
                             onChange={setLayoutMode}
-                            options={[
-                                { key: 'overlay', label: 'Overlay' },
-                                { key: 'side-by-side', label: 'Side by Side' },
-                            ]}
+                            options={taskbarControlOptions.layout}
                             size="small"
                         />
                     </div>
                     <div className="dev-col">
-                        <span className="weak" style={{ fontSize: 12 }}>Rail Side</span>
+                        <span className="weak" style={{ fontSize: 12 }}>{t('welcome.taskbarDemo.side')}</span>
                         <ButtonGroup
                             value={taskbarSide}
                             onChange={setTaskbarSide}
-                            options={[
-                                { key: 'left', label: 'Left' },
-                                { key: 'right', label: 'Right' },
-                            ]}
+                            options={taskbarControlOptions.side}
                             size="small"
                         />
                     </div>
                     <div className="dev-col">
-                        <span className="weak" style={{ fontSize: 12 }}>Taskbar Dots</span>
+                        <span className="weak" style={{ fontSize: 12 }}>{t('welcome.taskbarDemo.indicators')}</span>
                         <ButtonGroup
                             value={showTaskbarIndicators ? 'on' : 'off'}
                             onChange={(value) => setShowTaskbarIndicators(value === 'on')}
-                            options={[
-                                { key: 'on', label: 'On' },
-                                { key: 'off', label: 'Off' },
-                            ]}
+                            options={taskbarControlOptions.toggled}
                             size="small"
                         />
                     </div>
                     <div className="dev-col">
-                        <span className="weak" style={{ fontSize: 12 }}>Alert Badge</span>
+                        <span className="weak" style={{ fontSize: 12 }}>{t('welcome.taskbarDemo.badge')}</span>
                         <ButtonGroup
                             value={String(taskbarAlertCount) as '0' | '3' | '12' | '100'}
                             onChange={(value) => setTaskbarAlertCount(Number(value) as TaskbarBadgeCount)}
-                            options={[
-                                { key: '0', label: 'Off' },
-                                { key: '3', label: '3' },
-                                { key: '12', label: '12' },
-                                { key: '100', label: '100' },
-                            ]}
+                            options={taskbarControlOptions.badge}
                             size="small"
                         />
                     </div>
@@ -239,7 +246,7 @@ function AppContent() {
                         return {
                             content: taskbarAlertCount > 99 ? '99+' : taskbarAlertCount,
                             tone: taskbarAlertCount >= 9 ? 'danger' : 'warning',
-                            ariaLabel: `${taskbarAlertCount} demo alerts`,
+                            ariaLabel: t('welcome.taskbarDemo.alertAriaLabel', { count: taskbarAlertCount }),
                         }
                     }}
                 />

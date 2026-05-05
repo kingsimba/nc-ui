@@ -22,7 +22,8 @@
             "name": "2048"
         },
         "calculator": "Calculadora",
-        "uiComponents": "Componentes UI"
+        "uiComponents": "Componentes UI",
+        "settingsDemo": "Demo de ajustes"
     },
     "theme": {
         "light": "☀️ Claro",
@@ -38,6 +39,22 @@
             "crossPlatform": "📱 Multiplataforma: Listo para escritorio y móvil",
             "components": "🛠️ 23+ Componentes: Biblioteca UI esencial",
             "aiGuide": "🤖 Optimizado para IA: Guía de referencia AI completa incluida"
+        },
+        "taskbarDemo": {
+            "title": "Controles de demostración de la barra de tareas",
+            "layout": "Diseño del panel",
+            "side": "Lado de la barra",
+            "indicators": "Puntos de la barra de tareas",
+            "badge": "Insignia de alerta",
+            "alertAriaLabel": "{{count}} alertas de demostración",
+            "options": {
+                "overlay": "Superposición",
+                "sideBySide": "Lado a lado",
+                "left": "Izquierda",
+                "right": "Derecha",
+                "on": "Activado",
+                "off": "Desactivado"
+            }
         },
         "startBtn": "Inicio"
     },

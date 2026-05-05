@@ -22,7 +22,8 @@
             "name": "2048"
         },
         "calculator": "计算器",
-        "uiComponents": "UI 组件"
+        "uiComponents": "UI 组件",
+        "settingsDemo": "设置演示"
     },
     "theme": {
         "light": "☀️ 浅色",
@@ -38,6 +39,22 @@
             "crossPlatform": "📱 跨平台优化: 适配桌面端和移动端",
             "components": "🛠️ 19+ 组件: 开箱即用的 UI 组件库",
             "aiGuide": "🤖 AI 优化: 包含全面的 AI 参考指南"
+        },
+        "taskbarDemo": {
+            "title": "任务栏演示控制",
+            "layout": "面板布局",
+            "side": "任务栏位置",
+            "indicators": "任务栏圆点",
+            "badge": "提醒徽标",
+            "alertAriaLabel": "{{count}} 条演示提醒",
+            "options": {
+                "overlay": "覆盖",
+                "sideBySide": "并排",
+                "left": "左侧",
+                "right": "右侧",
+                "on": "开启",
+                "off": "关闭"
+            }
         },
         "startBtn": "开始"
     },

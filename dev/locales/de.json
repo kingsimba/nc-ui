@@ -22,7 +22,8 @@
             "name": "2048"
         },
         "calculator": "Rechner",
-        "uiComponents": "UI-Komponenten"
+        "uiComponents": "UI-Komponenten",
+        "settingsDemo": "Einstellungsdemo"
     },
     "theme": {
         "light": "☀️ Hell",
@@ -38,6 +39,22 @@
             "crossPlatform": "📱 Plattformübergreifend: Desktop und mobil ready",
             "components": "🛠️ 23+ Komponenten: Wichtige UI-Komponenten",
             "aiGuide": "🤖 KI-optimiert: Umfassender KI-Referenzleitfaden enthalten"
+        },
+        "taskbarDemo": {
+            "title": "Taskleisten-Demosteuerung",
+            "layout": "Panel-Layout",
+            "side": "Leistenseite",
+            "indicators": "Taskleisten-Punkte",
+            "badge": "Alarm-Badge",
+            "alertAriaLabel": "{{count}} Demo-Benachrichtigungen",
+            "options": {
+                "overlay": "Overlay",
+                "sideBySide": "Nebeneinander",
+                "left": "Links",
+                "right": "Rechts",
+                "on": "Ein",
+                "off": "Aus"
+            }
         },
         "startBtn": "Start"
     },

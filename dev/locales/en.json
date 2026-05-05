@@ -22,7 +22,8 @@
             "name": "2048"
         },
         "calculator": "Calculator",
-        "uiComponents": "UI Components"
+        "uiComponents": "UI Components",
+        "settingsDemo": "Settings Demo"
     },
     "theme": {
         "light": "☀️ Light",
@@ -38,6 +39,22 @@
             "crossPlatform": "📱 Cross-Platform: Desktop & mobile ready",
             "components": "🛠️ 23+ Components: Library of UI essentials",
             "aiGuide": "🤖 AI-Optimized: Comprehensive AI reference guide included"
+        },
+        "taskbarDemo": {
+            "title": "Taskbar Demo Controls",
+            "layout": "Panel Layout",
+            "side": "Rail Side",
+            "indicators": "Taskbar Dots",
+            "badge": "Alert Badge",
+            "alertAriaLabel": "{{count}} demo alerts",
+            "options": {
+                "overlay": "Overlay",
+                "sideBySide": "Side by Side",
+                "left": "Left",
+                "right": "Right",
+                "on": "On",
+                "off": "Off"
+            }
         },
         "startBtn": "Start"
     },
