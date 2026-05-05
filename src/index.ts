@@ -94,7 +94,13 @@ export { AppContainer } from './components/app/AppContainer';
 export { AppPanel } from './components/app/AppPanel';
 export type { AppPanelProps } from './components/app/AppPanel';
 export { AppTaskbar } from './components/app/AppTaskbar';
-export type { AppTaskbarProps } from './components/app/AppTaskbar';
+export type {
+  AppTaskbarProps,
+  AppTaskbarSide,
+  AppTaskbarBadge,
+  AppTaskbarBadgeTone,
+  AppTaskbarItemState,
+} from './components/app/AppTaskbar';
 export { AppTitleBar } from './components/app/AppTitleBar';
 export { AppDialog } from './components/app/AppDialog';
 export type { AppDialogProps } from './components/app/AppDialog';

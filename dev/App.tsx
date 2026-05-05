@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
     Button,
+    ButtonGroup,
     ComboBox,
     AppPanel,
     AppTaskbar,
@@ -15,6 +16,7 @@ import type { UIComponentsRef } from './UIComponentsDemo'
 import './dev.css'
 
 type SupportedLocale = 'en' | 'zh' | 'de' | 'th' | 'es';
+type TaskbarBadgeCount = 0 | 3 | 12 | 100;
 
 function AppContent() {
     const { t } = useTranslation()
@@ -22,7 +24,9 @@ function AppContent() {
     const [theme, setTheme] = useState<'dark' | 'light'>('light')
     const [lang, setLang] = useState<SupportedLocale>('en')
     const [layoutMode, setLayoutMode] = useState<'overlay' | 'side-by-side'>('overlay')
+    const [taskbarSide, setTaskbarSide] = useState<'left' | 'right'>('left')
     const [showTaskbarIndicators, setShowTaskbarIndicators] = useState(true)
+    const [taskbarAlertCount, setTaskbarAlertCount] = useState<TaskbarBadgeCount>(3)
 
     const langOptions = [
         { label: 'English', value: 'en' },
@@ -74,6 +78,114 @@ function AppContent() {
         }
     }
 
+    const panelOnRight = !isMobile && taskbarSide === 'right'
+    const sideBySidePanelStyle = panelOnRight
+        ? { order: 1, borderLeft: '1px solid var(--nc-border)' }
+        : { borderRight: '1px solid var(--nc-border)' }
+    const overlayPanelStyle = panelOnRight
+        ? {
+            position: 'absolute' as const,
+            top: 0,
+            right: 0,
+            bottom: 0,
+            borderLeft: '1px solid var(--nc-border)',
+            boxShadow: '-8px 0 24px rgba(15, 23, 42, 0.12)',
+            zIndex: 10,
+        }
+        : {
+            position: 'absolute' as const,
+            top: 0,
+            left: 0,
+            bottom: 0,
+            borderRight: '1px solid var(--nc-border)',
+            boxShadow: '8px 0 24px rgba(15, 23, 42, 0.12)',
+            zIndex: 10,
+        }
+
+    const welcomeContent = (
+        <div className="dev-welcome">
+            <h1 style={{ textAlign: 'center' }}>{t('welcome.title')}</h1>
+            <p className="weak">{t('welcome.subtitle')}</p>
+
+            <div className="card">
+                <h3>{t('welcome.features.title')}</h3>
+                <ul className="no-dots">
+                    <li>{t('welcome.features.aiGuide')}</li>
+                    <li>{t('welcome.features.lightweight')}</li>
+                    <li>{t('welcome.features.framework')}</li>
+                    <li>{t('welcome.features.crossPlatform')}</li>
+                    <li>{t('welcome.features.components')}</li>
+                </ul>
+            </div>
+
+            <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 20 }}>
+                <h3>Taskbar Demo Controls</h3>
+                <div className="dev-row" style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
+                    <div className="dev-col">
+                        <span className="weak" style={{ fontSize: 12 }}>Panel Layout</span>
+                        <ButtonGroup
+                            value={layoutMode}
+                            onChange={setLayoutMode}
+                            options={[
+                                { key: 'overlay', label: 'Overlay' },
+                                { key: 'side-by-side', label: 'Side by Side' },
+                            ]}
+                            size="small"
+                        />
+                    </div>
+                    <div className="dev-col">
+                        <span className="weak" style={{ fontSize: 12 }}>Rail Side</span>
+                        <ButtonGroup
+                            value={taskbarSide}
+                            onChange={setTaskbarSide}
+                            options={[
+                                { key: 'left', label: 'Left' },
+                                { key: 'right', label: 'Right' },
+                            ]}
+                            size="small"
+                        />
+                    </div>
+                    <div className="dev-col">
+                        <span className="weak" style={{ fontSize: 12 }}>Taskbar Dots</span>
+                        <ButtonGroup
+                            value={showTaskbarIndicators ? 'on' : 'off'}
+                            onChange={(value) => setShowTaskbarIndicators(value === 'on')}
+                            options={[
+                                { key: 'on', label: 'On' },
+                                { key: 'off', label: 'Off' },
+                            ]}
+                            size="small"
+                        />
+                    </div>
+                    <div className="dev-col">
+                        <span className="weak" style={{ fontSize: 12 }}>Alert Badge</span>
+                        <ButtonGroup
+                            value={String(taskbarAlertCount) as '0' | '3' | '12' | '100'}
+                            onChange={(value) => setTaskbarAlertCount(Number(value) as TaskbarBadgeCount)}
+                            options={[
+                                { key: '0', label: 'Off' },
+                                { key: '3', label: '3' },
+                                { key: '12', label: '12' },
+                                { key: '100', label: '100' },
+                            ]}
+                            size="small"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div style={{ textAlign: 'center', paddingTop: 20 }}>
+                <Button
+                    variant="primary"
+                    size="large"
+                    onClick={() => runningAppsStore.launchApp('start')}
+                >
+                    {t('welcome.startBtn')}
+                </Button>
+            </div>
+        </div>
+    )
+
     return (
         <div className="dev-app-framework">
             {/* Header with logo, language, theme toggle */}
@@ -106,30 +218,8 @@ function AppContent() {
                             style={{ width: 100 }}
                             className="dev-header-select"
                         />
-                        <ComboBox
-                            options={[
-                                { label: 'Overlay', value: 'overlay' },
-                                { label: 'Side by Side', value: 'side-by-side' },
-                            ]}
-                            value={layoutMode}
-                            onChange={(v) => v && setLayoutMode(v as 'overlay' | 'side-by-side')}
-                            size="small"
-                            clearable={false}
-                            appearance="transparent"
-                            textAlign="center"
-                            style={{ width: 100 }}
-                            className="dev-header-select dev-desktop-only"
-                        />
                         <Button appearance="transparent" size="small" onClick={toggleTheme} className="dev-header-theme-toggle">
                             {theme === 'dark' ? t('theme.light') : t('theme.dark')}
-                        </Button>
-                        <Button
-                            appearance="transparent"
-                            size="small"
-                            onClick={() => setShowTaskbarIndicators((value) => !value)}
-                            className="dev-header-theme-toggle dev-desktop-only"
-                        >
-                            {showTaskbarIndicators ? 'Hide Taskbar Dots' : 'Show Taskbar Dots'}
                         </Button>
                     </div>
                 </div>
@@ -140,6 +230,18 @@ function AppContent() {
                 <AppTaskbar
                     pinnedAppIds={['start', 'ui-components', 'calculator', '2048']}
                     showIndicators={showTaskbarIndicators}
+                    side={taskbarSide}
+                    getBadge={(app) => {
+                        if (app.id !== 'start' || taskbarAlertCount <= 0) {
+                            return null
+                        }
+
+                        return {
+                            content: taskbarAlertCount > 99 ? '99+' : taskbarAlertCount,
+                            tone: taskbarAlertCount >= 9 ? 'danger' : 'warning',
+                            ariaLabel: `${taskbarAlertCount} demo alerts`,
+                        }
+                    }}
                 />
 
                 {/* Content area with conditional overlay/side-by-side layout */}
@@ -147,33 +249,9 @@ function AppContent() {
                     {layoutMode === 'side-by-side' && !isMobile ? (
                         // Side-by-side: AppPanel inline with content
                         <>
-                            <AppPanel autoWidth={true} style={{ borderRight: '1px solid var(--nc-border)' }} />
+                            <AppPanel autoWidth={true} style={sideBySidePanelStyle} />
                             <div className="dev-framework-content">
-                                <div className="dev-welcome">
-                                    <h1 style={{ textAlign: 'center' }}>{t('welcome.title')}</h1>
-                                    <p className="weak">{t('welcome.subtitle')}</p>
-
-                                    <div className="card">
-                                        <h3>{t('welcome.features.title')}</h3>
-                                        <ul className="no-dots">
-                                            <li>{t('welcome.features.aiGuide')}</li>
-                                            <li>{t('welcome.features.lightweight')}</li>
-                                            <li>{t('welcome.features.framework')}</li>
-                                            <li>{t('welcome.features.crossPlatform')}</li>
-                                            <li>{t('welcome.features.components')}</li>
-                                        </ul>
-                                    </div>
-
-                                    <div style={{ textAlign: 'center', paddingTop: 20 }}>
-                                        <Button
-                                            variant="primary"
-                                            size="large"
-                                            onClick={() => runningAppsStore.launchApp('start')}
-                                        >
-                                            {t('welcome.startBtn')}
-                                        </Button>
-                                    </div>
-                                </div>
+                                {welcomeContent}
                             </div>
                         </>
                     ) : (
@@ -181,42 +259,10 @@ function AppContent() {
                         <>
                             <AppPanel
                                 autoWidth={true}
-                                style={{
-                                    position: 'absolute',
-                                    top: 0,
-                                    left: 0,
-                                    bottom: 0,
-                                    borderRight: '1px solid var(--nc-border)',
-                                    boxShadow: '8px 0 24px rgba(15, 23, 42, 0.12)',
-                                    zIndex: 10,
-                                }}
+                                style={overlayPanelStyle}
                             />
                             <div className="dev-framework-content">
-                                <div className="dev-welcome">
-                                    <h1 style={{ textAlign: 'center' }}>{t('welcome.title')}</h1>
-                                    <p className="weak">{t('welcome.subtitle')}</p>
-
-                                    <div className="card">
-                                        <h3>{t('welcome.features.title')}</h3>
-                                        <ul className="no-dots">
-                                            <li>{t('welcome.features.aiGuide')}</li>
-                                            <li>{t('welcome.features.lightweight')}</li>
-                                            <li>{t('welcome.features.framework')}</li>
-                                            <li>{t('welcome.features.crossPlatform')}</li>
-                                            <li>{t('welcome.features.components')}</li>
-                                        </ul>
-                                    </div>
-
-                                    <div style={{ textAlign: 'center', paddingTop: 20 }}>
-                                        <Button
-                                            variant="primary"
-                                            size="large"
-                                            onClick={() => runningAppsStore.launchApp('start')}
-                                        >
-                                            {t('welcome.startBtn')}
-                                        </Button>
-                                    </div>
-                                </div>
+                                {welcomeContent}
                             </div>
                         </>
                     )}

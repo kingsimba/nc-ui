@@ -271,7 +271,7 @@ li::marker { color: var(--nc-text-weak); }
 }
 
 .nc-button.nc-small { padding: 2px 10px; font-size: 12px; margin: 0; border-radius: 6px; height: 32px; }
-.nc-button.nc-large { padding: 10px 24px; font-size: 16px; min-height: 60px; font-weight: bold; }
+.nc-button.nc-large { padding: 10px 24px; font-size: 16px; min-height: 50px; font-weight: bold; border-radius: 16px;}
 .nc-button.nc-text-selectable { user-select: text; -webkit-user-select: text; text-transform: none; }
 
 /* Disabled state */
@@ -643,7 +643,7 @@ input.nc-input:not(.nc-small) { height: 42px; }
   transition: all 0.2s ease;
   font-size: 13px;
   font-family: inherit;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.2px;
   white-space: nowrap;
   user-select: none;
@@ -1267,9 +1267,17 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
   gap: 6px;
   padding: 8px;
   background: var(--nc-bg-secondary);
-  border-right: 1px solid var(--nc-border);
   flex-shrink: 0;
   width: 56px;
+}
+
+.nc-app-taskbar.nc-desktop.nc-left {
+  border-right: 1px solid var(--nc-border);
+}
+
+.nc-app-taskbar.nc-desktop.nc-right {
+  order: 1;
+  border-left: 1px solid var(--nc-border);
 }
 
 .nc-app-taskbar-button {
@@ -1310,6 +1318,45 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 .nc-app-taskbar-button.nc-active:hover {
   background-color: color-mix(in srgb, var(--nc-bg-quaternary) 72%, white);
   box-shadow: 0 8px 18px color-mix(in srgb, var(--nc-primary) 14%, transparent);
+}
+
+.nc-app-taskbar-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--nc-text-weaker);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.nc-app-taskbar-badge.nc-default {
+  background: var(--nc-text-weaker);
+}
+
+.nc-app-taskbar-badge.nc-primary {
+  background: var(--nc-primary);
+}
+
+.nc-app-taskbar-badge.nc-success {
+  background: var(--nc-success);
+}
+
+.nc-app-taskbar-badge.nc-warning {
+  background: var(--nc-warning);
+}
+
+.nc-app-taskbar-badge.nc-danger {
+  background: var(--nc-danger);
 }
 
 :root.light .nc-app-taskbar-button.nc-active {
@@ -1361,6 +1408,7 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
     width: 100%;
     height: 60px;
     border-right: none;
+    border-left: none;
     border-top: 1px solid var(--nc-border);
     position: fixed;
     bottom: 0;

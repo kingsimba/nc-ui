@@ -1,5 +1,6 @@
 # Changelog
 
+- 2026-05-06 AppTaskbar: Add badges, translated tooltips, and right-side support
 - 2026-05-05 YamlTextArea: Support JSON mode and improve readonly styling
 - 2026-05-04 ButtonGroup: Fix dark theme and disabled option demo
 - 2026-05-04 ButtonGroup: Improve segmented control styling

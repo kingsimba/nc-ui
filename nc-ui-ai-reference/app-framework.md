@@ -102,11 +102,19 @@ import { AppTaskbar } from "@kingsimba/nc-ui";
 
 <AppTaskbar
   pinnedAppIds={["home", "search", "settings"]}
+  side="right"
+  getBadge={(app) =>
+    app.id === "alerts"
+      ? { content: 3, tone: "warning", ariaLabel: "3 alerts" }
+      : null
+  }
   showIndicators={false} // Hide the running/active dot under each icon
 />;
 ```
 
 Use `showIndicators` when the selected state should be carried by the button treatment alone instead of the indicator below the icon.
+
+`titleKey` hover tooltips are translated automatically. Use `side="right"` to move the desktop rail to the right edge in a flex layout, and `getBadge` to attach alert counts or short status labels to specific app icons.
 
 ## Common Patterns
 

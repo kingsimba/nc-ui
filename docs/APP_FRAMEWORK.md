@@ -63,11 +63,19 @@ import { AppTaskbar } from "@kingsimba/nc-ui";
 
 <AppTaskbar
   pinnedAppIds={["home", "search", "settings"]}
+  side="right"
+  getBadge={(app) =>
+    app.id === "alerts"
+      ? { content: 3, tone: "warning", ariaLabel: "3 alerts" }
+      : null
+  }
   showIndicators={false}
 />;
 ```
 
 Use `showIndicators={false}` when you want running apps to stay visually minimal and rely on the stronger active button state instead of the dot indicator.
+
+`titleKey` tooltips are translated automatically via nc-ui's existing i18n integration. Use `side="right"` to move the desktop rail to the right edge in simple flex layouts. Use `getBadge` to surface counts such as alerts directly on an app icon.
 
 ---
 
