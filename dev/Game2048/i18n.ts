@@ -2,6 +2,9 @@ import { createAppI18nFactory } from '../../src/lib/appI18nFactory';
 
 const resources = {
   en: {
+    "common": {
+      "gotit": "Got it!"
+    },
     "title": "2048 Rules",
     "newGame": "New Game",
     "rules": "Rules",
@@ -24,6 +27,9 @@ const resources = {
     "tip3": "Avoid moving your big tile out of the corner"
   },
   zh: {
+    "common": {
+      "gotit": "知道了"
+    },
     "title": "2048 规则",
     "newGame": "新游戏",
     "rules": "规则",
@@ -46,6 +52,9 @@ const resources = {
     "tip3": "避免将大方块移出角落"
   },
   de: {
+    "common": {
+      "gotit": "Verstanden!"
+    },
     "title": "2048-Anleitung",
     "newGame": "Neues Spiel",
     "rules": "Regeln",
@@ -68,6 +77,9 @@ const resources = {
     "tip3": "Vermeide es, deine große Kachel aus der Ecke zu bewegen"
   },
   es: {
+    "common": {
+      "gotit": "¡Entendido!"
+    },
     "title": "Reglas de 2048",
     "newGame": "Nuevo juego",
     "rules": "Reglas",
@@ -90,6 +102,9 @@ const resources = {
     "tip3": "Evita mover tu ficha grande fuera de la esquina"
   },
   th: {
+    "common": {
+      "gotit": "เข้าใจแล้ว!"
+    },
     "title": "กฎ 2048",
     "newGame": "เกมใหม่",
     "rules": "กฎ",
