@@ -38,6 +38,14 @@
   --nc-transparent-control-hover-border: rgba(255, 255, 255, 0.68);
   --nc-battery-text-contrast: var(--nc-text);
   --nc-battery-shell-bg: rgba(255, 255, 255, 0.24);
+  --nc-notification-info-bg: color-mix(in srgb, var(--nc-bg-tertiary) 72%, var(--nc-primary));
+  --nc-notification-info-icon-bg: color-mix(in srgb, var(--nc-bg-quaternary) 68%, var(--nc-primary));
+  --nc-notification-warning-bg: color-mix(in srgb, var(--nc-bg-tertiary) 70%, var(--nc-warning));
+  --nc-notification-warning-icon-bg: color-mix(in srgb, var(--nc-bg-quaternary) 66%, var(--nc-warning));
+  --nc-notification-danger-bg: color-mix(in srgb, var(--nc-bg-tertiary) 72%, var(--nc-danger));
+  --nc-notification-danger-icon-bg: color-mix(in srgb, var(--nc-bg-quaternary) 68%, var(--nc-danger));
+  --nc-notification-success-bg: color-mix(in srgb, var(--nc-bg-tertiary) 72%, var(--nc-success));
+  --nc-notification-success-icon-bg: color-mix(in srgb, var(--nc-bg-quaternary) 68%, var(--nc-success));
 
   /* YAML syntax highlighting */
   --nc-code-string: #f48771;
@@ -85,6 +93,14 @@
   --nc-overlay-hover: rgba(0, 0, 0, 0.05);
   --nc-battery-text-contrast: var(--nc-bg-quaternary);
   --nc-battery-shell-bg: rgba(15, 23, 42, 0.32);
+  --nc-notification-info-bg: color-mix(in srgb, var(--nc-bg-tertiary) 82%, var(--nc-primary));
+  --nc-notification-info-icon-bg: color-mix(in srgb, var(--nc-bg-quaternary) 84%, var(--nc-primary));
+  --nc-notification-warning-bg: color-mix(in srgb, var(--nc-bg-tertiary) 80%, var(--nc-warning));
+  --nc-notification-warning-icon-bg: color-mix(in srgb, var(--nc-bg-quaternary) 82%, var(--nc-warning));
+  --nc-notification-danger-bg: color-mix(in srgb, var(--nc-bg-tertiary) 82%, var(--nc-danger));
+  --nc-notification-danger-icon-bg: color-mix(in srgb, var(--nc-bg-quaternary) 84%, var(--nc-danger));
+  --nc-notification-success-bg: color-mix(in srgb, var(--nc-bg-tertiary) 82%, var(--nc-success));
+  --nc-notification-success-icon-bg: color-mix(in srgb, var(--nc-bg-quaternary) 84%, var(--nc-success));
 
   /* YAML syntax highlighting */
   --nc-code-string: #a31515;
@@ -1486,20 +1502,34 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 
 /* ===== NOTIFICATION COMPONENT ===== */
 .nc-notification {
-  min-width: 320px;
-  max-width: 400px;
-  background: var(--nc-bg-tertiary);
-  border: 1px solid var(--nc-border);
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  border: 1px solid color-mix(in srgb, var(--nc-text) 8%, transparent);
+  border-radius: 16px;
+  box-shadow: var(--nc-card-shadow);
+  background-color: var(--nc-bg-tertiary);
   overflow: hidden;
 }
 
 .nc-notification-content {
   display: flex;
   align-items: flex-start;
-  padding: 12px 16px;
+  padding: 14px 16px;
   gap: 12px;
+}
+
+.nc-notification-icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 999px;
+}
+
+.nc-notification-icon svg {
+  width: 18px;
+  height: 18px;
 }
 
 .nc-notification-body {
@@ -1509,16 +1539,18 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 
 .nc-notification-title {
   font-weight: 600;
-  font-size: 14px;
+  font-size: 14.5px;
   color: var(--nc-text);
-  margin-bottom: 4px;
+  margin-bottom: 3px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .nc-notification-message {
-  font-size: 13px;
-  color: var(--nc-text-weak);
+  font-size: 13.5px;
+  color: color-mix(in srgb, var(--nc-text) 88%, var(--nc-text-weak));
   line-height: 1.4;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .nc-notification-dismiss {
@@ -1527,8 +1559,8 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
   border: none;
   padding: 4px;
   cursor: pointer;
-  color: var(--nc-text-weak);
-  border-radius: 4px;
+  color: color-mix(in srgb, var(--nc-text) 72%, transparent);
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1536,41 +1568,87 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 }
 
 .nc-notification-dismiss:hover {
-  background: var(--nc-overlay-hover);
+  background: color-mix(in srgb, var(--nc-text) 10%, transparent);
   color: var(--nc-text);
 }
 
 /* Notification type variants */
 .nc-notification-success {
-  border-left: 3px solid var(--nc-success);
+  background: var(--nc-notification-success-bg);
 }
 
-.nc-notification-success .nc-notification-title {
+.nc-notification-success .nc-notification-icon {
+  background: var(--nc-notification-success-icon-bg);
   color: var(--nc-success);
 }
 
-.nc-notification-danger {
-  border-left: 3px solid var(--nc-danger);
+.nc-notification-success .nc-notification-title,
+.nc-notification-success .nc-notification-icon {
+  color: var(--nc-success);
 }
 
-.nc-notification-danger .nc-notification-title {
+.nc-notification-success .nc-notification-message {
+  color: color-mix(in srgb, var(--nc-text) 90%, var(--nc-success));
+}
+
+.nc-notification-danger {
+  background: var(--nc-notification-danger-bg);
+}
+
+.nc-notification-danger .nc-notification-icon {
+  background: var(--nc-notification-danger-icon-bg);
   color: var(--nc-danger);
 }
 
-.nc-notification-warning {
-  border-left: 3px solid var(--nc-warning);
+.nc-notification-danger .nc-notification-title,
+.nc-notification-danger .nc-notification-icon {
+  color: var(--nc-danger);
 }
 
-.nc-notification-warning .nc-notification-title {
+.nc-notification-danger .nc-notification-message {
+  color: color-mix(in srgb, var(--nc-text) 90%, var(--nc-danger));
+}
+
+.nc-notification-warning {
+  background: var(--nc-notification-warning-bg);
+}
+
+.nc-notification-warning .nc-notification-icon {
+  background: var(--nc-notification-warning-icon-bg);
   color: var(--nc-warning);
 }
 
-.nc-notification-info {
-  border-left: 3px solid var(--nc-primary);
+.nc-notification-warning .nc-notification-title,
+.nc-notification-warning .nc-notification-icon {
+  color: var(--nc-warning);
 }
 
-.nc-notification-info .nc-notification-title {
+.nc-notification-warning .nc-notification-message {
+  color: color-mix(in srgb, var(--nc-text) 90%, var(--nc-warning));
+}
+
+.nc-notification-info {
+  background: var(--nc-notification-info-bg);
+}
+
+.nc-notification-info .nc-notification-icon {
+  background: var(--nc-notification-info-icon-bg);
   color: var(--nc-primary);
+}
+
+.nc-notification-info .nc-notification-title,
+.nc-notification-info .nc-notification-icon {
+  color: var(--nc-primary);
+}
+
+.nc-notification-info .nc-notification-message {
+  color: color-mix(in srgb, var(--nc-text) 90%, var(--nc-primary));
+}
+
+@media (max-width: 640px) {
+  .nc-notification {
+    max-width: none;
+  }
 }
 
 /* ===== MONTH RANGE PICKER ===== */

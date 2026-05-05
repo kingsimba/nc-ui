@@ -63,10 +63,11 @@ export function NotificationContainer() {
         <div
             style={{
                 position: 'fixed',
-                top: '16px',
-                left: '16px',
+                top: '24px',
+                left: '24px',
                 zIndex: 9999,
                 pointerEvents: 'none',
+                width: 'min(340px, calc(100vw - 32px))',
             }}
         >
             <div
@@ -74,6 +75,7 @@ export function NotificationContainer() {
                 style={{
                     pointerEvents: 'auto',
                     position: 'relative',
+                    width: '100%',
                 }}
             >
                 {notifications.map((notification) => {
@@ -89,8 +91,8 @@ export function NotificationContainer() {
                                 top: 0,
                                 left: 0,
                                 transform: isEntering
-                                    ? `translateY(-120px)`
-                                    : `translateY(${targetY}px)`,
+                                    ? `translate3d(-40px, ${targetY}px, 0)`
+                                    : `translate3d(0, ${targetY}px, 0)`,
                                 // Only animate transform when not leaving, animate opacity always
                                 transition: isLeaving
                                     ? 'opacity 300ms ease-out'

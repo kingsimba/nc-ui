@@ -519,6 +519,8 @@ showNotification({
 });
 ```
 
+Render `<NotificationContainer />` once near your app root to display the toast stack.
+
 `notificationManager.show({...})` is also exported if you prefer the namespaced API.
 
 ---

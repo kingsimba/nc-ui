@@ -76,7 +76,7 @@ export function NotificationSection() {
         <section className="dev-section">
             <h2>Notification</h2>
             <p className="weak" style={{ marginBottom: '16px' }}>
-                Toast-style notifications that appear in the top-left corner and auto-dismiss after 5 seconds by default.
+                Toast-style notifications with tinted glass backgrounds, status icons, and a top-right stack. They auto-dismiss after 5 seconds by default.
             </p>
 
             <h3>Basic Types</h3>
@@ -132,7 +132,7 @@ showNotification({
 showNotification({
   title: 'Custom Title',      // Optional: overrides default title
   message: 'Your message',    // Required
-    type: 'error',              // 'info' | 'success' | 'warning' | 'error'
+    type: 'error',             // 'info' | 'success' | 'warning' | 'error'
   dismissible: true,          // Default: true
     duration: 5000,             // Default: 5000ms, 0 = never auto-dismiss
 });`}</pre>
