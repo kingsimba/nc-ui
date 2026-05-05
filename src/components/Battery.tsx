@@ -18,6 +18,7 @@ export function Battery({
   colored = false,
 }: BatteryProps) {
   const percent = Math.max(0, Math.min(1, Number(percentage) || 0));
+  const label = percent === 0 ? '-' : String(Math.round(percent * 100));
 
   // Determine fill color based on colored mode and percentage thresholds
   let fillColor: string;
@@ -36,9 +37,7 @@ export function Battery({
   }
 
   // Semi-transparent background color
-  const backgroundColor = darkMode
-    ? 'rgba(255, 255, 255, 0.5)'
-    : 'rgba(0, 0, 0, 0.2)';
+  const backgroundColor = 'var(--nc-battery-shell-bg)';
 
   // Reduced default size for compact display in the status bar
   const width = 24; // body width
@@ -81,69 +80,67 @@ export function Battery({
       height={svgHeight}
       viewBox={`0 0 ${svgWidth} ${svgHeight}`}
       role="img"
-      aria-label={`Battery ${percent === 0 ? '-' : Math.round(percent * 100) + '%'} ${status}`}
+      aria-label={`Battery ${label === '-' ? '-' : `${label}%`} ${status}`}
     >
       <defs>
         {/* Mask for the fill percentage */}
         <mask id={`nc-battery-fill-mask-${percent}`}>
           <rect x="0" y="0" width={innerWidth * visualPercent} height={innerHeight} fill="white" />
         </mask>
-
-        {/* Define a mask using the text as a cutout */}
-        <mask id={`nc-battery-text-mask-${percent}`}>
-          {/* White background allows everything through */}
-          <rect x="0" y="0" width={svgWidth} height={svgHeight} fill="white" />
-          {/* Black text cuts a hole in the mask */}
-          <text x={outlineX + outlineWidth / 2} y={height - 3} fontSize={11} fontWeight="bold" fill="black" textAnchor="middle">
-            {percent === 0 ? '-' : Math.round(percent * 100)}
-          </text>
-        </mask>
       </defs>
 
-      {/* Apply mask to all battery elements to create hollow text effect */}
-      <g mask={`url(#nc-battery-text-mask-${percent})`}>
-        {/* semi-transparent background */}
-        <rect
-          x={outlineX}
-          y={outlineY}
-          rx={cornerRadius}
-          ry={cornerRadius}
-          width={outlineWidth}
-          height={outlineHeight}
-          fill={backgroundColor}
-        />
+      {/* semi-transparent background */}
+      <rect
+        x={outlineX}
+        y={outlineY}
+        rx={cornerRadius}
+        ry={cornerRadius}
+        width={outlineWidth}
+        height={outlineHeight}
+        fill={backgroundColor}
+      />
 
-        {/* filled portion - full width rect with mask to show only the percentage */}
-        <rect
-          x={outlineX + innerPadding}
-          y={outlineY + innerPadding}
-          width={innerWidth}
-          height={innerHeight}
-          fill={fillColor}
-          rx={cornerRadius}
-          ry={cornerRadius}
-          mask={`url(#nc-battery-fill-mask-${percent})`}
-        />
+      {/* filled portion - full width rect with mask to show only the percentage */}
+      <rect
+        x={outlineX + innerPadding}
+        y={outlineY + innerPadding}
+        width={innerWidth}
+        height={innerHeight}
+        fill={fillColor}
+        rx={cornerRadius}
+        ry={cornerRadius}
+        mask={`url(#nc-battery-fill-mask-${percent})`}
+      />
 
-        {/* cap */}
-        <rect
-          x={width + capSpacing}
-          y={height * 0.26}
-          width={capWidth}
-          height={height * 0.48}
-          rx={0.8}
-          ry={0.8}
-          fill={percent === 1 ? fillColor : backgroundColor}
-        />
+      <text
+        x={outlineX + outlineWidth / 2}
+        y={height - 3}
+        fontSize={11}
+        fontWeight="bold"
+        fill="var(--nc-battery-text-contrast)"
+        textAnchor="middle"
+      >
+        {label}
+      </text>
 
-        {/* charging lightning - positioned to the right of the battery (outside the cap) */}
-        {status === 'charging' ? (
-          <g transform={`translate(${boltTransX}, ${boltTransY}) scale(${boltScale})`} fill={fillColor}>
-            {/* lightning symbol (stylized) */}
-            <path d="M10 0 L2 11 H8 L5 20 L14 8 H8 L10 0 Z" />
-          </g>
-        ) : null}
-      </g>
+      {/* cap */}
+      <rect
+        x={width + capSpacing}
+        y={height * 0.26}
+        width={capWidth}
+        height={height * 0.48}
+        rx={0.8}
+        ry={0.8}
+        fill={percent === 1 ? fillColor : backgroundColor}
+      />
+
+      {/* charging lightning - positioned to the right of the battery (outside the cap) */}
+      {status === 'charging' ? (
+        <g transform={`translate(${boltTransX}, ${boltTransY}) scale(${boltScale})`} fill={fillColor}>
+          {/* lightning symbol (stylized) */}
+          <path d="M10 0 L2 11 H8 L5 20 L14 8 H8 L10 0 Z" />
+        </g>
+      ) : null}
     </svg>
   );
 }

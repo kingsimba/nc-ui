@@ -36,6 +36,8 @@
   --nc-transparent-control-border: rgba(255, 255, 255, 0.38);
   --nc-transparent-control-hover-bg: rgba(255, 255, 255, 0.12);
   --nc-transparent-control-hover-border: rgba(255, 255, 255, 0.68);
+  --nc-battery-text-contrast: var(--nc-text);
+  --nc-battery-shell-bg: rgba(255, 255, 255, 0.24);
 
   /* YAML syntax highlighting */
   --nc-code-string: #f48771;
@@ -81,6 +83,8 @@
   --nc-card-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
   --nc-card-nested-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
   --nc-overlay-hover: rgba(0, 0, 0, 0.05);
+  --nc-battery-text-contrast: var(--nc-bg-quaternary);
+  --nc-battery-shell-bg: rgba(15, 23, 42, 0.32);
 
   /* YAML syntax highlighting */
   --nc-code-string: #a31515;

@@ -1,5 +1,6 @@
 # Changelog
 
+- 2026-05-06 Battery: Improve percentage contrast across themes
 - 2026-05-06 Dialog: Improve action layout and spacing
 - 2026-05-06 AppTaskbar: Add badges, translated tooltips, and right-side support
 - 2026-05-05 YamlTextArea: Support JSON mode and improve readonly styling
