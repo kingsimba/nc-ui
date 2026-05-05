@@ -169,45 +169,45 @@ export function Dialog({
       case 'ok-cancel':
         return (
           <div className="nc-dialog-footer">
-            <Button variant="primary" onClick={onOk ?? onClose} disabled={primaryDisabled}>
-              {t('common.ok')}
-            </Button>
             <DialogClose onClick={onCancel}>
               {t('common.cancel')}
             </DialogClose>
+            <Button variant="primary" onClick={onOk ?? onClose} disabled={primaryDisabled}>
+              {t('common.ok')}
+            </Button>
           </div>
         );
       case 'save-cancel':
         return (
           <div className="nc-dialog-footer">
-            <Button variant="primary" onClick={onSave} disabled={primaryDisabled}>
-              {t('common.save')}
-            </Button>
             <DialogClose onClick={onCancel}>
               {t('common.cancel')}
             </DialogClose>
+            <Button variant="primary" onClick={onSave} disabled={primaryDisabled}>
+              {t('common.save')}
+            </Button>
           </div>
         );
       case 'delete-cancel':
         return (
           <div className="nc-dialog-footer">
-            <Button variant="danger" onClick={onDelete} disabled={primaryDisabled}>
-              {t('common.delete')}
-            </Button>
             <DialogClose onClick={onCancel}>
               {t('common.cancel')}
             </DialogClose>
+            <Button variant="danger" onClick={onDelete} disabled={primaryDisabled}>
+              {t('common.delete')}
+            </Button>
           </div>
         );
       case 'connect':
         return (
           <div className="nc-dialog-footer">
-            <Button variant="primary" onClick={onConnect} disabled={primaryDisabled}>
-              {t('common.connect')}
-            </Button>
             <DialogClose onClick={onCancel}>
               {t('common.cancel')}
             </DialogClose>
+            <Button variant="primary" onClick={onConnect} disabled={primaryDisabled}>
+              {t('common.connect')}
+            </Button>
           </div>
         );
       case 'close':

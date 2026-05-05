@@ -1127,7 +1127,7 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 }
 
 .nc-dialog-container {
-  background: var(--nc-bg-secondary);
+  background: var(--nc-bg-quaternary);
   border-radius: 12px;
   border: 1px solid var(--nc-border);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
@@ -1145,7 +1145,6 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  border-bottom: 1px solid var(--nc-border);
 }
 
 .nc-dialog-title {
@@ -1166,8 +1165,12 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
   display: flex;
   gap: 8px;
   padding: 16px 20px;
-  border-top: 1px solid var(--nc-border);
   justify-content: flex-end;
+}
+
+.nc-dialog-footer .nc-button:not(.nc-small):not(.nc-large) {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 @keyframes nc-dialog-fade-in {
