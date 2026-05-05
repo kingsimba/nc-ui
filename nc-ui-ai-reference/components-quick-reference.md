@@ -725,20 +725,22 @@ import { EditIcon, TrashIcon } from "@kingsimba/nc-ui/icons";
 
 ### YamlTextArea
 
-YAML editor with syntax highlighting:
+YAML or JSON editor with syntax highlighting and validation:
 
 ```tsx
-import { YamlTextArea } from "@kingsimba/nc-ui/yaml";
+import { YamlTextArea } from "@kingsimba/nc-ui";
 
 <YamlTextArea
   value={yamlString}
   onChange={setYamlString}
   onValidationChange={(isValid, error) => console.log(isValid, error)}
-  style={{ minHeight: 400 }}
+  language="yaml"
+  minHeight={180}
+  maxHeight={320}
 />;
 ```
 
-**Props:** `value`, `onChange`, `onValidationChange`, `readOnly`, `debounceMs`, `className`, `style`
+**Props:** `value`, `onChange`, `onValidationChange`, `readOnly`, `minHeight`, `maxHeight`, `debounceMs`, `className`, `style`, `language`
 
 ---
 

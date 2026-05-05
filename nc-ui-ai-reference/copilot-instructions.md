@@ -143,8 +143,8 @@ nc-ui components pass values directly (not event objects):
 
 **YamlTextArea**
 
-- Props: `value`, `onChange`, `placeholder`, `rows`, `disabled`
-- Usage: `<YamlTextArea value={yaml} onChange={setYaml} rows={10} />`
+- Props: `value`, `onChange`, `onValidationChange`, `readOnly`, `minHeight`, `maxHeight`, `debounceMs`, `className`, `style`, `language`
+- Usage: `<YamlTextArea value={yaml} onChange={setYaml} language="yaml" minHeight={180} />`
 
 **Battery**
 

@@ -64,9 +64,13 @@ interface YamlTextAreaProps {
   onChange: (value: string) => void;
   onValidationChange?: (isValid: boolean, error?: string) => void;
   readOnly?: boolean;
+  minHeight?: number;
+  maxHeight?: number;
   debounceMs?: number;
   className?: string;
   style?: React.CSSProperties;
+  /** Language for syntax highlighting and validation. Default: 'yaml'. */
+  language?: 'yaml' | 'json';
 }
 
 interface YamlError {
@@ -79,9 +83,12 @@ function YamlTextArea({
   onChange,
   onValidationChange,
   readOnly = false,
+  minHeight = 100,
+  maxHeight,
   debounceMs = 500,
   className = '',
   style = {},
+  language = 'yaml',
 }: YamlTextAreaProps) {
   const [error, setError] = useState<YamlError | null>(null);
   const validationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -91,11 +98,32 @@ function YamlTextArea({
   // Keep callback ref up to date
   onValidationChangeRef.current = onValidationChange;
 
-  // Validate YAML and extract error line
-  const validateYaml = useCallback((yamlString: string): YamlError | null => {
-    if (!yamlString.trim()) return null;
+  // Validate content and extract error line based on language
+  const validateYaml = useCallback((text: string): YamlError | null => {
+    if (!text.trim()) return null;
+    if (language === 'json') {
+      try {
+        JSON.parse(text);
+        return null;
+      } catch (e: any) {
+        const message: string = e?.message || 'Invalid JSON';
+        const posMatch = /position\s+(\d+)/i.exec(message);
+        let line = 1;
+        if (posMatch) {
+          const pos = Math.min(parseInt(posMatch[1], 10), text.length);
+          line = 1;
+          for (let index = 0; index < pos; index++) {
+            if (text.charCodeAt(index) === 10) line++;
+          }
+        } else {
+          const lineMatch = /line\s+(\d+)/i.exec(message);
+          if (lineMatch) line = parseInt(lineMatch[1], 10) || 1;
+        }
+        return { line, message };
+      }
+    }
     try {
-      yaml.load(yamlString);
+      yaml.load(text);
       return null;
     } catch (e: any) {
       const mark = e.mark;
@@ -104,7 +132,7 @@ function YamlTextArea({
         message: e.message || 'Invalid YAML',
       };
     }
-  }, []);
+  }, [language]);
 
   // Set error state and notify parent
   const setValidationState = useCallback((err: YamlError | null) => {
@@ -171,7 +199,7 @@ function YamlTextArea({
   const [isDark, setIsDark] = useState(false);
   useEffect(() => {
     const checkDark = () => {
-      const bg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+      const bg = getComputedStyle(document.documentElement).getPropertyValue('--nc-bg').trim();
       // Simple heuristic: if background is dark, we're in dark mode
       setIsDark(bg.startsWith('#0') || bg.startsWith('#1') || bg.startsWith('#2') || bg.startsWith('#3'));
     };
@@ -184,10 +212,24 @@ function YamlTextArea({
 
   const theme = isDark ? themes.vsDark : themes.vsLight;
 
-  // Re-create highlight function when theme changes
+  const getCustomStyle = useCallback(
+    (tokenTypes: string[]): React.CSSProperties => {
+      const type = tokenTypes[0];
+      if (type === 'boolean') {
+        return { color: isDark ? '#569cd6' : '#0000ff' };
+      }
+      if (type === 'constant' || type === 'null') {
+        return { color: isDark ? '#569cd6' : '#0000ff' };
+      }
+      return {};
+    },
+    [isDark]
+  );
+
+  // Re-create highlight function when theme or language changes
   const highlightWithTheme = useCallback(
     (code: string) => (
-      <Highlight theme={theme} code={code} language="yaml">
+      <Highlight theme={theme} code={code} language={language}>
         {({ tokens, getLineProps, getTokenProps }) => (
           <>
             {tokens.map((line, i) => {
@@ -198,19 +240,22 @@ function YamlTextArea({
                   key={i}
                   {...getLineProps({ line })}
                   style={{
-                    background: isErrorLine ? 'var(--danger-bg, rgba(220, 53, 69, 0.15))' : undefined,
-                    textDecoration: isErrorLine ? 'underline wavy var(--danger)' : undefined,
+                    background: isErrorLine ? 'color-mix(in srgb, var(--nc-danger) 15%, transparent)' : undefined,
+                    textDecoration: isErrorLine ? 'underline wavy var(--nc-danger)' : undefined,
                   }}
                 >
                   {line.map((token, key) => {
                     const props = getTokenProps({ token });
-                    // Add CSS class based on token type for theme-aware coloring
-                    const tokenClass = token.types.map(t => `nc-token-${t}`).join(' ');
+                    const customStyle = getCustomStyle(token.types);
                     return (
                       <span
                         key={key}
                         {...props}
-                        className={tokenClass}
+                        style={{
+                          ...props.style,
+                          ...customStyle,
+                          opacity: readOnly ? 0.7 : undefined,
+                        }}
                       />
                     );
                   })}
@@ -221,7 +266,7 @@ function YamlTextArea({
         )}
       </Highlight>
     ),
-    [error, theme]
+    [error, theme, getCustomStyle, language, readOnly]
   );
 
   const editorContainerRef = useRef<HTMLDivElement>(null);
@@ -234,7 +279,10 @@ function YamlTextArea({
   };
 
   return (
-    <div className={`nc-yaml-textarea ${className}`} style={style}>
+    <div
+      className={`nc-yaml-textarea ${className}`.trim()}
+      style={{ display: 'flex', flexDirection: 'column', gap: 4, ...style }}
+    >
       {/* CSS to prevent wrapping in editor */}
       <style>{`
         .yaml-editor-container,
@@ -253,8 +301,20 @@ function YamlTextArea({
           overflow-x: visible !important;
           resize: none !important;
         }
+        .yaml-editor-container.read-only textarea {
+          caret-color: transparent !important;
+          color: var(--nc-text-weak) !important;
+        }
       `}</style>
-      <div className={`nc-yaml-textarea-container${error ? ' error' : ''}`}>
+      <div
+        className={`nc-yaml-textarea-container${error ? ' error' : ''}`}
+        style={{
+          border: `1px solid ${error ? 'var(--nc-danger)' : 'var(--nc-border)'}`,
+          background: readOnly ? 'var(--nc-bg-secondary)' : 'var(--nc-bg-tertiary)',
+          minHeight,
+          maxHeight,
+        }}
+      >
         {/* Line numbers gutter */}
         <div
           ref={lineNumbersRef}
@@ -278,7 +338,17 @@ function YamlTextArea({
         </div>
 
         {/* Editor */}
-        <div ref={editorContainerRef} className="yaml-editor-container" style={{ flex: 1, overflowX: 'auto', overflowY: 'auto' }} onScroll={handleEditorScroll}>
+        <div
+          ref={editorContainerRef}
+          className={`yaml-editor-container${readOnly ? ' read-only' : ''}`}
+          style={{
+            flex: 1,
+            overflowX: 'auto',
+            overflowY: 'auto',
+            color: 'var(--nc-text)',
+          }}
+          onScroll={handleEditorScroll}
+        >
           <Editor
             value={value}
             onValueChange={handleChange}
@@ -289,8 +359,9 @@ function YamlTextArea({
               fontFamily: 'Consolas, Monaco, "Courier New", monospace',
               fontSize: 13,
               lineHeight: '1.5',
-              minHeight: '100%',
+              minHeight: Math.max(minHeight - 2, 0),
               background: 'transparent',
+              color: 'var(--nc-text)',
               whiteSpace: 'pre',
               minWidth: 'max-content',
             }}
@@ -303,10 +374,10 @@ function YamlTextArea({
       {error && (
         <div
           style={{
-            color: 'var(--danger)',
+            color: 'var(--nc-danger)',
             fontSize: 12,
             padding: '4px 8px',
-            background: 'var(--danger-bg, rgba(220, 53, 69, 0.1))',
+            background: 'color-mix(in srgb, var(--nc-danger) 10%, transparent)',
             borderRadius: 4,
           }}
         >
@@ -318,4 +389,5 @@ function YamlTextArea({
 }
 
 export { YamlTextArea };
+export type { YamlTextAreaProps };
 export default YamlTextArea;

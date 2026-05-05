@@ -31,18 +31,40 @@ name: test
   invalid: indentation
 `;
 
+const sampleJson = `{
+    "name": "my-application",
+    "version": "1.0.0",
+    "settings": {
+        "debug": true,
+        "maxRetries": 3,
+        "timeout": 30.5,
+        "environment": null
+    }
+}`;
+
+const invalidJson = `{
+    "name": "broken",
+    "settings": {
+        "debug": true,
+    }
+}`;
+
 export function YamlTextAreaSection() {
     const [yaml1, setYaml1] = useState(sampleYaml);
     const [yaml2, setYaml2] = useState(invalidYaml);
     const [yaml3, setYaml3] = useState('');
+    const [json1, setJson1] = useState(sampleJson);
+    const [json2, setJson2] = useState(invalidJson);
     const [isValid1, setIsValid1] = useState(true);
     const [isValid2, setIsValid2] = useState(true);
+    const [isValidJson1, setIsValidJson1] = useState(true);
+    const [isValidJson2, setIsValidJson2] = useState(true);
 
     return (
         <section className="dev-section">
             <h2>YamlTextArea</h2>
             <p style={{ color: 'var(--nc-text-weak)', marginBottom: 16 }}>
-                A YAML editor with syntax highlighting, line numbers, and validation.
+                A structured text editor with syntax highlighting, line numbers, and YAML or JSON validation.
                 This component is lazy-loaded due to its heavy dependencies.
             </p>
 
@@ -58,7 +80,8 @@ export function YamlTextAreaSection() {
                             value={yaml1}
                             onChange={setYaml1}
                             onValidationChange={(valid: boolean) => setIsValid1(valid)}
-                            style={{ minHeight: 200, maxHeight: 300 }}
+                            minHeight={200}
+                            maxHeight={300}
                         />
                     </div>
 
@@ -72,7 +95,38 @@ export function YamlTextAreaSection() {
                             value={yaml2}
                             onChange={setYaml2}
                             onValidationChange={(valid: boolean) => setIsValid2(valid)}
-                            style={{ minHeight: 150 }}
+                            minHeight={150}
+                        />
+                    </div>
+
+                    {/* JSON editor */}
+                    <div>
+                        <h3 style={{ marginBottom: 8 }}>JSON Mode</h3>
+                        <p style={{ color: 'var(--nc-text-weak)', fontSize: 12, marginBottom: 8 }}>
+                            Status: {isValidJson1 ? '✓ Valid JSON' : '✗ Invalid JSON'}
+                        </p>
+                        <YamlTextArea
+                            value={json1}
+                            onChange={setJson1}
+                            onValidationChange={(valid: boolean) => setIsValidJson1(valid)}
+                            language="json"
+                            minHeight={180}
+                            maxHeight={260}
+                        />
+                    </div>
+
+                    {/* JSON editor with error */}
+                    <div>
+                        <h3 style={{ marginBottom: 8 }}>JSON Validation Error</h3>
+                        <p style={{ color: 'var(--nc-text-weak)', fontSize: 12, marginBottom: 8 }}>
+                            Status: {isValidJson2 ? '✓ Valid JSON' : '✗ Invalid JSON'}
+                        </p>
+                        <YamlTextArea
+                            value={json2}
+                            onChange={setJson2}
+                            onValidationChange={(valid: boolean) => setIsValidJson2(valid)}
+                            language="json"
+                            minHeight={150}
                         />
                     </div>
 
@@ -83,7 +137,8 @@ export function YamlTextAreaSection() {
                             value={sampleYaml}
                             onChange={() => { }}
                             readOnly
-                            style={{ minHeight: 150, maxHeight: 200 }}
+                            minHeight={150}
+                            maxHeight={200}
                         />
                     </div>
 
@@ -93,7 +148,8 @@ export function YamlTextAreaSection() {
                         <YamlTextArea
                             value={yaml3}
                             onChange={setYaml3}
-                            style={{ minHeight: 100, maxHeight: 150 }}
+                            minHeight={100}
+                            maxHeight={150}
                         />
                     </div>
                 </div>
