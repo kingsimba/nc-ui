@@ -498,6 +498,23 @@ input.nc-input.nc-small { height: 32px; }
   color: var(--nc-transparent-control-text);
 }
 
+.nc-combo-container.nc-plain .nc-input {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.nc-combo-container.nc-plain .nc-input:hover:not([aria-disabled="true"]):not(:disabled) {
+  background: var(--nc-overlay-hover);
+}
+
+.nc-combo-container.nc-plain.nc-open .nc-input,
+.nc-combo-container.nc-plain .nc-input:focus:not([aria-disabled="true"]):not(:disabled) {
+  background: var(--nc-input-bg);
+  border-color: var(--nc-primary);
+  box-shadow: inset 0 0 0 1px var(--nc-primary);
+}
+
 /* Checkbox component */
 .nc-checkbox-label {
   display: inline-flex;

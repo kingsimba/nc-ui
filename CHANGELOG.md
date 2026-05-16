@@ -1,6 +1,7 @@
 # Changelog
 
-- 2026-05-16 Input: Support plain click-to-edit appearance
+- 2026-05-16 ComboBox: Support `appearance=plain` click-to-edit appearance
+- 2026-05-16 Input: Support `appearance=plain` click-to-edit appearance
 - 2026-05-06 YamlTextArea: Remove root export and require yaml entry point
 - 2026-05-06 Battery: Improve percentage contrast across themes
 - 2026-05-06 Dialog: Improve action layout and spacing

@@ -195,6 +195,9 @@ import { ComboBox } from '@kingsimba/nc-ui'
 // Small size
 <ComboBox size="small" options={[...]} />
 
+// Plain resting appearance for click-to-open selection
+<ComboBox appearance="plain" options={[...]} />
+
 // Transparent closed control for colored surfaces
 <ComboBox appearance="transparent" options={[...]} />
 

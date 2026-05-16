@@ -7,6 +7,7 @@ export function ComboBoxSection() {
   const [comboValue3, setComboValue3] = useState<string | undefined>('alice');
   const [comboValue4, setComboValue4] = useState<string | undefined>('opt1');
   const [comboValue5, setComboValue5] = useState<string | undefined>('opt2');
+  const [comboValue6, setComboValue6] = useState<string | undefined>('opt3');
 
   const comboOptions = [
     { label: 'Option 1', value: 'opt1', default: true },
@@ -81,6 +82,19 @@ export function ComboBoxSection() {
           onChange={setComboValue4}
           clearable={false}
         />
+        <div className="card" style={{ display: 'grid', gap: 10 }}>
+          <span className="nc-label">Plain appearance</span>
+          <p className="weak" style={{ margin: 0 }}>
+            Closed state reads like plain text. Click to open the picker and show the standard control border.
+          </p>
+          <ComboBox
+            options={comboOptions}
+            value={comboValue6}
+            onChange={setComboValue6}
+            appearance="plain"
+            clearable={false}
+          />
+        </div>
         <div style={{ background: 'var(--nc-primary)', padding: 16, borderRadius: 8 }}>
           <ComboBox
             label="Transparent appearance"

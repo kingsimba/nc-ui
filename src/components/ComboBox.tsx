@@ -26,7 +26,7 @@ export interface ComboBoxProps {
   /** Size variant */
   size?: 'default' | 'small';
   /** Visual appearance of the closed control */
-  appearance?: 'default' | 'transparent';
+  appearance?: 'default' | 'transparent' | 'plain';
   /** Horizontal alignment for the selected text and typed query */
   textAlign?: 'left' | 'center' | 'right';
   /** Custom styles */
@@ -287,7 +287,7 @@ export function ComboBox({
   };
 
   return (
-    <div className={`nc-combo-container ${appearance === 'transparent' ? 'nc-transparent' : ''} ${alignmentClass} ${className || ''}`.trim()} style={{ position: 'relative', ...style }}>
+    <div className={`nc-combo-container ${appearance === 'transparent' ? 'nc-transparent' : ''} ${appearance === 'plain' ? 'nc-plain' : ''} ${open ? 'nc-open' : ''} ${alignmentClass} ${className || ''}`.trim()} style={{ position: 'relative', ...style }}>
       {label && <span className={`nc-label ${isSmall ? 'nc-small' : ''}`}>{label}</span>}
       <div
         ref={anchorRef}
