@@ -26,6 +26,8 @@ export interface InputProps {
   className?: string;
   /** Size variant */
   size?: 'default' | 'small';
+  /** Visual appearance for single-line inputs */
+  appearance?: 'default' | 'plain';
   /** Additional inline styles */
   style?: React.CSSProperties;
   /** Custom icon to display on the left side of the input */
@@ -117,6 +119,7 @@ export function Input({
   type = 'text',
   className = '',
   size = 'default',
+  appearance = 'default',
   style,
   leadingIcon,
   showPasswordToggle = false,
@@ -189,7 +192,7 @@ export function Input({
     setIsFocused(false);
   };
 
-  const inputClassName = `nc-input ${size === 'small' ? `nc-small ` : ''} ${hasError ? 'nc-error ' : ''}${className}`;
+  const inputClassName = `nc-input ${size === 'small' ? 'nc-small ' : ''}${!multiline && appearance === 'plain' ? 'nc-plain ' : ''}${hasError ? 'nc-error ' : ''}${className}`;
 
   return (
     <div className="nc-col" style={{ position: 'relative', flex: 1, ...style }}>

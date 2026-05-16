@@ -111,6 +111,13 @@ import { Input } from '@kingsimba/nc-ui'
 // Small size
 <Input size="small" value={...} onChange={...} />
 
+// Plain resting appearance for click-to-edit text
+<Input
+  appearance="plain"
+  value={title}
+  onChange={setTitle}
+/>
+
 // With Enter key handler
 <Input
   value={search}
@@ -141,7 +148,7 @@ import { Input } from '@kingsimba/nc-ui'
 />
 ```
 
-**Props:** `value`, `defaultValue`, `onChange`, `onEnter`, `onClear`, `placeholder`, `disabled`, `label`, `clearable`, `type`, `size`, `leadingIcon`, `showPasswordToggle`, `multiline`, `rows`, `validator`, `showErrorMessage`
+**Props:** `value`, `defaultValue`, `onChange`, `onEnter`, `onClear`, `placeholder`, `disabled`, `label`, `clearable`, `type`, `size`, `appearance`, `leadingIcon`, `showPasswordToggle`, `multiline`, `rows`, `validator`, `showErrorMessage`
 
 ---
 

@@ -8,6 +8,7 @@ export function InputSection() {
   const [multilineValue, setMultilineValue] = useState('');
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
+  const [displayName, setDisplayName] = useState('Click to edit profile name');
 
   const emailValidator = (value: string) => {
     if (!value) return null;
@@ -81,6 +82,7 @@ export function InputSection() {
           onChange={setMultilineValue}
           placeholder="Enter multiple lines..."
           multiline
+          size="small"
           rows={4}
           label="Multiline Input"
         />
@@ -108,6 +110,19 @@ export function InputSection() {
           validator={usernameValidator}
           label="Username with Validator"
         />
+
+        <div className="card" style={{ display: 'grid', gap: 10 }}>
+          <span className="nc-label">View Mode Input</span>
+          <p className="weak" style={{ margin: 0 }}>
+            Resting state reads like plain text. Click it to focus, edit, and show the standard input border.
+          </p>
+          <Input
+            value={displayName}
+            onChange={setDisplayName}
+            appearance="plain"
+            placeholder="Click to enter a profile name"
+          />
+        </div>
       </div>
     </section>
   );
