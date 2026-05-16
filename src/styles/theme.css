@@ -443,9 +443,9 @@ input.nc-input.nc-small { height: 32px; }
 
 .nc-combo-button.nc-small { height: 24px; width: 14px; font-size: 10px; padding: 2px; }
 .nc-combo-button:not(.nc-small) { height: 34px; width: 24px; font-size: 14px; }
-.nc-combo-clear { right: 4px; }
+.nc-combo-clear { right: 4px; cursor: pointer; user-select: none; }
 .nc-combo-clear.nc-small { right: 4px; }
-.nc-combo-toggle { right: 4px; transition: transform 140ms ease; }
+.nc-combo-toggle { right: 4px; transition: transform 140ms ease; pointer-events: none; user-select: none; }
 .nc-combo-toggle.nc-open { transform: rotate(180deg); }
 
 .nc-combo-dropdown { background: var(--nc-button-bg); border: 1px solid var(--nc-button-border); border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }

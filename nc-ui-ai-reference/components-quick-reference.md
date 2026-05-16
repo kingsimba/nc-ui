@@ -201,6 +201,8 @@ import { ComboBox } from '@kingsimba/nc-ui'
 // Plain resting appearance for click-to-open selection
 <ComboBox appearance="plain" options={[...]} />
 
+// In plain mode, Escape closes the open candidate list without changing the selection
+
 // Transparent closed control for colored surfaces
 <ComboBox appearance="transparent" options={[...]} />
 

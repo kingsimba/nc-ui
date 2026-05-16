@@ -146,27 +146,37 @@ function DropdownMenu({
 
 function ClearButton({ onClick, small }: { onClick: () => void; small?: boolean }) {
   return (
-    <button
-      className={`nc-button nc-ghost nc-combo-button nc-combo-clear ${small ? 'nc-small' : ''}`}
-      onClick={onClick}
+    <span
+      role="button"
+      tabIndex={0}
+      className={`nc-combo-button nc-combo-clear ${small ? 'nc-small' : ''}`}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
       onMouseDown={(e) => e.stopPropagation()}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          e.stopPropagation();
+          onClick();
+        }
+      }}
       aria-label="Clear selection"
     >
       ✕
-    </button>
+    </span>
   );
 }
 
-function ToggleButton({ open, onClick, small }: { open: boolean; onClick: () => void; small?: boolean }) {
+function ToggleButton({ open, small }: { open: boolean; small?: boolean }) {
   return (
-    <button
-      className={`nc-button nc-ghost nc-combo-button nc-combo-toggle ${small ? 'nc-small' : ''} ${open ? 'nc-open' : ''}`}
-      onClick={onClick}
-      onMouseDown={(e) => e.stopPropagation()}
-      aria-label={open ? 'Close' : 'Open'}
+    <span
+      aria-hidden
+      className={`nc-combo-button nc-combo-toggle ${small ? 'nc-small' : ''} ${open ? 'nc-open' : ''}`}
     >
       ▾
-    </button>
+    </span>
   );
 }
 
@@ -327,7 +337,6 @@ export function ComboBox({
                 setTimeout(() => inputRef.current?.select(), 0);
               }
             }
-            if (!allowTyping) inputRef.current?.blur();
           }}
           onChange={(e) => allowTyping && setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
@@ -361,7 +370,7 @@ export function ComboBox({
           </div>
         )}
         {showClearButton && <ClearButton onClick={handleClear} small={isSmall} />}
-        {showToggle && <ToggleButton open={open} onClick={() => setOpen((s) => !s)} small={isSmall} />}
+        {showToggle && <ToggleButton open={open} small={isSmall} />}
       </div>
       <DropdownMenu isOpen={open} options={filtered} onSelect={handleSelect} selectedValue={value} placement={placement} anchorRef={anchorRef} small={isSmall} highlightedIndex={highlightedIndex} />
     </div>

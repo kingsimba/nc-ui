@@ -85,7 +85,7 @@ export function ComboBoxSection() {
         <div className="card" style={{ display: 'grid', gap: 10 }}>
           <span className="nc-label">Plain appearance</span>
           <p className="weak" style={{ margin: 0 }}>
-            Closed state reads like plain text. Click to open the picker and show the standard control border.
+            Closed state reads like plain text. Click to open the picker, use Escape to close it, and show the standard control border while active.
           </p>
           <ComboBox
             options={comboOptions}
