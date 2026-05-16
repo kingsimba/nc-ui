@@ -116,13 +116,16 @@ import { Input } from '@kingsimba/nc-ui'
   appearance="plain"
   value={title}
   onChange={setTitle}
+  onEnter={(confirmedTitle) => setSavedTitle(confirmedTitle)}
 />
+
+// In plain mode: Enter confirms and exits edit mode, Escape cancels and exits
 
 // With Enter key handler
 <Input
   value={search}
   onChange={setSearch}
-  onEnter={handleSearch}
+  onEnter={(confirmedSearch) => handleSearch(confirmedSearch)}
   placeholder="Press Enter to search"
 />
 
@@ -148,7 +151,7 @@ import { Input } from '@kingsimba/nc-ui'
 />
 ```
 
-**Props:** `value`, `defaultValue`, `onChange`, `onEnter`, `onClear`, `placeholder`, `disabled`, `label`, `clearable`, `type`, `size`, `appearance`, `leadingIcon`, `showPasswordToggle`, `multiline`, `rows`, `validator`, `showErrorMessage`
+**Props:** `value`, `defaultValue`, `onChange`, `onEnter` (receives the confirmed value), `onClear`, `placeholder`, `disabled`, `label`, `clearable`, `type`, `size`, `appearance`, `leadingIcon`, `showPasswordToggle`, `multiline`, `rows`, `validator`, `showErrorMessage`
 
 ---
 

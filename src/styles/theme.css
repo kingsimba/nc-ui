@@ -428,7 +428,7 @@ input.nc-input.nc-small { height: 32px; }
 .nc-label.nc-small { font-size: 12px; }
 
 /* ComboBox component */
-.nc-combo-container { display: flex; flex-direction: column; }
+.nc-combo-container { display: flex; flex-direction: column; gap:6px;}
 
 .nc-combo-button {
   position: absolute;

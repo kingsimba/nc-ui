@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ViewIcon, EyeHiddenIcon } from './icons';
 
 export interface InputProps {
@@ -8,8 +8,8 @@ export interface InputProps {
   defaultValue?: string;
   /** Callback when value changes */
   onChange?: (value: string) => void;
-  /** Callback when Enter key is pressed */
-  onEnter?: () => void;
+  /** Callback when Enter key confirms the current value */
+  onEnter?: (value: string) => void;
   /** Callback when input is cleared */
   onClear?: () => void;
   /** Placeholder text */
@@ -130,17 +130,29 @@ export function Input({
 }: InputProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const skipPlainBlurCommitRef = useRef(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
 
   // Support both controlled and uncontrolled modes
   const isControlled = controlledValue !== undefined;
   const [internalValue, setInternalValue] = useState(defaultValue);
-  const value = isControlled ? controlledValue : internalValue;
+  const committedValue = isControlled ? controlledValue : internalValue;
+  const [draftValue, setDraftValue] = useState(committedValue);
 
   // Compute validation error
-  const validationError = validator ? validator(value) : null;
+  const validationError = validator ? validator(committedValue) : null;
   const hasError = !!validationError;
+
+  const isPlainMode = !multiline && appearance === 'plain';
+  const isEditingPlain = isPlainMode && isFocused;
+  const value = isEditingPlain ? draftValue : committedValue;
+
+  useEffect(() => {
+    if (!isEditingPlain) {
+      setDraftValue(committedValue);
+    }
+  }, [committedValue, isEditingPlain]);
 
   const isPasswordType = type === 'password';
   const showToggle = isPasswordType && showPasswordToggle && !disabled && !multiline;
@@ -157,7 +169,32 @@ export function Input({
   const iconWidth = size === 'small' ? 28 : 34;
   const paddingLeft = leadingIcon ? iconWidth : undefined;
 
+  const commitPlainValue = () => {
+    if (!isPlainMode) {
+      return committedValue;
+    }
+
+    if (!isControlled) {
+      setInternalValue(draftValue);
+    }
+    if (draftValue !== committedValue) {
+      onChange?.(draftValue);
+    }
+    return draftValue;
+  };
+
+  const cancelPlainValue = () => {
+    setDraftValue(committedValue);
+  };
+
   const handleClear = () => {
+    if (isPlainMode) {
+      setDraftValue('');
+      onClear?.();
+      inputRef.current?.focus();
+      return;
+    }
+
     if (!isControlled) {
       setInternalValue('');
     }
@@ -171,13 +208,32 @@ export function Input({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (isPlainMode && e.key === 'Escape') {
+      e.preventDefault();
+      skipPlainBlurCommitRef.current = true;
+      cancelPlainValue();
+      e.currentTarget.blur();
+      return;
+    }
+
     if (e.key === 'Enter' && !multiline) {
-      onEnter?.();
+      const confirmedValue = isPlainMode ? commitPlainValue() : committedValue;
+      if (isPlainMode) {
+        e.preventDefault();
+        skipPlainBlurCommitRef.current = true;
+        e.currentTarget.blur();
+      }
+      onEnter?.(confirmedValue);
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const newValue = e.target.value;
+    if (isPlainMode) {
+      setDraftValue(newValue);
+      return;
+    }
+
     if (!isControlled) {
       setInternalValue(newValue);
     }
@@ -186,9 +242,21 @@ export function Input({
 
   const handleFocus = () => {
     setIsFocused(true);
+    if (isPlainMode) {
+      setDraftValue(committedValue);
+    }
   };
 
   const handleBlur = () => {
+    if (isPlainMode && skipPlainBlurCommitRef.current) {
+      skipPlainBlurCommitRef.current = false;
+      setIsFocused(false);
+      return;
+    }
+
+    if (isPlainMode) {
+      commitPlainValue();
+    }
     setIsFocused(false);
   };
 

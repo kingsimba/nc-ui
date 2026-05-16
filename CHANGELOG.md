@@ -1,5 +1,6 @@
 # Changelog
 
+- 2026-05-16 UI: Improve plain-mode input confirmation and ComboBox spacing
 - 2026-05-16 ComboBox: Support `appearance=plain` click-to-edit appearance
 - 2026-05-16 Input: Support `appearance=plain` click-to-edit appearance
 - 2026-05-06 YamlTextArea: Remove root export and require yaml entry point

@@ -9,6 +9,7 @@ export function InputSection() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [displayName, setDisplayName] = useState('Click to edit profile name');
+  const [confirmedDisplayName, setConfirmedDisplayName] = useState('Click to edit profile name');
 
   const emailValidator = (value: string) => {
     if (!value) return null;
@@ -114,14 +115,18 @@ export function InputSection() {
         <div className="card" style={{ display: 'grid', gap: 10 }}>
           <span className="nc-label">View Mode Input</span>
           <p className="weak" style={{ margin: 0 }}>
-            Resting state reads like plain text. Click it to focus, edit, and show the standard input border.
+            Resting state reads like plain text. Click it to focus, edit, press Enter to confirm, or Escape to cancel and exit edit mode.
           </p>
           <Input
             value={displayName}
             onChange={setDisplayName}
+            onEnter={setConfirmedDisplayName}
             appearance="plain"
             placeholder="Click to enter a profile name"
           />
+          <p className="weak" style={{ margin: 0 }}>
+            Confirmed value: {confirmedDisplayName}
+          </p>
         </div>
       </div>
     </section>
