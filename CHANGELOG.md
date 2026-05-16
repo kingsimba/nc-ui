@@ -1,5 +1,6 @@
 # Changelog
 
+- 2026-05-16 Input: Add confirmed-change callback for plain mode
 - 2026-05-16 ComboBox: Improve plain-mode controls and clear affordance
 - 2026-05-16 UI: Improve plain-mode input confirmation and ComboBox spacing
 - 2026-05-16 ComboBox: Support `appearance=plain` click-to-edit appearance

@@ -8,6 +8,8 @@ export interface InputProps {
   defaultValue?: string;
   /** Callback when value changes */
   onChange?: (value: string) => void;
+  /** Callback when a plain-mode edit is confirmed with a changed value */
+  onChangeConfirmed?: (value: string) => void;
   /** Callback when Enter key confirms the current value */
   onEnter?: (value: string) => void;
   /** Callback when input is cleared */
@@ -110,6 +112,7 @@ export function Input({
   value: controlledValue,
   defaultValue = '',
   onChange,
+  onChangeConfirmed,
   onEnter,
   onClear,
   placeholder,
@@ -174,11 +177,14 @@ export function Input({
       return committedValue;
     }
 
+    const changed = draftValue !== committedValue;
+
     if (!isControlled) {
       setInternalValue(draftValue);
     }
-    if (draftValue !== committedValue) {
+    if (changed) {
       onChange?.(draftValue);
+      onChangeConfirmed?.(draftValue);
     }
     return draftValue;
   };

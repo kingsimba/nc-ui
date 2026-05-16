@@ -10,6 +10,7 @@ export function InputSection() {
   const [username, setUsername] = useState('');
   const [displayName, setDisplayName] = useState('Click to edit profile name');
   const [confirmedDisplayName, setConfirmedDisplayName] = useState('Click to edit profile name');
+  const [changedConfirmedDisplayName, setChangedConfirmedDisplayName] = useState('Click to edit profile name');
 
   const emailValidator = (value: string) => {
     if (!value) return null;
@@ -120,12 +121,16 @@ export function InputSection() {
           <Input
             value={displayName}
             onChange={setDisplayName}
+            onChangeConfirmed={setChangedConfirmedDisplayName}
             onEnter={setConfirmedDisplayName}
             appearance="plain"
             placeholder="Click to enter a profile name"
           />
           <p className="weak" style={{ margin: 0 }}>
             Confirmed value: {confirmedDisplayName}
+          </p>
+          <p className="weak" style={{ margin: 0 }}>
+            Changed confirmed value: {changedConfirmedDisplayName}
           </p>
         </div>
       </div>
