@@ -237,6 +237,7 @@ export function Input({
     const newValue = e.target.value;
     if (isPlainMode) {
       setDraftValue(newValue);
+      onChange?.(newValue);
       return;
     }
 
