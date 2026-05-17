@@ -8,9 +8,14 @@ export function InputSection() {
   const [multilineValue, setMultilineValue] = useState('');
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
-  const [displayName, setDisplayName] = useState('Click to edit profile name');
-  const [confirmedDisplayName, setConfirmedDisplayName] = useState('Click to edit profile name');
-  const [changedConfirmedDisplayName, setChangedConfirmedDisplayName] = useState('Click to edit profile name');
+  const [displayName, setDisplayName] = useState('Simba');
+  const [confirmedDisplayName, setConfirmedDisplayName] = useState('Simba');
+  const [changedConfirmedDisplayName, setChangedConfirmedDisplayName] = useState('Simba');
+
+  const nameValidator = (value: string) => {
+    if (value && value.split(' ').length < 2) return 'Please enter first and last name';
+    return null;
+  };
 
   const emailValidator = (value: string) => {
     if (!value) return null;
@@ -124,6 +129,7 @@ export function InputSection() {
             onChangeConfirmed={setChangedConfirmedDisplayName}
             onEnter={setConfirmedDisplayName}
             appearance="plain"
+            validator={nameValidator}
             placeholder="Click to enter a profile name"
           />
           <p className="weak" style={{ margin: 0 }}>
