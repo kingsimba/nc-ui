@@ -17,6 +17,10 @@ export interface ComboBoxProps {
   candidates?: (query: string) => Promise<ComboBoxOption[]>;
   /** Custom render for each option in the dropdown. Receives the option, index, and whether it is highlighted. */
   renderOption?: (option: ComboBoxOption, index: number, highlighted: boolean) => React.ReactNode;
+  /** Custom render for the selected item in the input area. Receives the selected option. Useful when options have icons or rich data. */
+  renderSelected?: (option: ComboBoxOption) => React.ReactNode;
+  /** Provides the full option data for the current `value`. Useful in `candidates` mode when the initial option isn't in the loaded list yet. */
+  selectedOption?: ComboBoxOption;
   /** Whether the combobox is disabled */
   disabled?: boolean;
   /** Label text */
@@ -198,6 +202,8 @@ export function ComboBox({
   options,
   candidates,
   renderOption,
+  renderSelected,
+  selectedOption,
   disabled,
   label,
   clearable = true,
@@ -302,11 +308,12 @@ export function ComboBox({
     return () => document.removeEventListener('mousedown', onDoc);
   }, []);
 
-  const selected = options
-    ? options.find((o) => o.value === value)
-    : value
-      ? { label: selectedLabel, value }
-      : undefined;
+  const selected = selectedOption
+    ?? (options
+      ? options.find((o) => o.value === value)
+      : value
+        ? { label: selectedLabel, value }
+        : undefined);
   const showClearButton = selected && clearable;
   const showToggle = !disabled && !showClearButton;
   const alignmentClass = `nc-align-${textAlign}`;
@@ -444,7 +451,7 @@ export function ComboBox({
             color: overlayVisible ? 'transparent' : 'var(--nc-text)',
           }}
         />
-        {/* When not editing, overlay the selected label and a weak "(default)" hint */}
+        {/* When not editing, overlay the selected label or custom renderSelected */}
         {overlayVisible && (
           <div
             aria-hidden
@@ -456,10 +463,20 @@ export function ComboBox({
               top: '50%',
               transform: 'translateY(-50%)',
               pointerEvents: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
             }}
           >
-            <span className={`nc-combo-overlay-text ${isSmall ? 'nc-small' : ''}`}>{selected?.label}</span>
-            {selected?.default && <span className={`nc-combo-overlay-default ${isSmall ? 'nc-small' : ''}`}>({t('common.default')})</span>}
+            {renderSelected && selected
+              ? renderSelected(selected)
+              : (
+                <>
+                  <span className={`nc-combo-overlay-text ${isSmall ? 'nc-small' : ''}`}>{selected?.label}</span>
+                  {selected?.default && <span className={`nc-combo-overlay-default ${isSmall ? 'nc-small' : ''}`}>({t('common.default')})</span>}
+                </>
+              )
+            }
           </div>
         )}
         {showClearButton && <ClearButton onClick={handleClear} small={isSmall} />}

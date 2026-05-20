@@ -228,9 +228,26 @@ import { ComboBox } from '@kingsimba/nc-ui'
   )}
   placeholder="Search..."
 />
+
+// Server-side search with custom selected rendering
+// Use renderSelected to show rich content (icons, etc.) in the closed input
+// Use selectedOption to pass the full option data for the current value when options aren't loaded yet
+<ComboBox
+  candidates={searchApi}
+  renderOption={renderRichOption}
+  renderSelected={(option) => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+      <span>{/* icon */}</span>
+      <span>{option.label}</span>
+    </div>
+  )}
+  selectedOption={currentItem}
+  value={currentValue}
+  onChange={setCurrentValue}
+/>
 ```
 
-**Props:** `value`, `onChange`, `options`, `candidates`, `renderOption`, `placeholder`, `disabled`, `label`, `clearable`, `allowTyping`, `placement`, `size`, `appearance`, `textAlign`
+**Props:** `value`, `onChange`, `options`, `candidates`, `renderOption`, `renderSelected`, `selectedOption`, `placeholder`, `disabled`, `label`, `clearable`, `allowTyping`, `placement`, `size`, `appearance`, `textAlign`
 
 **Option type:** `{ label: string, value: string, default?: boolean }`
 

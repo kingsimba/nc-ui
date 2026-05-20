@@ -9,6 +9,7 @@ export function ComboBoxSection() {
   const [comboValue5, setComboValue5] = useState<string | undefined>('opt2');
   const [comboValue6, setComboValue6] = useState<string | undefined>('opt3');
   const [fruitValue, setFruitValue] = useState<string | undefined>();
+  const [fruitValue2, setFruitValue2] = useState<string | undefined>('strawberry');
 
   const fancyFruits: (ComboBoxOption & { icon: string; description: string })[] = [
     { label: 'Apple', value: 'apple', icon: '🍎', description: 'Crisp and refreshing' },
@@ -57,6 +58,16 @@ export function ComboBoxSection() {
             {fruit.description}
           </div>
         </div>
+      </div>
+    );
+  };
+
+  const renderFruitSelected = (option: ComboBoxOption) => {
+    const fruit = fancyFruits.find(f => f.value === option.value);
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+        {fruit && <span style={{ fontSize: 18, lineHeight: 1 }}>{fruit.icon}</span>}
+        <span>{option.label}</span>
       </div>
     );
   };
@@ -161,6 +172,24 @@ export function ComboBoxSection() {
           />
           <p className="weak" style={{ margin: 0 }}>
             Selected: <strong>{fruitValue || '(none)'}</strong>
+          </p>
+        </div>
+        <div className="card" style={{ display: 'grid', gap: 10 }}>
+          <span className="nc-label">Server-Side Candidates with Selected Icon</span>
+          <p className="weak" style={{ margin: 0 }}>
+            Uses <code>renderSelected</code> to show the fruit icon in the closed input, and <code>selectedOption</code> to provide the initial option data when the value is set before candidates load.
+          </p>
+          <ComboBox
+            candidates={fruitCandidates}
+            renderOption={renderFruitOption}
+            renderSelected={renderFruitSelected}
+            selectedOption={fruitValue2 ? fancyFruits.find(f => f.value === fruitValue2) : undefined}
+            value={fruitValue2}
+            onChange={setFruitValue2}
+            placeholder="Search fruits..."
+          />
+          <p className="weak" style={{ margin: 0 }}>
+            Selected: <strong>{fruitValue2 || '(none)'}</strong>
           </p>
         </div>
         <div style={{ background: 'var(--nc-primary)', padding: 16, borderRadius: 8 }}>
