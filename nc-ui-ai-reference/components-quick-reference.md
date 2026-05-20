@@ -121,7 +121,7 @@ import { Input } from '@kingsimba/nc-ui'
 />
 
 // In plain mode: Enter confirms and exits edit mode, Escape cancels and exits
-// onChangeConfirmed only fires when the confirmed value actually changed
+// onChangeConfirmed fires when the confirmed value actually changed
 
 // With Enter key handler
 <Input
@@ -213,9 +213,24 @@ import { ComboBox } from '@kingsimba/nc-ui'
 
 // Placement
 <ComboBox placement="top" options={[...]} />
+
+// Server-side search with rich option rendering
+<ComboBox
+  candidates={async (query) => {
+    const res = await fetch(`/api/search?q=${query}`);
+    return res.json();
+  }}
+  renderOption={(option, index, highlighted) => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+      <span>{/* custom icon */}</span>
+      <span style={{ fontWeight: highlighted ? 600 : 400 }}>{option.label}</span>
+    </div>
+  )}
+  placeholder="Search..."
+/>
 ```
 
-**Props:** `value`, `onChange`, `options`, `placeholder`, `disabled`, `label`, `clearable`, `allowTyping`, `placement`, `size`, `appearance`, `textAlign`
+**Props:** `value`, `onChange`, `options`, `candidates`, `renderOption`, `placeholder`, `disabled`, `label`, `clearable`, `allowTyping`, `placement`, `size`, `appearance`, `textAlign`
 
 **Option type:** `{ label: string, value: string, default?: boolean }`
 

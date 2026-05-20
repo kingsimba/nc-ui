@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { ComboBox } from '../../../src';
+import { useState, useCallback } from 'react';
+import { ComboBox, ComboBoxOption } from '../../../src';
 
 export function ComboBoxSection() {
   const [comboValue, setComboValue] = useState<string | undefined>('opt1');
@@ -8,6 +8,58 @@ export function ComboBoxSection() {
   const [comboValue4, setComboValue4] = useState<string | undefined>('opt1');
   const [comboValue5, setComboValue5] = useState<string | undefined>('opt2');
   const [comboValue6, setComboValue6] = useState<string | undefined>('opt3');
+  const [fruitValue, setFruitValue] = useState<string | undefined>();
+
+  const fancyFruits: (ComboBoxOption & { icon: string; description: string })[] = [
+    { label: 'Apple', value: 'apple', icon: '🍎', description: 'Crisp and refreshing' },
+    { label: 'Apricot', value: 'apricot', icon: '🟠', description: 'Sweet with a tangy twist' },
+    { label: 'Avocado', value: 'avocado', icon: '🥑', description: 'Creamy and versatile' },
+    { label: 'Banana', value: 'banana', icon: '🍌', description: 'Instant energy boost' },
+    { label: 'Blueberry', value: 'blueberry', icon: '🫐', description: 'Antioxidant powerhouse' },
+    { label: 'Cherry', value: 'cherry', icon: '🍒', description: 'Deep red summer delight' },
+    { label: 'Coconut', value: 'coconut', icon: '🥥', description: 'Tropical and hydrating' },
+    { label: 'Date', value: 'date', icon: '🟤', description: 'Naturally caramel-sweet' },
+    { label: 'Dragon Fruit', value: 'dragonfruit', icon: '🐉', description: 'Vibrant and exotic' },
+    { label: 'Fig', value: 'fig', icon: '🟤', description: 'Honeyed and delicate' },
+    { label: 'Grape', value: 'grape', icon: '🍇', description: 'Perfect little bites' },
+    { label: 'Kiwi', value: 'kiwi', icon: '🥝', description: 'Fuzzy on the outside, green inside' },
+    { label: 'Lemon', value: 'lemon', icon: '🍋', description: 'Bright and citrusy' },
+    { label: 'Mango', value: 'mango', icon: '🥭', description: 'Tropical sunshine in a peel' },
+    { label: 'Orange', value: 'orange', icon: '🍊', description: 'Classic citrus goodness' },
+    { label: 'Papaya', value: 'papaya', icon: '🟠', description: 'Buttery and exotic' },
+    { label: 'Peach', value: 'peach', icon: '🍑', description: 'Summer in your hand' },
+    { label: 'Pear', value: 'pear', icon: '🍐', description: 'Elegantly sweet' },
+    { label: 'Pineapple', value: 'pineapple', icon: '🍍', description: 'Spiky tropical treasure' },
+    { label: 'Plum', value: 'plum', icon: '🟣', description: 'Velvety and rich' },
+    { label: 'Pomegranate', value: 'pomegranate', icon: '🔴', description: 'Crown of jewel seeds' },
+    { label: 'Strawberry', value: 'strawberry', icon: '🍓', description: 'Everyone favorite berry' },
+    { label: 'Watermelon', value: 'watermelon', icon: '🍉', description: 'Summer hydration hero' },
+  ];
+
+  const fruitCandidates = useCallback(async (query: string): Promise<ComboBoxOption[]> => {
+    await new Promise((r) => setTimeout(r, 200));
+    const q = query.toLowerCase();
+    return fancyFruits.filter((f) =>
+      f.value.includes(q) || f.label.toLowerCase().includes(q)
+    );
+  }, []);
+
+  const renderFruitOption = (option: ComboBoxOption, _index: number, highlighted: boolean) => {
+    const fruit = fancyFruits.find(f => f.value === option.value)!;
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '4px 2px' }}>
+        <span style={{ fontSize: 22, lineHeight: 1 }}>{fruit.icon}</span>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontWeight: highlighted ? 600 : 400, color: 'var(--nc-text)', fontSize: 14 }}>
+            {fruit.label}
+          </div>
+          <div style={{ fontSize: 12, color: 'var(--nc-text-weak)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            {fruit.description}
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   const comboOptions = [
     { label: 'Option 1', value: 'opt1', default: true },
@@ -94,6 +146,22 @@ export function ComboBoxSection() {
             appearance="plain"
             clearable={false}
           />
+        </div>
+        <div className="card" style={{ display: 'grid', gap: 10 }}>
+          <span className="nc-label">Server-Side Candidates</span>
+          <p className="weak" style={{ margin: 0 }}>
+            Type to fetch options from a simulated server with 200ms delay. Uses <code>candidates</code> + <code>renderOption</code> for a rich, customized dropdown.
+          </p>
+          <ComboBox
+            candidates={fruitCandidates}
+            renderOption={renderFruitOption}
+            value={fruitValue}
+            onChange={setFruitValue}
+            placeholder="Search fruits..."
+          />
+          <p className="weak" style={{ margin: 0 }}>
+            Selected: <strong>{fruitValue || '(none)'}</strong>
+          </p>
         </div>
         <div style={{ background: 'var(--nc-primary)', padding: 16, borderRadius: 8 }}>
           <ComboBox

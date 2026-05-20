@@ -11,15 +11,19 @@ export interface ComboBoxProps {
   onChange?: (value: string | undefined) => void;
   /** Placeholder text when no value selected */
   placeholder?: string;
-  /** Available options */
-  options: ComboBoxOption[];
+  /** Available options for static lists */
+  options?: ComboBoxOption[];
+  /** Async function to fetch options based on typed query. Enables server-side search (implies allowTyping). */
+  candidates?: (query: string) => Promise<ComboBoxOption[]>;
+  /** Custom render for each option in the dropdown. Receives the option, index, and whether it is highlighted. */
+  renderOption?: (option: ComboBoxOption, index: number, highlighted: boolean) => React.ReactNode;
   /** Whether the combobox is disabled */
   disabled?: boolean;
   /** Label text */
   label?: string;
   /** Whether the selection can be cleared */
   clearable?: boolean;
-  /** Whether typing to filter is allowed */
+  /** Whether typing to filter is allowed (ignored when candidates is provided) */
   allowTyping?: boolean;
   /** Dropdown placement preference */
   placement?: 'top' | 'bottom';
@@ -35,7 +39,7 @@ export interface ComboBoxProps {
   className?: string;
 }
 
-function DropdownOption({ option, onChange, selected, highlighted, small }: { option: ComboBoxOption; onChange: (value: string) => void; selected?: boolean; highlighted?: boolean; small?: boolean }) {
+function DropdownOption({ option, onChange, selected, highlighted, small, renderOption, index }: { option: ComboBoxOption; onChange: (value: string, label: string) => void; selected?: boolean; highlighted?: boolean; small?: boolean; renderOption?: (option: ComboBoxOption, index: number, highlighted: boolean) => React.ReactNode; index: number }) {
   const optionRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
 
@@ -51,18 +55,22 @@ function DropdownOption({ option, onChange, selected, highlighted, small }: { op
       ref={optionRef}
       className={`nc-combo-dropdown-option ${small ? 'nc-small' : ''} ${highlighted ? 'nc-highlighted' : ''}`}
       role="option"
-      onMouseDown={() => onChange(option.value)}
+      onClick={() => onChange(option.value, option.label)}
       aria-selected={selected}
       style={{
         cursor: 'pointer',
         background: highlighted ? 'rgba(59,130,246,0.18)' : selected ? 'rgba(59,130,246,0.12)' : undefined,
       }}
     >
-      {option.label}
-      {option.default && (
-        <span style={{ fontSize: '0.85em', color: 'var(--nc-text-weak)', marginLeft: 6 }}>
-          ({t('common.default')})
-        </span>
+      {renderOption ? renderOption(option, index, !!highlighted) : (
+        <>
+          {option.label}
+          {option.default && (
+            <span style={{ fontSize: '0.85em', color: 'var(--nc-text-weak)', marginLeft: 6 }}>
+              ({t('common.default')})
+            </span>
+          )}
+        </>
       )}
     </div>
   );
@@ -77,15 +85,17 @@ function DropdownMenu({
   anchorRef,
   small,
   highlightedIndex = -1,
+  renderOption,
 }: {
   isOpen: boolean;
   options: ComboBoxOption[];
-  onSelect: (value: string) => void;
+  onSelect: (value: string, label: string) => void;
   selectedValue?: string;
   placement?: 'top' | 'bottom';
   anchorRef: React.RefObject<HTMLDivElement>;
   small?: boolean;
   highlightedIndex?: number;
+  renderOption?: (option: ComboBoxOption, index: number, highlighted: boolean) => React.ReactNode;
 }) {
   const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
   const [autoPlacement, setAutoPlacement] = useState<'top' | 'bottom'>(placement);
@@ -120,6 +130,7 @@ function DropdownMenu({
   const dropdown = (
     <div
       className="nc-combo-dropdown"
+      onMouseDown={(e) => e.stopPropagation()}
       style={{
         position: 'fixed',
         top: autoPlacement === 'top' ? undefined : position.top,
@@ -135,7 +146,7 @@ function DropdownMenu({
         <div className={`nc-combo-dropdown-option nc-no-results ${small ? 'nc-small' : ''}`}>{t('common.noResults')}</div>
       ) : (
         options.map((o, idx) => (
-          <DropdownOption key={o.value} option={o} onChange={onSelect} selected={o.value === selectedValue} highlighted={idx === highlightedIndex} small={small} />
+          <DropdownOption key={o.value} option={o} onChange={onSelect} selected={o.value === selectedValue} highlighted={idx === highlightedIndex} small={small} renderOption={renderOption} index={idx} />
         ))
       )}
     </div>
@@ -185,6 +196,8 @@ export function ComboBox({
   onChange,
   placeholder = 'Select…',
   options,
+  candidates,
+  renderOption,
   disabled,
   label,
   clearable = true,
@@ -201,14 +214,61 @@ export function ComboBox({
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const anchorRef = useRef<HTMLDivElement | null>(null);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isSmall = size === 'small';
   const { t } = useTranslation();
 
+  const hasCandidates = !!candidates;
+  const canType = allowTyping || hasCandidates;
+
+  const [asyncOptions, setAsyncOptions] = useState<ComboBoxOption[]>([]);
+  const [selectedLabel, setSelectedLabel] = useState<string>(() => {
+    // Initialize from static options
+    if (options && value) {
+      const match = options.find((o) => o.value === value);
+      return match ? match.label : '';
+    }
+    return '';
+  });
+
+  // Sync selectedLabel when value changes externally
+  useEffect(() => {
+    if (!value) {
+      setSelectedLabel('');
+      return;
+    }
+    if (options) {
+      const match = options.find((o) => o.value === value);
+      if (match) setSelectedLabel(match.label);
+    }
+  }, [value, options]);
+
+  // Async debounced search when candidates is provided
+  const triggerAsyncSearch = (q: string, immediate = false) => {
+    if (!candidates) return;
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    const doFetch = async () => {
+      try {
+        const items = await candidates(q);
+        setAsyncOptions(items);
+        setHighlightedIndex(-1);
+      } catch {
+        setAsyncOptions([]);
+      }
+    };
+    if (immediate) {
+      doFetch();
+    } else {
+      debounceRef.current = setTimeout(doFetch, 200);
+    }
+  };
+
   const filtered = useMemo(() => {
+    if (hasCandidates) return asyncOptions;
     const q = query.toLowerCase();
-    if (!allowTyping) return options;
-    return options.filter((o) => o.label.toLowerCase().includes(q));
-  }, [options, query, allowTyping]);
+    if (!canType) return options || [];
+    return (options || []).filter((o) => o.label.toLowerCase().includes(q));
+  }, [options, query, canType, hasCandidates, asyncOptions]);
 
   // Reset highlighted index when dropdown opens or filtered options change
   useEffect(() => {
@@ -219,7 +279,7 @@ export function ComboBox({
 
   // Auto-select first option if not clearable and no value is set
   useEffect(() => {
-    if (!clearable && !value && options.length > 0 && onChange) {
+    if (!clearable && !value && options && options.length > 0 && onChange) {
       const defaultOption = options.find(o => o.default) || options[0];
       onChange(defaultOption.value);
     }
@@ -235,14 +295,19 @@ export function ComboBox({
     return () => document.removeEventListener('mousedown', onDoc);
   }, []);
 
-  const selected = options.find((o) => o.value === value);
+  const selected = options
+    ? options.find((o) => o.value === value)
+    : value
+      ? { label: selectedLabel, value }
+      : undefined;
   const showClearButton = selected && clearable;
   const showToggle = !disabled && !showClearButton;
   const alignmentClass = `nc-align-${textAlign}`;
 
-  const overlayVisible = !(open && allowTyping) && !!selected;
+  const overlayVisible = !(open && canType) && !!selected;
 
-  const handleSelect = (newValue: string, fromKeyboard = false) => {
+  const handleSelect = (newValue: string, newLabel: string, fromKeyboard = false) => {
+    setSelectedLabel(newLabel);
     onChange?.(newValue);
     setOpen(false);
     setQuery('');
@@ -285,7 +350,7 @@ export function ComboBox({
       case 'Enter':
         e.preventDefault();
         if (highlightedIndex >= 0 && highlightedIndex < filtered.length) {
-          handleSelect(filtered[highlightedIndex].value, true);
+          handleSelect(filtered[highlightedIndex].value, filtered[highlightedIndex].label, true);
         }
         break;
       case 'Escape':
@@ -306,16 +371,20 @@ export function ComboBox({
           if (disabled) return;
           // Clicking on child buttons will stop propagation.
           // If typing is allowed and the click target is the input, let the input handle focus.
-          if (allowTyping && e.target === inputRef.current) return;
+          if (canType && e.target === inputRef.current) return;
           setOpen((s) => {
             // When opening with allowTyping, initialize query with selected label
-            if (!s && allowTyping && selected) {
+            if (!s && canType && selected) {
               setQuery(selected.label);
             }
             return !s;
           });
+          // Fetch all candidates on open when no query yet
+          if (hasCandidates && !query) {
+            setTimeout(() => triggerAsyncSearch('', true), 0);
+          }
           // focus input only when typing is allowed and we're opening
-          if (allowTyping && !open) {
+          if (canType && !open) {
             setTimeout(() => {
               inputRef.current?.focus();
               // Select all text so user can easily replace it
@@ -329,19 +398,27 @@ export function ComboBox({
           className={`nc-input ${isSmall ? 'nc-small' : ''}`}
           placeholder={placeholder}
           onFocus={() => {
-            if (!disabled && allowTyping) {
+            if (!disabled && canType) {
               setOpen(true);
               // Initialize query with selected label when focusing
               if (selected) {
                 setQuery(selected.label);
                 setTimeout(() => inputRef.current?.select(), 0);
               }
+              // Fetch all candidates on open when no query yet
+              if (hasCandidates && !query) triggerAsyncSearch('', true);
             }
           }}
-          onChange={(e) => allowTyping && setQuery(e.target.value)}
+          onChange={(e) => {
+            const val = e.target.value;
+            if (canType) {
+              setQuery(val);
+              if (hasCandidates) triggerAsyncSearch(val);
+            }
+          }}
           onKeyDown={handleKeyDown}
-          value={open && allowTyping ? query : (selected?.label || '')}
-          readOnly={disabled || !allowTyping}
+          value={(open && canType) ? query : (selected?.label || '')}
+          readOnly={disabled || !canType}
           style={{
             width: '100%',
             paddingRight: showToggle || showClearButton ? (isSmall ? 32 : 44) : 12,
@@ -372,7 +449,7 @@ export function ComboBox({
         {showClearButton && <ClearButton onClick={handleClear} small={isSmall} />}
         {showToggle && <ToggleButton open={open} small={isSmall} />}
       </div>
-      <DropdownMenu isOpen={open} options={filtered} onSelect={handleSelect} selectedValue={value} placement={placement} anchorRef={anchorRef} small={isSmall} highlightedIndex={highlightedIndex} />
+      <DropdownMenu isOpen={open} options={filtered} onSelect={handleSelect} selectedValue={value} placement={placement} anchorRef={anchorRef} small={isSmall} highlightedIndex={highlightedIndex} renderOption={renderOption} />
     </div>
   );
 }
