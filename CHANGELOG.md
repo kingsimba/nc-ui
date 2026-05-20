@@ -1,5 +1,6 @@
 # Changelog
 
+- 2026-05-20 ComboBox: Fix selected label not showing when mounted with value before candidates load
 - 2026-05-20 ComboBox: Add async server-side candidates with custom option rendering
 - 2026-05-16 Input: Add confirmed-change callback for plain mode
 - 2026-05-16 ComboBox: Improve plain-mode controls and clear affordance

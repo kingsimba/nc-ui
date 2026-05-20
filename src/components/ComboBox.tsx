@@ -228,6 +228,10 @@ export function ComboBox({
       const match = options.find((o) => o.value === value);
       return match ? match.label : '';
     }
+    // In candidates mode, use the value itself as the label (server will provide label later)
+    if (candidates && value) {
+      return value;
+    }
     return '';
   });
 
@@ -240,8 +244,11 @@ export function ComboBox({
     if (options) {
       const match = options.find((o) => o.value === value);
       if (match) setSelectedLabel(match.label);
+    } else if (candidates) {
+      // In candidates mode, use the value as the display label until server provides it
+      setSelectedLabel(value);
     }
-  }, [value, options]);
+  }, [value, options, candidates]);
 
   // Async debounced search when candidates is provided
   const triggerAsyncSearch = (q: string, immediate = false) => {
