@@ -379,6 +379,7 @@ export function ComboBox({
           // Clicking on child buttons will stop propagation.
           // If typing is allowed and the click target is the input, let the input handle focus.
           if (canType && e.target === inputRef.current) return;
+          const opening = !open;
           setOpen((s) => {
             // When opening with allowTyping, initialize query with selected label
             if (!s && canType && selected) {
@@ -386,9 +387,12 @@ export function ComboBox({
             }
             return !s;
           });
-          // Fetch all candidates on open when no query yet
-          if (hasCandidates && !query) {
-            setTimeout(() => triggerAsyncSearch('', true), 0);
+          // Fetch all candidates on open, using the selected label as the initial query
+          if (hasCandidates && opening) {
+            const initialQuery = canType && selected ? selected.label : '';
+            // Clear stale async options immediately so the dropdown never shows old data
+            setAsyncOptions([]);
+            setTimeout(() => triggerAsyncSearch(initialQuery, true), 0);
           }
           // focus input only when typing is allowed and we're opening
           if (canType && !open) {
@@ -408,12 +412,17 @@ export function ComboBox({
             if (!disabled && canType) {
               setOpen(true);
               // Initialize query with selected label when focusing
+              const currentLabel = selected ? selected.label : '';
               if (selected) {
-                setQuery(selected.label);
+                setQuery(currentLabel);
                 setTimeout(() => inputRef.current?.select(), 0);
               }
-              // Fetch all candidates on open when no query yet
-              if (hasCandidates && !query) triggerAsyncSearch('', true);
+              // Fetch all candidates on open
+              if (hasCandidates) {
+                // Clear stale async options immediately so the dropdown never shows old data
+                setAsyncOptions([]);
+                triggerAsyncSearch(currentLabel, true);
+              }
             }
           }}
           onChange={(e) => {
