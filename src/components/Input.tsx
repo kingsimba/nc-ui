@@ -103,7 +103,7 @@ function TogglePasswordButton({ visible, onClick, size = 'default' }: { visible:
         justifyContent: 'center',
       }}
     >
-      {visible ? <EyeHiddenIcon size={iconSize} /> : <ViewIcon size={iconSize} />}
+      {visible ? <ViewIcon size={iconSize} /> : <EyeHiddenIcon size={iconSize} />}
     </button>
   );
 }
