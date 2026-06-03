@@ -46,7 +46,7 @@ class RunningAppsStore {
    */
   async launchApp<TRef = Record<string, unknown>>(
     appId: string,
-    options?: LaunchAppOptions
+    options?: LaunchAppOptions,
   ): Promise<RunningApp<TRef> | null> {
     const { launchInBackground = false } = options || {};
 
@@ -142,7 +142,8 @@ class RunningAppsStore {
     if (this.activeAppId === appId) {
       // On desktop (width >= 768px), go to last app; on mobile, set to null
       const isDesktop = window.innerWidth >= 768;
-      this.activeAppId = isDesktop && this.apps.length > 0 ? this.apps[this.apps.length - 1].appId : null;
+      this.activeAppId =
+        isDesktop && this.apps.length > 0 ? this.apps[this.apps.length - 1].appId : null;
       appStateStore._setActiveAppId(this.activeAppId);
     }
     this.notify();

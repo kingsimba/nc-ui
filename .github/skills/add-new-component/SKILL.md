@@ -1,7 +1,7 @@
 ---
 name: add-new-component
 description: Add a brand-new UI component to the nc-ui library. Use this skill when the user wants to create a new reusable component from scratch and integrate it into the project.
-argument-hint: '[component name]'
+argument-hint: "[component name]"
 ---
 
 # Adding a New Component to nc-ui
@@ -24,7 +24,7 @@ When adding a new component, changes must be made across five places: the compon
 Create `src/components/<ComponentName>.tsx`.
 
 ```tsx
-import React from 'react';
+import React from "react";
 
 export interface MyComponentProps {
   /** Document each prop with JSDoc */
@@ -37,12 +37,7 @@ export interface MyComponentProps {
   style?: React.CSSProperties;
 }
 
-export function MyComponent({
-  value,
-  onChange,
-  className = '',
-  style,
-}: MyComponentProps) {
+export function MyComponent({ value, onChange, className = "", style }: MyComponentProps) {
   return (
     <div className={`nc-my-component ${className}`} style={style}>
       {/* content */}
@@ -82,7 +77,7 @@ For most components, add styles to `src/styles/theme.css` near the end or groupe
 For components with heavy styling (e.g. `CsvTextArea`), keep a standalone `src/components/<ComponentName>.css` and import it from the component:
 
 ```tsx
-import './MyComponent.css';
+import "./MyComponent.css";
 ```
 
 Rules for standalone CSS:
@@ -103,9 +98,9 @@ There are two patterns—choose based on bundle size impact.
 Add the component and its types to `src/index.ts`:
 
 ```ts
-export { MyComponent } from './components/MyComponent';
+export { MyComponent } from "./components/MyComponent";
 // ...in the types section:
-export type { MyComponentProps } from './components/MyComponent';
+export type { MyComponentProps } from "./components/MyComponent";
 ```
 
 ### Pattern B: Separate entry point (heavy components with external deps)
@@ -142,16 +137,16 @@ For components with large dependencies (e.g. `YamlTextArea` depends on `js-yaml`
 Create `dev/UIComponentsDemo/sections/<ComponentName>Section.tsx`:
 
 ```tsx
-import { useState } from 'react';
-import { MyComponent } from '../../../src/components/MyComponent';
+import { useState } from "react";
+import { MyComponent } from "../../../src/components/MyComponent";
 
 export function MyComponentSection() {
-  const [value, setValue] = useState('example');
+  const [value, setValue] = useState("example");
 
   return (
-    <section className='dev-section'>
+    <section className="dev-section">
       <h2>MyComponent</h2>
-      <p style={{ marginBottom: 16, color: 'var(--nc-text-weak)' }}>
+      <p style={{ marginBottom: 16, color: "var(--nc-text-weak)" }}>
         Brief description of what the component does and when to use it.
       </p>
 
@@ -166,7 +161,7 @@ Guidelines:
 - Import the component from **source** (`../../../src/...`), not the built package
 - For components with heavy deps (separate entry point), use `lazy()` + `<Suspense>`:
   ```tsx
-  const MyComponent = lazy(() => import('../../../src/components/MyComponent'));
+  const MyComponent = lazy(() => import("../../../src/components/MyComponent"));
   ```
 - Show realistic usage with meaningful sample data
 - Add multiple sections if the component has several distinct features
@@ -178,13 +173,13 @@ Open `dev/UIComponentsDemo/UIComponentsDemo.tsx` and make three changes:
 1. **Import** the section component:
 
    ```tsx
-   import { MyComponentSection } from './sections/MyComponentSection';
+   import { MyComponentSection } from "./sections/MyComponentSection";
    ```
 
 2. **Add to `SectionId` type**:
 
    ```tsx
-   type SectionId = '...' | 'my-component';
+   type SectionId = "..." | "my-component";
    ```
 
 3. **Add to `sections` array**:
@@ -203,15 +198,13 @@ Open `nc-ui-ai-reference/components-quick-reference.md` and add a section for th
 
 Brief description:
 
-\`\`\`tsx
-import { MyComponent } from '@kingsimba/nc-ui'
+\`\`\`tsx import { MyComponent } from '@kingsimba/nc-ui'
 
 <MyComponent
   value={myValue}
   onChange={setMyValue}
   className="custom"
-/>
-\`\`\`
+/> \`\`\`
 
 **Props:** `value`, `onChange`, `className`, `style`
 ```

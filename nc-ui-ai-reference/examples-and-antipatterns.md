@@ -16,23 +16,19 @@ function MyComponent() {
   return (
     <div>
       <button onClick={handleClick}>Submit</button>
-      <input
-        type="text"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
+      <input type="text" value={text} onChange={(e) => setText(e.target.value)} />
       <select value={option} onChange={(e) => setOption(e.target.value)}>
         <option value="1">Option 1</option>
         <option value="2">Option 2</option>
       </select>
     </div>
-  )
+  );
 }
 ```
 
 ```tsx
 // ✅ CORRECT - Using nc-ui components
-import { Button, Input, ComboBox } from '@kingsimba/nc-ui'
+import { Button, Input, ComboBox } from "@kingsimba/nc-ui";
 
 function MyComponent() {
   return (
@@ -40,18 +36,18 @@ function MyComponent() {
       <Button onClick={handleClick}>Submit</Button>
       <Input
         value={text}
-        onChange={setText}  // Note: direct value, not event
+        onChange={setText} // Note: direct value, not event
       />
       <ComboBox
         value={option}
-        onChange={setOption}  // Note: direct value, not event
+        onChange={setOption} // Note: direct value, not event
         options={[
-          { label: 'Option 1', value: '1' },
-          { label: 'Option 2', value: '2' },
+          { label: "Option 1", value: "1" },
+          { label: "Option 2", value: "2" },
         ]}
       />
     </div>
-  )
+  );
 }
 ```
 
@@ -65,7 +61,7 @@ function MyComponent() {
 // ❌ WRONG - No nc- prefix
 <div className="container">
   <div className="button primary">Click</div>
-  <div style={{ color: 'var(--text)' }}>Text</div>
+  <div style={{ color: "var(--text)" }}>Text</div>
 </div>
 ```
 
@@ -73,7 +69,7 @@ function MyComponent() {
 // ✅ CORRECT - Always use nc- prefix
 <div className="nc-container">
   <Button variant="primary">Click</Button>
-  <div style={{ color: 'var(--nc-text)' }}>Text</div>
+  <div style={{ color: "var(--nc-text)" }}>Text</div>
 </div>
 ```
 
@@ -83,13 +79,13 @@ function MyComponent() {
 
 ```tsx
 // ❌ WRONG - Bloats bundle with all icons
-import { Button, CloseIcon, EditIcon } from '@kingsimba/nc-ui'
+import { Button, CloseIcon, EditIcon } from "@kingsimba/nc-ui";
 ```
 
 ```tsx
 // ✅ CORRECT - Separate entry points
-import { Button } from '@kingsimba/nc-ui'
-import { CloseIcon, EditIcon } from '@kingsimba/nc-ui/icons'
+import { Button } from "@kingsimba/nc-ui";
+import { CloseIcon, EditIcon } from "@kingsimba/nc-ui/icons";
 ```
 
 **Why:** Icons are in a separate entry point to keep the main bundle small. Only import icons when you actually need them.
@@ -117,6 +113,7 @@ import { CloseIcon, EditIcon } from '@kingsimba/nc-ui/icons'
 ```
 
 **Available CSS variables:**
+
 - `--nc-primary`, `--nc-danger`, `--nc-warning`, `--nc-success`
 - `--nc-text`, `--nc-text-weak`
 - `--nc-bg`, `--nc-button-bg`, `--nc-input-bg`
@@ -161,28 +158,26 @@ import { CloseIcon, EditIcon } from '@kingsimba/nc-ui/icons'
 
 ```tsx
 // ❌ WRONG - No code splitting
-import { MyApp } from './MyApp'
+import { MyApp } from "./MyApp";
 
 appRegistry.register({
-  id: 'my-app',
-  component: MyApp,  // Bundle includes MyApp immediately
+  id: "my-app",
+  component: MyApp, // Bundle includes MyApp immediately
   // ...
-})
+});
 ```
 
 ```tsx
 // ✅ CORRECT - Lazy loading with code splitting
-import React from 'react'
+import React from "react";
 
-const LazyMyApp = React.lazy(() =>
-  import('./MyApp').then(m => ({ default: m.MyApp }))
-)
+const LazyMyApp = React.lazy(() => import("./MyApp").then((m) => ({ default: m.MyApp })));
 
 appRegistry.register({
-  id: 'my-app',
-  component: LazyMyApp,  // Only loads when app is launched
+  id: "my-app",
+  component: LazyMyApp, // Only loads when app is launched
   // ...
-})
+});
 ```
 
 ---
@@ -192,22 +187,22 @@ appRegistry.register({
 ### Example 1: Login Form
 
 ```tsx
-import { Button, Input } from '@kingsimba/nc-ui'
-import { useState } from 'react'
+import { Button, Input } from "@kingsimba/nc-ui";
+import { useState } from "react";
 
 function LoginForm() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
-      await login(email, password)
+      await login(email, password);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="nc-col" style={{ gap: 16 }}>
@@ -227,16 +222,11 @@ function LoginForm() {
         onChange={setPassword}
         onEnter={handleSubmit}
       />
-      <Button
-        variant="primary"
-        block
-        loading={loading}
-        onClick={handleSubmit}
-      >
-        {loading ? 'Signing in...' : 'Sign in'}
+      <Button variant="primary" block loading={loading} onClick={handleSubmit}>
+        {loading ? "Signing in..." : "Sign in"}
       </Button>
     </div>
-  )
+  );
 }
 ```
 
@@ -245,23 +235,23 @@ function LoginForm() {
 ### Example 2: Settings Panel
 
 ```tsx
-import { ComboBox, Toggle, Slider, Button } from '@kingsimba/nc-ui'
-import { showNotification } from '@kingsimba/nc-ui'
-import { useState } from 'react'
+import { ComboBox, Toggle, Slider, Button } from "@kingsimba/nc-ui";
+import { showNotification } from "@kingsimba/nc-ui";
+import { useState } from "react";
 
 function SettingsPanel() {
-  const [theme, setTheme] = useState('dark')
-  const [notifications, setNotifications] = useState(true)
-  const [volume, setVolume] = useState(75)
+  const [theme, setTheme] = useState("dark");
+  const [notifications, setNotifications] = useState(true);
+  const [volume, setVolume] = useState(75);
 
   const handleSave = () => {
     // Save settings...
     showNotification({
-      message: 'Settings saved successfully',
-      type: 'success',
+      message: "Settings saved successfully",
+      type: "success",
       duration: 3000,
-    })
-  }
+    });
+  };
 
   return (
     <div className="nc-col" style={{ gap: 24, padding: 20 }}>
@@ -270,31 +260,21 @@ function SettingsPanel() {
         value={theme}
         onChange={setTheme}
         options={[
-          { label: 'Dark', value: 'dark', default: true },
-          { label: 'Light', value: 'light' },
-          { label: 'Auto', value: 'auto' },
+          { label: "Dark", value: "dark", default: true },
+          { label: "Light", value: "light" },
+          { label: "Auto", value: "auto" },
         ]}
       />
 
-      <Toggle
-        label="Enable notifications"
-        checked={notifications}
-        onChange={setNotifications}
-      />
+      <Toggle label="Enable notifications" checked={notifications} onChange={setNotifications} />
 
-      <Slider
-        label="Volume"
-        value={volume}
-        onChange={setVolume}
-        min={0}
-        max={100}
-      />
+      <Slider label="Volume" value={volume} onChange={setVolume} min={0} max={100} />
 
       <Button variant="primary" onClick={handleSave}>
         Save Settings
       </Button>
     </div>
-  )
+  );
 }
 ```
 
@@ -303,31 +283,27 @@ function SettingsPanel() {
 ### Example 3: Delete Confirmation Dialog
 
 ```tsx
-import { Dialog, Button } from '@kingsimba/nc-ui'
-import { TrashIcon } from '@kingsimba/nc-ui/icons'
-import { useState } from 'react'
+import { Dialog, Button } from "@kingsimba/nc-ui";
+import { TrashIcon } from "@kingsimba/nc-ui/icons";
+import { useState } from "react";
 
 function DeleteButton({ itemName, onDelete }) {
-  const [showDialog, setShowDialog] = useState(false)
-  const [deleting, setDeleting] = useState(false)
+  const [showDialog, setShowDialog] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   const handleConfirm = async () => {
-    setDeleting(true)
+    setDeleting(true);
     try {
-      await onDelete()
-      setShowDialog(false)
+      await onDelete();
+      setShowDialog(false);
     } finally {
-      setDeleting(false)
+      setDeleting(false);
     }
-  }
+  };
 
   return (
     <>
-      <Button
-        variant="danger"
-        size="small"
-        onClick={() => setShowDialog(true)}
-      >
+      <Button variant="danger" size="small" onClick={() => setShowDialog(true)}>
         <TrashIcon size={16} />
         Delete
       </Button>
@@ -341,23 +317,19 @@ function DeleteButton({ itemName, onDelete }) {
             <Button onClick={() => setShowDialog(false)} disabled={deleting}>
               Cancel
             </Button>
-            <Button
-              variant="danger"
-              onClick={handleConfirm}
-              loading={deleting}
-            >
+            <Button variant="danger" onClick={handleConfirm} loading={deleting}>
               Delete
             </Button>
           </>
         }
       >
-        <p>Are you sure you want to delete <strong>{itemName}</strong>?</p>
-        <p style={{ color: 'var(--nc-text-weak)' }}>
-          This action cannot be undone.
+        <p>
+          Are you sure you want to delete <strong>{itemName}</strong>?
         </p>
+        <p style={{ color: "var(--nc-text-weak)" }}>This action cannot be undone.</p>
       </Dialog>
     </>
-  )
+  );
 }
 ```
 
@@ -366,55 +338,42 @@ function DeleteButton({ itemName, onDelete }) {
 ### Example 4: Searchable List
 
 ```tsx
-import { Input, ListGroup, ActivityIndicator } from '@kingsimba/nc-ui'
-import { useState, useEffect } from 'react'
+import { Input, ListGroup, ActivityIndicator } from "@kingsimba/nc-ui";
+import { useState, useEffect } from "react";
 
 function SearchableList({ items, onSelect }) {
-  const [search, setSearch] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [filtered, setFiltered] = useState(items)
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [filtered, setFiltered] = useState(items);
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     const timer = setTimeout(() => {
-      const query = search.toLowerCase()
-      setFiltered(
-        items.filter(item =>
-          item.name.toLowerCase().includes(query)
-        )
-      )
-      setLoading(false)
-    }, 300)
+      const query = search.toLowerCase();
+      setFiltered(items.filter((item) => item.name.toLowerCase().includes(query)));
+      setLoading(false);
+    }, 300);
 
-    return () => clearTimeout(timer)
-  }, [search, items])
+    return () => clearTimeout(timer);
+  }, [search, items]);
 
   return (
     <div className="nc-col" style={{ gap: 12 }}>
-      <Input
-        placeholder="Search items..."
-        value={search}
-        onChange={setSearch}
-        clearable
-      />
+      <Input placeholder="Search items..." value={search} onChange={setSearch} clearable />
 
       {loading ? (
         <ActivityIndicator />
       ) : (
         <ListGroup>
-          {filtered.map(item => (
-            <div
-              key={item.id}
-              className="nc-list-group-item"
-              onClick={() => onSelect(item)}
-            >
+          {filtered.map((item) => (
+            <div key={item.id} className="nc-list-group-item" onClick={() => onSelect(item)}>
               {item.name}
             </div>
           ))}
         </ListGroup>
       )}
     </div>
-  )
+  );
 }
 ```
 
@@ -423,32 +382,32 @@ function SearchableList({ items, onSelect }) {
 ### Example 5: App Registration with Lazy Loading
 
 ```tsx
-import React from 'react'
-import { appRegistry } from '@kingsimba/nc-ui'
-import { CalculatorIcon } from './icons'
+import React from "react";
+import { appRegistry } from "@kingsimba/nc-ui";
+import { CalculatorIcon } from "./icons";
 
 // Lazy load app
 const LazyCalculator = React.lazy(() =>
-  import('./Calculator').then(m => ({ default: m.Calculator }))
-)
+  import("./Calculator").then((m) => ({ default: m.Calculator })),
+);
 
 // Register app
 appRegistry.register({
-  id: 'calculator',
-  title: 'Calculator',  // App display title
+  id: "calculator",
+  title: "Calculator", // App display title
   icon: CalculatorIcon,
   component: LazyCalculator,
   width: 360,
   padding: 16,
-})
+});
 
 // In Calculator.tsx
-import { useApp } from '@kingsimba/nc-ui'
-import { Button } from '@kingsimba/nc-ui'
+import { useApp } from "@kingsimba/nc-ui";
+import { Button } from "@kingsimba/nc-ui";
 
 export function Calculator() {
-  const { close } = useApp()
-  const [result, setResult] = useState('0')
+  const { close } = useApp();
+  const [result, setResult] = useState("0");
 
   return (
     <div className="nc-col" style={{ gap: 8 }}>
@@ -456,7 +415,7 @@ export function Calculator() {
       {/* Calculator buttons... */}
       <Button onClick={close}>Close</Button>
     </div>
-  )
+  );
 }
 ```
 
@@ -465,6 +424,7 @@ export function Calculator() {
 ## Best Practices Summary
 
 ### ✅ DO:
+
 - Always use nc-ui components instead of native HTML
 - Use `variant` and `size` props for styling
 - Use CSS variables for colors
@@ -477,6 +437,7 @@ export function Calculator() {
 - Clean up effects in app components
 
 ### ❌ DON'T:
+
 - Use native HTML form elements
 - Forget the `nc-` prefix on classes and CSS variables
 - Import icons from main entry point

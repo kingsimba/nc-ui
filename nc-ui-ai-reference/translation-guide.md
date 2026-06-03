@@ -12,18 +12,20 @@ nc-ui apps use a two-tier i18n system:
 ## Global i18n
 
 ### Files
+
 - **Translation files**: `src/locales/[lang].json` (en, zh, de, es, th)
 - **Configuration**: `src/i18n.ts`
 
 ### How it works
+
 The global i18n is initialized once at app startup using `i18next-browser-languagedetector` for automatic language detection:
 
 ```typescript
 // src/i18n.ts
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import en from './locales/en.json';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import en from "./locales/en.json";
 // ... other imports
 
 i18n
@@ -34,7 +36,7 @@ i18n
       en: { translation: en },
       // ... other languages
     },
-    fallbackLng: 'en',
+    fallbackLng: "en",
     interpolation: { escapeValue: false },
   });
 
@@ -42,18 +44,20 @@ export default i18n;
 ```
 
 ### Using global i18n in components
+
 Components using global i18n don't need `I18nextProvider` - just use `useTranslation()` directly:
 
 ```tsx
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 function MyComponent() {
   const { t } = useTranslation();
-  return <h1>{t('welcome.title')}</h1>;
+  return <h1>{t("welcome.title")}</h1>;
 }
 ```
 
 ### JSON structure
+
 ```json
 {
   "common": {
@@ -84,6 +88,7 @@ function MyComponent() {
 Apps with complex translations or that need isolation can use their own i18n instance.
 
 ### Files
+
 - **Factory**: Use `createAppI18nFactory` from `@kingsimba/nc-ui`
 - **App translations**: `src/apps/AppName/i18n.ts` - App-specific resources
 
@@ -91,7 +96,7 @@ Apps with complex translations or that need isolation can use their own i18n ins
 
 ```typescript
 // src/apps/Game2048/i18n.ts
-import { createAppI18nFactory } from '@kingsimba/nc-ui';
+import { createAppI18nFactory } from "@kingsimba/nc-ui";
 
 const resources = {
   en: {
@@ -110,17 +115,18 @@ export const game2048I18n = createAppI18nFactory(resources);
 ```
 
 ### Using app-specific i18n
+
 Wrap the app with `I18nextProvider`:
 
 ```tsx
 // src/apps/Game2048/Game2048.tsx
-import { I18nextProvider } from 'react-i18next';
-import { useTranslation } from 'react-i18next';
-import { game2048I18n } from './i18n';
+import { I18nextProvider } from "react-i18next";
+import { useTranslation } from "react-i18next";
+import { game2048I18n } from "./i18n";
 
 function Game2048Content() {
   const { t } = useTranslation();
-  return <button>{t('newGame')}</button>;
+  return <button>{t("newGame")}</button>;
 }
 
 export function Game2048() {
@@ -139,8 +145,9 @@ export function Game2048() {
 1. **Create locale file**: Copy `src/locales/en.json` to `src/locales/[lang].json`
 
 2. **Register in `src/i18n.ts`**:
+
 ```typescript
-import fr from './locales/fr.json';
+import fr from "./locales/fr.json";
 
 // Add to resources:
 i18n.init({
@@ -152,10 +159,11 @@ i18n.init({
 ```
 
 3. **Update language selector** in `App.tsx`:
+
 ```typescript
 const langOptions = [
   // ... existing
-  { label: 'Français', value: 'fr' },
+  { label: "Français", value: "fr" },
 ];
 ```
 
@@ -166,7 +174,7 @@ Add the language to the app's `i18n.ts` resources object.
 ## Supported Languages
 
 | Code | Language |
-|------|----------|
+| ---- | -------- |
 | en   | English  |
 | zh   | Chinese  |
 | de   | German   |
@@ -184,9 +192,9 @@ Add the language to the app's `i18n.ts` resources object.
 
 ## When to Use Each Approach
 
-| Scenario | Approach |
-|----------|----------|
-| Main app shell, header, welcome screen | Global i18n |
-| Simple apps (Calculator, StartApp) | Global i18n |
-| Complex apps with many strings (Game2048) | App-specific i18n |
-| Reusable components in src/ | Global i18n or props |
+| Scenario                                  | Approach             |
+| ----------------------------------------- | -------------------- |
+| Main app shell, header, welcome screen    | Global i18n          |
+| Simple apps (Calculator, StartApp)        | Global i18n          |
+| Complex apps with many strings (Game2048) | App-specific i18n    |
+| Reusable components in src/               | Global i18n or props |

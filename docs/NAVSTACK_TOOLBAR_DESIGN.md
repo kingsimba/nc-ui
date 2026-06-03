@@ -58,7 +58,7 @@ const NavViewContext = createContext<NavViewContextValue | null>(null);
 
 export function useNavView(): NavViewContextValue {
   const ctx = useContext(NavViewContext);
-  if (!ctx) throw new Error('useNavView must be used within NavStack');
+  if (!ctx) throw new Error("useNavView must be used within NavStack");
   return ctx;
 }
 ```
@@ -68,20 +68,23 @@ export function useNavView(): NavViewContextValue {
 ```tsx
 function NavViewProvider({ index, children }: { index: number; children: React.ReactNode }) {
   const { updateToolbar, clearToolbarAt, topIndex } = useNavStackInternal();
-  
+
   // Only allow updates if this view is the active (top) view
-  const setToolbar = useCallback((toolbar: React.ReactNode) => {
-    if (index === topIndex) {
-      updateToolbar(index, toolbar);
-    }
-  }, [index, topIndex, updateToolbar]);
-  
+  const setToolbar = useCallback(
+    (toolbar: React.ReactNode) => {
+      if (index === topIndex) {
+        updateToolbar(index, toolbar);
+      }
+    },
+    [index, topIndex, updateToolbar],
+  );
+
   const clearToolbar = useCallback(() => {
     if (index === topIndex) {
       clearToolbarAt(index);
     }
   }, [index, topIndex, clearToolbarAt]);
-  
+
   return (
     <NavViewContext.Provider value={{ setToolbar, clearToolbar }}>
       {children}
@@ -107,18 +110,18 @@ function NavViewProvider({ index, children }: { index: number; children: React.R
 
 ```tsx
 const push = useCallback((view: NavView) => {
-  setViewStack(prev => [...prev, view]);
-  setToolbarStack(prev => [...prev, null]); // New view starts with no toolbar
+  setViewStack((prev) => [...prev, view]);
+  setToolbarStack((prev) => [...prev, null]); // New view starts with no toolbar
   pushNavInUrl(view.id);
 }, []);
 
 const pop = useCallback(() => {
-  setViewStack(prev => {
+  setViewStack((prev) => {
     if (prev.length <= 1) return prev;
     popNavInUrl();
     return prev.slice(0, -1);
   });
-  setToolbarStack(prev => prev.slice(0, -1)); // Remove toolbar slot
+  setToolbarStack((prev) => prev.slice(0, -1)); // Remove toolbar slot
 }, []);
 ```
 
@@ -166,14 +169,14 @@ export function MapListView() {
 
 ### Why This Works
 
-| Scenario | Behavior |
-|----------|----------|
-| View A sets toolbar | Updates `toolbarStack[0]`, syncs to AppContainer |
-| Push View B | `toolbarStack` becomes `[A's toolbar, null]`, AppContainer shows `null` (cleared) |
-| View B sets toolbar | Updates `toolbarStack[1]`, syncs to AppContainer |
-| View A's effect re-runs (hidden) | `setToolbar` is a no-op because `index !== topIndex` |
-| Pop View B | `toolbarStack` becomes `[A's toolbar]`, AppContainer shows A's toolbar |
-| View A's `refreshing` changes | Effect re-runs, `setToolbar` updates `toolbarStack[0]` with fresh state |
+| Scenario                         | Behavior                                                                          |
+| -------------------------------- | --------------------------------------------------------------------------------- |
+| View A sets toolbar              | Updates `toolbarStack[0]`, syncs to AppContainer                                  |
+| Push View B                      | `toolbarStack` becomes `[A's toolbar, null]`, AppContainer shows `null` (cleared) |
+| View B sets toolbar              | Updates `toolbarStack[1]`, syncs to AppContainer                                  |
+| View A's effect re-runs (hidden) | `setToolbar` is a no-op because `index !== topIndex`                              |
+| Pop View B                       | `toolbarStack` becomes `[A's toolbar]`, AppContainer shows A's toolbar            |
+| View A's `refreshing` changes    | Effect re-runs, `setToolbar` updates `toolbarStack[0]` with fresh state           |
 
 ### Key Benefits
 

@@ -27,7 +27,7 @@ export type AppI18nResources = Record<string, Record<string, unknown>>;
  *   zh: { hello: '你好', greeting: '你好 {{name}}' },
  * };
  * const appI18n = createAppI18nFactory(resources);
- * 
+ *
  * // Use with react-i18next:
  * <I18nextProvider i18n={appI18n}>
  *   <YourApp />
@@ -35,42 +35,41 @@ export type AppI18nResources = Record<string, Record<string, unknown>>;
  * ```
  */
 export function createAppI18nFactory(resources: AppI18nResources) {
-    // Create isolated instance (not the global singleton)
-    const instance = i18next.createInstance();
+  // Create isolated instance (not the global singleton)
+  const instance = i18next.createInstance();
 
-    // Wrap resources in translation namespace structure
-    const wrappedResources: Record<string, { translation: Record<string, unknown> }> = {};
-    for (const lang in resources) {
-        wrappedResources[lang] = { translation: resources[lang] };
-    }
+  // Wrap resources in translation namespace structure
+  const wrappedResources: Record<string, { translation: Record<string, unknown> }> = {};
+  for (const lang in resources) {
+    wrappedResources[lang] = { translation: resources[lang] };
+  }
 
-    // Get initial language from document or fallback
-    const initialLang = typeof document !== 'undefined'
-        ? document.documentElement.lang || 'en'
-        : 'en';
+  // Get initial language from document or fallback
+  const initialLang =
+    typeof document !== 'undefined' ? document.documentElement.lang || 'en' : 'en';
 
-    // Initialize the instance
-    instance.init({
-        resources: wrappedResources,
-        lng: initialLang,
-        fallbackLng: 'en',
-        interpolation: {
-            escapeValue: false, // React already escapes by default
-        },
+  // Initialize the instance
+  instance.init({
+    resources: wrappedResources,
+    lng: initialLang,
+    fallbackLng: 'en',
+    interpolation: {
+      escapeValue: false, // React already escapes by default
+    },
+  });
+
+  // Watch for language changes on document.documentElement.lang
+  if (typeof MutationObserver !== 'undefined' && typeof document !== 'undefined') {
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'lang') {
+          const newLang = document.documentElement.lang || 'en';
+          instance.changeLanguage(newLang);
+        }
+      }
     });
+    observer.observe(document.documentElement, { attributes: true });
+  }
 
-    // Watch for language changes on document.documentElement.lang
-    if (typeof MutationObserver !== 'undefined' && typeof document !== 'undefined') {
-        const observer = new MutationObserver((mutations) => {
-            for (const mutation of mutations) {
-                if (mutation.type === 'attributes' && mutation.attributeName === 'lang') {
-                    const newLang = document.documentElement.lang || 'en';
-                    instance.changeLanguage(newLang);
-                }
-            }
-        });
-        observer.observe(document.documentElement, { attributes: true });
-    }
-
-    return instance;
+  return instance;
 }

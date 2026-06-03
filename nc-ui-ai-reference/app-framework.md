@@ -32,9 +32,7 @@ import { appRegistry } from "@kingsimba/nc-ui";
 import { MyAppIcon } from "./icons";
 
 // Use React.lazy for code splitting
-const LazyMyApp = React.lazy(() =>
-  import("./MyApp").then((m) => ({ default: m.MyApp })),
-);
+const LazyMyApp = React.lazy(() => import("./MyApp").then((m) => ({ default: m.MyApp })));
 
 appRegistry.register({
   id: "my-app", // Unique ID
@@ -104,9 +102,7 @@ import { AppTaskbar } from "@kingsimba/nc-ui";
   pinnedAppIds={["home", "search", "settings"]}
   side="right"
   getBadge={(app) =>
-    app.id === "alerts"
-      ? { content: 3, tone: "warning", ariaLabel: "3 alerts" }
-      : null
+    app.id === "alerts" ? { content: 3, tone: "warning", ariaLabel: "3 alerts" } : null
   }
   showIndicators={false} // Hide the running/active dot under each icon
 />;

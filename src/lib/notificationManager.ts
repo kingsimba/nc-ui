@@ -1,7 +1,4 @@
-import {
-  addNotification,
-  type NotificationOptions,
-} from '../stores/notificationStore';
+import { addNotification, type NotificationOptions } from '../stores/notificationStore';
 
 export function showNotification(notification: NotificationOptions): string {
   return addNotification(notification);

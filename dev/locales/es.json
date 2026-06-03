@@ -1,66 +1,66 @@
 {
-    "common": {
-        "default": "predeterminado",
-        "noResults": "Sin resultados",
-        "close": "Cerrar",
-        "clear": "Limpiar",
-        "open": "Abrir",
-        "ok": "Aceptar",
-        "cancel": "Cancelar",
-        "save": "Guardar",
-        "delete": "Eliminar",
-        "connect": "Conectar",
-        "gotit": "Entendido",
-        "success": "Éxito",
-        "error": "Error",
-        "warning": "Advertencia",
-        "info": "Información"
+  "common": {
+    "default": "predeterminado",
+    "noResults": "Sin resultados",
+    "close": "Cerrar",
+    "clear": "Limpiar",
+    "open": "Abrir",
+    "ok": "Aceptar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "connect": "Conectar",
+    "gotit": "Entendido",
+    "success": "Éxito",
+    "error": "Error",
+    "warning": "Advertencia",
+    "info": "Información"
+  },
+  "apps": {
+    "start": "Inicio",
+    "2048": {
+      "name": "2048"
     },
-    "apps": {
-        "start": "Inicio",
-        "2048": {
-            "name": "2048"
-        },
-        "calculator": "Calculadora",
-        "uiComponents": "Componentes UI",
-        "settingsDemo": "Demo de ajustes"
+    "calculator": "Calculadora",
+    "uiComponents": "Componentes UI",
+    "settingsDemo": "Demo de ajustes"
+  },
+  "theme": {
+    "light": "☀️ Claro",
+    "dark": "🌙 Oscuro"
+  },
+  "welcome": {
+    "title": "Bienvenido a nc-ui",
+    "subtitle": "Una biblioteca de componentes React con estilo Windows 11",
+    "features": {
+      "title": "Características principales",
+      "lightweight": "🚀 Ligero: Solo ~75KB de tamaño de paquete",
+      "framework": "🏗️ Marco de aplicación: Aplicaciones ventanas flexibles",
+      "crossPlatform": "📱 Multiplataforma: Listo para escritorio y móvil",
+      "components": "🛠️ 23+ Componentes: Biblioteca UI esencial",
+      "aiGuide": "🤖 Optimizado para IA: Guía de referencia AI completa incluida"
     },
-    "theme": {
-        "light": "☀️ Claro",
-        "dark": "🌙 Oscuro"
+    "taskbarDemo": {
+      "title": "Controles de demostración de la barra de tareas",
+      "layout": "Diseño del panel",
+      "side": "Lado de la barra",
+      "indicators": "Puntos de la barra de tareas",
+      "badge": "Insignia de alerta",
+      "alertAriaLabel": "{{count}} alertas de demostración",
+      "options": {
+        "overlay": "Superposición",
+        "sideBySide": "Lado a lado",
+        "left": "Izquierda",
+        "right": "Derecha",
+        "on": "Activado",
+        "off": "Desactivado"
+      }
     },
-    "welcome": {
-        "title": "Bienvenido a nc-ui",
-        "subtitle": "Una biblioteca de componentes React con estilo Windows 11",
-        "features": {
-            "title": "Características principales",
-            "lightweight": "🚀 Ligero: Solo ~75KB de tamaño de paquete",
-            "framework": "🏗️ Marco de aplicación: Aplicaciones ventanas flexibles",
-            "crossPlatform": "📱 Multiplataforma: Listo para escritorio y móvil",
-            "components": "🛠️ 23+ Componentes: Biblioteca UI esencial",
-            "aiGuide": "🤖 Optimizado para IA: Guía de referencia AI completa incluida"
-        },
-        "taskbarDemo": {
-            "title": "Controles de demostración de la barra de tareas",
-            "layout": "Diseño del panel",
-            "side": "Lado de la barra",
-            "indicators": "Puntos de la barra de tareas",
-            "badge": "Insignia de alerta",
-            "alertAriaLabel": "{{count}} alertas de demostración",
-            "options": {
-                "overlay": "Superposición",
-                "sideBySide": "Lado a lado",
-                "left": "Izquierda",
-                "right": "Derecha",
-                "on": "Activado",
-                "off": "Desactivado"
-            }
-        },
-        "startBtn": "Inicio"
-    },
-    "startApp": {
-        "apps": "Aplicaciones",
-        "clickToLaunch": "Haz clic para iniciar",
-        "noApps": "No hay apps"
-    }
+    "startBtn": "Inicio"
+  },
+  "startApp": {
+    "apps": "Aplicaciones",
+    "clickToLaunch": "Haz clic para iniciar",
+    "noApps": "No hay apps"
+  }
 }

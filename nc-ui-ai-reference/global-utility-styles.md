@@ -313,9 +313,7 @@ function DocsSection() {
 import '@kingsimba/nc-ui/styles.css'`}
       </div>
 
-      <div className="block note icon">
-        ℹ️ Make sure to import the styles.css file!
-      </div>
+      <div className="block note icon">ℹ️ Make sure to import the styles.css file!</div>
     </div>
   );
 }
@@ -380,8 +378,8 @@ function CodeExample() {
       </div>
 
       <div className="block note">
-        The <code>variant</code> prop controls the button's appearance.
-        Available variants: primary, danger, warning, success, ghost.
+        The <code>variant</code> prop controls the button's appearance. Available variants: primary,
+        danger, warning, success, ghost.
       </div>
     </div>
   );

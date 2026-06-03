@@ -31,9 +31,7 @@ import { appRegistry } from "@kingsimba/nc-ui";
 import { MyAppIcon } from "./MyAppIcon";
 
 // Use React.lazy for code-splitting
-const LazyMyApp = React.lazy(() =>
-  import("./MyApp").then((m) => ({ default: m.MyApp })),
-);
+const LazyMyApp = React.lazy(() => import("./MyApp").then((m) => ({ default: m.MyApp })));
 
 appRegistry.register({
   id: "my-app",
@@ -65,9 +63,7 @@ import { AppTaskbar } from "@kingsimba/nc-ui";
   pinnedAppIds={["home", "search", "settings"]}
   side="right"
   getBadge={(app) =>
-    app.id === "alerts"
-      ? { content: 3, tone: "warning", ariaLabel: "3 alerts" }
-      : null
+    app.id === "alerts" ? { content: 3, tone: "warning", ariaLabel: "3 alerts" } : null
   }
   showIndicators={false}
 />;
@@ -352,9 +348,7 @@ Features:
 Always use `React.lazy()` for app components to enable code-splitting:
 
 ```tsx
-const LazyMyApp = React.lazy(() =>
-  import("./MyApp").then((m) => ({ default: m.MyApp })),
-);
+const LazyMyApp = React.lazy(() => import("./MyApp").then((m) => ({ default: m.MyApp })));
 ```
 
 ### Clean Up Effects

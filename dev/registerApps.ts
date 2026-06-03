@@ -9,25 +9,25 @@ import { StartApp } from './StartApp';
 const LazyGame2048 = React.lazy(() =>
   import('./Game2048/Game2048').then((m) => ({
     default: m.Game2048,
-  }))
+  })),
 );
 
 const LazyCalculator = React.lazy(() =>
   import('./Calculator/Calculator').then((m) => ({
     default: m.Calculator,
-  }))
+  })),
 );
 
 const LazyUIComponents = React.lazy(() =>
   import('./UIComponentsDemo/UIComponentsDemo').then((m) => ({
     default: m.UIComponentsDemo,
-  }))
+  })),
 );
 
 const LazyNavStackDemo = React.lazy(() =>
   import('./NavStackDemo/NavStackDemo').then((m) => ({
     default: m.NavStackDemo,
-  }))
+  })),
 );
 
 /**

@@ -17,20 +17,31 @@ This is a React UI component library. Follow these conventions when contributing
 
 ```css
 /* ✅ Component styles - use nc- prefix */
-.nc-button { }
-.nc-button.nc-primary { }
-.nc-dialog { }
+.nc-button {
+}
+.nc-button.nc-primary {
+}
+.nc-dialog {
+}
 ```
 
 **Reusable public styles** (typography, tags, utilities) don't need the prefix:
 
 ```css
 /* ✅ Public utility styles - no prefix needed */
-.h1, .h2, .h3, .h4 { }
-.code { }
-.code-block { }
-.tag { }
-.tag.red { }
+.h1,
+.h2,
+.h3,
+.h4 {
+}
+.code {
+}
+.code-block {
+}
+.tag {
+}
+.tag.red {
+}
 ```
 
 **CSS variables** always use the `nc-` prefix:
@@ -55,19 +66,12 @@ When creating a new component:
 // src/components/MyComponent.tsx
 export interface MyComponentProps {
   /** Document each prop with JSDoc */
-  size?: 'small' | 'default' | 'large';
+  size?: "small" | "default" | "large";
   className?: string;
 }
 
-export function MyComponent({
-  size = 'default',
-  className = '',
-}: MyComponentProps) {
-  return (
-    <div className={`nc-my-component nc-${size} ${className}`}>
-      {/* content */}
-    </div>
-  );
+export function MyComponent({ size = "default", className = "" }: MyComponentProps) {
+  return <div className={`nc-my-component nc-${size} ${className}`}>{/* content */}</div>;
 }
 ```
 
@@ -90,7 +94,7 @@ export function MyComponent({
   --nc-success: ...;
   --nc-text: ...;
   --nc-text-weak: ...;
-  
+
   /* Component-specific */
   --nc-button-bg: ...;
   --nc-button-border: ...;
@@ -103,7 +107,7 @@ export function MyComponent({
 2. Add styles to `src/styles/theme.css` with `nc-` prefix
 3. Export from `src/index.ts`:
    ```ts
-   export { NewComponent } from './components/NewComponent'
+   export { NewComponent } from "./components/NewComponent";
    ```
 4. Update README.md with usage examples
 

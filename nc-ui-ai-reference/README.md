@@ -70,14 +70,17 @@ your-project/
 ### Entry Files (Copy to Project)
 
 **`copilot-instructions.md`**
+
 Concise entry point for GitHub Copilot with critical rules and quick reference. Copy to `.github/copilot-instructions.md` in your project.
 
 **`claude-context.md`**
+
 Detailed entry point for Claude Code with architecture overview and common patterns. Copy to `.claude/project-context.md` in your project.
 
 ### Reference Documentation (Copy Entire Folder)
 
 **`architecture.md`**
+
 Comprehensive guide covering:
 
 - CSS naming conventions (nc- prefix for components, no prefix for utilities)
@@ -87,6 +90,7 @@ Comprehensive guide covering:
 - Project structure
 
 **`components-quick-reference.md`**
+
 Complete API reference for all 23+ components:
 
 - Import patterns
@@ -95,6 +99,7 @@ Complete API reference for all 23+ components:
 - TypeScript support
 
 **`global-utility-styles.md`**
+
 Global utility styles (WITHOUT `nc-` prefix):
 
 - Typography (h1, h2, h3, h4)
@@ -106,6 +111,7 @@ Global utility styles (WITHOUT `nc-` prefix):
 - Lists (ul, ol, ul.no-dots)
 
 **`examples-and-antipatterns.md`**
+
 Practical examples and common mistakes:
 
 - ❌ Wrong patterns (using native HTML, wrong event handlers)
@@ -204,4 +210,5 @@ The AI should then:
 ---
 
 **Questions or Issues?**
+
 If AIs are not following nc-ui conventions after setup, the documentation may need updates. Please open an issue in the nc-ui repository.

@@ -44,13 +44,7 @@ nc-ui provides global styles for common HTML elements:
 
 ```tsx
 // Main components
-import {
-  Button,
-  Input,
-  ComboBox,
-  Dialog,
-  ActivityIndicator,
-} from "@kingsimba/nc-ui";
+import { Button, Input, ComboBox, Dialog, ActivityIndicator } from "@kingsimba/nc-ui";
 import "@kingsimba/nc-ui/styles.css";
 
 // Icons - SEPARATE entry point to keep bundle small
@@ -108,9 +102,7 @@ If this project uses nc-ui's app framework:
 import { appRegistry, runningAppsStore, useApp } from "@kingsimba/nc-ui";
 
 // Register apps with lazy loading
-const LazyMyApp = React.lazy(() =>
-  import("./MyApp").then((m) => ({ default: m.MyApp })),
-);
+const LazyMyApp = React.lazy(() => import("./MyApp").then((m) => ({ default: m.MyApp })));
 
 appRegistry.register({
   id: "my-app",

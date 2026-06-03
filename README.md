@@ -130,9 +130,7 @@ function MyApp() {
 }
 
 // 2. Register the app (with lazy loading)
-const LazyMyApp = React.lazy(() =>
-  import("./MyApp").then((m) => ({ default: m.MyApp })),
-);
+const LazyMyApp = React.lazy(() => import("./MyApp").then((m) => ({ default: m.MyApp })));
 
 appRegistry.register({
   id: "my-app",

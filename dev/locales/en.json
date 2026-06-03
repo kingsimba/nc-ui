@@ -1,66 +1,66 @@
 {
-    "common": {
-        "default": "default",
-        "noResults": "No results",
-        "close": "Close",
-        "clear": "Clear",
-        "open": "Open",
-        "ok": "OK",
-        "cancel": "Cancel",
-        "save": "Save",
-        "delete": "Delete",
-        "connect": "Connect",
-        "gotit": "Got it",
-        "success": "Success",
-        "error": "Error",
-        "warning": "Warning",
-        "info": "Info"
+  "common": {
+    "default": "default",
+    "noResults": "No results",
+    "close": "Close",
+    "clear": "Clear",
+    "open": "Open",
+    "ok": "OK",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "connect": "Connect",
+    "gotit": "Got it",
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Info"
+  },
+  "apps": {
+    "start": "Start",
+    "2048": {
+      "name": "2048"
     },
-    "apps": {
-        "start": "Start",
-        "2048": {
-            "name": "2048"
-        },
-        "calculator": "Calculator",
-        "uiComponents": "UI Components",
-        "settingsDemo": "Settings Demo"
+    "calculator": "Calculator",
+    "uiComponents": "UI Components",
+    "settingsDemo": "Settings Demo"
+  },
+  "theme": {
+    "light": "☀️ Light",
+    "dark": "🌙 Dark"
+  },
+  "welcome": {
+    "title": "Welcome to nc-ui",
+    "subtitle": "A React component library with Windows 11 styling",
+    "features": {
+      "title": "Main Features",
+      "lightweight": "🚀 Lightweight: Only ~75KB bundle size",
+      "framework": "🏗️ App Framework: Flexible windowed apps",
+      "crossPlatform": "📱 Cross-Platform: Desktop & mobile ready",
+      "components": "🛠️ 23+ Components: Library of UI essentials",
+      "aiGuide": "🤖 AI-Optimized: Comprehensive AI reference guide included"
     },
-    "theme": {
-        "light": "☀️ Light",
-        "dark": "🌙 Dark"
+    "taskbarDemo": {
+      "title": "Taskbar Demo Controls",
+      "layout": "Panel Layout",
+      "side": "Rail Side",
+      "indicators": "Taskbar Dots",
+      "badge": "Alert Badge",
+      "alertAriaLabel": "{{count}} demo alerts",
+      "options": {
+        "overlay": "Overlay",
+        "sideBySide": "Side by Side",
+        "left": "Left",
+        "right": "Right",
+        "on": "On",
+        "off": "Off"
+      }
     },
-    "welcome": {
-        "title": "Welcome to nc-ui",
-        "subtitle": "A React component library with Windows 11 styling",
-        "features": {
-            "title": "Main Features",
-            "lightweight": "🚀 Lightweight: Only ~75KB bundle size",
-            "framework": "🏗️ App Framework: Flexible windowed apps",
-            "crossPlatform": "📱 Cross-Platform: Desktop & mobile ready",
-            "components": "🛠️ 23+ Components: Library of UI essentials",
-            "aiGuide": "🤖 AI-Optimized: Comprehensive AI reference guide included"
-        },
-        "taskbarDemo": {
-            "title": "Taskbar Demo Controls",
-            "layout": "Panel Layout",
-            "side": "Rail Side",
-            "indicators": "Taskbar Dots",
-            "badge": "Alert Badge",
-            "alertAriaLabel": "{{count}} demo alerts",
-            "options": {
-                "overlay": "Overlay",
-                "sideBySide": "Side by Side",
-                "left": "Left",
-                "right": "Right",
-                "on": "On",
-                "off": "Off"
-            }
-        },
-        "startBtn": "Start"
-    },
-    "startApp": {
-        "apps": "Apps",
-        "clickToLaunch": "Click to launch",
-        "noApps": "No apps registered"
-    }
+    "startBtn": "Start"
+  },
+  "startApp": {
+    "apps": "Apps",
+    "clickToLaunch": "Click to launch",
+    "noApps": "No apps registered"
+  }
 }

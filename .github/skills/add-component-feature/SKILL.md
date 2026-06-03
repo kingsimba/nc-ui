@@ -1,7 +1,7 @@
 ---
 name: add-component-feature
 description: Add a new prop or feature to an existing nc-ui component. Use this skill when the user wants to extend a component with new behavior, a new prop, a callback, or a visual option.
-argument-hint: '[component name] [feature description]'
+argument-hint: "[component name] [feature description]"
 ---
 
 # Adding a Feature to an Existing Component
@@ -86,11 +86,11 @@ Open the corresponding section file in `dev/UIComponentsDemo/sections/`, e.g. `T
 Example structure:
 
 ```tsx
-<section className='dev-section'>
+<section className="dev-section">
   <h2>Closable Tabs</h2>
-  <p style={{ marginBottom: 16, color: 'var(--nc-text-weak)' }}>
-    Provide <code>onClose</code> to show a close button on each tab. Use{' '}
-    <code>permanentTabs</code> to exclude specific tabs from being closable.
+  <p style={{ marginBottom: 16, color: "var(--nc-text-weak)" }}>
+    Provide <code>onClose</code> to show a close button on each tab. Use <code>permanentTabs</code>{" "}
+    to exclude specific tabs from being closable.
   </p>
   {/* demo JSX */}
 </section>

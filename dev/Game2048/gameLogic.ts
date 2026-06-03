@@ -121,7 +121,9 @@ export function move(tiles: Tile[], direction: Direction): MoveResult {
       let nextCol = col + dc;
 
       while (nextRow >= 0 && nextRow < GRID_SIZE && nextCol >= 0 && nextCol < GRID_SIZE) {
-        const obstacle = newTiles.find((t) => t.row === nextRow && t.col === nextCol && t.id !== tile.id);
+        const obstacle = newTiles.find(
+          (t) => t.row === nextRow && t.col === nextCol && t.id !== tile.id,
+        );
 
         if (obstacle) {
           // Check if can merge

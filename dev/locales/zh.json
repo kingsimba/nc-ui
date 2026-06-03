@@ -1,66 +1,66 @@
 {
-    "common": {
-        "default": "默认",
-        "noResults": "无结果",
-        "close": "关闭",
-        "clear": "清除",
-        "open": "打开",
-        "ok": "确定",
-        "cancel": "取消",
-        "save": "保存",
-        "delete": "删除",
-        "connect": "连接",
-        "gotit": "知道了",
-        "success": "成功",
-        "error": "错误",
-        "warning": "警告",
-        "info": "提示"
+  "common": {
+    "default": "默认",
+    "noResults": "无结果",
+    "close": "关闭",
+    "clear": "清除",
+    "open": "打开",
+    "ok": "确定",
+    "cancel": "取消",
+    "save": "保存",
+    "delete": "删除",
+    "connect": "连接",
+    "gotit": "知道了",
+    "success": "成功",
+    "error": "错误",
+    "warning": "警告",
+    "info": "提示"
+  },
+  "apps": {
+    "start": "开始",
+    "2048": {
+      "name": "2048"
     },
-    "apps": {
-        "start": "开始",
-        "2048": {
-            "name": "2048"
-        },
-        "calculator": "计算器",
-        "uiComponents": "UI 组件",
-        "settingsDemo": "设置演示"
+    "calculator": "计算器",
+    "uiComponents": "UI 组件",
+    "settingsDemo": "设置演示"
+  },
+  "theme": {
+    "light": "☀️ 浅色",
+    "dark": "🌙 深色"
+  },
+  "welcome": {
+    "title": "欢迎使用 nc-ui",
+    "subtitle": "采用 Windows 11 风格的 React 组件库",
+    "features": {
+      "title": "核心特性",
+      "lightweight": "🚀 轻量高效: 包体积仅 ~75KB",
+      "framework": "🏗️ 应用框架: 灵活可扩展的窗口化应用",
+      "crossPlatform": "📱 跨平台优化: 适配桌面端和移动端",
+      "components": "🛠️ 19+ 组件: 开箱即用的 UI 组件库",
+      "aiGuide": "🤖 AI 优化: 包含全面的 AI 参考指南"
     },
-    "theme": {
-        "light": "☀️ 浅色",
-        "dark": "🌙 深色"
+    "taskbarDemo": {
+      "title": "任务栏演示控制",
+      "layout": "面板布局",
+      "side": "任务栏位置",
+      "indicators": "任务栏圆点",
+      "badge": "提醒徽标",
+      "alertAriaLabel": "{{count}} 条演示提醒",
+      "options": {
+        "overlay": "覆盖",
+        "sideBySide": "并排",
+        "left": "左侧",
+        "right": "右侧",
+        "on": "开启",
+        "off": "关闭"
+      }
     },
-    "welcome": {
-        "title": "欢迎使用 nc-ui",
-        "subtitle": "采用 Windows 11 风格的 React 组件库",
-        "features": {
-            "title": "核心特性",
-            "lightweight": "🚀 轻量高效: 包体积仅 ~75KB",
-            "framework": "🏗️ 应用框架: 灵活可扩展的窗口化应用",
-            "crossPlatform": "📱 跨平台优化: 适配桌面端和移动端",
-            "components": "🛠️ 19+ 组件: 开箱即用的 UI 组件库",
-            "aiGuide": "🤖 AI 优化: 包含全面的 AI 参考指南"
-        },
-        "taskbarDemo": {
-            "title": "任务栏演示控制",
-            "layout": "面板布局",
-            "side": "任务栏位置",
-            "indicators": "任务栏圆点",
-            "badge": "提醒徽标",
-            "alertAriaLabel": "{{count}} 条演示提醒",
-            "options": {
-                "overlay": "覆盖",
-                "sideBySide": "并排",
-                "left": "左侧",
-                "right": "右侧",
-                "on": "开启",
-                "off": "关闭"
-            }
-        },
-        "startBtn": "开始"
-    },
-    "startApp": {
-        "apps": "应用",
-        "clickToLaunch": "点击启动",
-        "noApps": "没有注册的应用"
-    }
+    "startBtn": "开始"
+  },
+  "startApp": {
+    "apps": "应用",
+    "clickToLaunch": "点击启动",
+    "noApps": "没有注册的应用"
+  }
 }

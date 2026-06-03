@@ -22,11 +22,11 @@ nc-ui-ai-reference/
 
 When you use `@kingsimba/nc-ui` in a new project, AI assistants might default to using native HTML elements like `<button>` or `<select>`. This documentation helps them:
 
-✅ Use `<Button>` instead of `<button>`
-✅ Use `<ComboBox>` instead of `<select>`
-✅ Use `<Input>` instead of `<input>` or `<textarea>`
-✅ Follow nc-ui conventions (CSS prefix, import patterns, onChange behavior)
-✅ Avoid common mistakes (wrong event handlers, missing prefixes, etc.)
+- ✅ Use `<Button>` instead of `<button>`
+- ✅ Use `<ComboBox>` instead of `<select>`
+- ✅ Use `<Input>` instead of `<input>` or `<textarea>`
+- ✅ Follow nc-ui conventions (CSS prefix, import patterns, onChange behavior)
+- ✅ Avoid common mistakes (wrong event handlers, missing prefixes, etc.)
 
 ## For nc-ui Users (Integrating into Your Project)
 
@@ -40,12 +40,14 @@ cp -r /path/to/nc-ui/nc-ui-ai-reference /path/to/your-project/docs/nc-ui-ai-refe
 ### Step 2: Setup AI Entry Points
 
 #### For GitHub Copilot:
+
 ```bash
 mkdir -p .github
 cp docs/nc-ui-ai-reference/copilot-instructions.md .github/copilot-instructions.md
 ```
 
 #### For Claude Code:
+
 ```bash
 mkdir -p .claude
 cp docs/nc-ui-ai-reference/claude-context.md .claude/project-context.md
@@ -83,22 +85,26 @@ your-project/
 ## Benefits
 
 ### 🎯 Portable
+
 - Copy once, use in any project using nc-ui
 - Same documentation for all AI tools
 - Easy to update across projects
 
 ### 🔍 Discoverable
+
 - AI-specific entry points (Copilot, Claude)
 - Shared core documentation (no duplication)
 - Clear file organization
 
 ### 📚 Comprehensive
+
 - Complete component API reference
 - Architecture & conventions
 - Real-world examples
 - Common mistakes guide
 
 ### 🔧 Maintainable
+
 - Single source of truth in nc-ui repo
 - Update once, copy to projects
 - Clear separation of concerns
@@ -108,12 +114,14 @@ your-project/
 ### Entry Points (AI-Specific)
 
 **`copilot-instructions.md`**
+
 - Brief, focused guide for GitHub Copilot
 - Critical rules at the top
 - Quick component reference
 - Copy to `.github/copilot-instructions.md`
 
 **`claude-context.md`**
+
 - Detailed guide for Claude Code
 - Architecture overview
 - Common patterns with examples
@@ -122,6 +130,7 @@ your-project/
 ### Core Documentation (Shared)
 
 **`architecture.md`**
+
 - CSS naming conventions (nc- prefix)
 - Component patterns
 - Styling system & theme variables
@@ -129,18 +138,21 @@ your-project/
 - Project structure
 
 **`components-quick-reference.md`**
+
 - All 23+ components with examples
 - Import patterns
 - Props and TypeScript types
 - Migration guide (HTML → nc-ui)
 
 **`examples-and-antipatterns.md`**
+
 - ❌ Common mistakes (with fixes)
 - ✅ Correct usage patterns
 - Complete real-world examples
 - Best practices checklist
 
-**`app-framework.md`** *(Optional)*
+**`app-framework.md`** _(Optional)_
+
 - Only needed if using nc-ui's app framework
 - App registration & lifecycle
 - `useApp()` hook API
@@ -153,6 +165,7 @@ After setup, tell your AI:
 > "I'm using @kingsimba/nc-ui. Always use nc-ui components instead of native HTML elements. Check docs/nc-ui-ai-reference/ for the API."
 
 The AI should then automatically:
+
 - Use `<Button>` instead of `<button>`
 - Use `<Input>` instead of `<input>`
 - Use `<ComboBox>` instead of `<select>`
@@ -172,11 +185,13 @@ When nc-ui is updated:
 ## Troubleshooting
 
 **AI still using native HTML?**
+
 1. Check entry files exist (`.github/copilot-instructions.md` or `.claude/project-context.md`)
 2. Verify files are committed to git
 3. Explicitly mention nc-ui in your prompt
 
 **AI not finding docs?**
+
 1. Ensure `nc-ui-ai-reference/` is in `docs/` folder
 2. Check files are committed and pushed
 3. Reference files directly: "Check docs/nc-ui-ai-reference/components-quick-reference.md"

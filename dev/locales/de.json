@@ -1,66 +1,66 @@
 {
-    "common": {
-        "default": "Standard",
-        "noResults": "Keine Ergebnisse",
-        "close": "Schließen",
-        "clear": "Löschen",
-        "open": "Öffnen",
-        "ok": "OK",
-        "cancel": "Abbrechen",
-        "save": "Speichern",
-        "delete": "Löschen",
-        "connect": "Verbinden",
-        "gotit": "Verstanden",
-        "success": "Erfolg",
-        "error": "Fehler",
-        "warning": "Warnung",
-        "info": "Info"
+  "common": {
+    "default": "Standard",
+    "noResults": "Keine Ergebnisse",
+    "close": "Schließen",
+    "clear": "Löschen",
+    "open": "Öffnen",
+    "ok": "OK",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "connect": "Verbinden",
+    "gotit": "Verstanden",
+    "success": "Erfolg",
+    "error": "Fehler",
+    "warning": "Warnung",
+    "info": "Info"
+  },
+  "apps": {
+    "start": "Start",
+    "2048": {
+      "name": "2048"
     },
-    "apps": {
-        "start": "Start",
-        "2048": {
-            "name": "2048"
-        },
-        "calculator": "Rechner",
-        "uiComponents": "UI-Komponenten",
-        "settingsDemo": "Einstellungsdemo"
+    "calculator": "Rechner",
+    "uiComponents": "UI-Komponenten",
+    "settingsDemo": "Einstellungsdemo"
+  },
+  "theme": {
+    "light": "☀️ Hell",
+    "dark": "🌙 Dunkel"
+  },
+  "welcome": {
+    "title": "Willkommen bei nc-ui",
+    "subtitle": "Eine React-Komponentenbibliothek im Windows 11-Stil",
+    "features": {
+      "title": "Hauptmerkmale",
+      "lightweight": "🚀 Leichtgewichtig: Nur ~75KB Bundle-Größe",
+      "framework": "🏗️ App-Framework: Flexible fensterbasierte Apps",
+      "crossPlatform": "📱 Plattformübergreifend: Desktop und mobil ready",
+      "components": "🛠️ 23+ Komponenten: Wichtige UI-Komponenten",
+      "aiGuide": "🤖 KI-optimiert: Umfassender KI-Referenzleitfaden enthalten"
     },
-    "theme": {
-        "light": "☀️ Hell",
-        "dark": "🌙 Dunkel"
+    "taskbarDemo": {
+      "title": "Taskleisten-Demosteuerung",
+      "layout": "Panel-Layout",
+      "side": "Leistenseite",
+      "indicators": "Taskleisten-Punkte",
+      "badge": "Alarm-Badge",
+      "alertAriaLabel": "{{count}} Demo-Benachrichtigungen",
+      "options": {
+        "overlay": "Overlay",
+        "sideBySide": "Nebeneinander",
+        "left": "Links",
+        "right": "Rechts",
+        "on": "Ein",
+        "off": "Aus"
+      }
     },
-    "welcome": {
-        "title": "Willkommen bei nc-ui",
-        "subtitle": "Eine React-Komponentenbibliothek im Windows 11-Stil",
-        "features": {
-            "title": "Hauptmerkmale",
-            "lightweight": "🚀 Leichtgewichtig: Nur ~75KB Bundle-Größe",
-            "framework": "🏗️ App-Framework: Flexible fensterbasierte Apps",
-            "crossPlatform": "📱 Plattformübergreifend: Desktop und mobil ready",
-            "components": "🛠️ 23+ Komponenten: Wichtige UI-Komponenten",
-            "aiGuide": "🤖 KI-optimiert: Umfassender KI-Referenzleitfaden enthalten"
-        },
-        "taskbarDemo": {
-            "title": "Taskleisten-Demosteuerung",
-            "layout": "Panel-Layout",
-            "side": "Leistenseite",
-            "indicators": "Taskleisten-Punkte",
-            "badge": "Alarm-Badge",
-            "alertAriaLabel": "{{count}} Demo-Benachrichtigungen",
-            "options": {
-                "overlay": "Overlay",
-                "sideBySide": "Nebeneinander",
-                "left": "Links",
-                "right": "Rechts",
-                "on": "Ein",
-                "off": "Aus"
-            }
-        },
-        "startBtn": "Start"
-    },
-    "startApp": {
-        "apps": "Apps",
-        "clickToLaunch": "Klicken zum Starten",
-        "noApps": "Keine Apps registriert"
-    }
+    "startBtn": "Start"
+  },
+  "startApp": {
+    "apps": "Apps",
+    "clickToLaunch": "Klicken zum Starten",
+    "noApps": "Keine Apps registriert"
+  }
 }
