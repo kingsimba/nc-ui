@@ -2,7 +2,14 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 
-export type ComboBoxOption = { label: string; value: string; default?: boolean };
+export type ComboBoxOption = {
+  label: string;
+  value: string;
+  /** Marks this option as the default selection when no value is provided. */
+  default?: boolean;
+  /** When true, the option is rendered as disabled and cannot be selected via click, Enter, or arrow navigation. */
+  disabled?: boolean;
+};
 
 export interface ComboBoxProps {
   /** Currently selected value */
@@ -46,6 +53,7 @@ export interface ComboBoxProps {
 function DropdownOption({ option, onChange, selected, highlighted, small, renderOption, index }: { option: ComboBoxOption; onChange: (value: string, label: string) => void; selected?: boolean; highlighted?: boolean; small?: boolean; renderOption?: (option: ComboBoxOption, index: number, highlighted: boolean) => React.ReactNode; index: number }) {
   const optionRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
+  const isDisabled = option.disabled === true;
 
   // Scroll into view when highlighted
   useEffect(() => {
@@ -57,13 +65,18 @@ function DropdownOption({ option, onChange, selected, highlighted, small, render
   return (
     <div
       ref={optionRef}
-      className={`nc-combo-dropdown-option ${small ? 'nc-small' : ''} ${highlighted ? 'nc-highlighted' : ''}`}
+      className={`nc-combo-dropdown-option ${small ? 'nc-small' : ''} ${highlighted ? 'nc-highlighted' : ''} ${isDisabled ? 'nc-disabled' : ''}`}
       role="option"
-      onClick={() => onChange(option.value, option.label)}
+      onClick={() => {
+        if (isDisabled) return;
+        onChange(option.value, option.label);
+      }}
       aria-selected={selected}
+      aria-disabled={isDisabled}
       style={{
-        cursor: 'pointer',
-        background: highlighted ? 'rgba(59,130,246,0.18)' : selected ? 'rgba(59,130,246,0.12)' : undefined,
+        cursor: isDisabled ? 'default' : 'pointer',
+        opacity: isDisabled ? 0.4 : undefined,
+        background: highlighted && !isDisabled ? 'rgba(59,130,246,0.18)' : selected && !isDisabled ? 'rgba(59,130,246,0.12)' : undefined,
       }}
     >
       {renderOption ? renderOption(option, index, !!highlighted) : (
@@ -346,24 +359,45 @@ export function ComboBox({
       return;
     }
 
+    const findNextEnabled = (from: number, dir: 1 | -1): number => {
+      if (dir === 1) {
+        for (let j = from; j < filtered.length; j++) {
+          if (!filtered[j].disabled) return j;
+        }
+        for (let j = 0; j < from; j++) {
+          if (!filtered[j].disabled) return j;
+        }
+      } else {
+        for (let j = from; j >= 0; j--) {
+          if (!filtered[j].disabled) return j;
+        }
+        for (let j = filtered.length - 1; j > from; j--) {
+          if (!filtered[j].disabled) return j;
+        }
+      }
+      return from;
+    };
+
     switch (e.key) {
       case 'ArrowDown':
         e.preventDefault();
         setHighlightedIndex((prev) => {
           const next = prev + 1;
-          return next >= filtered.length ? 0 : next;
+          const candidate = next >= filtered.length ? 0 : next;
+          return findNextEnabled(candidate, 1);
         });
         break;
       case 'ArrowUp':
         e.preventDefault();
         setHighlightedIndex((prev) => {
           const next = prev - 1;
-          return next < 0 ? filtered.length - 1 : next;
+          const candidate = next < 0 ? filtered.length - 1 : next;
+          return findNextEnabled(candidate, -1);
         });
         break;
       case 'Enter':
         e.preventDefault();
-        if (highlightedIndex >= 0 && highlightedIndex < filtered.length) {
+        if (highlightedIndex >= 0 && highlightedIndex < filtered.length && !filtered[highlightedIndex].disabled) {
           handleSelect(filtered[highlightedIndex].value, filtered[highlightedIndex].label, true);
         }
         break;

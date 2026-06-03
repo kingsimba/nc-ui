@@ -75,14 +75,14 @@ export function ComboBoxSection() {
   const comboOptions = [
     { label: 'Option 1', value: 'opt1', default: true },
     { label: 'Option 2', value: 'opt2' },
-    { label: 'Option 3', value: 'opt3' },
+    { label: 'Option 3', value: 'opt3', disabled: true },
     { label: 'Long Option Name Here', value: 'opt4' },
   ];
 
   const largeOptions = [
     { label: 'Alice Anderson', value: 'alice' },
     { label: 'Bob Brown', value: 'bob' },
-    { label: 'Charlie Clark', value: 'charlie' },
+    { label: 'Charlie Clark', value: 'charlie', disabled: true },
     { label: 'David Davis', value: 'david' },
     { label: 'Eve Evans', value: 'eve' },
     { label: 'Frank Franklin', value: 'frank' },
@@ -114,6 +114,22 @@ export function ComboBoxSection() {
       <p style={{ marginBottom: 16, color: 'var(--nc-text-weak)' }}>
         Use <code>textAlign</code> when the closed control should read like a compact pill or toolbar item rather than a form field.
       </p>
+
+      <h3>Disabled Options</h3>
+      <p style={{ marginBottom: 16, color: 'var(--nc-text-weak)' }}>
+        Set <code>disabled: true</code> on any option to prevent selection. Disabled options are visually faded (opacity 0.4),
+        skipped by arrow key navigation, and cannot be selected via click or Enter. They remain visible in the dropdown
+        for context.
+      </p>
+      <div className="dev-col" style={{ maxWidth: 300 }}>
+        <ComboBox
+          label="Disabled options demo"
+          options={comboOptions}
+          value={comboValue4}
+          onChange={setComboValue4}
+        />
+      </div>
+
       <div className="dev-col" style={{ maxWidth: 300 }}>
         <ComboBox
           label="Default ComboBox"

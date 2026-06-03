@@ -171,7 +171,8 @@ import { ComboBox } from '@kingsimba/nc-ui'
   options={[
     { label: 'Option 1', value: '1' },
     { label: 'Option 2', value: '2' },
-    { label: 'Default Option', value: '3', default: true }
+    { label: 'Default Option', value: '3', default: true },
+    { label: 'Disabled Option', value: '4', disabled: true }
   ]}
 />
 
@@ -249,7 +250,7 @@ import { ComboBox } from '@kingsimba/nc-ui'
 
 **Props:** `value`, `onChange`, `options`, `candidates`, `renderOption`, `renderSelected`, `selectedOption`, `placeholder`, `disabled`, `label`, `clearable`, `allowTyping`, `placement`, `size`, `appearance`, `textAlign`
 
-**Option type:** `{ label: string, value: string, default?: boolean }`
+**Option shape:** `{ label: string; value: string; default?: boolean; disabled?: boolean }` — set `disabled: true` to prevent selection.
 
 ---
 
@@ -629,8 +630,7 @@ import { ListGroup, ListGroupItem } from "@kingsimba/nc-ui";
 </ListGroup>;
 ```
 
-**ListGroup Props:** `title`, `titleTools`, `children`, `style`
-**ListGroupItem Props:** `children`, `onClick`, `showBorder`, `selectable`, `style`
+**ListGroup Props:** `title`, `titleTools`, `children`, `style` **ListGroupItem Props:** `children`, `onClick`, `showBorder`, `selectable`, `style`
 
 ---
 

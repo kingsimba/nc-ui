@@ -462,6 +462,7 @@ input.nc-input.nc-small { height: 32px; }
 .nc-combo-dropdown-option { padding: 6px 10px; font-size: 12px; cursor: pointer; }
 .nc-combo-dropdown-option:not(.nc-small) { padding: 10px 12px; font-size: inherit; }
 .nc-combo-dropdown-option:hover { background: var(--nc-button-hover); }
+.nc-combo-dropdown-option.nc-disabled { opacity: 0.4; cursor: default; pointer-events: none; }
 
 .nc-combo-container.nc-align-center .nc-input { text-align: center; }
 .nc-combo-container.nc-align-right .nc-input { text-align: right; }
