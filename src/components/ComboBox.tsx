@@ -2,7 +2,14 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 
-export type ComboBoxOption = { label: string; value: string; default?: boolean; disabled?: boolean };
+export type ComboBoxOption = {
+  label: string;
+  value: string;
+  /** Marks this option as the default selection when no value is provided. */
+  default?: boolean;
+  /** When true, the option is rendered as disabled and cannot be selected via click, Enter, or arrow navigation. */
+  disabled?: boolean;
+};
 
 export interface ComboBoxProps {
   /** Currently selected value */
