@@ -136,6 +136,7 @@ export function Input({
   const skipPlainBlurCommitRef = useRef(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   // Support both controlled and uncontrolled modes
   const isControlled = controlledValue !== undefined;
@@ -159,7 +160,7 @@ export function Input({
 
   const isPasswordType = type === 'password';
   const showToggle = isPasswordType && showPasswordToggle && !disabled && !multiline;
-  const showClearButton = clearable && value && !disabled && isFocused;
+  const showClearButton = clearable && value && !disabled && (isFocused || isHovered);
 
   const buttonWidth = size === 'small' ? 32 : 44;
   let paddingRight = 12;
@@ -270,7 +271,10 @@ export function Input({
   const inputClassName = `nc-input ${size === 'small' ? 'nc-small ' : ''}${!multiline && appearance === 'plain' ? 'nc-plain ' : ''}${hasError ? 'nc-error ' : ''}${className}`;
 
   return (
-    <div className="nc-col" style={{ position: 'relative', flex: 1, ...style }}>
+    <div className="nc-col" style={{ position: 'relative', flex: 1, ...style }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {label && <span className="nc-label">{label}</span>}
       <div style={{ position: 'relative', display: 'flex', alignItems: multiline ? 'flex-start' : 'center' }}>
         {leadingIcon && (
