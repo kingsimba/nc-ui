@@ -75,14 +75,14 @@ export function ComboBoxSection() {
   const comboOptions = [
     { label: 'Option 1', value: 'opt1', default: true },
     { label: 'Option 2', value: 'opt2' },
-    { label: 'Option 3', value: 'opt3' },
+    { label: 'Option 3', value: 'opt3', disabled: true },
     { label: 'Long Option Name Here', value: 'opt4' },
   ];
 
   const largeOptions = [
     { label: 'Alice Anderson', value: 'alice' },
     { label: 'Bob Brown', value: 'bob' },
-    { label: 'Charlie Clark', value: 'charlie' },
+    { label: 'Charlie Clark', value: 'charlie', disabled: true },
     { label: 'David Davis', value: 'david' },
     { label: 'Eve Evans', value: 'eve' },
     { label: 'Frank Franklin', value: 'frank' },
