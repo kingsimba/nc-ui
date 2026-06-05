@@ -18,8 +18,8 @@
   /* UI element colors */
   --nc-border: #1f2937;
   --nc-button-border: #223042;
-  --nc-button-bg: var(--nc-bg-tertiary);
-  --nc-button-hover: #162332;
+  --nc-button-bg: #3b4551;
+  --nc-button-hover: #5a7799;
   --nc-button-active: #1d2e42;
   --nc-button-group-shell-bg: #1b2430;
   --nc-button-group-text: #a3afc2;
