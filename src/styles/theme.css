@@ -1320,8 +1320,43 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
   gap: 4px;
 }
 
+.nc-app-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.nc-app-container.nc-hidden {
+  display: none;
+}
+
 .nc-app-content-wrapper {
-  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--nc-bg-tertiary);
+  position: relative;
+}
+
+.nc-app-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  text-align: center;
+  color: var(--nc-text-weak);
+}
+
+.nc-app-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
 }
 
 /* App Taskbar */

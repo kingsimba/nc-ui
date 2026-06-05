@@ -42,19 +42,7 @@ class AppErrorBoundary extends React.Component<
   render() {
     if (this.state.hasError) {
       return (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flex: 1,
-            flexDirection: 'column',
-            gap: '16px',
-            padding: '20px',
-            textAlign: 'center',
-            color: 'var(--text-secondary)',
-          }}
-        >
+        <div className="nc-app-error">
           <div>Failed to load app</div>
           {this.state.error && (
             <div style={{ fontSize: '12px', opacity: 0.7 }}>
@@ -142,12 +130,7 @@ export function AppContainer({ appId, isActive, onClose }: AppContainerProps) {
 
   return (
     <div
-      style={{
-        display: isActive ? 'flex' : 'none',
-        flexDirection: 'column',
-        flex: 1,
-        minHeight: 0,
-      }}
+      className={`nc-app-container${isActive ? '' : ' nc-hidden'}`}
     >
       {showTitleBar && (
         <AppTitleBar
@@ -159,29 +142,17 @@ export function AppContainer({ appId, isActive, onClose }: AppContainerProps) {
         />
       )}
       <div
-        className={showTitleBar ? 'nc-app-content-wrapper' : ''}
+        className="nc-app-content-wrapper"
         style={{
           padding: def.padding,
-          flex: 1,
-          minHeight: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          backgroundColor: 'var(--nc-bg-tertiary)',
-          position: 'relative',
+          overflowY: showTitleBar ? 'auto' : undefined,
         }}
       >
         <AppContext.Provider value={appContextValue}>
           <AppErrorBoundary appId={appId}>
             <Suspense
               fallback={
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flex: 1,
-                  }}
-                >
+                <div className="nc-app-loading">
                   <ActivityIndicator />
                 </div>
               }
