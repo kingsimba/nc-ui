@@ -1,5 +1,6 @@
 # Changelog
 
+- 2026-06-14 Battery: Fix white-on-white text in monochrome dark mode
 - 2026-05-21 ComboBox: Add renderSelected and selectedOption props for rich selected-item display
 - 2026-05-20 ComboBox: Fix selected label not showing when mounted with value before candidates load
 - 2026-05-20 ComboBox: Add async server-side candidates with custom option rendering

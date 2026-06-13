@@ -32,8 +32,8 @@ export function Battery({
       fillColor = 'var(--nc-success)';
     }
   } else {
-    // Monochrome mode based on darkMode
-    fillColor = darkMode ? '#ffffff' : '#000000';
+    // Monochrome mode based on darkMode — use semi-transparent white for dark theme to keep text readable
+    fillColor = darkMode ? 'rgba(255,255,255,0.35)' : '#000000';
   }
 
   // Semi-transparent background color

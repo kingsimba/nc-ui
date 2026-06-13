@@ -37,7 +37,7 @@
   --nc-transparent-control-hover-bg: rgba(255, 255, 255, 0.12);
   --nc-transparent-control-hover-border: rgba(255, 255, 255, 0.68);
   --nc-battery-text-contrast: var(--nc-text);
-  --nc-battery-shell-bg: rgba(255, 255, 255, 0.24);
+  --nc-battery-shell-bg: rgba(255, 255, 255, 0.20);
   --nc-notification-info-bg: color-mix(in srgb, var(--nc-bg-tertiary) 72%, var(--nc-primary));
   --nc-notification-info-icon-bg: color-mix(in srgb, var(--nc-bg-quaternary) 68%, var(--nc-primary));
   --nc-notification-warning-bg: color-mix(in srgb, var(--nc-bg-tertiary) 70%, var(--nc-warning));
