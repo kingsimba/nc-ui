@@ -808,17 +808,26 @@ input.nc-input.nc-small { height: 32px; }
 }
 
 /* NumberInput component */
-.nc-number-input-container { display: flex; align-items: stretch; }
-.nc-number-input-container.nc-small { gap: 4px; }
-.nc-number-input-container:not(.nc-small) { gap: 6px; }
-.nc-number-input { text-align: center; }
-.nc-number-input.nc-small { width: 80px; font-size: 12px; padding: 0 4px; border-radius: 4px; }
-.nc-number-input:not(.nc-small) { width: 120px; }
-.nc-number-input-button { padding: 0; font-weight: normal; display: flex; align-items: center; justify-content: center; font-family: Arial, sans-serif; }
-.nc-number-input-button.nc-small { width: 28px; min-height: 28px; font-size: 16px; }
-.nc-number-input-button:not(.nc-small) { width: 42px; min-height: 42px; font-size: 24px; }
+.nc-number-input-container { display: inline-flex; align-items: stretch; }
+.nc-number-input-container.nc-small { gap: 0; }
+.nc-number-input-container:not(.nc-small) { gap: 0; }
+.nc-number-input { text-align: left; border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.nc-number-input.nc-small { width: 80px; font-size: 12px; padding: 0 6px; border-radius: 4px; border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.nc-number-input:not(.nc-small) { width: 120px; padding: 0 8px; }
 .nc-number-input-col.nc-small { gap: 4px; }
 .nc-number-input-col:not(.nc-small) { gap: 6px; }
+
+.nc-number-input-spinners { display: flex; flex-direction: column; width: 22px; border: 1px solid var(--nc-button-border); border-left: none; border-radius: 0 8px 8px 0; overflow: hidden; }
+.nc-number-input-spinners.nc-small { width: 18px; border-radius: 0 4px 4px 0; }
+.nc-number-input-spinners:not(.nc-disabled) { touch-action: none; user-select: none; }
+.nc-number-input-spin { flex: 1; display: flex; align-items: center; justify-content: center; padding: 0; border: none; background: var(--nc-button-bg); color: var(--nc-text-weak); cursor: pointer; font-size: 7px; line-height: 1; min-width: 0; }
+.nc-number-input-spinners.nc-dragging .nc-number-input-spin { cursor: ns-resize; }
+.nc-number-input-spin:hover { background: var(--nc-button-hover); color: var(--nc-text); }
+.nc-number-input-spin:disabled { opacity: 0.3; cursor: default; }
+.nc-number-input-spin:disabled:hover { background: var(--nc-button-bg); color: var(--nc-text-weak); }
+.nc-number-input-spin-up { border-bottom: 1px solid var(--nc-button-border); }
+.nc-number-input-spin-down { border-bottom: none; }
+.nc-number-input-spin.nc-small { font-size: 6px; }
 
 /* Hide number input spinner arrows */
 input[type="number"]::-webkit-inner-spin-button,

@@ -7,6 +7,9 @@ export function NumberInputSection() {
   return (
     <section className="dev-section">
       <h2>NumberInput</h2>
+      <p style={{ marginBottom: 16, color: 'var(--nc-text-weak)' }}>
+        Click an arrow to change by one step, or drag the spinner up or down for continuous adjustment.
+      </p>
       <div className="dev-col">
         <NumberInput
           value={numberValue}

@@ -345,6 +345,8 @@ import { NumberInput } from '@kingsimba/nc-ui'
 />
 ```
 
+**Spinner interaction:** Click an arrow to change by one step. Drag the spinner upward to increase or downward to decrease; each 5 pixels changes the value by `step`.
+
 **Props:** `value`, `onChange`, `min`, `max`, `step`, `label`, `disabled`
 
 ---
