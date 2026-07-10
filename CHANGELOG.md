@@ -1,5 +1,6 @@
 # Changelog
 
+- 2026-07-10 NumberInput: Support custom classes and styles
 - 2026-07-10 NumberInput: Support click and drag spinner controls
 - 2026-06-14 Battery: Fix white-on-white text in monochrome dark mode
 - 2026-05-21 ComboBox: Add renderSelected and selectedOption props for rich selected-item display

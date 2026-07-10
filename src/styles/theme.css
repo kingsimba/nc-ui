@@ -811,7 +811,7 @@ input.nc-input.nc-small { height: 32px; }
 .nc-number-input-container { display: inline-flex; align-items: stretch; }
 .nc-number-input-container.nc-small { gap: 0; }
 .nc-number-input-container:not(.nc-small) { gap: 0; }
-.nc-number-input { text-align: left; border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.nc-number-input { flex: 1; min-width: 0; text-align: left; border-top-right-radius: 0; border-bottom-right-radius: 0; }
 .nc-number-input.nc-small { width: 80px; font-size: 12px; padding: 0 6px; border-radius: 4px; border-top-right-radius: 0; border-bottom-right-radius: 0; }
 .nc-number-input:not(.nc-small) { width: 120px; padding: 0 8px; }
 .nc-number-input-col.nc-small { gap: 4px; }

@@ -342,12 +342,13 @@ import { NumberInput } from '@kingsimba/nc-ui'
   label="Quantity"
   value={qty}
   onChange={setQty}
+  style={{ width: 220 }}
 />
 ```
 
 **Spinner interaction:** Click an arrow to change by one step. Drag the spinner upward to increase or downward to decrease; each 5 pixels changes the value by `step`.
 
-**Props:** `value`, `onChange`, `min`, `max`, `step`, `label`, `disabled`
+**Props:** `value`, `onChange`, `min`, `max`, `step`, `label`, `disabled`, `className`, `style`
 
 ---
 

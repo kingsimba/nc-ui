@@ -18,11 +18,15 @@ export interface NumberInputProps {
   label?: string;
   /** Whether the input is disabled */
   disabled?: boolean;
+  /** Additional CSS class names for the input and spinner control */
+  className?: string;
+  /** Additional inline styles for the input and spinner control */
+  style?: React.CSSProperties;
   /** Size variant */
   size?: 'default' | 'small';
 }
 
-export function NumberInput({ value, onChange, min, max, step = 1, label, disabled, size = 'default' }: NumberInputProps) {
+export function NumberInput({ value, onChange, min, max, step = 1, label, disabled, className = '', style, size = 'default' }: NumberInputProps) {
   const isSmall = size === 'small';
   const dragState = useRef<{ startY: number; startValue: number; pointerId: number; hasMoved: boolean; lastValue: number } | null>(null);
   const suppressClick = useRef(false);
@@ -109,7 +113,7 @@ export function NumberInput({ value, onChange, min, max, step = 1, label, disabl
   return (
     <div className={`nc-col nc-number-input-col ${isSmall ? 'nc-small' : ''}`}>
       {label && <span className={`nc-label ${isSmall ? 'nc-small' : ''}`}>{label}</span>}
-      <div className={`nc-number-input-container ${isSmall ? 'nc-small' : ''}`}>
+      <div className={`nc-number-input-container ${isSmall ? 'nc-small' : ''} ${className}`} style={style}>
         <input
           className={`nc-input nc-number-input ${isSmall ? 'nc-small' : ''}`}
           type="number"

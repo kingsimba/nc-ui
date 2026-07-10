@@ -27,6 +27,14 @@ export function NumberInputSection() {
           size="small"
           label="Small with step=5"
         />
+        <NumberInput
+          value={numberValue}
+          onChange={setNumberValue}
+          min={0}
+          max={100}
+          label="Custom width"
+          style={{ width: 220 }}
+        />
       </div>
     </section>
   );
