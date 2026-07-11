@@ -30,6 +30,7 @@ export function NumberInput({ value, onChange, min, max, step = 1, label, disabl
   const isSmall = size === 'small';
   const dragState = useRef<{ startY: number; startValue: number; pointerId: number; hasMoved: boolean; lastValue: number } | null>(null);
   const suppressClick = useRef(false);
+  const holdTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 
   const decrement = () => {
@@ -63,6 +64,7 @@ export function NumberInput({ value, onChange, min, max, step = 1, label, disabl
       hasMoved: false,
       lastValue: value,
     };
+    holdTimer.current = setTimeout(() => { suppressClick.current = true; setIsDragging(true); }, 200);
     e.currentTarget.setPointerCapture(e.pointerId);
   };
 
@@ -74,6 +76,7 @@ export function NumberInput({ value, onChange, min, max, step = 1, label, disabl
     if (Math.abs(distance) >= DRAG_THRESHOLD) {
       state.hasMoved = true;
       suppressClick.current = true;
+      if (holdTimer.current) { clearTimeout(holdTimer.current); holdTimer.current = null; }
       setIsDragging(true);
     }
     if (!state.hasMoved) return;
@@ -94,6 +97,7 @@ export function NumberInput({ value, onChange, min, max, step = 1, label, disabl
     const state = dragState.current;
     if (!state || state.pointerId !== e.pointerId) return;
 
+    if (holdTimer.current) { clearTimeout(holdTimer.current); holdTimer.current = null; }
     if (e.currentTarget.hasPointerCapture(e.pointerId)) {
       e.currentTarget.releasePointerCapture(e.pointerId);
     }
