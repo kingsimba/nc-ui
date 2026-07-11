@@ -28,29 +28,58 @@ export interface NumberInputProps {
 
 export function NumberInput({ value, onChange, min, max, step = 1, label, disabled, className = '', style, size = 'default' }: NumberInputProps) {
   const isSmall = size === 'small';
+  const decimals = (String(step).split('.')[1] || '').length;
   const dragState = useRef<{ startY: number; startValue: number; pointerId: number; hasMoved: boolean; lastValue: number } | null>(null);
   const suppressClick = useRef(false);
   const holdTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [textValue, setTextValue] = useState(() => String(value));
+
+  const round = (v: number) => parseFloat(v.toFixed(decimals));
+
+  const commitValue = (v: number) => {
+    const rounded = round(v);
+    setTextValue(String(rounded));
+    onChange(rounded);
+  };
 
   const decrement = () => {
     const newValue = value - step;
     if (min !== undefined && newValue < min) return;
-    onChange(parseFloat(newValue.toFixed(10))); // Avoid floating point precision issues
+    commitValue(parseFloat(newValue.toFixed(10)));
   };
 
   const increment = () => {
     const newValue = value + step;
     if (max !== undefined && newValue > max) return;
-    onChange(parseFloat(newValue.toFixed(10)));
+    commitValue(parseFloat(newValue.toFixed(10)));
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = parseFloat(e.target.value);
-    if (isNaN(newValue)) return;
-    if (min !== undefined && newValue < min) return;
-    if (max !== undefined && newValue > max) return;
-    onChange(newValue);
+    const raw = e.target.value;
+    setTextValue(raw);
+    if (raw === '') return;
+    const parsed = parseFloat(raw);
+    if (isNaN(parsed)) return;
+    onChange(parsed);
+  };
+
+  const handleBlur = () => {
+    const raw = textValue;
+    if (raw === '') {
+      commitValue(min !== undefined ? min : 0);
+      return;
+    }
+    const parsed = parseFloat(raw);
+    if (isNaN(parsed)) {
+      commitValue(min !== undefined ? min : 0);
+      return;
+    }
+    let clamped = round(parsed);
+    if (min !== undefined) clamped = Math.max(min, clamped);
+    if (max !== undefined) clamped = Math.min(max, clamped);
+    if (clamped !== parsed) commitValue(clamped);
+    else setTextValue(String(clamped));
   };
 
   const handleSpinnerPointerDown = (e: React.PointerEvent<HTMLButtonElement>) => {
@@ -85,10 +114,11 @@ export function NumberInput({ value, onChange, min, max, step = 1, label, disabl
     let newValue = state.startValue + steps * step;
     if (min !== undefined) newValue = Math.max(min, newValue);
     if (max !== undefined) newValue = Math.min(max, newValue);
-    newValue = parseFloat(newValue.toFixed(10));
+    newValue = round(newValue);
 
     if (newValue !== state.lastValue) {
       state.lastValue = newValue;
+      setTextValue(String(newValue));
       onChange(newValue);
     }
   };
@@ -114,15 +144,19 @@ export function NumberInput({ value, onChange, min, max, step = 1, label, disabl
     change();
   };
 
+  const parsed = textValue === '' ? NaN : parseFloat(textValue);
+  const isError = textValue === '' || isNaN(parsed) || (min !== undefined && parsed < min) || (max !== undefined && parsed > max);
+
   return (
     <div className={`nc-col nc-number-input-col ${isSmall ? 'nc-small' : ''}`}>
       {label && <span className={`nc-label ${isSmall ? 'nc-small' : ''}`}>{label}</span>}
       <div className={`nc-number-input-container ${isSmall ? 'nc-small' : ''} ${className}`} style={style}>
         <input
-          className={`nc-input nc-number-input ${isSmall ? 'nc-small' : ''}`}
+          className={`nc-input nc-number-input ${isSmall ? 'nc-small' : ''} ${isError ? 'nc-error' : ''}`}
           type="number"
-          value={value}
+          value={textValue}
           onChange={handleInputChange}
+          onBlur={handleBlur}
           min={min}
           max={max}
           step={step}
