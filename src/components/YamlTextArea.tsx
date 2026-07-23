@@ -71,11 +71,78 @@ interface YamlTextAreaProps {
   style?: React.CSSProperties;
   /** Language for syntax highlighting and validation. Default: 'yaml'. */
   language?: 'yaml' | 'json';
+  /**
+   * Whether null values are considered valid. When false, any null value —
+   * explicit (`null`, `~`) or implicit (an empty mapping/list value such as
+   * `name:` with nothing after the colon) — is reported as a validation error.
+   * Default: true.
+   */
+  allowNull?: boolean;
 }
 
 interface YamlError {
   line: number;
   message: string;
+}
+
+// Recursively check whether a parsed YAML/JSON value contains any null.
+function containsNull(node: unknown): boolean {
+  if (node === null || node === undefined) return true;
+  if (Array.isArray(node)) return node.some(containsNull);
+  if (typeof node === 'object') return Object.values(node as Record<string, unknown>).some(containsNull);
+  return false;
+}
+
+// Number of leading whitespace characters (tabs counted as one column).
+function getIndent(line: string): number {
+  const match = /^(\s*)/.exec(line);
+  return match ? match[1].length : 0;
+}
+
+// Best-effort locate the first line that resolves to a null value.
+// Handles explicit nulls (`null`, `~`) and implicit empty mapping/list values.
+// Returns a 1-based line number, or 0 if no line could be pinpointed.
+function findNullValueLine(text: string): number {
+  const lines = text.split('\n');
+  const isMeaningful = (s: string) => {
+    const trimmed = s.trim();
+    return trimmed.length > 0 && !trimmed.startsWith('#');
+  };
+  const nextMeaningfulIndent = (from: number): number | null => {
+    for (let j = from; j < lines.length; j++) {
+      if (isMeaningful(lines[j])) return getIndent(lines[j]);
+    }
+    return null;
+  };
+
+  for (let i = 0; i < lines.length; i++) {
+    const raw = lines[i];
+    if (!isMeaningful(raw)) continue;
+
+    // Strip a trailing comment (naive: whitespace + '#' to end of line).
+    const content = raw.replace(/\s+#.*$/, '').replace(/\s+$/, '');
+    const trimmed = content.trim();
+    const indent = getIndent(content);
+
+    // Explicit null as a mapping value: `key: null`, `key: ~` (tolerate JSON trailing , ] }).
+    if (/:\s*(null|~)\s*(,|\]|\})?$/i.test(content)) return i + 1;
+    // Explicit null as a list item: `- null`, `- ~`.
+    if (/^-\s+(null|~)\s*$/i.test(trimmed)) return i + 1;
+
+    // Implicit empty mapping value: line ends with ':' and nothing follows,
+    // and the next meaningful line is not more indented (i.e. no nested block).
+    if (/:\s*$/.test(content) && !/^-\s*$/.test(trimmed)) {
+      const ni = nextMeaningfulIndent(i + 1);
+      if (ni === null || ni <= indent) return i + 1;
+    }
+
+    // Implicit empty list item: `-` alone with no nested block following.
+    if (/^-\s*$/.test(trimmed)) {
+      const ni = nextMeaningfulIndent(i + 1);
+      if (ni === null || ni <= indent) return i + 1;
+    }
+  }
+  return 0;
 }
 
 function YamlTextArea({
@@ -89,6 +156,7 @@ function YamlTextArea({
   className = '',
   style = {},
   language = 'yaml',
+  allowNull = true,
 }: YamlTextAreaProps) {
   const [error, setError] = useState<YamlError | null>(null);
   const validationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -103,7 +171,13 @@ function YamlTextArea({
     if (!text.trim()) return null;
     if (language === 'json') {
       try {
-        JSON.parse(text);
+        const parsed = JSON.parse(text);
+        if (!allowNull && containsNull(parsed)) {
+          return {
+            line: findNullValueLine(text) || 1,
+            message: 'Null values are not allowed',
+          };
+        }
         return null;
       } catch (e: any) {
         const message: string = e?.message || 'Invalid JSON';
@@ -123,7 +197,13 @@ function YamlTextArea({
       }
     }
     try {
-      yaml.load(text);
+      const parsed = yaml.load(text);
+      if (!allowNull && containsNull(parsed)) {
+        return {
+          line: findNullValueLine(text) || 1,
+          message: 'Null values are not allowed',
+        };
+      }
       return null;
     } catch (e: any) {
       const mark = e.mark;
@@ -132,7 +212,7 @@ function YamlTextArea({
         message: e.message || 'Invalid YAML',
       };
     }
-  }, [language]);
+  }, [language, allowNull]);
 
   // Set error state and notify parent
   const setValidationState = useCallback((err: YamlError | null) => {
