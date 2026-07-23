@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import Editor from 'react-simple-code-editor';
 import { Highlight, themes, Prism } from 'prism-react-renderer';
-import yaml from 'js-yaml';
+import { parse as yamlParse, parseDocument, visit, LineCounter } from 'yaml';
+import type { Scalar } from 'yaml';
 
 // Add YAML language support to Prism
 // Define YAML grammar directly to avoid global Prism dependency issues
@@ -71,11 +72,42 @@ interface YamlTextAreaProps {
   style?: React.CSSProperties;
   /** Language for syntax highlighting and validation. Default: 'yaml'. */
   language?: 'yaml' | 'json';
+  /**
+   * Whether null values are considered valid. When false, any null value —
+   * explicit (`null`, `~`) or implicit (an empty mapping/list value such as
+   * `name:` with nothing after the colon) — is reported as a validation error.
+   * Default: true.
+   */
+  allowNull?: boolean;
 }
 
 interface YamlError {
   line: number;
   message: string;
+}
+
+/** Find all lines that contain a null value using the YAML CST for precise line numbers. */
+function findNullLines(text: string): number[] {
+  const lineCounter = new LineCounter();
+  const doc = parseDocument(text, { lineCounter });
+  const lines: number[] = [];
+  visit(doc, {
+    Scalar(_key, node: Scalar) {
+      if (node.value === null && node.range) {
+        lines.push(lineCounter.linePos(node.range[0]).line);
+      }
+    },
+  });
+  return lines;
+}
+
+/** Find the first line containing a JSON null keyword. */
+function findJsonNullLine(text: string): number {
+  const lines = text.split('\n');
+  for (let i = 0; i < lines.length; i++) {
+    if (/\bnull\b/.test(lines[i])) return i + 1;
+  }
+  return 0;
 }
 
 function YamlTextArea({
@@ -89,6 +121,7 @@ function YamlTextArea({
   className = '',
   style = {},
   language = 'yaml',
+  allowNull = true,
 }: YamlTextAreaProps) {
   const [error, setError] = useState<YamlError | null>(null);
   const validationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -104,6 +137,12 @@ function YamlTextArea({
     if (language === 'json') {
       try {
         JSON.parse(text);
+        if (!allowNull) {
+          const nullLine = findJsonNullLine(text);
+          if (nullLine > 0) {
+            return { line: nullLine, message: 'Null values are not allowed' };
+          }
+        }
         return null;
       } catch (e: any) {
         const message: string = e?.message || 'Invalid JSON';
@@ -123,16 +162,21 @@ function YamlTextArea({
       }
     }
     try {
-      yaml.load(text);
+      yamlParse(text);
+      if (!allowNull) {
+        const nullLines = findNullLines(text);
+        if (nullLines.length > 0) {
+          return { line: nullLines[0], message: 'Null values are not allowed' };
+        }
+      }
       return null;
     } catch (e: any) {
-      const mark = e.mark;
       return {
-        line: mark?.line !== undefined ? mark.line + 1 : 1,
+        line: e?.linePos?.[0]?.line ?? 1,
         message: e.message || 'Invalid YAML',
       };
     }
-  }, [language]);
+  }, [language, allowNull]);
 
   // Set error state and notify parent
   const setValidationState = useCallback((err: YamlError | null) => {

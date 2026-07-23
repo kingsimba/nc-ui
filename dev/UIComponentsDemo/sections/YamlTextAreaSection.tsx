@@ -31,6 +31,13 @@ name: test
   invalid: indentation
 `;
 
+const nullYaml = `# Empty values resolve to null
+implicit-null:
+explicit-null: null
+exclude-comment: # comment
+normal: hello
+`;
+
 const sampleJson = `{
     "name": "my-application",
     "version": "1.0.0",
@@ -53,6 +60,8 @@ export function YamlTextAreaSection() {
     const [yaml1, setYaml1] = useState(sampleYaml);
     const [yaml2, setYaml2] = useState(invalidYaml);
     const [yaml3, setYaml3] = useState('');
+    const [yaml4, setYaml4] = useState(nullYaml);
+    const [isValid4, setIsValid4] = useState(true);
     const [json1, setJson1] = useState(sampleJson);
     const [json2, setJson2] = useState(invalidJson);
     const [isValid1, setIsValid1] = useState(true);
@@ -95,6 +104,22 @@ export function YamlTextAreaSection() {
                             value={yaml2}
                             onChange={setYaml2}
                             onValidationChange={(valid: boolean) => setIsValid2(valid)}
+                            minHeight={150}
+                        />
+                    </div>
+
+                    {/* Disallow null values */}
+                    <div>
+                        <h3 style={{ marginBottom: 8 }}>Disallow Null</h3>
+                        <p style={{ color: 'var(--nc-text-weak)', fontSize: 12, marginBottom: 8 }}>
+                            Status: {isValid4 ? '✓ Valid YAML' : '✗ Invalid YAML'} — null is allowed by default; pass{' '}
+                            <code>allowNull={'{false}'}</code> to reject empty/null values.
+                        </p>
+                        <YamlTextArea
+                            value={yaml4}
+                            onChange={setYaml4}
+                            onValidationChange={(valid: boolean) => setIsValid4(valid)}
+                            allowNull={false}
                             minHeight={150}
                         />
                     </div>
