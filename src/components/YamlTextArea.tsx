@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import Editor from 'react-simple-code-editor';
 import { Highlight, themes, Prism } from 'prism-react-renderer';
-import yaml from 'js-yaml';
+import { parse as yamlParse, parseDocument, visit, LineCounter } from 'yaml';
+import type { Scalar } from 'yaml';
 
 // Add YAML language support to Prism
 // Define YAML grammar directly to avoid global Prism dependency issues
@@ -85,62 +86,26 @@ interface YamlError {
   message: string;
 }
 
-// Recursively check whether a parsed YAML/JSON value contains any null.
-function containsNull(node: unknown): boolean {
-  if (node === null || node === undefined) return true;
-  if (Array.isArray(node)) return node.some(containsNull);
-  if (typeof node === 'object') return Object.values(node as Record<string, unknown>).some(containsNull);
-  return false;
+/** Find all lines that contain a null value using the YAML CST for precise line numbers. */
+function findNullLines(text: string): number[] {
+  const lineCounter = new LineCounter();
+  const doc = parseDocument(text, { lineCounter });
+  const lines: number[] = [];
+  visit(doc, {
+    Scalar(_key, node: Scalar) {
+      if (node.value === null && node.range) {
+        lines.push(lineCounter.linePos(node.range[0]).line);
+      }
+    },
+  });
+  return lines;
 }
 
-// Number of leading whitespace characters (tabs counted as one column).
-function getIndent(line: string): number {
-  const match = /^(\s*)/.exec(line);
-  return match ? match[1].length : 0;
-}
-
-// Best-effort locate the first line that resolves to a null value.
-// Handles explicit nulls (`null`, `~`) and implicit empty mapping/list values.
-// Returns a 1-based line number, or 0 if no line could be pinpointed.
-function findNullValueLine(text: string): number {
+/** Find the first line containing a JSON null keyword. */
+function findJsonNullLine(text: string): number {
   const lines = text.split('\n');
-  const isMeaningful = (s: string) => {
-    const trimmed = s.trim();
-    return trimmed.length > 0 && !trimmed.startsWith('#');
-  };
-  const nextMeaningfulIndent = (from: number): number | null => {
-    for (let j = from; j < lines.length; j++) {
-      if (isMeaningful(lines[j])) return getIndent(lines[j]);
-    }
-    return null;
-  };
-
   for (let i = 0; i < lines.length; i++) {
-    const raw = lines[i];
-    if (!isMeaningful(raw)) continue;
-
-    // Strip a trailing comment (naive: whitespace + '#' to end of line).
-    const content = raw.replace(/\s+#.*$/, '').replace(/\s+$/, '');
-    const trimmed = content.trim();
-    const indent = getIndent(content);
-
-    // Explicit null as a mapping value: `key: null`, `key: ~` (tolerate JSON trailing , ] }).
-    if (/:\s*(null|~)\s*(,|\]|\})?$/i.test(content)) return i + 1;
-    // Explicit null as a list item: `- null`, `- ~`.
-    if (/^-\s+(null|~)\s*$/i.test(trimmed)) return i + 1;
-
-    // Implicit empty mapping value: line ends with ':' and nothing follows,
-    // and the next meaningful line is not more indented (i.e. no nested block).
-    if (/:\s*$/.test(content) && !/^-\s*$/.test(trimmed)) {
-      const ni = nextMeaningfulIndent(i + 1);
-      if (ni === null || ni <= indent) return i + 1;
-    }
-
-    // Implicit empty list item: `-` alone with no nested block following.
-    if (/^-\s*$/.test(trimmed)) {
-      const ni = nextMeaningfulIndent(i + 1);
-      if (ni === null || ni <= indent) return i + 1;
-    }
+    if (/\bnull\b/.test(lines[i])) return i + 1;
   }
   return 0;
 }
@@ -171,12 +136,12 @@ function YamlTextArea({
     if (!text.trim()) return null;
     if (language === 'json') {
       try {
-        const parsed = JSON.parse(text);
-        if (!allowNull && containsNull(parsed)) {
-          return {
-            line: findNullValueLine(text) || 1,
-            message: 'Null values are not allowed',
-          };
+        JSON.parse(text);
+        if (!allowNull) {
+          const nullLine = findJsonNullLine(text);
+          if (nullLine > 0) {
+            return { line: nullLine, message: 'Null values are not allowed' };
+          }
         }
         return null;
       } catch (e: any) {
@@ -197,18 +162,17 @@ function YamlTextArea({
       }
     }
     try {
-      const parsed = yaml.load(text);
-      if (!allowNull && containsNull(parsed)) {
-        return {
-          line: findNullValueLine(text) || 1,
-          message: 'Null values are not allowed',
-        };
+      yamlParse(text);
+      if (!allowNull) {
+        const nullLines = findNullLines(text);
+        if (nullLines.length > 0) {
+          return { line: nullLines[0], message: 'Null values are not allowed' };
+        }
       }
       return null;
     } catch (e: any) {
-      const mark = e.mark;
       return {
-        line: mark?.line !== undefined ? mark.line + 1 : 1,
+        line: e?.linePos?.[0]?.line ?? 1,
         message: e.message || 'Invalid YAML',
       };
     }
