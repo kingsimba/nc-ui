@@ -3,7 +3,7 @@
 A high-performance, lightweight React UI component library and extensible application framework.
 
 - 🤖 **AI-Optimized**: Comprehensive [AI reference guide](AI_REFERENCE_GUIDE.md) included
-- 🚀 **Small Footprint**: Only ~75KB bundle size.
+- 🚀 **Small Footprint**: ~33KB gzipped core bundle; YAML editor is a separate entry point (~77KB)
 - 🏗️ **[Application Framework](docs/APP_FRAMEWORK.md)**: Features a flexible, extensible framework for building windowed apps, with [app-specific i18n](./nc-ui-ai-reference/translation-guide.md)
 - 📱 **Cross-Platform**: Optimized for both desktop and mobile experiences.
 
