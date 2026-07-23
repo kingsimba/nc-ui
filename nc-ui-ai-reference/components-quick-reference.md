@@ -791,10 +791,11 @@ import { YamlTextArea } from "@kingsimba/nc-ui/yaml";
   language="yaml"
   minHeight={180}
   maxHeight={320}
+  allowNull={false}         /* Reject null/empty values as validation errors */
 />;
 ```
 
-**Props:** `value`, `onChange`, `onValidationChange`, `readOnly`, `minHeight`, `maxHeight`, `debounceMs`, `className`, `style`, `language`
+**Props:** `value`, `onChange`, `onValidationChange`, `readOnly`, `minHeight`, `maxHeight`, `debounceMs`, `className`, `style`, `language`, `allowNull`
 
 ---
 
