@@ -35,6 +35,20 @@ export function CheckboxSection() {
           disabled
         />
       </div>
+      <div className="dev-row">
+        <Checkbox
+          checked={checked1}
+          onChange={setChecked1}
+          label="Tiny checkbox"
+          size="tiny"
+        />
+        <Checkbox
+          checked={true}
+          onChange={() => { }}
+          label="Tiny checked"
+          size="tiny"
+        />
+      </div>
     </section>
   );
 }

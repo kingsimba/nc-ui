@@ -37,10 +37,23 @@ export function ButtonGroupSection() {
           />
         </div>
         <div>
+          <h4 style={{ marginBottom: 8, color: 'var(--nc-text-weak)', fontSize: 13 }}>Tiny</h4>
+          <ButtonGroup
+            value={alignment}
+            onChange={setAlignment}
+            options={[
+              { key: 'left', label: 'Left' },
+              { key: 'center', label: 'Center' },
+              { key: 'right', label: 'Right' },
+            ]}
+            size="tiny"
+          />
+        </div>
+        <div>
           <h4 style={{ marginBottom: 8, color: 'var(--nc-text-weak)', fontSize: 13 }}>Disabled</h4>
           <ButtonGroup
             value="option1"
-            onChange={() => {}}
+            onChange={() => { }}
             options={[
               { key: 'option1', label: 'Option 1' },
               { key: 'option2', label: 'Option 2' },

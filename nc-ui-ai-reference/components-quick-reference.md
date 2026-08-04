@@ -419,6 +419,7 @@ import { Checkbox } from '@kingsimba/nc-ui'
 <Checkbox
   checked={agreed}
   onChange={setAgreed}
+  size="tiny"
   label="I agree to the terms"
 />
 
@@ -431,7 +432,7 @@ import { Checkbox } from '@kingsimba/nc-ui'
 />
 ```
 
-**Props:** `checked`, `onChange`, `label`, `indeterminate`, `disabled`
+**Props:** `checked`, `onChange`, `label`, `indeterminate`, `size`(`default` | `small` | `tiny`), `disabled`
 
 ---
 
@@ -617,7 +618,7 @@ import { ButtonGroup } from '@kingsimba/nc-ui'
 />
 ```
 
-**Props:** `value`, `onChange`, `options` (array of `{ key, label, disabled? }`), `size`, `disabled`
+**Props:** `value`, `onChange`, `options` (array of `{ key, label, disabled? }`), `size` (`default` | `small` | `tiny`), `disabled`
 
 ---
 
@@ -791,7 +792,7 @@ import { YamlTextArea } from "@kingsimba/nc-ui/yaml";
   language="yaml"
   minHeight={180}
   maxHeight={320}
-  allowNull={false}         /* Reject null/empty values as validation errors */
+  allowNull={false} /* Reject null/empty values as validation errors */
 />;
 ```
 

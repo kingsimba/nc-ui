@@ -538,6 +538,7 @@ input.nc-input.nc-small { height: 32px; }
 }
 
 .nc-checkbox-label.nc-small { gap: 8px; padding: 6px 0; font-size: 12px; }
+.nc-checkbox-label.nc-tiny { gap: 6px; padding: 4px 0; font-size: 11px; }
 .nc-checkbox-label.nc-disabled { cursor: not-allowed; opacity: 0.5; }
 
 .nc-checkbox-box {
@@ -555,10 +556,12 @@ input.nc-input.nc-small { height: 32px; }
 }
 
 .nc-checkbox-box.nc-small { width: 14px; height: 14px; border-radius: 3px; }
+.nc-checkbox-box.nc-tiny { width: 12px; height: 12px; border-radius: 2px; }
 .nc-checkbox-box.nc-checked { border-color: var(--nc-primary); background: var(--nc-primary); }
 .nc-checkbox-text { color: var(--nc-text); }
 .nc-checkbox-icon { width: 12px; height: 12px; }
 .nc-checkbox-icon.nc-small { width: 10px; height: 10px; }
+.nc-checkbox-icon.nc-tiny { width: 8px; height: 8px; }
 
 /* Icon button component (common buttons) */
 .nc-icon-button {
@@ -692,6 +695,12 @@ input.nc-input.nc-small { height: 32px; }
   min-height: 28px;
   padding: 5px 12px;
   font-size: 12px;
+}
+
+.nc-button-group.nc-tiny .nc-button-group-item {
+  min-height: 22px;
+  padding: 3px 10px;
+  font-size: 11px;
 }
 
 .nc-button-group-item {

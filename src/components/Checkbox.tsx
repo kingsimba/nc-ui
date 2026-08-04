@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type CheckboxSize = 'default' | 'small';
+export type CheckboxSize = 'default' | 'small' | 'tiny';
 
 export interface CheckboxProps {
   /** Whether the checkbox is checked */
@@ -21,9 +21,9 @@ export interface CheckboxProps {
   className?: string;
 }
 
-function CheckIcon({ size }: { size: 'default' | 'small' }) {
+function CheckIcon({ size }: { size: 'default' | 'small' | 'tiny' }) {
   return (
-    <svg className={`nc-checkbox-icon ${size === 'small' ? 'nc-small' : ''}`} viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg className={`nc-checkbox-icon ${size === 'small' ? 'nc-small' : size === 'tiny' ? 'nc-tiny' : ''}`} viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M2 6L5 9L10 3"
         stroke="currentColor"
@@ -37,9 +37,10 @@ function CheckIcon({ size }: { size: 'default' | 'small' }) {
 
 export function Checkbox({ checked, onChange, disabled, label, size = 'default', labelColor, style, className = '' }: CheckboxProps) {
   const isSmall = size === 'small';
+  const isTiny = size === 'tiny';
   return (
     <label
-      className={`nc-checkbox-label ${isSmall ? 'nc-small' : ''} ${disabled ? 'nc-disabled' : ''} ${className}`.trim()}
+      className={`nc-checkbox-label ${isSmall ? 'nc-small' : ''} ${isTiny ? 'nc-tiny' : ''} ${disabled ? 'nc-disabled' : ''} ${className}`.trim()}
       style={style}
       onClick={(e) => {
         if (disabled) return;
@@ -51,7 +52,7 @@ export function Checkbox({ checked, onChange, disabled, label, size = 'default',
         role="checkbox"
         aria-checked={checked}
         tabIndex={0}
-        className={`nc-checkbox-box ${isSmall ? 'nc-small' : ''} ${checked ? 'nc-checked' : ''}`}
+        className={`nc-checkbox-box ${isSmall ? 'nc-small' : ''} ${isTiny ? 'nc-tiny' : ''} ${checked ? 'nc-checked' : ''}`}
         onKeyDown={(e) => {
           if (disabled) return;
           if (e.key === 'Enter' || e.key === ' ') {

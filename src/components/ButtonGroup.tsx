@@ -1,4 +1,4 @@
-export type ButtonGroupSize = 'default' | 'small';
+export type ButtonGroupSize = 'default' | 'small' | 'tiny';
 
 export type ButtonGroupOption<T extends string> = {
   key: T;
@@ -27,7 +27,7 @@ export function ButtonGroup<T extends string>({
   size = 'default',
 }: ButtonGroupProps<T>) {
   return (
-    <div className={`nc-button-group ${size === 'small' ? 'nc-small' : ''}`}>
+    <div className={`nc-button-group ${size === 'small' ? 'nc-small' : size === 'tiny' ? 'nc-tiny' : ''}`}>
       {options.map((option) => {
         const isDisabled = disabled || !!option.disabled;
         return (
