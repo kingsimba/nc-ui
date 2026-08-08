@@ -1,5 +1,6 @@
 # Changelog
 
+- 2026-08-08 CodeEditor: Support explicit light/dark color theme selection
 - 2026-08-08 CodeEditor: Add syntax highlighting and invisible-character markers
 - 2026-08-05 ButtonGroup/Checkbox: Add tiny size variant
 - 2026-07-11 NumberInput: Support free-form editing with error indication and step-based precision

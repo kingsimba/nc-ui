@@ -16,6 +16,8 @@ export interface CodeEditorProps {
   showWhitespace?: boolean;
   /** Number of columns occupied by a tab. Default: 8. */
   tabSize?: number;
+  /** Prism color theme. Defaults to automatic document theme detection. */
+  colorTheme?: 'light' | 'dark' | 'auto';
   className?: string;
   style?: React.CSSProperties;
 }
@@ -138,6 +140,7 @@ function CodeEditor({
   lineNumbers: showLineNumbers = true,
   showWhitespace = false,
   tabSize = 8,
+  colorTheme = 'auto',
   className = '',
   style = {},
 }: CodeEditorProps) {
@@ -166,7 +169,7 @@ function CodeEditor({
     return () => observer.disconnect();
   }, []);
 
-  const theme = isDark ? themes.vsDark : themes.vsLight;
+  const theme = (colorTheme === 'dark' || (colorTheme === 'auto' && isDark)) ? themes.vsDark : themes.vsLight;
 
   // Highlight function
   const highlightWithTheme = useCallback(

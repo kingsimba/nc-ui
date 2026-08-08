@@ -55,6 +55,7 @@ export function CodeEditorSection() {
     const [py, setPy] = useState(samplePy);
     const [yaml, setYaml] = useState(sampleYaml);
     const [showWhitespace, setShowWhitespace] = useState(false);
+    const [colorTheme, setColorTheme] = useState<'light' | 'dark' | 'auto'>('auto');
     const log = sampleLog;
 
     return (
@@ -78,15 +79,29 @@ export function CodeEditorSection() {
                             minHeight={200}
                             maxHeight={320}
                             showWhitespace={showWhitespace}
+                            colorTheme={colorTheme}
                         />
-                        <label style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 8 }}>
-                            <input
-                                type="checkbox"
-                                checked={showWhitespace}
-                                onChange={(event) => setShowWhitespace(event.target.checked)}
-                            />
-                            Show spaces, tabs, and line endings
-                        </label>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 8, flexWrap: 'wrap' }}>
+                            <label style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                                <input
+                                    type="checkbox"
+                                    checked={showWhitespace}
+                                    onChange={(event) => setShowWhitespace(event.target.checked)}
+                                />
+                                Show spaces, tabs, and line endings
+                            </label>
+                            <label style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                                Color theme
+                                <select
+                                    value={colorTheme}
+                                    onChange={(event) => setColorTheme(event.target.value as 'light' | 'dark' | 'auto')}
+                                >
+                                    <option value="auto">Auto</option>
+                                    <option value="light">Light</option>
+                                    <option value="dark">Dark</option>
+                                </select>
+                            </label>
+                        </div>
                     </div>
 
                     {/* Python */}

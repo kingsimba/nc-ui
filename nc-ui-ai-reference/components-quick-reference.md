@@ -854,13 +854,14 @@ import { CodeEditor, detectLanguage } from "@kingsimba/nc-ui/code-editor";
   lineNumbers={true}
   showWhitespace={false} // Show space, tab, and line-ending markers
   tabSize={8}
+  colorTheme="auto" // 'auto' follows the document; also accepts 'light' or 'dark'
 />;
 
 // Auto-detect from a filename (returns undefined if unrecognized)
 const lang = detectLanguage("script.py"); // 'python'
 ```
 
-**Props:** `value`, `onChange`, `language`, `readOnly`, `minHeight`, `maxHeight`, `lineNumbers`, `showWhitespace`, `tabSize`, `className`, `style`
+**Props:** `value`, `onChange`, `language`, `readOnly`, `minHeight`, `maxHeight`, `lineNumbers`, `showWhitespace`, `tabSize`, `colorTheme`, `className`, `style`
 
 **Helper:** `detectLanguage(filename: string): string | undefined`
 
