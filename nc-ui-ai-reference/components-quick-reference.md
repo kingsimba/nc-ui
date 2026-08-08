@@ -14,6 +14,9 @@ import { CloseIcon, EditIcon, TrashIcon } from '@kingsimba/nc-ui/icons'
 
 // YAML editor (optional)
 import { YamlTextArea } from '@kingsimba/nc-ui/yaml'
+
+// Code editor (optional)
+import { CodeEditor, detectLanguage } from '@kingsimba/nc-ui/code-editor'
 ```
 
 ---
@@ -831,6 +834,35 @@ csvRef.current?.goToPosition(2, 3, 1)
 **Props:** `value`, `onChange`, `placeholder`, `className`, `style`, `showLineNumbers`, `highlightLine`, `onCursorChange`
 
 **Ref methods:** `goToLine(line: number)`, `goToPosition(line: number, column: number, character: number)`
+
+---
+
+### CodeEditor
+
+Code editor with Prism syntax highlighting and a line-number gutter. Pass a Prism language name, or use `detectLanguage(filename)` to infer it from a file name/extension:
+
+```tsx
+import { CodeEditor, detectLanguage } from "@kingsimba/nc-ui/code-editor";
+
+<CodeEditor
+  value={code}
+  onChange={setCode}
+  language="typescript" // Prism language; omit for plain text
+  readOnly={false}
+  minHeight={200}
+  maxHeight={400}
+  lineNumbers={true}
+  showWhitespace={false} // Show space, tab, and line-ending markers
+  tabSize={8}
+/>;
+
+// Auto-detect from a filename (returns undefined if unrecognized)
+const lang = detectLanguage("script.py"); // 'python'
+```
+
+**Props:** `value`, `onChange`, `language`, `readOnly`, `minHeight`, `maxHeight`, `lineNumbers`, `showWhitespace`, `tabSize`, `className`, `style`
+
+**Helper:** `detectLanguage(filename: string): string | undefined`
 
 ---
 

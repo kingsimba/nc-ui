@@ -1864,3 +1864,20 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
   padding-top: 8px;
   border-top: 1px solid var(--nc-border);
 }
+
+.nc-code-editor-whitespace,
+.nc-code-editor-line-ending {
+  color: var(--nc-text-weaker);
+  pointer-events: none;
+}
+
+.nc-code-editor-tab {
+  display: inline-block;
+}
+
+.nc-code-editor-line-ending {
+  display: inline-block;
+  width: 0;
+  overflow: visible;
+  transform: translateX(2px);
+}

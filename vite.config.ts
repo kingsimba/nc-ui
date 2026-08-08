@@ -58,6 +58,7 @@ export default defineConfig({
               index: resolve(__dirname, 'src/index.ts'),
               icons: resolve(__dirname, 'src/components/icons/index.ts'),
               yaml: resolve(__dirname, 'src/components/YamlTextArea.tsx'),
+              'code-editor': resolve(__dirname, 'src/components/CodeEditor.tsx'),
             },
             name: 'NcUI',
             formats: ['es', 'cjs'],

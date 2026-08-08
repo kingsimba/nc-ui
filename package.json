@@ -21,6 +21,11 @@
             "require": "./dist/yaml.cjs",
             "types": "./dist/yaml.d.ts"
         },
+        "./code-editor": {
+            "import": "./dist/code-editor.js",
+            "require": "./dist/code-editor.cjs",
+            "types": "./dist/code-editor.d.ts"
+        },
         "./styles.css": "./dist/style.css"
     },
     "files": [

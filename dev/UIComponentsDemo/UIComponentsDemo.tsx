@@ -26,6 +26,7 @@ import { AppDialogSection } from './sections/AppDialogSection';
 import { NavStackSection } from './sections/NavStackSection';
 import { YamlTextAreaSection } from './sections/YamlTextAreaSection';
 import { CsvTextAreaSection } from './sections/CsvTextAreaSection';
+import { CodeEditorSection } from './sections/CodeEditorSection';
 import { StylesSection } from './sections/StylesSection';
 import { NotificationSection } from './sections/NotificationSection';
 import './UIComponentsDemo.css';
@@ -33,7 +34,7 @@ import './UIComponentsDemo.css';
 type SectionId = 'styles' | 'buttons' | 'activity' | 'checkbox' | 'combobox' | 'buttons-icon' |
   'hyperlink' | 'alert' | 'battery' | 'context-menu' | 'button-group' | 'input' |
   'number-input' | 'slider' | 'toggle' | 'multi-select' | 'month-range' | 'icons' | 'tabs' |
-  'list-group' | 'dialog' | 'app-dialog' | 'nav-stack' | 'yaml-textarea' | 'csv-textarea' | 'notification';
+  'list-group' | 'dialog' | 'app-dialog' | 'nav-stack' | 'yaml-textarea' | 'csv-textarea' | 'code-editor' | 'notification';
 
 interface Section {
   id: SectionId;
@@ -76,6 +77,7 @@ export function UIComponentsDemo() {
     { id: 'nav-stack', label: 'NavStack', component: NavStackSection },
     { id: 'yaml-textarea', label: 'YamlTextArea', component: YamlTextAreaSection },
     { id: 'csv-textarea', label: 'CsvTextArea', component: CsvTextAreaSection },
+    { id: 'code-editor', label: 'CodeEditor', component: CodeEditorSection },
     { id: 'notification', label: 'Notification', component: NotificationSection },
   ];
 
@@ -105,7 +107,7 @@ export function UIComponentsDemo() {
           if (section) setActiveSection(section.id);
         }}
         orientation={!isMobile ? 'verticalLeft' : 'horizontal'}
-        style={{background:'var(--nc-bg-tertiary)'}}
+        style={{ background: 'var(--nc-bg-tertiary)' }}
       />
 
       {/* Content area */}
