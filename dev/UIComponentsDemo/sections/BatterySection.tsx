@@ -21,12 +21,20 @@ export function BatterySection() {
           <span>75% (success)</span>
         </div>
         <div className="dev-item">
-          <Battery percentage={1} colored />
-          <span>100% (full)</span>
+          <Battery percentage={1} status="charging" colored />
+          <span>100% (not full)</span>
         </div>
         <div className="dev-item">
           <Battery percentage={0.6} status="charging" colored />
           <span>Charging</span>
+        </div>
+        <div className="dev-item">
+          <Battery percentage={1} status="full" colored />
+          <span>Full</span>
+        </div>
+        <div className="dev-item">
+          <Battery percentage={0.1} status="discharging" colored />
+          <span>10% (warning)</span>
         </div>
       </div>
       <h3>Monochrome</h3>

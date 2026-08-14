@@ -9,6 +9,10 @@ export interface BatteryProps {
   darkMode?: boolean;
   /** Use threshold-based coloring (danger/warning/success) */
   colored?: boolean;
+  /** Percentage (0.0-1.0) at or below which the battery is shown in the danger color. Default: 0.05 */
+  dangerThreshold?: number;
+  /** Percentage (0.0-1.0) at or below which the battery is shown in the warning color. Default: 0.15 */
+  warningThreshold?: number;
 }
 
 export function Battery({
@@ -16,17 +20,21 @@ export function Battery({
   status = 'discharging',
   darkMode = false,
   colored = false,
+  dangerThreshold = 0.05,
+  warningThreshold = 0.15,
 }: BatteryProps) {
   const percent = Math.max(0, Math.min(1, Number(percentage) || 0));
-  const label = percent === 0 ? '-' : String(Math.round(percent * 100));
+  const isFull = status === 'full';
+  const label = isFull ? 'full' : percent === 0 ? '-' : String(Math.round(percent * 100));
+  const ariaValue = isFull ? 'full' : label === '-' ? '-' : `${label}%`;
 
   // Determine fill color based on colored mode and percentage thresholds
   let fillColor: string;
   if (colored) {
     // Threshold-based coloring using CSS variables
-    if (percent < 0.1) {
+    if (percent <= dangerThreshold) {
       fillColor = 'var(--nc-danger)';
-    } else if (percent < 0.2) {
+    } else if (percent <= warningThreshold) {
       fillColor = 'var(--nc-warning)';
     } else {
       fillColor = 'var(--nc-success)';
@@ -80,7 +88,7 @@ export function Battery({
       height={svgHeight}
       viewBox={`0 0 ${svgWidth} ${svgHeight}`}
       role="img"
-      aria-label={`Battery ${label === '-' ? '-' : `${label}%`} ${status}`}
+      aria-label={`Battery ${ariaValue} ${status}`}
     >
       <defs>
         {/* Mask for the fill percentage */}
@@ -131,7 +139,7 @@ export function Battery({
         height={height * 0.48}
         rx={0.8}
         ry={0.8}
-        fill={percent === 1 ? fillColor : backgroundColor}
+        fill={percent === 1 || isFull ? fillColor : backgroundColor}
       />
 
       {/* charging lightning - positioned to the right of the battery (outside the cap) */}
