@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { Button, ButtonProps } from './Button';
 import { CloseButton } from './CommonButtons';
+import { pushEscapeLayer } from '../lib/escapeLayers';
 
 export type DialogFooterType = 'ok' | 'ok-cancel' | 'save-cancel' | 'delete-cancel' | 'connect' | 'close' | 'gotit' | 'custom' | 'none';
 
@@ -74,6 +75,8 @@ export interface DialogProps {
   onConnect?: () => void;
   /** Whether clicking the overlay closes the dialog (default: true) */
   closeOnOverlay?: boolean;
+  /** Whether pressing Escape closes the dialog (default: true) */
+  closeOnEscape?: boolean;
   /** Whether the primary action button is disabled */
   primaryDisabled?: boolean;
   /**
@@ -127,6 +130,7 @@ export function Dialog({
   onCancel,
   onConnect,
   closeOnOverlay = true,
+  closeOnEscape = true,
   primaryDisabled = false,
   fullScreen = false,
   hideTitleBar = false,
@@ -155,6 +159,18 @@ export function Dialog({
       onClose();
     }
   };
+
+  // Read the latest onClose without re-subscribing: a re-subscribe would re-push this dialog's
+  // layer and reorder it against popups nested inside the dialog.
+  const onCloseRef = useRef(onClose);
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  });
+
+  useEffect(() => {
+    if (!open || !closeOnEscape) return;
+    return pushEscapeLayer(() => onCloseRef.current());
+  }, [open, closeOnEscape]);
 
   // Focus trap - focus dialog when opened. `preventScroll` stops the browser from scrolling
   // the container to the dialog, which would move the app behind the modal.

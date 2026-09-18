@@ -1,11 +1,16 @@
 import { useState } from 'react'
-import { Button, Dialog, Input } from '../../../src'
+import { Button, ComboBox, ContextMenu, Dialog, Input } from '../../../src'
 
 export function DialogSection() {
     const [dialogOpen, setDialogOpen] = useState(false)
     const [dialog2Open, setDialog2Open] = useState(false)
     const [dialog3Open, setDialog3Open] = useState(false)
     const [dialog4Open, setDialog4Open] = useState(false)
+    const [outerOpen, setOuterOpen] = useState(false)
+    const [innerOpen, setInnerOpen] = useState(false)
+    const [innerCombo, setInnerCombo] = useState<string | undefined>('opt1')
+    const [innerMenuOpen, setInnerMenuOpen] = useState(false)
+    const [innerMenuAnchor, setInnerMenuAnchor] = useState<HTMLButtonElement | null>(null)
 
     return (
         <>
@@ -120,6 +125,65 @@ export function DialogSection() {
             >
                 <p>This action cannot be undone. Are you sure you want to delete this item?</p>
             </Dialog>
+
+            <section className="dev-section">
+                <h2>Nested Dialogs &amp; Escape</h2>
+                <p style={{ marginBottom: 16, color: 'var(--nc-text-weak)' }}>
+                    Escape closes the top-most popup only: an open ComboBox dropdown or ContextMenu
+                    first, then the dialog it sits in.
+                </p>
+                <Button onClick={() => setOuterOpen(true)}>Open Nested Dialog</Button>
+
+                <Dialog
+                    open={outerOpen}
+                    onClose={() => setOuterOpen(false)}
+                    title="Outer Dialog"
+                    footerType="close"
+                    fullScreen={true}
+                >
+                    <p>Escape closes this dialog and stops there — host page shortcuts do not run.</p>
+                    <Button style={{ marginTop: 12 }} onClick={() => setInnerOpen(true)}>
+                        Open Inner Dialog
+                    </Button>
+                </Dialog>
+
+                <Dialog
+                    open={innerOpen}
+                    onClose={() => setInnerOpen(false)}
+                    title="Inner Dialog"
+                    footerType="close"
+                    fullScreen={true}
+                >
+                    <ComboBox
+                        label="Options"
+                        value={innerCombo}
+                        onChange={setInnerCombo}
+                        options={[
+                            { label: 'Option 1', value: 'opt1' },
+                            { label: 'Option 2', value: 'opt2' },
+                            { label: 'Option 3', value: 'opt3' },
+                        ]}
+                    />
+                    <div style={{ marginTop: 12 }}>
+                        <button
+                            className="nc-button"
+                            ref={setInnerMenuAnchor}
+                            onClick={() => setInnerMenuOpen(!innerMenuOpen)}
+                        >
+                            Open ContextMenu
+                        </button>
+                        <ContextMenu
+                            open={innerMenuOpen}
+                            onClose={() => setInnerMenuOpen(false)}
+                            anchor={innerMenuAnchor}
+                            options={[
+                                { id: 'rename', label: 'Rename', onClick: () => { } },
+                                { id: 'delete', label: 'Delete', variant: 'danger', onClick: () => { } },
+                            ]}
+                        />
+                    </div>
+                </Dialog>
+            </section>
         </>
     )
 }

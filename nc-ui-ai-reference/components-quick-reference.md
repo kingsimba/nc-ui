@@ -387,7 +387,7 @@ import { Dialog } from '@kingsimba/nc-ui'
 </Dialog>
 ```
 
-**Props:** `open`, `onClose`, `title`, `footer`, `children`, `style`, `className`, `onOk`, `onSave`, `onDelete`, `onCancel`, `onConnect`, `footerType`, `closeOnOverlay`, `primaryDisabled`, `fullScreen`, `hideTitleBar`, `onContentHeightChange`
+**Props:** `open`, `onClose`, `title`, `footer`, `children`, `style`, `className`, `onOk`, `onSave`, `onDelete`, `onCancel`, `onConnect`, `footerType`, `closeOnOverlay`, `closeOnEscape`, `primaryDisabled`, `fullScreen`, `hideTitleBar`, `onContentHeightChange`
 
 ---
 
@@ -702,7 +702,7 @@ const [active, setActive] = useState('Tab1')
 </TabPanels>
 ```
 
-**TabPanels Props:** `active`, `keepMounted`, `className`, `style`  
+**TabPanels Props:** `active`, `keepMounted`, `className`, `style`
 **TabPanel Props:** `tab` (string matching a tab label), `className`, `style`
 
 ---

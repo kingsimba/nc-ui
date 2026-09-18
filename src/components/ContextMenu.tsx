@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { pushEscapeLayer } from '../lib/escapeLayers';
 
 export interface ContextMenuOption {
   id: string;
@@ -107,18 +108,12 @@ export function ContextMenu({
       }
     };
 
-    const handleEscapeKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
-    };
-
     document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('keydown', handleEscapeKey);
+    const removeEscapeLayer = pushEscapeLayer(onClose);
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleEscapeKey);
+      removeEscapeLayer();
     };
   }, [open, onClose, anchorElement]);
 
