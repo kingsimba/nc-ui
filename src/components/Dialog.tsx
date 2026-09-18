@@ -136,14 +136,22 @@ export function Dialog({
   const dialogRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
+  // Whether the gesture in progress started on the overlay itself.
+  const pressedOnOverlay = useRef(false);
   const { t } = useTranslation();
 
   // Context value for children to access
   const contextValue: DialogContextValue = { close: onClose };
 
-  // Handle overlay click
+  // A click is retargeted to the nearest common ancestor of its mousedown and mouseup targets,
+  // so a selection drag that starts inside the dialog and ends on the overlay reports the
+  // overlay as the click target. Record where the gesture started instead of trusting the click.
+  const handleOverlayMouseDown = (e: React.MouseEvent) => {
+    pressedOnOverlay.current = e.target === e.currentTarget;
+  };
+
   const handleOverlayClick = (e: React.MouseEvent) => {
-    if (closeOnOverlay && e.target === e.currentTarget) {
+    if (closeOnOverlay && pressedOnOverlay.current && e.target === e.currentTarget) {
       onClose();
     }
   };
@@ -313,7 +321,12 @@ export function Dialog({
 
   const dialogContent = (
     <DialogContext.Provider value={contextValue}>
-      <div ref={overlayRef} className={`nc-dialog-overlay${fullScreen ? ' nc-fullscreen' : ''}`} onClick={handleOverlayClick}>
+      <div
+        ref={overlayRef}
+        className={`nc-dialog-overlay${fullScreen ? ' nc-fullscreen' : ''}`}
+        onMouseDown={handleOverlayMouseDown}
+        onClick={handleOverlayClick}
+      >
         <div
           ref={dialogRef}
           className={`nc-dialog-container ${className}`}

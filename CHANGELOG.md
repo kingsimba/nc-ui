@@ -1,5 +1,6 @@
 # Changelog
 
+- 2026-09-18 Dialog/AppDialog: Do not close when a text-selection drag ends on the overlay
 - 2026-09-18 Dialog: Keep inline dialogs and their backdrop pinned to the visible area of a scrolling container
 - 2026-08-08 CodeEditor: Support explicit light/dark color theme selection
 - 2026-08-08 CodeEditor: Add syntax highlighting and invisible-character markers

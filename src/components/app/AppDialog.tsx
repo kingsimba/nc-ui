@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { AppContainer } from './AppContainer';
 
@@ -29,9 +29,19 @@ export function AppDialog({
   className = '',
   style,
 }: AppDialogProps) {
+  // Whether the gesture in progress started on the backdrop itself.
+  const pressedOnBackdrop = useRef(false);
+
+  // A click is retargeted to the nearest common ancestor of its mousedown and mouseup targets,
+  // so a selection drag that starts inside the dialog and ends on the backdrop reports the
+  // backdrop as the click target. Record where the gesture started instead of trusting the click.
+  const handleBackdropMouseDown = (e: React.MouseEvent) => {
+    pressedOnBackdrop.current = e.target === e.currentTarget;
+  };
+
   // Handle backdrop click
   const handleBackdropClick = (e: React.MouseEvent) => {
-    if (closeOnBackdrop && e.target === e.currentTarget) {
+    if (closeOnBackdrop && pressedOnBackdrop.current && e.target === e.currentTarget) {
       onClose();
     }
   };
@@ -41,6 +51,7 @@ export function AppDialog({
   const content = (
     <div
       className="nc-dialog-overlay nc-fullscreen"
+      onMouseDown={handleBackdropMouseDown}
       onClick={handleBackdropClick}
     >
       <div
