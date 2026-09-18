@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useRef } from 'react';
+import React, { createContext, useContext, useEffect, useLayoutEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { Button, ButtonProps } from './Button';
@@ -76,7 +76,7 @@ export interface DialogProps {
   closeOnOverlay?: boolean;
   /** Whether the primary action button is disabled */
   primaryDisabled?: boolean;
-  /** 
+  /**
    * Whether to render the dialog in a portal covering the full viewport (default: false).
    * Set to true to use fixed positioning via portal to document.body.
    * Set to false to render inline with absolute positioning within parent container.
@@ -88,6 +88,25 @@ export interface DialogProps {
   className?: string;
   /** Called when the content height changes, returns the new height in pixels */
   onContentHeightChange?: (height: number) => void;
+}
+
+/**
+ * Returns the scroll container that holds the dialog's containing block, if any.
+ *
+ * `position: absolute; inset: 0` inside a scrolling container resolves against the
+ * top of the scrollable content, not against the area currently in view, so an inline
+ * dialog placed in a scroll container ends up anchored to the content origin. Such a
+ * dialog is re-anchored to the container's visible area instead.
+ */
+function getScrollingContainer(el: HTMLElement | null): HTMLElement | null {
+  const container = el?.offsetParent;
+  if (!(container instanceof HTMLElement)) return null;
+  // `offsetParent` reports <body> for elements whose containing block is the initial
+  // containing block; only treat it as the containing block when it is positioned.
+  if (container === document.body && getComputedStyle(container).position === 'static') return null;
+  const { overflowX, overflowY } = getComputedStyle(container);
+  const scrollable = (value: string) => value === 'auto' || value === 'scroll' || value === 'overlay';
+  return scrollable(overflowX) || scrollable(overflowY) ? container : null;
 }
 
 /**
@@ -116,6 +135,7 @@ export function Dialog({
 }: DialogProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
 
   // Context value for children to access
@@ -128,12 +148,70 @@ export function Dialog({
     }
   };
 
-  // Focus trap - focus dialog when opened
+  // Focus trap - focus dialog when opened. `preventScroll` stops the browser from scrolling
+  // the container to the dialog, which would move the app behind the modal.
   useEffect(() => {
     if (open && dialogRef.current) {
-      dialogRef.current.focus();
+      dialogRef.current.focus({ preventScroll: true });
     }
   }, [open]);
+
+  // Re-anchor an inline overlay to the visible area of its scrolling container, so the dialog
+  // stays centered in view and everything visible behind it stays dimmed while scrolling.
+  //
+  // This uses fixed positioning rather than following the scroll offset with JS: the visible
+  // area of a scroll container does not move while its content scrolls, so nothing has to be
+  // updated per scroll event. Repositioning from a scroll listener instead lags behind the
+  // scroll (the browser presents scrolled frames before the listener has run), which makes the
+  // dialog and the backdrop visibly trail the content and jump back.
+  //
+  // `fixed` resolves against the viewport, or against the nearest ancestor with a transform,
+  // filter or containment. Such an ancestor already scales/moves everything inside it, and
+  // `fullScreen` should be used there to render through a portal instead.
+  useLayoutEffect(() => {
+    const overlay = overlayRef.current;
+    if (!open || fullScreen || !overlay) return;
+
+    const scroller = getScrollingContainer(overlay);
+    if (!scroller) return;
+
+    // Skip writes when the visible area is unchanged, which is the case for every scroll
+    // event of the container itself (its own scrolling does not move it).
+    let applied = '';
+
+    const sync = () => {
+      const rect = scroller.getBoundingClientRect();
+      const top = rect.top + scroller.clientTop;
+      const left = rect.left + scroller.clientLeft;
+      const { clientWidth: width, clientHeight: height } = scroller;
+      const next = `${top}|${left}|${width}|${height}`;
+      if (next === applied) return;
+      applied = next;
+      Object.assign(overlay.style, {
+        position: 'fixed',
+        top: `${top}px`,
+        left: `${left}px`,
+        width: `${width}px`,
+        height: `${height}px`,
+      });
+    };
+
+    sync();
+    const resizeObserver = new ResizeObserver(sync);
+    resizeObserver.observe(scroller, { box: 'content-box' });
+    // `resize` and capture-phase `scroll` catch the container being moved or resized by an
+    // ancestor (scrollbar appearing, panel resizing, page scrolling) while the dialog is open.
+    window.addEventListener('resize', sync);
+    window.addEventListener('scroll', sync, { capture: true, passive: true });
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener('resize', sync);
+      window.removeEventListener('scroll', sync, { capture: true });
+      // The overlay is re-created when the dialog closes, but it survives toggling fullScreen.
+      ['position', 'top', 'left', 'width', 'height'].forEach((prop) => overlay.style.removeProperty(prop));
+    };
+  }, [open, fullScreen]);
 
   // Monitor content height changes
   useEffect(() => {
@@ -235,7 +313,7 @@ export function Dialog({
 
   const dialogContent = (
     <DialogContext.Provider value={contextValue}>
-      <div className={`nc-dialog-overlay${fullScreen ? ' nc-fullscreen' : ''}`} onClick={handleOverlayClick}>
+      <div ref={overlayRef} className={`nc-dialog-overlay${fullScreen ? ' nc-fullscreen' : ''}`} onClick={handleOverlayClick}>
         <div
           ref={dialogRef}
           className={`nc-dialog-container ${className}`}

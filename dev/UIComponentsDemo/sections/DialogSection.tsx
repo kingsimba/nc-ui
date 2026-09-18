@@ -38,11 +38,21 @@ export function DialogSection() {
                     border: '2px dashed var(--nc-border)',
                     borderRadius: 8,
                     padding: 20,
-                    minHeight: 300,
+                    height: 320,
+                    overflowY: 'auto',
                     background: 'var(--nc-bg-secondary)',
                 }}>
                     <Button onClick={() => setDialog4Open(true)}>
                         Open Inline Dialog
+                    </Button>
+                    {Array.from({ length: 12 }, (_, i) => (
+                        <p key={i} style={{ marginTop: 16, color: 'var(--nc-text-weak)' }}>
+                            Scrollable content line {i + 1} — scroll down to the bottom and open the
+                            dialog from there.
+                        </p>
+                    ))}
+                    <Button onClick={() => setDialog4Open(true)} style={{ marginTop: 16 }}>
+                        Open Inline Dialog (at bottom)
                     </Button>
                     <Dialog
                         open={dialog4Open}
