@@ -398,6 +398,37 @@ export function TrashIcon({ size = 24, className, style }: IconProps) {
 }
 
 /**
+ * Trash icon, filled - TrashIcon's can painted solid. The two grip lines stay as
+ * counters rather than being dropped: a glyph of the icon's own colour cannot
+ * read inside a filled body, so the lines are knocked out of one evenodd path
+ * and take the surface behind the icon instead. Every edge is drawn where the
+ * 1.7 stroke's outer edge was, so the can, lid bar, handle and both grips hold
+ * the outline's 19.7x21.7 ink box.
+ */
+export function TrashFilledIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      style={style}
+    >
+      {/* Handle */}
+      <path d="M7.15 6V4A2.85 2.85 0 0 1 10 1.15h4A2.85 2.85 0 0 1 16.85 4v2Z" />
+      {/* Lid bar */}
+      <rect x="2.15" y="5.15" width="19.7" height="1.7" rx="0.85" />
+      {/* Can, then the two grip lines as holes */}
+      <path
+        fillRule="evenodd"
+        d="M4.15 6.85h15.7V20a2.85 2.85 0 0 1-2.85 2.85h-10A2.85 2.85 0 0 1 4.15 20ZM9.15 11a0.85 0.85 0 0 1 1.7 0v6a0.85 0.85 0 0 1-1.7 0ZM13.15 11a0.85 0.85 0 0 1 1.7 0v6a0.85 0.85 0 0 1-1.7 0Z"
+      />
+    </svg>
+  );
+}
+
+/**
  * Empty folder icon - an open empty folder for empty state display.
  */
 export function EmptyFolderIcon({ size = 24, className, style }: IconProps) {
@@ -425,10 +456,13 @@ export function EmptyFolderIcon({ size = 24, className, style }: IconProps) {
 }
 
 /**
- * Info icon - circle with "i" for information. The dot is a filled 1.2-radius
- * circle rather than a zero-length round-capped line, which can never exceed the
- * 2-unit stroke width. stroke="none" is required: the circle would otherwise
- * inherit the parent's 2-unit stroke and render at more than double this size.
+ * Info icon - circle with "i" for information. The dot is a filled circle rather
+ * than a zero-length round-capped line, which can never exceed the stroke width;
+ * stroke="none" is required, or it would inherit the parent's stroke and render
+ * at over double this size. The glyph is drawn heavier than the ring - a 2.6
+ * stroke and a 3.2 dot against the ring's 2 - because a short stem at the same
+ * nominal weight reads lighter than the long ring around it. InfoFilledIcon cuts
+ * the "i" to the same metrics so neither variant reads as the smaller one.
  */
 export function InfoIcon({ size = 24, className, style }: IconProps) {
   return (
@@ -445,8 +479,37 @@ export function InfoIcon({ size = 24, className, style }: IconProps) {
       style={style}
     >
       <circle cx="12" cy="12" r="10" />
-      <line x1="12" y1="16" x2="12" y2="12" />
-      <circle cx="12" cy="8" r="1.2" fill="currentColor" stroke="none" />
+      <line x1="12" y1="17.2" x2="12" y2="12.3" strokeWidth={2.6} />
+      <circle cx="12" cy="7.4" r="1.6" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+/**
+ * Info icon, filled - the ring swapped for a solid disc with the "i" knocked
+ * out: a glyph of the same colour inside a filled shape has nowhere to read, so
+ * it becomes a hole and takes the surface behind the icon instead, the way a
+ * counter does on the outline version. The disc is a 11-radius circle, exactly
+ * the outer edge the 2-unit ring occupied, so both icons hold one 22x22
+ * silhouette. The glyph follows InfoIcon's metrics - the same dot centre, the
+ * same 11-to-18.5 stem span - but each counter is cut 0.2 wider than the
+ * matching stroke, because a counter is closed in on by the ink around it and
+ * reads thinner than the same measurement drawn as a line.
+ */
+export function InfoFilledIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      style={style}
+    >
+      <path
+        fillRule="evenodd"
+        d="M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22ZM12 5.7a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4ZM10.6 12.4a1.4 1.4 0 0 1 2.8 0v4.7a1.4 1.4 0 0 1-2.8 0Z"
+      />
     </svg>
   );
 }
@@ -474,6 +537,32 @@ export function QuestionIcon({ size = 24, className, style }: IconProps) {
       <circle cx="12" cy="12" r="10" />
       <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
       <circle cx="12" cy="17" r="1.2" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+/**
+ * Question icon, filled - InfoFilledIcon's disc with the "?" knocked out. The
+ * outline's hook, tail and dot all sit on one 3-unit circle about 12,10, so the
+ * hole is that circle widened to a 2-to-4 ring and cut with 1-unit caps, ending
+ * near where the outline's tail cap did and leaving a comparable gap above the
+ * dot. Drawing it as a ring rather than offsetting the tail's curve keeps the
+ * hole's two edges concentric.
+ */
+export function QuestionFilledIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      style={style}
+    >
+      <path
+        fillRule="evenodd"
+        d="M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22ZM8.24 8.63A4 4 0 1 1 12 14a1 1 0 0 1 0-2A2 2 0 1 0 10.12 9.32a1 1 0 0 1-1.88-.69ZM12 15.8a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4Z"
+      />
     </svg>
   );
 }
@@ -742,12 +831,10 @@ export function SearchIcon({ size = 24, className, style }: IconProps) {
 }
 
 /**
- * Copy icon - Two overlapping sheets for copy-to-clipboard actions.
- */
-/**
- * Copy icon - Two overlapping sheets for copy-to-clipboard actions. Scaled to a
- * 16-unit canvas (18x18 ink): the two-square silhouette is the widest shape in
- * the set, so at full size it reads heavier than the single-mass icons beside it.
+ * Copy icon - Two overlapping sheets for copy-to-clipboard actions. Scaled to an
+ * 18-unit canvas (20x20 with stroke): the two-square silhouette is the widest
+ * shape in the set, so at full size it reads heavier than the single-mass icons
+ * beside it.
  */
 export function CopyIcon({ size = 24, className, style }: IconProps) {
   return (
@@ -764,9 +851,40 @@ export function CopyIcon({ size = 24, className, style }: IconProps) {
       style={style}
     >
       {/* Front sheet */}
-      <rect x="8.8" y="8.8" width="11.2" height="11.2" rx="1.6" />
+      <rect x="8.4" y="8.4" width="12.6" height="12.6" rx="1.8" />
       {/* Back sheet, open where the front sheet overlaps */}
-      <path d="M5.6 15.2c-.88 0-1.6-.72-1.6-1.6V5.6c0-.88.72-1.6 1.6-1.6h8c.88 0 1.6.72 1.6 1.6" />
+      <path d="M4.8 15.6c-.99 0-1.8-.81-1.8-1.8V4.8c0-.99.81-1.8 1.8-1.8h9c.99 0 1.8.81 1.8 1.8" />
+    </svg>
+  );
+}
+
+/**
+ * Copy icon, filled - the front sheet painted solid, the top one being the sheet
+ * whose interior is otherwise empty. The back sheet keeps stroke only: two
+ * filled sheets would merge into a single blob and lose the pair. Holding the
+ * 2-unit stroke keeps CopyIcon's 20x20 outline.
+ */
+export function CopyFilledIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      style={style}
+    >
+      {/* Front sheet */}
+      <rect x="8.4" y="8.4" width="12.6" height="12.6" rx="1.8" />
+      {/* Back sheet, stroked only so it stays readable behind the solid one */}
+      <path
+        d="M4.8 15.6c-.99 0-1.8-.81-1.8-1.8V4.8c0-.99.81-1.8 1.8-1.8h9c.99 0 1.8.81 1.8 1.8"
+        fill="none"
+      />
     </svg>
   );
 }
