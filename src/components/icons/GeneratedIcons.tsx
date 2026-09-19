@@ -195,6 +195,38 @@ export function UnlockIcon({ size = 24, className, style }: IconProps) {
 }
 
 /**
+ * Key icon - Ring bow on the left, blade with two teeth on the right. The bow
+ * is r=4 so its 2-unit stroke stops at x=2, level with LockIcon's left edge,
+ * and the blade starts at x=11, the inner edge of that ring band, so it meets
+ * the hole exactly and leaves the full 6-unit opening. The teeth stop at y=15,
+ * short of the bow's own bottom edge at 16, so the blade stays the lowest ink.
+ */
+export function KeyIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      style={style}
+    >
+      {/* Bow */}
+      <circle cx="7" cy="12" r="4" />
+      {/* Blade */}
+      <path d="M11 12h10" />
+      {/* Teeth */}
+      <path d="M15.5 12v3" />
+      <path d="M18.5 12v3" />
+    </svg>
+  );
+}
+
+/**
  * Chevron right icon for navigation items.
  */
 export function ChevronRightIcon({ size = 24, className, style }: IconProps) {
@@ -827,6 +859,40 @@ export function SunIcon({ size = 24, className, style }: IconProps) {
 }
 
 /**
+ * Sun icon, filled - SunIcon with the disc painted, so the glyph carries the
+ * identical geometry, stroke and 22x22 outline. Only the disc has area; the rays
+ * are zero-width lines, so filling leaves them exactly as they were.
+ */
+export function SunFilledIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      style={style}
+    >
+      {/* Disc */}
+      <circle cx="12" cy="12" r="4.5" />
+      {/* Eight rays at 45° intervals, all spanning radius 7.5 to 10 */}
+      <path d="M12 4.5V2" />
+      <path d="M19.5 12H22" />
+      <path d="M12 19.5V22" />
+      <path d="M4.5 12H2" />
+      <path d="M17.3 6.7 19.07 4.93" />
+      <path d="M6.7 6.7 4.93 4.93" />
+      <path d="M6.7 17.3 4.93 19.07" />
+      <path d="M17.3 17.3 19.07 19.07" />
+    </svg>
+  );
+}
+
+/**
  * Moon icon - Dark theme. Outer arc is a circle of radius 8.5 rather than the
  * full 10: a crescent is one compact solid mass, so matching the sun's ink area
  * would still make it read heavier than the sun's sparse rays.
@@ -839,6 +905,29 @@ export function MoonIcon({ size = 24, className, style }: IconProps) {
       height={size}
       viewBox="0 0 24 24"
       fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      style={style}
+    >
+      <path d="M12 3.5a6.01 6.01 0 0 0 8.5 8.5 8.5 8.5 0 1 1-8.5-8.5Z" />
+    </svg>
+  );
+}
+
+/**
+ * Moon icon, filled - MoonIcon with the crescent painted. Same geometry, stroke
+ * and outline as MoonIcon; filling only closes the crescent's interior.
+ */
+export function MoonFilledIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
       stroke="currentColor"
       strokeWidth={2}
       strokeLinecap="round"
@@ -940,6 +1029,33 @@ export function ConsoleIcon({ size = 24, className, style }: IconProps) {
 }
 
 /**
+ * User icon - Single person: a 4.47-radius head over a shoulder shape left open
+ * along the bottom edge. Sized so the ink box comes to 19.6x21.8 - the set's
+ * full-size height, with the narrower width a person silhouette carries.
+ */
+export function UserIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.7}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      style={style}
+    >
+      {/* Head */}
+      <circle cx="12" cy="6.42" r="4.47" />
+      {/* Shoulders, open along the bottom edge */}
+      <path d="M20.94 22.05v-2.23a4.47 4.47 0 0 0-4.47-4.47H7.53a4.47 4.47 0 0 0-4.47 4.47v2.23" />
+    </svg>
+  );
+}
+
+/**
  * Star icon - Five-pointed star for favourites and ratings. Outer radius 12.92
  * with a 0.45 inner ratio: the classic 0.382 pentagram proportion goes
  * needle-thin once the arms are down at 16px, while anything above ~0.5 starts
@@ -965,6 +1081,32 @@ export function StarIcon({ size = 24, className, style }: IconProps) {
       style={style}
     >
       <path d="M13.43 3.37A1.55 1.55 0 0 0 10.57 3.37L8.58 8.15L3.44 8.56A1.55 1.55 0 0 0 2.54 11.29L6.47 14.65L5.27 19.67A1.55 1.55 0 0 0 7.58 21.36L12 18.66L16.42 21.36A1.55 1.55 0 0 0 18.73 19.67L17.53 14.65L21.46 11.29A1.55 1.55 0 0 0 20.56 8.56L15.42 8.15Z" />
+    </svg>
+  );
+}
+
+/**
+ * Star icon, filled - StarIcon's star with the interior painted, but with a
+ * tighter 1.2-unit tip fillet: a solid body shows the tip shape the way no
+ * stroke does, so 1.55 reads as blobby once filled. The star radius drops to
+ * 12.36 to hold the tips exactly where the 1.55 version had them, leaving the
+ * outline and the 21.85x20.88 ink box unchanged.
+ */
+export function StarFilledIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      style={style}
+    >
+      <path d="M13.11 3.14A1.2 1.2 0 0 0 10.89 3.14L8.73 8.33L3.12 8.78A1.2 1.2 0 0 0 2.44 10.89L6.71 14.55L5.41 20.02A1.2 1.2 0 0 0 7.2 21.32L12 18.39L16.8 21.32A1.2 1.2 0 0 0 18.59 20.02L17.29 14.55L21.56 10.89A1.2 1.2 0 0 0 20.88 8.78L15.27 8.33Z" />
     </svg>
   );
 }
