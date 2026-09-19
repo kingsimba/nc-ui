@@ -1,10 +1,14 @@
 import { ListGroup, ListGroupItem, Toggle } from '../../../src'
+import { Button } from '../../../src'
 import {
     ChevronRightIcon,
+    DownloadIcon,
     EditIcon,
     LockIcon,
     InfoIcon,
+    PlayFilledIcon,
     PowerIcon,
+    TrashIcon,
 } from '../../../src/components/icons'
 
 interface ListGroupSectionProps {
@@ -150,6 +154,63 @@ export function ListGroupSection({ theme, toggleTheme }: ListGroupSectionProps) 
                     <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                         <span style={{ color: 'var(--nc-text-weak)' }}>Battery Health</span>
                         <span>98%</span>
+                    </div>
+                </ListGroupItem>
+            </ListGroup>
+
+            {/* Wide min-content content must not push the trailing buttons outside the item. */}
+            <ListGroup title="Long Content">
+                <ListGroupItem>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
+                            <div
+                                style={{
+                                    fontWeight: 700,
+                                    whiteSpace: 'nowrap',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                }}
+                            >
+                                B652607809100mM_2026-09-18_16-38-00_emergency_stop.bag
+                            </div>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    fontSize: 12,
+                                    color: 'var(--nc-text-weak)',
+                                }}
+                            >
+                                <span>End: 18-Sep-2026 16:38:01</span>
+                                <span>5.8 MB</span>
+                            </div>
+                        </div>
+                        <div style={{ display: 'flex', flexShrink: 0 }}>
+                            <Button variant="ghost" aria-label="Download">
+                                <DownloadIcon size={16} />
+                            </Button>
+                            <Button variant="ghost" aria-label="Replay">
+                                <PlayFilledIcon size={16} />
+                            </Button>
+                        </div>
+                    </div>
+                </ListGroupItem>
+                <ListGroupItem showBorder={false}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%' }}>
+                        <div
+                            style={{
+                                flex: 1,
+                                minWidth: 0,
+                                whiteSpace: 'nowrap',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                            }}
+                        >
+                            123e4567e89b12d3a456426614174000_without_any_break_opportunities_at_all
+                        </div>
+                        <Button variant="danger" size="small" aria-label="Delete" style={{ flexShrink: 0 }}>
+                            <TrashIcon size={18} />
+                        </Button>
                     </div>
                 </ListGroupItem>
             </ListGroup>

@@ -53,7 +53,10 @@ export function ListGroupItem({
       }}
       className={`nc-list-group-item ${onClick ? 'nc-list-group-item-clickable' : ''} ${isPressed ? 'nc-list-group-item-active' : ''}`}
     >
-      <div style={{ flex: 1 }}>{children}</div>
+      {/* minWidth:0 keeps a wide min-content child (e.g. a long unbreakable
+          filename) from pushing siblings out of the item, where
+          .nc-list-group-content's overflow:hidden would clip them. */}
+      <div style={{ flex: 1, minWidth: 0 }}>{children}</div>
     </div>
   );
 }
