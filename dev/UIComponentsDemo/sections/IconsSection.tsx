@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { Input } from '../../../src'
 import {
     CloseIcon,
     HideAppsIcon,
@@ -14,6 +16,7 @@ import {
     TrashIcon,
     EmptyFolderIcon,
     InfoIcon,
+    QuestionIcon,
     PieChartIcon,
     PowerIcon,
     CameraIcon,
@@ -22,118 +25,129 @@ import {
     DoubleClickIcon,
     MoreIcon,
     MoreHorizontalIcon,
+    MenuIcon,
     ExternalLinkIcon,
     SearchIcon,
+    CopyIcon,
+    FilterIcon,
+    SunIcon,
+    MoonIcon,
+    SaveIcon,
+    SettingsIcon,
+    ConsoleIcon,
+    StarIcon,
 } from '../../../src/components/icons'
 
+// Grouped by role, alphabetical within each group.
+const iconGroups = [
+    {
+        label: 'Navigation',
+        icons: [
+            { name: 'ChevronDownIcon', Icon: ChevronDownIcon },
+            { name: 'ChevronRightIcon', Icon: ChevronRightIcon },
+            { name: 'ExternalLinkIcon', Icon: ExternalLinkIcon },
+            { name: 'MenuIcon', Icon: MenuIcon },
+        ],
+    },
+    {
+        label: 'View & search',
+        icons: [
+            { name: 'EyeHiddenIcon', Icon: EyeHiddenIcon },
+            { name: 'FilterIcon', Icon: FilterIcon },
+            { name: 'SearchIcon', Icon: SearchIcon },
+            { name: 'ViewIcon', Icon: ViewIcon },
+        ],
+    },
+    {
+        label: 'Edit & files',
+        icons: [
+            { name: 'CopyIcon', Icon: CopyIcon },
+            { name: 'EditIcon', Icon: EditIcon },
+            { name: 'EmptyFolderIcon', Icon: EmptyFolderIcon },
+            { name: 'SaveIcon', Icon: SaveIcon },
+            { name: 'TrashIcon', Icon: TrashIcon },
+        ],
+    },
+    {
+        label: 'Actions',
+        icons: [
+            { name: 'CloseIcon', Icon: CloseIcon },
+            { name: 'DoubleClickIcon', Icon: DoubleClickIcon },
+            { name: 'MinusIcon', Icon: MinusIcon },
+            { name: 'MoreHorizontalIcon', Icon: MoreHorizontalIcon },
+            { name: 'MoreIcon', Icon: MoreIcon },
+            { name: 'PlusIcon', Icon: PlusIcon },
+            { name: 'RefreshIcon', Icon: RefreshIcon },
+            { name: 'RevertIcon', Icon: RevertIcon },
+        ],
+    },
+    {
+        label: 'Status & theme',
+        icons: [
+            { name: 'InfoIcon', Icon: InfoIcon },
+            { name: 'LockIcon', Icon: LockIcon },
+            { name: 'MoonIcon', Icon: MoonIcon },
+            { name: 'PowerIcon', Icon: PowerIcon },
+            { name: 'QuestionIcon', Icon: QuestionIcon },
+            { name: 'StarIcon', Icon: StarIcon },
+            { name: 'SunIcon', Icon: SunIcon },
+            { name: 'UnlockIcon', Icon: UnlockIcon },
+            { name: 'WifiIcon', Icon: WifiIcon },
+        ],
+    },
+    {
+        label: 'Devices & apps',
+        icons: [
+            { name: 'CameraIcon', Icon: CameraIcon },
+            { name: 'ConsoleIcon', Icon: ConsoleIcon },
+            { name: 'HideAppsIcon', Icon: HideAppsIcon },
+            { name: 'PieChartIcon', Icon: PieChartIcon },
+            { name: 'SettingsIcon', Icon: SettingsIcon },
+        ],
+    },
+]
+
 export function IconsSection() {
+    const [filter, setFilter] = useState('')
+
+    const query = filter.trim().toLowerCase()
+    const visibleGroups = iconGroups
+        .map(({ label, icons }) => ({
+            label,
+            icons: query ? icons.filter(({ name }) => name.toLowerCase().includes(query)) : icons,
+        }))
+        .filter(({ icons }) => icons.length > 0)
+    const totalMatches = visibleGroups.reduce((sum, { icons }) => sum + icons.length, 0)
+
     return (
-        <>
-            <section className="dev-section">
-                <h2>Icons</h2>
-                <div className="dev-row" style={{ flexWrap: 'wrap', gap: '24px' }}>
-                    <div className="dev-item">
-                        <CloseIcon size={24} />
-                        <span>CloseIcon</span>
+        <section className="dev-section">
+            <h2>Icons</h2>
+            <Input
+                value={filter}
+                onChange={setFilter}
+                placeholder="Filter icons..."
+                leadingIcon={<SearchIcon size={16} />}
+                style={{ maxWidth: 280, marginBottom: 16 }}
+            />
+            {totalMatches === 0 ? (
+                <p style={{ color: 'var(--nc-text-weak)', fontSize: 14 }}>No icons match “{filter}”.</p>
+            ) : (
+                visibleGroups.map(({ label, icons }) => (
+                    <div key={label} style={{ marginBottom: 24 }}>
+                        <h3 style={{ fontSize: 13, fontWeight: 500, color: 'var(--nc-text-weak)', margin: '0 0 12px' }}>
+                            {label}
+                        </h3>
+                        <div className="dev-row" style={{ flexWrap: 'wrap', gap: '24px' }}>
+                            {icons.map(({ name, Icon }) => (
+                                <div className="dev-item" key={name}>
+                                    <Icon size={24} />
+                                    <span>{name}</span>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                    <div className="dev-item">
-                        <HideAppsIcon size={24} />
-                        <span>HideAppsIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <ViewIcon size={24} />
-                        <span>ViewIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <EyeHiddenIcon size={24} />
-                        <span>EyeHiddenIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <WifiIcon size={24} />
-                        <span>WifiIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <LockIcon size={24} />
-                        <span>LockIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <UnlockIcon size={24} />
-                        <span>UnlockIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <ChevronRightIcon size={24} />
-                        <span>ChevronRightIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <ChevronDownIcon size={24} />
-                        <span>ChevronDownIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <RefreshIcon size={24} />
-                        <span>RefreshIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <RevertIcon size={24} />
-                        <span>RevertIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <EditIcon size={24} />
-                        <span>EditIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <TrashIcon size={24} />
-                        <span>TrashIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <EmptyFolderIcon size={24} />
-                        <span>EmptyFolderIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <InfoIcon size={24} />
-                        <span>InfoIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <PieChartIcon size={24} />
-                        <span>PieChartIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <PowerIcon size={24} />
-                        <span>PowerIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <CameraIcon size={24} />
-                        <span>CameraIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <PlusIcon size={24} />
-                        <span>PlusIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <MinusIcon size={24} />
-                        <span>MinusIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <DoubleClickIcon size={24} />
-                        <span>DoubleClickIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <MoreIcon size={24} />
-                        <span>MoreIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <MoreHorizontalIcon size={24} />
-                        <span>MoreHorizontalIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <ExternalLinkIcon size={24} />
-                        <span>ExternalLinkIcon</span>
-                    </div>
-                    <div className="dev-item">
-                        <SearchIcon size={24} />
-                        <span>SearchIcon</span>
-                    </div>
-                </div>
-            </section>
-        </>
+                ))
+            )}
+        </section>
     )
 }
