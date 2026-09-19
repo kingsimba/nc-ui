@@ -1,5 +1,6 @@
 # Changelog
 
+- 2026-09-19 ComboBox: Fix doubled text when selecting the closed value
 - 2026-09-19 ListGroup: Fix wide content pushing item children out of bounds
 - 2026-08-08 CodeEditor: Support explicit light/dark color theme selection
 - 2026-08-08 CodeEditor: Add syntax highlighting and invisible-character markers

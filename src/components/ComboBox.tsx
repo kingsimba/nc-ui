@@ -447,7 +447,7 @@ export function ComboBox({
       >
         <input
           ref={inputRef}
-          className={`nc-input ${isSmall ? 'nc-small' : ''}`}
+          className={`nc-input ${isSmall ? 'nc-small' : ''} ${overlayVisible ? 'nc-value-under-overlay' : ''}`.trim()}
           placeholder={placeholder}
           onFocus={() => {
             if (!disabled && canType) {
@@ -481,7 +481,9 @@ export function ComboBox({
             paddingRight: showToggle || showClearButton ? (isSmall ? 32 : 44) : 12,
             caretColor: allowTyping ? undefined : 'transparent',
             cursor: allowTyping ? undefined : 'pointer',
-            userSelect: allowTyping ? undefined : 'none',
+            // The input text is invisible behind the overlay, so it must not be selectable
+            // (its selection highlight would be painted over the overlay text).
+            userSelect: overlayVisible ? 'none' : undefined,
             color: overlayVisible ? 'transparent' : 'var(--nc-text)',
           }}
         />
@@ -496,7 +498,9 @@ export function ComboBox({
               right: showToggle || showClearButton ? (isSmall ? 12 : 24) : (isSmall ? 8 : 12),
               top: '50%',
               transform: 'translateY(-50%)',
-              pointerEvents: 'none',
+              // The overlay carries the visible text, so it is the layer that can be selected/copied.
+              userSelect: 'text',
+              cursor: allowTyping ? undefined : 'pointer',
               display: 'flex',
               alignItems: 'center',
               gap: 6,

@@ -467,6 +467,10 @@ input.nc-input.nc-small { height: 32px; }
 .nc-combo-container.nc-align-center .nc-input { text-align: center; }
 .nc-combo-container.nc-align-right .nc-input { text-align: right; }
 
+/* The visible text lives in .nc-combo-overlay; the input keeps it only for form/AT semantics,
+   so its own selection must never be painted on top of the overlay text. */
+.nc-input.nc-value-under-overlay::selection { background: transparent; color: transparent; }
+
 .nc-combo-overlay {
   display: flex;
   align-items: center;
