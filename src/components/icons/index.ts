@@ -29,6 +29,7 @@ export {
   ExternalLinkIcon,
   SearchIcon,
   CopyIcon,
+  DownloadIcon,
   FilterIcon,
   SunIcon,
   MoonIcon,
@@ -36,4 +37,10 @@ export {
   SettingsIcon,
   ConsoleIcon,
   StarIcon,
+  PlayIcon,
+  PauseIcon,
+  StopIcon,
+  PlayFilledIcon,
+  PauseFilledIcon,
+  StopFilledIcon,
 } from './GeneratedIcons';

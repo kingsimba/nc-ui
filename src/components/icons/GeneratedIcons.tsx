@@ -37,6 +37,11 @@ export function CloseIcon({ size = 24, color = 'currentColor', strokeWidth = 2, 
 
 /**
  * External Link icon - "box with arrow" icon for opening external links.
+ * The box corners are cut at r=3 to match EditIcon's sheet; both are large flat
+ * shapes seen three corners at a time, so they share the softer radius. The box
+ * stays open along the top-right where the arrow leaves it. The stroke is 1.7
+ * rather than 2 so it renders as thick as EditIcon's, whose 28.2-wide viewBox
+ * already thins its 2-unit stroke to the same weight.
  */
 export function ExternalLinkIcon({ size = 24, className, style }: IconProps) {
   return (
@@ -46,13 +51,13 @@ export function ExternalLinkIcon({ size = 24, className, style }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2}
+      strokeWidth={1.7}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
       style={style}
     >
-      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h8" />
+      <path d="M18 13v5a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V9a3 3 0 0 1 3-3h7" />
       <polyline points="17 4 20 4 20 7" />
       <line x1="13" y1="11" x2="20" y2="4" />
     </svg>
@@ -256,9 +261,9 @@ export function ChevronDownIcon({ size = 24, className, style }: IconProps) {
 }
 
 /**
- * Refresh icon for scanning networks.
- * Paths are drawn to the full 24-unit box; do not add viewBox padding here,
- * it scales the glyph (and its stroke) down relative to the rest of the set.
+ * Refresh icon for scanning networks. Two 8-unit arcs with 4.44-unit arrow heads,
+ * held to an 18x18 ink box rather than filling the frame. Keep the arcs and heads
+ * scaled together.
  */
 export function RefreshIcon({ size = 24, className, style }: IconProps) {
   return (
@@ -268,23 +273,24 @@ export function RefreshIcon({ size = 24, className, style }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2}
+      strokeWidth={1.7}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
       style={style}
     >
-      {/* Arrow heads are 5 units on each leg, matching RevertIcon's */}
-      <path d="M21 3v5h-5" />
-      <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
-      <path d="M3 21v-5h5" />
-      <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
+      {/* Arrow heads are 4.44 units on each leg, matching RevertIcon's */}
+      <path d="M20 4v4.44h-4.44" />
+      <path d="M4 12A8 8 0 0 1 17.33 6.04L20 8.44" />
+      <path d="M4 20v-4.44h4.44" />
+      <path d="M20 12A8 8 0 0 1 6.67 17.96L4 15.56" />
     </svg>
   );
 }
 
 /**
- * Revert icon - undo/revert action icon with counter-clockwise arrow.
+ * Revert icon - undo/revert action icon with counter-clockwise arrow. An 8-unit
+ * circle with the same 4.44-unit head as RefreshIcon, on the shared 18x18 ink box.
  */
 export function RevertIcon({ size = 24, className, style }: IconProps) {
   return (
@@ -294,22 +300,25 @@ export function RevertIcon({ size = 24, className, style }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2}
+      strokeWidth={1.7}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
       style={style}
     >
-      <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-      <path d="M3 3v5h5" />
+      <path d="M4 12A8 8 0 1 0 12 4A8.67 8.67 0 0 0 6.01 6.44L4 8.44" />
+      <path d="M4 4v4.44h4.44" />
     </svg>
   );
 }
 
 /**
- * Edit icon - Pencil for editing mode.
- * Optically sized to 85%: the pencil fills its box corner-to-corner, so at full
- * size it reads heavier than round icons like InfoIcon.
+ * Edit icon - Document with a pencil for editing mode.
+ * Optically sized to 85%: the sheet fills its box corner-to-corner, so at full
+ * size it reads heavier than round icons like InfoIcon. The sheet's corners are
+ * cut at r=3 rather than the set's usual 2 - three of them are visible at once on
+ * a large flat shape, so the softer radius keeps it from reading as a hard box.
+ * The sheet stays open along the top-right because the pencil crosses there.
  */
 export function EditIcon({ size = 24, className, style }: IconProps) {
   return (
@@ -325,7 +334,7 @@ export function EditIcon({ size = 24, className, style }: IconProps) {
       className={className}
       style={style}
     >
-      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+      <path d="M11 4H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3v-6" />
       <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
     </svg>
   );
@@ -342,7 +351,7 @@ export function TrashIcon({ size = 24, className, style }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={1.5}
+      strokeWidth={1.7}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
@@ -367,7 +376,7 @@ export function EmptyFolderIcon({ size = 24, className, style }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={1.5}
+      strokeWidth={1.7}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
@@ -384,7 +393,10 @@ export function EmptyFolderIcon({ size = 24, className, style }: IconProps) {
 }
 
 /**
- * Info icon - circle with "i" for information.
+ * Info icon - circle with "i" for information. The dot is a filled 1.2-radius
+ * circle rather than a zero-length round-capped line, which can never exceed the
+ * 2-unit stroke width. stroke="none" is required: the circle would otherwise
+ * inherit the parent's 2-unit stroke and render at more than double this size.
  */
 export function InfoIcon({ size = 24, className, style }: IconProps) {
   return (
@@ -402,7 +414,7 @@ export function InfoIcon({ size = 24, className, style }: IconProps) {
     >
       <circle cx="12" cy="12" r="10" />
       <line x1="12" y1="16" x2="12" y2="12" />
-      <line x1="12" y1="8" x2="12.01" y2="8" />
+      <circle cx="12" cy="8" r="1.2" fill="currentColor" stroke="none" />
     </svg>
   );
 }
@@ -410,7 +422,8 @@ export function InfoIcon({ size = 24, className, style }: IconProps) {
 /**
  * Question icon - circle with "?" for help and unknown values. Same 10-unit
  * ring as InfoIcon so the two pair cleanly; the hook and dot mirror the "i"
- * stem and dot, leaving a 4-unit gap above the dot in both.
+ * stem and dot, with the same 1.2-radius filled dot and 4 units between dot
+ * centre and the glyph above it.
  */
 export function QuestionIcon({ size = 24, className, style }: IconProps) {
   return (
@@ -428,13 +441,14 @@ export function QuestionIcon({ size = 24, className, style }: IconProps) {
     >
       <circle cx="12" cy="12" r="10" />
       <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-      <line x1="12" y1="17" x2="12.01" y2="17" />
+      <circle cx="12" cy="17" r="1.2" fill="currentColor" stroke="none" />
     </svg>
   );
 }
 
 /**
- * PieChart icon for statistics/analytics.
+ * PieChart icon for statistics/analytics. A 10-unit radius circle, so the 1.7
+ * stroke lands it on the set's 21.7x21.7 ink box.
  */
 export function PieChartIcon({ size = 24, className, style }: IconProps) {
   return (
@@ -444,7 +458,7 @@ export function PieChartIcon({ size = 24, className, style }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2}
+      strokeWidth={1.7}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
@@ -698,6 +712,11 @@ export function SearchIcon({ size = 24, className, style }: IconProps) {
 /**
  * Copy icon - Two overlapping sheets for copy-to-clipboard actions.
  */
+/**
+ * Copy icon - Two overlapping sheets for copy-to-clipboard actions. Scaled to a
+ * 16-unit canvas (18x18 ink): the two-square silhouette is the widest shape in
+ * the set, so at full size it reads heavier than the single-mass icons beside it.
+ */
 export function CopyIcon({ size = 24, className, style }: IconProps) {
   return (
     <svg
@@ -713,9 +732,39 @@ export function CopyIcon({ size = 24, className, style }: IconProps) {
       style={style}
     >
       {/* Front sheet */}
-      <rect x="8" y="8" width="14" height="14" rx="2" />
+      <rect x="8.8" y="8.8" width="11.2" height="11.2" rx="1.6" />
       {/* Back sheet, open where the front sheet overlaps */}
-      <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+      <path d="M5.6 15.2c-.88 0-1.6-.72-1.6-1.6V5.6c0-.88.72-1.6 1.6-1.6h8c.88 0 1.6.72 1.6 1.6" />
+    </svg>
+  );
+}
+
+/**
+ * Download icon - Arrow over a baseline, for saving to disk. The tray is reduced
+ * to a single line: an open dish needs two verticals and two corner arcs to say
+ * the same thing, and at 16px those melt into the baseline anyway. The line spans
+ * the same 3 to 21 as the old tray, so the 20x20 ink box is unchanged; the arrow
+ * runs 3 to 17, leaving 4 units of clearance above the line.
+ */
+export function DownloadIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      style={style}
+    >
+      {/* Baseline */}
+      <path d="M3 21h18" />
+      {/* Shaft and head, stopping clear of the line */}
+      <path d="M12 3v14" />
+      <path d="M7 12l5 5 5-5" />
     </svg>
   );
 }
@@ -806,7 +855,7 @@ export function MoonIcon({ size = 24, className, style }: IconProps) {
  * Save icon - Floppy disk. The body is a rounded square spanning 3 to 21 with a
  * 45° cut across the top-right corner: a solid square silhouette reads heavier
  * than the set's circles and sparse glyphs, so it is held to a 20-unit ink box
- * (2 units of margin per side) and a 1.5 stroke rather than the full 22 and 2.
+ * (2 units of margin per side) rather than the full 22.
  */
 export function SaveIcon({ size = 24, className, style }: IconProps) {
   return (
@@ -816,7 +865,7 @@ export function SaveIcon({ size = 24, className, style }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={1.5}
+      strokeWidth={1.7}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
@@ -836,8 +885,8 @@ export function SaveIcon({ size = 24, className, style }: IconProps) {
  * Settings icon - Gear. Six lobes joined to the hub by rounded webs rather than
  * straight flanks: the profile is built from 1.963-unit arcs throughout, so the
  * tooth/valley transition carries no straight run and reads soft at every size.
- * 1.5px stroke and a 3.417-unit bore, so the glyph fills the same 22x22 outer
- * box (1 unit of margin per side) as the rest of the set.
+ * 1.7px stroke and a 3.417-unit bore, so the 20.5-unit gear fills a 22.2x22.2
+ * outer box - just over the set's usual 22, and level with it at any real size.
  */
 export function SettingsIcon({ size = 24, className, style }: IconProps) {
   return (
@@ -847,7 +896,7 @@ export function SettingsIcon({ size = 24, className, style }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={1.5}
+      strokeWidth={1.7}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
@@ -916,6 +965,138 @@ export function StarIcon({ size = 24, className, style }: IconProps) {
       style={style}
     >
       <path d="M13.43 3.37A1.55 1.55 0 0 0 10.57 3.37L8.58 8.15L3.44 8.56A1.55 1.55 0 0 0 2.54 11.29L6.47 14.65L5.27 19.67A1.55 1.55 0 0 0 7.58 21.36L12 18.66L16.42 21.36A1.55 1.55 0 0 0 18.73 19.67L17.53 14.65L21.46 11.29A1.55 1.55 0 0 0 20.56 8.56L15.42 8.15Z" />
+    </svg>
+  );
+}
+
+/**
+ * Play icon - Right-pointing triangle for starting playback. The outline sits on
+ * the same 17x20 footprint as PlayFilledIcon: the 1.7 stroke adds 0.85 of ink per
+ * side, so the geometry is offset 0.15 further out than the 2-stroke version and
+ * the fillet radii grow by the same 0.15, keeping the outer silhouette identical.
+ */
+export function PlayIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.7}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      style={style}
+    >
+      <path d="M4.79 4.8A1.92 1.95 0 0 1 7.71 3.14L19.18 10.34A1.92 1.95 0 0 1 19.18 13.66L7.71 20.86A1.92 1.95 0 0 1 4.79 19.2Z" />
+    </svg>
+  );
+}
+
+/**
+ * Pause icon - Two vertical bars, sized to the 16x20 footprint of
+ * PauseFilledIcon so the outline matches the solid version. The 1.7 stroke costs
+ * 0.15 of ink per side, so the bars sit that much wider and the fillets grow with
+ * them, holding the outer silhouette where the 2-stroke version had it.
+ */
+export function PauseIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.7}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      style={style}
+    >
+      <path d="M4.85 4.8A1.9 1.95 0 0 1 6.75 2.85L7.63 2.85A1.9 1.95 0 0 1 9.53 4.8L9.53 19.2A1.9 1.95 0 0 1 7.63 21.15L6.75 21.15A1.9 1.95 0 0 1 4.85 19.2Z" />
+      <path d="M14.47 4.8A1.9 1.95 0 0 1 16.37 2.85L17.25 2.85A1.9 1.95 0 0 1 19.15 4.8L19.15 19.2A1.9 1.95 0 0 1 17.25 21.15L16.37 21.15A1.9 1.95 0 0 1 14.47 19.2Z" />
+    </svg>
+  );
+}
+
+/**
+ * Stop icon - Square. Sized to the 16x16 footprint of StopFilledIcon; the 1.7
+ * stroke costs 0.15 of ink per side, so the square and its fillets are drawn that
+ * much wider to hold the silhouette.
+ */
+export function StopIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.7}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      style={style}
+    >
+      <path d="M4.85 6.75A1.9 1.9 0 0 1 6.75 4.85L17.25 4.85A1.9 1.9 0 0 1 19.15 6.75L19.15 17.25A1.9 1.9 0 0 1 17.25 19.15L6.75 19.15A1.9 1.9 0 0 1 4.85 17.25Z" />
+    </svg>
+  );
+}
+
+/**
+ * Play icon, filled - same filleted triangle as PlayIcon with the interior
+ * painted instead of stroked, so it carries the same 17x20 footprint with no
+ * stroke to inset.
+ */
+export function PlayFilledIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      style={style}
+    >
+      <path d="M4 4A2 2 0 0 1 7.05 2.3L20.05 10.3A2 2 0 0 1 20.05 13.7L7.05 21.7A2 2 0 0 1 4 20Z" />
+    </svg>
+  );
+}
+
+/**
+ * Pause icon, filled - the two bars of PauseIcon, solid (16x20 ink).
+ */
+export function PauseFilledIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      style={style}
+    >
+      <path d="M4 4A2 2 0 0 1 6 2L7 2A2 2 0 0 1 9 4L9 20A2 2 0 0 1 7 22L6 22A2 2 0 0 1 4 20Z" />
+      <path d="M15 4A2 2 0 0 1 17 2L18 2A2 2 0 0 1 20 4L20 20A2 2 0 0 1 18 22L17 22A2 2 0 0 1 15 20Z" />
+    </svg>
+  );
+}
+
+/**
+ * Stop icon, filled - the StopIcon square, solid (16x16 ink).
+ */
+export function StopFilledIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      style={style}
+    >
+      <path d="M4 6A2 2 0 0 1 6 4L18 4A2 2 0 0 1 20 6L20 18A2 2 0 0 1 18 20L6 20A2 2 0 0 1 4 18Z" />
     </svg>
   );
 }

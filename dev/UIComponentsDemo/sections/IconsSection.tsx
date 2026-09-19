@@ -29,6 +29,7 @@ import {
     ExternalLinkIcon,
     SearchIcon,
     CopyIcon,
+    DownloadIcon,
     FilterIcon,
     SunIcon,
     MoonIcon,
@@ -36,6 +37,12 @@ import {
     SettingsIcon,
     ConsoleIcon,
     StarIcon,
+    PlayIcon,
+    PauseIcon,
+    StopIcon,
+    PlayFilledIcon,
+    PauseFilledIcon,
+    StopFilledIcon,
 } from '../../../src/components/icons'
 
 // Grouped by role, alphabetical within each group.
@@ -62,6 +69,7 @@ const iconGroups = [
         label: 'Edit & files',
         icons: [
             { name: 'CopyIcon', Icon: CopyIcon },
+            { name: 'DownloadIcon', Icon: DownloadIcon },
             { name: 'EditIcon', Icon: EditIcon },
             { name: 'EmptyFolderIcon', Icon: EmptyFolderIcon },
             { name: 'SaveIcon', Icon: SaveIcon },
@@ -79,6 +87,17 @@ const iconGroups = [
             { name: 'PlusIcon', Icon: PlusIcon },
             { name: 'RefreshIcon', Icon: RefreshIcon },
             { name: 'RevertIcon', Icon: RevertIcon },
+        ],
+    },
+    {
+        label: 'Media',
+        icons: [
+            { name: 'PauseIcon', Icon: PauseIcon },
+            { name: 'PauseFilledIcon', Icon: PauseFilledIcon },
+            { name: 'PlayIcon', Icon: PlayIcon },
+            { name: 'PlayFilledIcon', Icon: PlayFilledIcon },
+            { name: 'StopIcon', Icon: StopIcon },
+            { name: 'StopFilledIcon', Icon: StopFilledIcon },
         ],
     },
     {
