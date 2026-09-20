@@ -3,3 +3,5 @@ packages:
 
 allowBuilds:
   esbuild: false
+overrides:
+  '@kingsimba/nc-ui': link:../../.local/share/pnpm/global/5/node_modules/@kingsimba/nc-ui
