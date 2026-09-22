@@ -26,8 +26,8 @@ When using nc-ui in a new project, AI assistants might default to using native H
    #### For GitHub Copilot:
 
    ```bash
-   mkdir -p .github
-   cp docs/nc-ui-ai-reference/copilot-instructions.md .github/copilot-instructions.md
+   mkdir -p .github/instructions
+   cp docs/nc-ui-ai-reference/nc-ui.instructions.md .github/instructions/nc-ui.instructions.md
    ```
 
    #### For Claude Code:
@@ -57,10 +57,11 @@ your-project/
 │       ├── global-utility-styles.md         # Global styles (h1, .tag, .block, .card, etc.)
 │       ├── examples-and-antipatterns.md     # Usage examples
 │       ├── app-framework.md                 # App framework guide (optional)
-│       ├── copilot-instructions.md          # Template for Copilot
+│       ├── nc-ui.instructions.md            # Template for Copilot
 │       └── claude-context.md                # Template for Claude
 ├── .github/
-│   └── copilot-instructions.md          # → Copied from docs/nc-ui-ai-reference/
+│   └── instructions/
+│       └── nc-ui.instructions.md        # → Copied from docs/nc-ui-ai-reference/
 └── .claude/
     └── project-context.md               # → Copied from docs/nc-ui-ai-reference/
 ```
@@ -69,9 +70,9 @@ your-project/
 
 ### Entry Files (Copy to Project)
 
-**`copilot-instructions.md`**
+**`nc-ui.instructions.md`**
 
-Concise entry point for GitHub Copilot with critical rules and quick reference. Copy to `.github/copilot-instructions.md` in your project.
+Concise entry point for GitHub Copilot with critical rules and quick reference. Copy to `.github/instructions/nc-ui.instructions.md` in your project. The `applyTo` frontmatter scopes it to source files, so it loads only when relevant.
 
 **`claude-context.md`**
 
@@ -155,7 +156,7 @@ When nc-ui is updated:
 ### Do:
 
 - ✅ Copy the entire `nc-ui-ai-reference/` folder to `docs/` in new projects
-- ✅ Set up AI-specific entry files (`.github/copilot-instructions.md`, `.claude/project-context.md`)
+- ✅ Set up AI-specific entry files (`.github/instructions/nc-ui.instructions.md`, `.claude/project-context.md`)
 - ✅ Commit all documentation to version control
 - ✅ Update when nc-ui version changes significantly
 
@@ -170,7 +171,7 @@ When nc-ui is updated:
 ### AI still using native HTML elements?
 
 1. **Check entry files exist:**
-   - `.github/copilot-instructions.md` for Copilot
+   - `.github/instructions/nc-ui.instructions.md` for Copilot
    - `.claude/project-context.md` for Claude
 
 2. **Verify files are committed** to git

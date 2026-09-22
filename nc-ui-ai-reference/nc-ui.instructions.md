@@ -1,3 +1,8 @@
+---
+description: "Use when writing or editing frontend React code that renders UI — this project uses nc-ui, so use nc-ui components instead of native HTML form elements."
+applyTo: "**/*.tsx, **/*.ts, **/*.jsx, **/*.js, **/*.css"
+---
+
 # nc-ui Project Guidelines
 
 This project uses [@kingsimba/nc-ui](https://www.npmjs.com/package/@kingsimba/nc-ui) - a lightweight React UI component library.
@@ -184,14 +189,10 @@ nc-ui components pass values directly (not event objects):
 
 ## Documentation
 
-For complete documentation, see files in this directory:
+For complete documentation, see `docs/nc-ui-ai-reference/`:
 
 - `architecture.md` - Architecture and patterns
 - `components-quick-reference.md` - All components with examples
 - `global-utility-styles.md` - Global styles (h1, p.weak, .tag, .block, .card, etc.)
 - `examples-and-antipatterns.md` - Usage examples and common mistakes
 - `app-framework.md` - App framework guide (if using apps)
-
----
-
-**Remember:** Always use nc-ui components, never native HTML form elements!

@@ -9,7 +9,7 @@ The `nc-ui-ai-reference/` folder contains:
 ```
 nc-ui-ai-reference/
 ├── README.md                         # Usage instructions
-├── copilot-instructions.md          # GitHub Copilot entry point (copy to .github/)
+├── nc-ui.instructions.md            # GitHub Copilot entry point (copy to .github/instructions/)
 ├── claude-context.md                # Claude Code entry point (copy to .claude/)
 ├── architecture.md                  # Architecture & conventions
 ├── components-quick-reference.md    # All 23+ components API
@@ -42,9 +42,11 @@ cp -r /path/to/nc-ui/nc-ui-ai-reference /path/to/your-project/docs/nc-ui-ai-refe
 #### For GitHub Copilot:
 
 ```bash
-mkdir -p .github
-cp docs/nc-ui-ai-reference/copilot-instructions.md .github/copilot-instructions.md
+mkdir -p .github/instructions
+cp docs/nc-ui-ai-reference/nc-ui.instructions.md .github/instructions/nc-ui.instructions.md
 ```
+
+The source file name already matches the convention, so it can be copied as-is without renaming.
 
 #### For Claude Code:
 
@@ -74,10 +76,11 @@ your-project/
 │       ├── global-utility-styles.md
 │       ├── examples-and-antipatterns.md
 │       ├── app-framework.md
-│       ├── copilot-instructions.md    # Template
+│       ├── nc-ui.instructions.md      # Template
 │       └── claude-context.md          # Template
 ├── .github/
-│   └── copilot-instructions.md    # ← For GitHub Copilot
+│   └── instructions/
+│       └── nc-ui.instructions.md      # ← For GitHub Copilot
 └── .claude/
     └── project-context.md         # ← For Claude Code
 ```
@@ -113,12 +116,12 @@ your-project/
 
 ### Entry Points (AI-Specific)
 
-**`copilot-instructions.md`**
+**`nc-ui.instructions.md`**
 
 - Brief, focused guide for GitHub Copilot
 - Critical rules at the top
 - Quick component reference
-- Copy to `.github/copilot-instructions.md`
+- Copy to `.github/instructions/nc-ui.instructions.md`
 
 **`claude-context.md`**
 
@@ -186,7 +189,7 @@ When nc-ui is updated:
 
 **AI still using native HTML?**
 
-1. Check entry files exist (`.github/copilot-instructions.md` or `.claude/project-context.md`)
+1. Check entry files exist (`.github/instructions/nc-ui.instructions.md` or `.claude/project-context.md`)
 2. Verify files are committed to git
 3. Explicitly mention nc-ui in your prompt
 
