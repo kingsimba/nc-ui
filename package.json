@@ -31,6 +31,9 @@
     "files": [
         "dist"
     ],
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/"
+    },
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
@@ -68,6 +71,7 @@
         "vite-plugin-static-copy": "^3.1.4"
     },
     "dependencies": {
+        "@kingsimba/nc-ui": "link:../../.local/share/pnpm/global/5/node_modules/@kingsimba/nc-ui",
         "clsx": "^2.1.0",
         "i18next-browser-languagedetector": "^8.2.0",
         "prism-react-renderer": "^2.3.1",
