@@ -13,6 +13,7 @@ import {
     ChevronDownIcon,
     RefreshIcon,
     RevertIcon,
+    HistoryIcon,
     EditIcon,
     TrashIcon,
     TrashFilledIcon,
@@ -92,6 +93,7 @@ const iconGroups = [
         icons: [
             { name: 'CloseIcon', Icon: CloseIcon },
             { name: 'DoubleClickIcon', Icon: DoubleClickIcon },
+            { name: 'HistoryIcon', Icon: HistoryIcon },
             { name: 'MinusIcon', Icon: MinusIcon },
             { name: 'MoreHorizontalIcon', Icon: MoreHorizontalIcon },
             { name: 'MoreIcon', Icon: MoreIcon },

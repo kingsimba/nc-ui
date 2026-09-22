@@ -345,6 +345,32 @@ export function RevertIcon({ size = 24, className, style }: IconProps) {
 }
 
 /**
+ * History icon - clock face. Same 10-unit circle as PieChartIcon; the hands are
+ * 2.2 against the ring's 1.7 so they don't read lighter than the ring they sit in.
+ */
+export function HistoryIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.7}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      style={style}
+    >
+      {/* Face */}
+      <circle cx="12" cy="12" r="10" />
+      {/* Hands, joined at the centre */}
+      <path d="M12 7v5l4 2" strokeWidth={2.2} />
+    </svg>
+  );
+}
+
+/**
  * Edit icon - Document with a pencil for editing mode.
  * Optically sized to 85%: the sheet fills its box corner-to-corner, so at full
  * size it reads heavier than round icons like InfoIcon. The sheet's corners are

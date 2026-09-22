@@ -13,6 +13,7 @@ export {
   ChevronDownIcon,
   RefreshIcon,
   RevertIcon,
+  HistoryIcon,
   EditIcon,
   TrashIcon,
   TrashFilledIcon,
