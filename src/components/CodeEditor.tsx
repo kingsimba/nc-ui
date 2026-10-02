@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useMemo, useState } from 'react';
 import Editor from 'react-simple-code-editor';
 import { Highlight, themes } from 'prism-react-renderer';
+import './prismLanguages';
 
 export interface CodeEditorProps {
   value: string;

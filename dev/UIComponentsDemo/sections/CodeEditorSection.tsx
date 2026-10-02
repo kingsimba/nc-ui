@@ -50,10 +50,60 @@ const sampleLog = `[2026-08-08 10:15:02] INFO  Server listening on :8080
 [2026-08-08 10:15:09] ERROR Failed to connect to db: connection refused
 [2026-08-08 10:15:09] INFO  Retrying in 2s...`;
 
+const sampleBash = `#!/usr/bin/env bash
+set -euo pipefail
+
+readonly ROOT_DIR="$(cd "$(dirname "\${BASH_SOURCE[0]}")" && pwd)"
+LOG_LEVEL="\${LOG_LEVEL:-info}"
+
+deploy() {
+  local service="$1"
+  local replicas="\${2:-3}"
+  echo "[$LOG_LEVEL] deploying \${service} with \${replicas} replicas"
+  docker compose up -d --scale "\${service}=\${replicas}"
+}
+
+for service in api worker; do
+  if ! deploy "$service" 2; then
+    echo "failed to deploy $service" >&2
+    exit 1
+  fi
+done`;
+
+const sampleProtobuf = `syntax = "proto3";
+
+package telemetry.v1;
+
+import "google/protobuf/timestamp.proto";
+
+message Reading {
+  string device_id = 1;
+  double value = 2;
+  google.protobuf.Timestamp recorded_at = 3;
+  map<string, string> labels = 4;
+  repeated Status history = 5;
+}
+
+message Ack {
+  bool ok = 1;
+}
+
+service TelemetryService {
+  rpc StreamReadings(stream Reading) returns (stream Ack);
+}
+
+enum Status {
+  STATUS_UNKNOWN = 0;
+  STATUS_OK = 1;
+  STATUS_DEGRADED = 2;
+}`;
+
 export function CodeEditorSection() {
     const [ts, setTs] = useState(sampleTs);
     const [py, setPy] = useState(samplePy);
     const [yaml, setYaml] = useState(sampleYaml);
+    const [bash, setBash] = useState(sampleBash);
+    const [protobuf, setProtobuf] = useState(sampleProtobuf);
     const [showWhitespace, setShowWhitespace] = useState(false);
     const [colorTheme, setColorTheme] = useState<'light' | 'dark' | 'auto'>('auto');
     const log = sampleLog;
@@ -125,6 +175,30 @@ export function CodeEditorSection() {
                             language="yaml"
                             minHeight={140}
                             maxHeight={240}
+                        />
+                    </div>
+
+                    {/* Bash */}
+                    <div>
+                        <h3 style={{ marginBottom: 8 }}>Bash</h3>
+                        <CodeEditor
+                            value={bash}
+                            onChange={setBash}
+                            language="bash"
+                            minHeight={200}
+                            maxHeight={320}
+                        />
+                    </div>
+
+                    {/* Protobuf */}
+                    <div>
+                        <h3 style={{ marginBottom: 8 }}>Protobuf</h3>
+                        <CodeEditor
+                            value={protobuf}
+                            onChange={setProtobuf}
+                            language="protobuf"
+                            minHeight={240}
+                            maxHeight={360}
                         />
                     </div>
 
