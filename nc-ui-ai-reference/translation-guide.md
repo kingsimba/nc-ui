@@ -173,6 +173,7 @@ Add the language to the app's `i18n.ts` resources object.
 
 ## Supported Languages
 
+<!-- prettier-ignore -->
 | Code | Language |
 | ---- | -------- |
 | en   | English  |
@@ -192,6 +193,7 @@ Add the language to the app's `i18n.ts` resources object.
 
 ## When to Use Each Approach
 
+<!-- prettier-ignore -->
 | Scenario                                  | Approach             |
 | ----------------------------------------- | -------------------- |
 | Main app shell, header, welcome screen    | Global i18n          |
