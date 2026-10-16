@@ -79,7 +79,7 @@ export function MyComponent({ size = "default", className = "" }: MyComponentPro
 
 1. **All styles go in `src/styles/theme.css`**
 2. **Use CSS variables** for colors, not hardcoded values
-3. **Support dark/light themes** via `:root` and `:root.light`
+3. **Support light/dark themes** via `:root` and `:root.dark`
 4. **Component styles** use `nc-` prefix (e.g., `.nc-button`, `.nc-dialog`)
 5. **Public utility styles** don't need prefix (e.g., `.h1`, `.code`, `.tag`)
 

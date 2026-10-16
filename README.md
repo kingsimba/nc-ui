@@ -182,9 +182,9 @@ The library uses CSS variables with `nc-` prefix. Override them in your app:
   /* ... see theme.css for all variables */
 }
 
-/* Light theme - add .light class to :root */
-:root.light {
-  --nc-primary: #your-light-primary;
+/* Dark theme - add .dark class to :root */
+:root.dark {
+  --nc-primary: #your-dark-primary;
 }
 ```
 

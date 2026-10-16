@@ -49,7 +49,7 @@ export interface UIComponentsRef {
 
 export function UIComponentsDemo() {
   const [activeSection, setActiveSection] = useState<SectionId>('styles');
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [theme, setTheme] = useState<'dark' | 'light'>('light');
   const { isMobile } = useViewport();
 
   const sections: Section[] = [

@@ -2,7 +2,7 @@ import { Battery } from '../../../src';
 
 export function BatterySection() {
   // Get theme from document class for monochrome examples
-  const theme = document.documentElement.classList.contains('light') ? 'light' : 'dark';
+  const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
 
   return (
     <section className="dev-section">

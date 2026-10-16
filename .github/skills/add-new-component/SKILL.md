@@ -84,7 +84,7 @@ Rules for standalone CSS:
 
 - CSS class names still use the `nc-` prefix: `.nc-csv-textarea-container`
 - CSS custom properties use the `--nc-` prefix: `--nc-csv-col-0`
-- Dark theme is the default (`:root`), light theme uses `:root.light`
+- Light theme is the default (`:root`), dark theme uses `:root.dark`
 - Reference existing theme variables (`var(--nc-border)`, `var(--nc-text)`, etc.) — never hardcode colors
 
 ---
@@ -237,7 +237,7 @@ This component was added following the checklist above with Pattern B for CSS (s
 
 **CSS (`CsvTextArea.css` — standalone):**
 
-- Dark-theme column colors in `:root`, light-theme in `:root.light`
+- Light-theme column colors in `:root`, dark-theme in `:root.dark`
 - All classes use `nc-csv-` prefix (e.g. `.nc-csv-textarea-container`)
 - All variables use `--nc-csv-` prefix (e.g. `--nc-csv-col-0`)
 - References theme variables like `var(--nc-border)`, `var(--nc-text)`
@@ -266,6 +266,6 @@ This component was added following the checklist above with Pattern B for CSS (s
 
 - Always validate with `get_errors` after editing TypeScript files
 - Run `npm run build` to verify the full build succeeds
-- Dark is the default theme (`:root`); light theme overrides go in `:root.light`
+- Light is the default theme (`:root`); dark theme overrides go in `:root.dark`
 - Never hardcode colors — always use `var(--nc-*)` variables
 - Keep component CSS scoped with the `nc-` prefix to avoid conflicts

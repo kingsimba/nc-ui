@@ -95,9 +95,9 @@ import { ButtonProps, ComboBoxProps, InputProps } from "@kingsimba/nc-ui";
   --nc-danger: #your-danger-color;
 }
 
-/* Light theme variant */
-:root.light {
-  --nc-primary: #your-light-primary;
+/* Dark theme variant */
+:root.dark {
+  --nc-primary: #your-dark-primary;
 }
 ```
 

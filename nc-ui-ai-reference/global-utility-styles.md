@@ -499,16 +499,16 @@ These global styles use nc-ui's theme variables:
 
 ---
 
-## Light Theme Support
+## Dark Theme Support
 
-All global styles support light theme automatically when `:root.light` is applied. Tag colors adjust for better contrast in light mode.
+All global styles support dark theme automatically when `:root.dark` is applied. Tag colors adjust for better contrast in dark mode.
 
 ```tsx
-// Toggle light theme
-document.documentElement.classList.add("light");
+// Toggle dark theme
+document.documentElement.classList.add("dark");
 
 // All styles adapt automatically:
-// - Tags get darker colors
+// - Tags get brighter colors
 // - Blocks adjust backgrounds
 // - Text colors update
 // - Code blocks adjust contrast

@@ -36,10 +36,10 @@ function AppContent() {
         { label: 'Español', value: 'es' },
     ]
 
-    // Apply light theme class on initial mount
+    // Sync the dark theme class with the document root
     useEffect(() => {
-        document.documentElement.classList.add('light')
-    }, [])
+        document.documentElement.classList.toggle('dark', theme === 'dark')
+    }, [theme])
 
     // Handle URL parameters for deep linking
     useEffect(() => {
@@ -66,9 +66,7 @@ function AppContent() {
     }, [])
 
     const toggleTheme = () => {
-        const newTheme = theme === 'dark' ? 'light' : 'dark'
-        setTheme(newTheme)
-        document.documentElement.classList.toggle('light', newTheme === 'light')
+        setTheme(theme === 'dark' ? 'light' : 'dark')
     }
 
     const changeLanguage = (newLang: string | undefined) => {

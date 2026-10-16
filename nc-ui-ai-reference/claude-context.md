@@ -86,12 +86,12 @@ Important: nc-ui components pass **values directly**, not event objects:
 
 - All styles use CSS variables with `nc-` prefix
 - Theme can be overridden in root CSS
-- Light/dark mode support via `.light` class on `:root`
+- Light/dark mode support via `.dark` class on `:root` (light is the default)
 
 ### CSS Variables & Theming
 
 - All theme colors use `--nc-` prefixed CSS variables
-- Support for light/dark themes via `:root.light` selector
+- Support for light/dark themes via `:root.dark` selector (light is the default)
 - Override variables to customize appearance
 
 ### App Framework (Optional)

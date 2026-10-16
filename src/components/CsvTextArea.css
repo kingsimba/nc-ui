@@ -1,21 +1,7 @@
 /* ── CsvTextArea: overlay textarea with colored column backdrop ── */
 
-/* ── Column colors: dark theme (default) – softer / lighter ── */
+/* ── Column colors: light theme (default) – strong, saturated ── */
 :root {
-    --nc-csv-col-0: #e06c75; /* red */
-    --nc-csv-col-1: #61afef; /* blue */
-    --nc-csv-col-2: #98c379; /* green */
-    --nc-csv-col-3: #d19a66; /* orange */
-    --nc-csv-col-4: #c678dd; /* purple */
-    --nc-csv-col-5: #56b6c2; /* cyan */
-    --nc-csv-col-6: #e5c07b; /* yellow */
-    --nc-csv-col-7: #be5046; /* dark red */
-    --nc-csv-col-8: #7ec8e3; /* light blue */
-    --nc-csv-col-9: #c3e88d; /* lime */
-}
-
-/* ── Column colors: light theme – strong, saturated ── */
-:root.light {
     --nc-csv-col-0: #c0392b; /* red */
     --nc-csv-col-1: #2471a3; /* blue */
     --nc-csv-col-2: #1e8449; /* green */
@@ -26,6 +12,20 @@
     --nc-csv-col-7: #a93226; /* dark red */
     --nc-csv-col-8: #1a5276; /* navy */
     --nc-csv-col-9: #6c8e23; /* olive */
+}
+
+/* ── Column colors: dark theme – softer / lighter ── */
+:root.dark {
+    --nc-csv-col-0: #e06c75; /* red */
+    --nc-csv-col-1: #61afef; /* blue */
+    --nc-csv-col-2: #98c379; /* green */
+    --nc-csv-col-3: #d19a66; /* orange */
+    --nc-csv-col-4: #c678dd; /* purple */
+    --nc-csv-col-5: #56b6c2; /* cyan */
+    --nc-csv-col-6: #e5c07b; /* yellow */
+    --nc-csv-col-7: #be5046; /* dark red */
+    --nc-csv-col-8: #7ec8e3; /* light blue */
+    --nc-csv-col-9: #c3e88d; /* lime */
 }
 
 .nc-csv-textarea-container {
