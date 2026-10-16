@@ -70,6 +70,7 @@ function MyComponent() {
 
 nc-ui provides 23+ ready-to-use components. Click any component to see it in the interactive demo:
 
+<!-- prettier-ignore -->
 | Component                                                                                | Description                                                                                        |
 | ---------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | [ActivityIndicator](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=activity)   | Loading spinner with size variants and overlay mode                                                |
@@ -97,6 +98,7 @@ nc-ui provides 23+ ready-to-use components. Click any component to see it in the
 | [Slider](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=slider)                | Range slider with value display                                                                    |
 | [Tabs](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=tabs)                    | Tabbed navigation component                                                                        |
 | [Toggle](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=toggle)                | Switch/toggle with on/off states                                                                   |
+| [VersionPicker](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=version-picker) | Version and Git ref picker grouped by release series                                               |
 | [YamlTextArea](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=yaml-textarea)   | YAML editor with syntax highlighting and validation (import from `@kingsimba/nc-ui/yaml`)          |
 
 ## App Framework

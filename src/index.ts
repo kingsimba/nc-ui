@@ -28,6 +28,7 @@ export { Tabs, TabPanel, TabPanels } from './components/Tabs';
 export type { TabItem } from './components/Tabs';
 export { Toggle } from './components/Toggle';
 export { CsvTextArea } from './components/CsvTextArea';
+export { VersionPicker } from './components/VersionPicker';
 export { Notification } from './components/Notification';
 export { NotificationContainer } from './components/NotificationContainer';
 export { notificationManager, showNotification } from './lib/notificationManager';
@@ -45,6 +46,10 @@ export type { NumberInputProps } from './components/NumberInput';
 export type { SliderProps } from './components/Slider';
 export type { TabsProps, TabPanelProps, TabPanelsProps } from './components/Tabs';
 export type { ToggleProps } from './components/Toggle';
+export type {
+  VersionPickerProps,
+  VersionPickerOption,
+} from './components/VersionPicker';
 export type {
   CsvTextAreaProps,
   CsvCursorPosition,

@@ -325,6 +325,52 @@ import { MonthRangePicker } from '@kingsimba/nc-ui'
 
 ---
 
+### VersionPicker
+
+**Replace:** Custom branch/tag or version dropdown → `<VersionPicker>`
+
+```tsx
+import { VersionPicker, type VersionPickerOption } from '@kingsimba/nc-ui'
+
+const refs: VersionPickerOption[] = [
+  { value: 'master', label: 'master', kind: 'branch' },
+  { value: 'release/2.15', label: 'release/2.15', kind: 'branch' },
+  { value: '2.15.x', label: '2.15.x' },
+  { value: '2.15.2', label: '2.15.2', description: '2026-08-13 14:02' },
+  { value: '2.15.0-rc2', label: '2.15.0-rc2' },
+  { value: 'nightly-2026-08-14', label: 'nightly-2026-08-14' },
+]
+
+// Git refs: a refresh action and group headers that can report truncation
+<VersionPicker
+  options={refs}
+  value={ref}
+  onChange={setRef}
+  onRefresh={loadRefs}
+  truncated={{ branches: branchesTruncated, tags: tagsTruncated }}
+  placeholder="Select ref"
+/>
+
+// Plain version list, larger trigger
+<VersionPicker options={versions} value={version} onChange={setVersion} mode="versions" size="default" />
+
+// Frameless trigger for a toolbar or list row: no border until hover, and a
+// field only while the list is open
+<VersionPicker options={refs} value={ref} onChange={setRef} appearance="plain" />
+
+// Busy and failed states
+<VersionPicker options={refs} value={ref} onChange={setRef} loading />
+<VersionPicker options={[]} value={ref} onChange={setRef} error="Could not reach the repository" />
+```
+
+**Grouping:** Options are split into `Branches` (`kind: 'branch'`, `master` first), `Unreleased` (no parseable release series) and one group per release series (`2.15`, `2.14`, …). Series sort newest first; inside a series `2.15.x` > `2.15.2` > `2.15.0-rc2` > `2.15.0-rc1`, and pre-release suffixes compare numerically (`rc10` > `rc9`). A series is read from the option `value`, falling back to `label`.
+
+**Props:** `options`, `value`, `onChange`, `disabled`, `size` (`small` | `default`), `placeholder`, `className`, `appearance` (`default` | `plain`), `loading`, `error`, `truncated`, `onRefresh`, `mode` (`refs` | `versions`)
+
+**i18n keys:** `versionPicker.loading`, `versionPicker.branches`, `versionPicker.unreleased`, `versionPicker.refsHeader`, `versionPicker.versionsHeader`, `versionPicker.searchRefs`, `versionPicker.searchVersions`, `versionPicker.noRefs`, `versionPicker.noVersions`, `versionPicker.noMatches`, `versionPicker.unavailable`, `versionPicker.refresh`, `versionPicker.incomplete`, `versionPicker.branchesIncomplete`, `versionPicker.tagsIncomplete`
+
+---
+
 ### NumberInput
 
 **Replace:** `<input type="number">` → `<NumberInput>`

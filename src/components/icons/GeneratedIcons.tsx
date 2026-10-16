@@ -1386,3 +1386,32 @@ export function StopFilledIcon({ size = 24, className, style }: IconProps) {
     </svg>
   );
 }
+
+/**
+ * Warning icon - triangle with "!" for failures and caveats. The corners are
+ * filleted at r=2 so the three joins hold the same radius as the ring icons'
+ * outer edge, and the base is wider than it is tall so an equilateral-looking
+ * triangle does not read as heavier than a 20-unit circle beside it. The
+ * exclamation reuses InfoIcon's stem length and 17-unit dot centre, so the two
+ * glyphs keep a shared baseline when they appear in one row.
+ */
+export function WarningIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      style={style}
+    >
+      <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" />
+      <line x1="12" y1="9" x2="12" y2="13.2" />
+      <circle cx="12" cy="17" r="1.2" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}

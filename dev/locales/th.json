@@ -16,6 +16,23 @@
     "warning": "คำเตือน",
     "info": "ข้อมูล"
   },
+  "versionPicker": {
+    "loading": "กำลังโหลด…",
+    "branches": "สาขา",
+    "unreleased": "ยังไม่เผยแพร่",
+    "refsHeader": "สาขา / แท็ก",
+    "versionsHeader": "เวอร์ชัน",
+    "searchRefs": "ค้นหาอ้างอิง",
+    "searchVersions": "ค้นหาเวอร์ชัน",
+    "noRefs": "ไม่มีอ้างอิง",
+    "noVersions": "ไม่มีเวอร์ชัน",
+    "noMatches": "ไม่พบรายการที่ตรงกัน",
+    "unavailable": "ไม่พร้อมใช้งาน",
+    "refresh": "รีเฟรชข้อมูลอ้างอิง",
+    "incomplete": "ไม่ครบถ้วน",
+    "branchesIncomplete": "สาขา: รายการไม่ครบถ้วน",
+    "tagsIncomplete": "แท็ก: รายการไม่ครบถ้วน"
+  },
   "apps": {
     "start": "เริ่ม",
     "2048": {

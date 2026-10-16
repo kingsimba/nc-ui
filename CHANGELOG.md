@@ -1,5 +1,7 @@
 # Changelog
 
+- 2026-10-16 VersionPicker: Add grouped version and ref picker with bordered and plain appearances
+- 2026-10-16 Icons: Add WarningIcon
 - 2026-10-02 CodeEditor: Add bash and protobuf syntax highlighting
 - 2026-09-22 Docs: Ship AI entry file as `nc-ui.instructions.md` for `.github/instructions/`
 - 2026-09-19 ComboBox: Fix doubled text when selecting the closed value

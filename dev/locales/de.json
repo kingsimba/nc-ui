@@ -16,6 +16,23 @@
     "warning": "Warnung",
     "info": "Info"
   },
+  "versionPicker": {
+    "loading": "Wird geladen…",
+    "branches": "Branches",
+    "unreleased": "Unveröffentlicht",
+    "refsHeader": "Branches / Tags",
+    "versionsHeader": "Versionen",
+    "searchRefs": "Refs suchen",
+    "searchVersions": "Versionen suchen",
+    "noRefs": "Keine Refs",
+    "noVersions": "Keine Versionen",
+    "noMatches": "Keine Treffer",
+    "unavailable": "Nicht verfügbar",
+    "refresh": "Refs aktualisieren",
+    "incomplete": "unvollständig",
+    "branchesIncomplete": "Branches: unvollständige Liste",
+    "tagsIncomplete": "Tags: unvollständige Liste"
+  },
   "apps": {
     "start": "Start",
     "2048": {

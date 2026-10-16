@@ -16,6 +16,23 @@
     "warning": "警告",
     "info": "提示"
   },
+  "versionPicker": {
+    "loading": "加载中…",
+    "branches": "分支",
+    "unreleased": "未发布",
+    "refsHeader": "分支 / 标签",
+    "versionsHeader": "版本",
+    "searchRefs": "搜索引用",
+    "searchVersions": "搜索版本",
+    "noRefs": "无引用",
+    "noVersions": "无版本",
+    "noMatches": "无匹配项",
+    "unavailable": "不可用",
+    "refresh": "刷新引用",
+    "incomplete": "不完整",
+    "branchesIncomplete": "分支：列表不完整",
+    "tagsIncomplete": "标签：列表不完整"
+  },
   "apps": {
     "start": "开始",
     "2048": {

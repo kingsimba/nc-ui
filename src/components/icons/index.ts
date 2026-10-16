@@ -22,6 +22,7 @@ export {
   InfoFilledIcon,
   QuestionIcon,
   QuestionFilledIcon,
+  WarningIcon,
   PieChartIcon,
   PowerIcon,
   CameraIcon,

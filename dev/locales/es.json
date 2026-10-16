@@ -16,6 +16,23 @@
     "warning": "Advertencia",
     "info": "Información"
   },
+  "versionPicker": {
+    "loading": "Cargando…",
+    "branches": "Ramas",
+    "unreleased": "Sin publicar",
+    "refsHeader": "Ramas / Etiquetas",
+    "versionsHeader": "Versiones",
+    "searchRefs": "Buscar referencias",
+    "searchVersions": "Buscar versiones",
+    "noRefs": "Sin referencias",
+    "noVersions": "Sin versiones",
+    "noMatches": "Sin coincidencias",
+    "unavailable": "No disponible",
+    "refresh": "Actualizar referencias",
+    "incomplete": "incompleta",
+    "branchesIncomplete": "Ramas: lista incompleta",
+    "tagsIncomplete": "Etiquetas: lista incompleta"
+  },
   "apps": {
     "start": "Inicio",
     "2048": {
