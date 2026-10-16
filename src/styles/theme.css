@@ -33,10 +33,6 @@
   --nc-card-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
   --nc-card-nested-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
   --nc-overlay-hover: rgba(255, 255, 255, 0.05);
-  --nc-transparent-control-text: #ffffff;
-  --nc-transparent-control-border: rgba(255, 255, 255, 0.38);
-  --nc-transparent-control-hover-bg: rgba(255, 255, 255, 0.12);
-  --nc-transparent-control-hover-border: rgba(255, 255, 255, 0.68);
   --nc-battery-text-contrast: var(--nc-text);
   --nc-battery-shell-bg: rgba(255, 255, 255, 0.20);
   --nc-notification-info-bg: color-mix(in srgb, var(--nc-bg-tertiary) 72%, var(--nc-primary));
@@ -110,6 +106,16 @@
   --nc-code-number: #098658;
   --nc-code-key: #001080;
   --nc-code-comment: #008000;
+}
+
+/* Transparent controls draw on top of a caller-supplied surface (a colored
+   header, a scrim, an image), so their white-on-color treatment does not
+   follow the theme palette. */
+:root {
+  --nc-transparent-control-text: #ffffff;
+  --nc-transparent-control-border: rgba(255, 255, 255, 0.38);
+  --nc-transparent-control-hover-bg: rgba(255, 255, 255, 0.12);
+  --nc-transparent-control-hover-border: rgba(255, 255, 255, 0.68);
 }
 
 /* ===== REUSABLE PUBLIC STYLES ===== */
