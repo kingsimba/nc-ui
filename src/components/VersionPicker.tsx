@@ -18,6 +18,10 @@ const RELEASE_PATTERN = /^[vV]?(\d+)\.(\d+)\.(\d+|x)(?:[-._]([0-9A-Za-z._-]+))?$
 const SEPARATOR_PATTERN = /^-+$/;
 const BRANCHES_GROUP_KEY = '__branches__';
 const UNRELEASED_GROUP_KEY = '__unreleased__';
+/** Popover placement; the height itself lives in VersionPicker.css. */
+const POPOVER_WIDTH = 340;
+const POPOVER_GAP = 6;
+const POPOVER_EDGE_MARGIN = 12;
 
 export interface VersionPickerOption {
     /** Value passed to `onChange` when the option is picked */
@@ -277,15 +281,23 @@ export function VersionPicker({
         const updatePosition = () => {
             if (!rootRef.current) return;
             const rect = rootRef.current.getBoundingClientRect();
-            const width = Math.min(340, window.innerWidth - 24);
-            const left = Math.max(12, Math.min(rect.left, window.innerWidth - width - 12));
-            const spaceBelow = window.innerHeight - rect.bottom;
-            const openUpward = spaceBelow < 260 && rect.top > spaceBelow;
+            const width = Math.min(POPOVER_WIDTH, window.innerWidth - POPOVER_EDGE_MARGIN * 2);
+            const left = Math.max(
+                POPOVER_EDGE_MARGIN,
+                Math.min(rect.left, window.innerWidth - width - POPOVER_EDGE_MARGIN),
+            );
+            // The popover keeps the height its own CSS sets, so read it back
+            // rather than guessing; a box that is not measured yet stays below.
+            const height = popoverRef.current?.getBoundingClientRect().height ?? 0;
+            const gap = POPOVER_GAP + POPOVER_EDGE_MARGIN;
+            const spaceBelow = window.innerHeight - rect.bottom - gap;
+            const spaceAbove = rect.top - gap;
+            const openUpward = height > 0 && spaceBelow < height && spaceAbove > spaceBelow;
 
             setPopoverStyle(
                 openUpward
-                    ? { bottom: window.innerHeight - rect.top + 6, left, width }
-                    : { top: rect.bottom + 6, left, width },
+                    ? { bottom: window.innerHeight - rect.top + POPOVER_GAP, left, width }
+                    : { top: rect.bottom + POPOVER_GAP, left, width },
             );
         };
 
@@ -344,8 +356,8 @@ export function VersionPicker({
         >
             <Button
                 className={`nc-version-picker-trigger ${size === 'small'
-                        ? 'nc-version-picker-trigger-small'
-                        : 'nc-version-picker-trigger-default'
+                    ? 'nc-version-picker-trigger-small'
+                    : 'nc-version-picker-trigger-default'
                     } ${open ? 'nc-version-picker-trigger-open' : ''}`}
                 variant={appearance === 'plain' ? 'ghost' : 'default'}
                 size={size}
@@ -442,8 +454,8 @@ export function VersionPicker({
                                             <Button
                                                 key={group.key}
                                                 className={`nc-version-picker-group-button ${group.key === activeGroup?.key
-                                                        ? 'nc-version-picker-group-button-active'
-                                                        : ''
+                                                    ? 'nc-version-picker-group-button-active'
+                                                    : ''
                                                     }`}
                                                 variant="ghost"
                                                 size="small"
