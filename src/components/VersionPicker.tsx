@@ -1,16 +1,8 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from './Button';
-import { Input } from './Input';
-import {
-    ChevronDownIcon,
-    ChevronRightIcon,
-    RefreshIcon,
-    SearchIcon,
-    WarningIcon,
-} from './icons';
-import './VersionPicker.css';
+import { CategoryPicker } from './CategoryPicker';
+import { RefreshIcon, WarningIcon } from './icons';
 
 /** `1.2.3`, `v1.2.3`, `1.2.x`, and pre-releases such as `1.2.3-rc1` or `1.2.3_alpha.2`. */
 const RELEASE_PATTERN = /^[vV]?(\d+)\.(\d+)\.(\d+|x)(?:[-._]([0-9A-Za-z._-]+))?$/;
@@ -18,10 +10,6 @@ const RELEASE_PATTERN = /^[vV]?(\d+)\.(\d+)\.(\d+|x)(?:[-._]([0-9A-Za-z._-]+))?$
 const SEPARATOR_PATTERN = /^-+$/;
 const BRANCHES_GROUP_KEY = '__branches__';
 const UNRELEASED_GROUP_KEY = '__unreleased__';
-/** Popover placement; the height itself lives in VersionPicker.css. */
-const POPOVER_WIDTH = 340;
-const POPOVER_GAP = 6;
-const POPOVER_EDGE_MARGIN = 12;
 
 export interface VersionPickerOption {
     /** Value passed to `onChange` when the option is picked */
@@ -175,14 +163,6 @@ function buildGroups(
     ];
 }
 
-function matchesQuery(option: VersionPickerOption, query: string): boolean {
-    return (
-        option.label.toLowerCase().includes(query) ||
-        option.value.toLowerCase().includes(query) ||
-        (option.description?.toLowerCase().includes(query) ?? false)
-    );
-}
-
 export function VersionPicker({
     options,
     value,
@@ -200,14 +180,6 @@ export function VersionPicker({
 }: VersionPickerProps) {
     const { t } = useTranslation();
     const pickerMode = mode ?? (onRefresh ? 'refs' : 'versions');
-    const rootRef = useRef<HTMLDivElement>(null);
-    const popoverRef = useRef<HTMLDivElement>(null);
-    const [open, setOpen] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [activeGroupKey, setActiveGroupKey] = useState('');
-    const [popoverStyle, setPopoverStyle] = useState<React.CSSProperties>({});
-
-    // derive groups, selection and search hits
     const groups = useMemo(
         () =>
             buildGroups(options, {
@@ -216,280 +188,82 @@ export function VersionPicker({
             }),
         [options, t],
     );
-
-    const query = searchTerm.trim().toLowerCase();
-    const selectedOption = useMemo(
-        () => options.find((option) => option.value === value),
-        [options, value],
-    );
-    const activeGroup = useMemo(
-        () => groups.find((group) => group.key === activeGroupKey) ?? groups[0],
-        [groups, activeGroupKey],
-    );
-    const searchResults = useMemo(() => {
-        if (!query) return [];
-        return groups
-            .map((group) => ({
-                group,
-                items: group.items.filter((item) => matchesQuery(item, query)),
-            }))
-            .filter((entry) => entry.items.length > 0);
-    }, [groups, query]);
-
-    // keep the active group pointing at an existing group
-    useEffect(() => {
-        if (groups.length === 0) {
-            setActiveGroupKey('');
-            return;
-        }
-
-        setActiveGroupKey((current) =>
-            groups.some((group) => group.key === current) ? current : groups[0].key,
-        );
-    }, [groups]);
-
-    // dismiss on outside press or escape
-    useEffect(() => {
-        if (!open) return;
-
-        const handlePointerDown = (event: MouseEvent) => {
-            if (
-                !rootRef.current?.contains(event.target as Node) &&
-                !popoverRef.current?.contains(event.target as Node)
-            ) {
-                setOpen(false);
-            }
-        };
-
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.key === 'Escape') setOpen(false);
-        };
-
-        document.addEventListener('mousedown', handlePointerDown);
-        document.addEventListener('keydown', handleKeyDown);
-
-        return () => {
-            document.removeEventListener('mousedown', handlePointerDown);
-            document.removeEventListener('keydown', handleKeyDown);
-        };
-    }, [open]);
-
-    // follow the trigger, flipping above it when the space below runs out
-    useEffect(() => {
-        if (!open) return;
-
-        const updatePosition = () => {
-            if (!rootRef.current) return;
-            const rect = rootRef.current.getBoundingClientRect();
-            const width = Math.min(POPOVER_WIDTH, window.innerWidth - POPOVER_EDGE_MARGIN * 2);
-            const left = Math.max(
-                POPOVER_EDGE_MARGIN,
-                Math.min(rect.left, window.innerWidth - width - POPOVER_EDGE_MARGIN),
-            );
-            // The popover keeps the height its own CSS sets, so read it back
-            // rather than guessing; a box that is not measured yet stays below.
-            const height = popoverRef.current?.getBoundingClientRect().height ?? 0;
-            const gap = POPOVER_GAP + POPOVER_EDGE_MARGIN;
-            const spaceBelow = window.innerHeight - rect.bottom - gap;
-            const spaceAbove = rect.top - gap;
-            const openUpward = height > 0 && spaceBelow < height && spaceAbove > spaceBelow;
-
-            setPopoverStyle(
-                openUpward
-                    ? { bottom: window.innerHeight - rect.top + POPOVER_GAP, left, width }
-                    : { top: rect.bottom + POPOVER_GAP, left, width },
-            );
-        };
-
-        updatePosition();
-        window.addEventListener('resize', updatePosition);
-        window.addEventListener('scroll', updatePosition, true);
-
-        return () => {
-            window.removeEventListener('resize', updatePosition);
-            window.removeEventListener('scroll', updatePosition, true);
-        };
-    }, [open]);
-
-    // open on the group holding the current value
-    useEffect(() => {
-        if (!open || !value) return;
-        const group = groups.find((item) => item.items.some((option) => option.value === value));
-        if (group) setActiveGroupKey(group.key);
-    }, [groups, open, value]);
-
-    const triggerLabel = selectedOption?.label ?? value;
-    const triggerTitle = selectedOption?.description
-        ? `${triggerLabel} — ${selectedOption.description}`
-        : triggerLabel;
-
-    const handleSelect = (option: VersionPickerOption) => {
-        if (disabled || loading || error) return;
-        onChange(option.value);
-        setSearchTerm('');
-        setOpen(false);
-    };
-
-    const renderOption = (option: VersionPickerOption) => (
-        <Button
-            key={option.value}
-            className={`nc-version-picker-option ${option.value === value ? 'nc-version-picker-option-selected' : ''
-                }`}
-            variant="ghost"
-            size="small"
-            disabled={disabled || loading || Boolean(error)}
-            onClick={() => handleSelect(option)}
-        >
-            <span className="nc-version-picker-option-body">
-                <span className="nc-version-picker-option-label">{option.label}</span>
-                {option.description && (
-                    <span className="nc-version-picker-option-description">{option.description}</span>
-                )}
-            </span>
-        </Button>
+    const categories = useMemo(
+        () =>
+            groups.map((group) => ({
+                value: group.key,
+                name: group.label,
+                children: group.items.map((item) => ({
+                    value: item.value,
+                    name: item.label,
+                    description: item.description,
+                })),
+            })),
+        [groups],
     );
 
     return (
-        <div
-            className={`nc-version-picker ${appearance === 'plain' ? 'nc-plain' : ''} ${className}`}
-            ref={rootRef}
-        >
-            <Button
-                className={`nc-version-picker-trigger ${size === 'small'
-                    ? 'nc-version-picker-trigger-small'
-                    : 'nc-version-picker-trigger-default'
-                    } ${open ? 'nc-version-picker-trigger-open' : ''}`}
-                variant={appearance === 'plain' ? 'ghost' : 'default'}
-                size={size}
-                disabled={disabled}
-                title={error || triggerTitle || placeholder}
-                aria-haspopup="listbox"
-                aria-expanded={open}
-                onClick={() => setOpen((current) => !current)}
-            >
-                <span
-                    className={`nc-version-picker-trigger-label ${triggerLabel ? '' : 'nc-version-picker-trigger-placeholder'
-                        }`}
-                >
-                    {loading ? t('versionPicker.loading') : triggerLabel || placeholder}
-                </span>
-                {error && <WarningIcon size={14} />}
-                <ChevronDownIcon size={14} />
-            </Button>
-
-            {open &&
-                createPortal(
-                    <div ref={popoverRef} className="nc-version-picker-popover" style={popoverStyle}>
-                        {error && <div className="nc-version-picker-error" role="alert">{error}</div>}
-                        {onRefresh && (
-                            <div className="nc-version-picker-ref-header">
-                                <span>
-                                    {pickerMode === 'refs'
-                                        ? t('versionPicker.refsHeader')
-                                        : t('versionPicker.versionsHeader')}
-                                </span>
-                                <Button
-                                    variant="ghost"
-                                    size="small"
-                                    title={t('versionPicker.refresh')}
-                                    aria-label={t('versionPicker.refresh')}
-                                    disabled={loading}
-                                    onClick={onRefresh}
-                                >
-                                    <RefreshIcon size={15} />
-                                </Button>
-                            </div>
-                        )}
-                        {truncated?.branches && (
-                            <div className="nc-version-picker-notice">
-                                {t('versionPicker.branchesIncomplete')}
-                            </div>
-                        )}
-                        {truncated?.tags && (
-                            <div className="nc-version-picker-notice">{t('versionPicker.tagsIncomplete')}</div>
-                        )}
-                        <div className="nc-version-picker-search">
-                            <SearchIcon size={15} />
-                            <Input
-                                value={searchTerm}
-                                onChange={setSearchTerm}
-                                placeholder={
+        <CategoryPicker
+            options={categories}
+            showFullPath={false}
+            getCategoryDisplayName={(category) => `${category.name ?? category.value}${(category.value === BRANCHES_GROUP_KEY ? truncated?.branches : truncated?.tags)
+                ? ` (${t('versionPicker.incomplete')})` : ''
+                }`}
+            value={value || null}
+            onChange={(nextValue) => {
+                if (nextValue !== null) onChange(nextValue);
+            }}
+            disabled={disabled}
+            size={size}
+            placeholder={placeholder}
+            className={className}
+            appearance={appearance}
+            loading={loading}
+            error={error}
+            loadingText={t('versionPicker.loading')}
+            unavailableText={t('versionPicker.unavailable')}
+            emptyText={t('versionPicker.noMatches')}
+            noOptionsText={t(pickerMode === 'refs' ? 'versionPicker.noRefs' : 'versionPicker.noVersions')}
+            searchPlaceholder={t(
+                pickerMode === 'refs'
+                    ? 'versionPicker.searchRefs'
+                    : 'versionPicker.searchVersions',
+            )}
+            triggerIcon={error ? <WarningIcon size={14} /> : undefined}
+            popoverWidth={340}
+            header={
+                <>
+                    {onRefresh && (
+                        <div className="nc-version-picker-ref-header">
+                            <span>
+                                {t(
                                     pickerMode === 'refs'
-                                        ? t('versionPicker.searchRefs')
-                                        : t('versionPicker.searchVersions')
-                                }
+                                        ? 'versionPicker.refsHeader'
+                                        : 'versionPicker.versionsHeader',
+                                )}
+                            </span>
+                            <Button
+                                variant="ghost"
                                 size="small"
-                                clearable
-                            />
+                                title={t('versionPicker.refresh')}
+                                aria-label={t('versionPicker.refresh')}
+                                disabled={loading}
+                                onClick={onRefresh}
+                            >
+                                <RefreshIcon size={15} />
+                            </Button>
                         </div>
-
-                        <div className="nc-version-picker-body">
-                            {loading || error || groups.length === 0 ? (
-                                <div className="nc-version-picker-empty">
-                                    {loading
-                                        ? t('versionPicker.loading')
-                                        : error
-                                            ? t('versionPicker.unavailable')
-                                            : pickerMode === 'refs'
-                                                ? t('versionPicker.noRefs')
-                                                : t('versionPicker.noVersions')}
-                                </div>
-                            ) : query ? (
-                                <div className="nc-version-picker-results">
-                                    {searchResults.length === 0 ? (
-                                        <div className="nc-version-picker-empty">{t('versionPicker.noMatches')}</div>
-                                    ) : (
-                                        searchResults.map(({ group, items }) => (
-                                            <div key={group.key} className="nc-version-picker-result-group">
-                                                <div className="nc-version-picker-result-group-label">{group.label}</div>
-                                                <div className="nc-version-picker-option-list">{items.map(renderOption)}</div>
-                                            </div>
-                                        ))
-                                    )}
-                                </div>
-                            ) : (
-                                <div className="nc-version-picker-browser">
-                                    <div className="nc-version-picker-group-list">
-                                        {groups.map((group) => (
-                                            <Button
-                                                key={group.key}
-                                                className={`nc-version-picker-group-button ${group.key === activeGroup?.key
-                                                    ? 'nc-version-picker-group-button-active'
-                                                    : ''
-                                                    }`}
-                                                variant="ghost"
-                                                size="small"
-                                                onClick={() => setActiveGroupKey(group.key)}
-                                            >
-                                                <span>
-                                                    {group.label}
-                                                    {(group.key === BRANCHES_GROUP_KEY
-                                                        ? truncated?.branches
-                                                        : truncated?.tags)
-                                                        ? ` (${t('versionPicker.incomplete')})`
-                                                        : ''}
-                                                </span>
-                                                <ChevronRightIcon size={13} />
-                                            </Button>
-                                        ))}
-                                    </div>
-
-                                    <div className="nc-version-picker-item-list">
-                                        {activeGroup && (
-                                            <>
-                                                <div className="nc-version-picker-item-list-header">{activeGroup.label}</div>
-                                                <div className="nc-version-picker-option-list">
-                                                    {activeGroup.items.map(renderOption)}
-                                                </div>
-                                            </>
-                                        )}
-                                    </div>
-                                </div>
-                            )}
+                    )}
+                    {truncated?.branches && (
+                        <div className="nc-version-picker-notice">
+                            {t('versionPicker.branchesIncomplete')}
                         </div>
-                    </div>,
-                    document.body,
-                )}
-        </div>
+                    )}
+                    {truncated?.tags && (
+                        <div className="nc-version-picker-notice">{t('versionPicker.tagsIncomplete')}</div>
+                    )}
+                </>
+            }
+        />
     );
 }

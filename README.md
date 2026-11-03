@@ -79,6 +79,7 @@ nc-ui provides 23+ ready-to-use components. Click any component to see it in the
 | [Battery](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=battery)              | Visual battery level indicator                                                                     |
 | [Button](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=buttons)               | Primary action button with variants, sizes, and loading states                                     |
 | [ButtonGroup](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=button-group)     | Segmented control for switching between predefined options                                         |
+| [CategoryPicker](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=category-picker) | Searchable two-level category selection with optional all and clear actions |
 | [Checkbox](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=checkbox)            | Toggle selection with indeterminate state support                                                  |
 | [CommonButtons](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=buttons-icon)   | Pre-configured buttons (Close, Edit, Refresh, Trash)                                               |
 | [ComboBox](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=combobox)            | Searchable dropdown with autocomplete                                                              |

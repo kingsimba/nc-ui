@@ -1,5 +1,6 @@
 # Changelog
 
+- 2026-11-03 CategoryPicker: Add searchable two-level selection and reuse it in VersionPicker
 - 2026-10-16 Theme: Make light the default theme, dark opt-in via `dark` class
 - 2026-10-16 VersionPicker: Add grouped version and ref picker with bordered and plain appearances
 - 2026-10-16 Icons: Add WarningIcon

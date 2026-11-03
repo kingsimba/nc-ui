@@ -8,6 +8,7 @@ export { Button } from './components/Button';
 export { ButtonGroup } from './components/ButtonGroup';
 export { ActivityIndicator } from './components/ActivityIndicator';
 export { Checkbox } from './components/Checkbox';
+export { CategoryPicker } from './components/CategoryPicker';
 export { ComboBox } from './components/ComboBox';
 export {
   RefreshButton,
@@ -63,6 +64,7 @@ export type {
 
 // Export types
 export type { CheckboxProps, CheckboxSize } from './components/Checkbox';
+export type { CategoryPickerItem, CategoryPickerProps } from './components/CategoryPicker';
 export type { ComboBoxProps, ComboBoxOption } from './components/ComboBox';
 export type { ContextMenuProps, ContextMenuOption } from './components/ContextMenu';
 

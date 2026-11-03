@@ -325,6 +325,24 @@ import { MonthRangePicker } from '@kingsimba/nc-ui'
 
 ---
 
+### CategoryPicker
+
+Select a child or, when enabled, a category's all option. Values must be globally unique. A missing name falls back to value; search matches value, name, and description at both levels. Top-level items only navigate unless their all option is enabled. Clear emits `null`.
+
+```tsx
+import { CategoryPicker, type CategoryPickerItem } from '@kingsimba/nc-ui'
+
+const categories: CategoryPickerItem[] = [
+  { value: 'sensors', name: 'Sensors', children: [{ value: 'imu', name: 'IMU', description: 'Inertial sensor' }] },
+]
+
+<CategoryPicker options={categories} value={category} onChange={setCategory}
+  allowAllOptions getAllOptionName={(item) => `All ${item.name ?? item.value}`}
+  getAllOptionDescription={() => 'Includes all subcategories'} clearable />
+```
+
+`value` is `string | null`. `allowAllOptions` and `clearable` default to false. `showFullPath` defaults to true; set it to false to show only the selected item's name in the trigger. Callers supply localized names and descriptions and can replace the options on language changes while preserving values.
+
 ### VersionPicker
 
 **Replace:** Custom branch/tag or version dropdown → `<VersionPicker>`

@@ -23,6 +23,7 @@ import { ToggleSection } from './sections/ToggleSection';
 import { MultiSelectSection } from './sections/MultiSelectSection';
 import { MonthRangePickerSection } from './sections/MonthRangePickerSection';
 import { VersionPickerSection } from './sections/VersionPickerSection';
+import { CategoryPickerSection } from './sections/CategoryPickerSection';
 import { AppDialogSection } from './sections/AppDialogSection';
 import { NavStackSection } from './sections/NavStackSection';
 import { YamlTextAreaSection } from './sections/YamlTextAreaSection';
@@ -34,7 +35,7 @@ import './UIComponentsDemo.css';
 
 type SectionId = 'styles' | 'buttons' | 'activity' | 'checkbox' | 'combobox' | 'buttons-icon' |
   'hyperlink' | 'alert' | 'battery' | 'context-menu' | 'button-group' | 'input' |
-  'number-input' | 'slider' | 'toggle' | 'multi-select' | 'month-range' | 'version-picker' | 'icons' | 'tabs' |
+  'number-input' | 'slider' | 'toggle' | 'multi-select' | 'month-range' | 'version-picker' | 'category-picker' | 'icons' | 'tabs' |
   'list-group' | 'dialog' | 'app-dialog' | 'nav-stack' | 'yaml-textarea' | 'csv-textarea' | 'code-editor' | 'notification';
 
 interface Section {
@@ -71,6 +72,7 @@ export function UIComponentsDemo() {
     { id: 'multi-select', label: 'MultiSelect', component: MultiSelectSection },
     { id: 'month-range', label: 'MonthRange', component: MonthRangePickerSection },
     { id: 'version-picker', label: 'VersionPicker', component: VersionPickerSection },
+    { id: 'category-picker', label: 'CategoryPicker', component: CategoryPickerSection },
     { id: 'icons', label: 'Icons', component: IconsSection },
     { id: 'tabs', label: 'Tabs', component: TabsSection },
     { id: 'list-group', label: 'ListGroup', component: ListGroupSection },
