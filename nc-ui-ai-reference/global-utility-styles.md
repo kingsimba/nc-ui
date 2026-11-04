@@ -435,15 +435,25 @@ These global styles use nc-ui's theme variables:
 --nc-success        /* Green */
 ```
 
-### Backgrounds
+### Backgrounds & Surface Hierarchy
+
+Both Light and Dark themes follow a strict **progressive brightness hierarchy** (`bg` → `secondary` → `tertiary` → `quaternary`):
 
 ```css
---nc-bg             /* Main background */
---nc-bg-secondary   /* Slightly elevated */
---nc-bg-tertiary    /* More elevated (code blocks) */
---nc-bg-quaternary  /* Most elevated (blocks) */
---nc-border         /* Border color */
+--nc-bg             /* Level 0: Outer app canvas / viewport backdrop */
+--nc-bg-secondary   /* Level 1: App chrome (Taskbar, TitleBar, Tabs bar) */
+--nc-bg-tertiary    /* Level 2: App content canvas (.nc-app-content-wrapper) & nested .card .card surface (light) */
+--nc-bg-quaternary  /* Level 3: Highest elevation surface (.card, popovers, dialogs, inputs) */
+--nc-card-bg        /* Default card surface (--nc-bg-quaternary) */
+--nc-card-nested-bg /* Nested .card .card surface (--nc-bg-tertiary in light, #2c394d in dark) */
+--nc-border         /* Hairline border color */
 ```
+
+**Nesting Rules for AI:**
+1. **Taskbar / TitleBar / Tab Bar Chrome**: Use `--nc-bg-secondary`.
+2. **Page / App Content Canvas**: Use `--nc-bg-tertiary` (default in `.nc-app-content-wrapper`).
+3. **Primary Section / Card on Canvas**: Prefer the `.card` class (which uses `--nc-card-bg` = `--nc-bg-quaternary`).
+4. **Nested Sub-panel / Item inside a Card**: Prefer nesting `.card` inside `.card` (which automatically switches to `--nc-card-nested-bg` with no drop shadow), or use `--nc-card-nested-bg`. Never place `--nc-bg` inside a card unless creating a deeply recessed well.
 
 ---
 

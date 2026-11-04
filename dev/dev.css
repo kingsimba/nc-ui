@@ -78,8 +78,7 @@ body {
 
 .dev-header-select .nc-input,
 .dev-header-theme-toggle {
-    border-radius: 999px !important;
-    min-width: 80px;
+    min-width: 84px;
 }
 
 .dev-framework-container {

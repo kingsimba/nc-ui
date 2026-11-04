@@ -197,10 +197,6 @@ function CodeEditor({
                         <span
                           key={key}
                           {...props}
-                          style={{
-                            ...props.style,
-                            opacity: readOnly ? 0.7 : undefined,
-                          }}
                         >
                           {renderedToken.content}
                         </span>
@@ -268,34 +264,17 @@ function CodeEditor({
         }
       `}</style>
       <div
-        className="nc-code-editor-container"
+        className={`nc-code-editor-container${readOnly ? ' nc-readonly' : ''}`}
         style={{
-          border: '1px solid var(--nc-border)',
-          background: readOnly ? 'var(--nc-bg-secondary)' : 'var(--nc-bg-tertiary)',
           minHeight,
           maxHeight,
-          display: 'flex',
         }}
       >
         {/* Line numbers gutter */}
         {showLineNumbers && (
           <div
             ref={lineNumbersRef}
-            style={{
-              padding: '10px 8px',
-              paddingRight: 12,
-              background: 'var(--nc-bg-tertiary)',
-              borderRight: '1px solid var(--nc-border)',
-              color: 'var(--nc-text-weak)',
-              fontFamily: 'Consolas, Monaco, "Courier New", monospace',
-              fontSize: 13,
-              lineHeight: '1.5',
-              textAlign: 'right',
-              userSelect: 'none',
-              whiteSpace: 'pre',
-              minWidth: 40,
-              overflow: 'hidden',
-            }}
+            className="nc-editor-gutter"
           >
             {lineNumbers}
           </div>

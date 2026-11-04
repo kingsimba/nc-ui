@@ -111,11 +111,11 @@ export function UIComponentsDemo() {
           if (section) setActiveSection(section.id);
         }}
         orientation={!isMobile ? 'verticalLeft' : 'horizontal'}
-        style={{ background: 'var(--nc-bg-tertiary)' }}
+        style={{ background: 'var(--nc-bg-secondary)' }}
       />
 
       {/* Content area */}
-      <div className="ui-content" style={{ backgroundColor: 'var(--nc-bg-quaternary)' }}>
+      <div className="ui-content">
         {ActiveComponent && activeSection === 'list-group' ? (
           <ListGroupSection theme={theme} toggleTheme={() => setTheme(theme === 'dark' ? 'light' : 'dark')} />
         ) : (

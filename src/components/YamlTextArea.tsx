@@ -298,7 +298,6 @@ function YamlTextArea({
                         style={{
                           ...props.style,
                           ...customStyle,
-                          opacity: readOnly ? 0.7 : undefined,
                         }}
                       />
                     );
@@ -351,10 +350,8 @@ function YamlTextArea({
         }
       `}</style>
       <div
-        className={`nc-yaml-textarea-container${error ? ' error' : ''}`}
+        className={`nc-yaml-textarea-container${readOnly ? ' nc-readonly' : ''}${error ? ' error' : ''}`}
         style={{
-          border: `1px solid ${error ? 'var(--nc-danger)' : 'var(--nc-border)'}`,
-          background: readOnly ? 'var(--nc-bg-secondary)' : 'var(--nc-bg-tertiary)',
           minHeight,
           maxHeight,
         }}
@@ -362,21 +359,7 @@ function YamlTextArea({
         {/* Line numbers gutter */}
         <div
           ref={lineNumbersRef}
-          style={{
-            padding: '10px 8px',
-            paddingRight: 12,
-            background: 'var(--nc-bg-tertiary)',
-            borderRight: '1px solid var(--nc-border)',
-            color: 'var(--nc-text-weak)',
-            fontFamily: 'Consolas, Monaco, "Courier New", monospace',
-            fontSize: 13,
-            lineHeight: '1.5',
-            textAlign: 'right',
-            userSelect: 'none',
-            whiteSpace: 'pre',
-            minWidth: 40,
-            overflow: 'hidden',
-          }}
+          className="nc-editor-gutter"
         >
           {lineNumbers}
         </div>

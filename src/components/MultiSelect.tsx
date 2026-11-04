@@ -38,17 +38,41 @@ export function MultiSelect({ values, onChange, options, placeholder = 'Select‚Ä
   return (
     <div ref={ref} className="nc-col" style={{ position: 'relative' }}>
       {label && <span className="nc-label">{label}</span>}
-      <div className="nc-row" style={{ flexWrap: 'wrap', gap: 6, minHeight: 42, alignItems: 'center', border: '1px solid var(--nc-button-border)', borderRadius: 8, background: 'var(--nc-button-bg)', padding: '4px 8px' }}>
-        {values.length === 0 && <span className="nc-label">{placeholder}</span>}
+      <div
+        className="nc-row"
+        style={{
+          flexWrap: 'wrap',
+          gap: 6,
+          minHeight: 38,
+          alignItems: 'center',
+          border: '1px solid var(--nc-button-border)',
+          borderRadius: 8,
+          background: 'var(--nc-input-bg)',
+          padding: '4px 8px',
+        }}
+      >
+        {values.length === 0 && <span className="nc-label" style={{ marginBottom: 0 }}>{placeholder}</span>}
         {values.map((v) => {
           const o = options.find((o) => o.value === v);
           if (!o) return null;
           return (
-            <span key={v} style={{ padding: '4px 8px', borderRadius: 6, display: 'inline-flex', alignItems: 'center', gap: 4, background: 'var(--nc-button-bg)', border: '1px solid var(--nc-button-border)' }}>
+            <span
+              key={v}
+              style={{
+                padding: '2px 8px',
+                borderRadius: 6,
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 4,
+                fontSize: 12.5,
+                background: 'var(--nc-bg-tertiary)',
+                border: '1px solid var(--nc-border)',
+              }}
+            >
               {o.label}
               <button
                 className="nc-button nc-ghost"
-                style={{ padding: 0, minHeight: 0, height: 20, width: 20, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', border: 'none' }}
+                style={{ padding: 0, minHeight: 0, height: 18, width: 18, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', border: 'none' }}
                 onClick={() => toggle(v)}
                 aria-label={`Remove ${o.label}`}
               >
@@ -62,17 +86,17 @@ export function MultiSelect({ values, onChange, options, placeholder = 'Select‚Ä
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setOpen(true)}
-          style={{ minWidth: 50, border: 'none', background: 'transparent', padding: 4, minHeight: 32, flex: 1 }}
+          style={{ minWidth: 50, border: 'none', background: 'transparent', padding: 4, minHeight: 28, height: 28, flex: 1, boxShadow: 'none' }}
         />
       </div>
       {open && (
-        <div className="nc-combo-dropdown" style={{ position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 10, marginTop: 4, boxShadow: '0 4px 12px var(--nc-shadow)' }}>
+        <div className="nc-combo-dropdown" style={{ position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 10, marginTop: 4 }}>
           {filtered.map((o) => {
             const selected = values.includes(o.value);
             return (
-              <div key={o.value} className="nc-section nc-row" style={{ justifyContent: 'space-between', cursor: 'pointer', padding: 12 }} onMouseDown={() => toggle(o.value)}>
+              <div key={o.value} className="nc-section nc-row" style={{ justifyContent: 'space-between', cursor: 'pointer', padding: '8px 10px' }} onMouseDown={() => toggle(o.value)}>
                 <span>{o.label}</span>
-                <span>{selected ? '‚úîÔ∏è' : ''}</span>
+                <span style={{ color: 'var(--nc-primary)', fontWeight: 600 }}>{selected ? '‚úì' : ''}</span>
               </div>
             );
           })}

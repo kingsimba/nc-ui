@@ -258,39 +258,33 @@ const config = {
             <section className="dev-section">
                 <h2>CSS Variables Reference</h2>
                 <p style={{ marginBottom: '1rem', color: 'var(--nc-text-weak)' }}>
-                    Quick reference for all available CSS variables
+                    Quick reference for all available CSS variables (light default + <code>:root.dark</code>)
                 </p>
                 <div className="code-block">
                     {`:root {
-  /* Core colors */
-  --nc-bg: #171e27;
-  --nc-bg-secondary: #1a2332;
-  --nc-bg-tertiary: #232d3d;
-  --nc-bg-quaternary: #2c3847;
-  --nc-muted: #7a8a9a;
-  --nc-text: #e8eef6;
-  --nc-text-weak: #6b7280;
-  --nc-text-weaker: #4b5563;
-  --nc-primary: #3b82f6;
-  --nc-danger: #ef4444;
-  --nc-warning: #f59e0b;
-  --nc-success: #22c55e;
+  /* Core colors (surface hierarchy: bg -> secondary -> tertiary -> quaternary) */
+  --nc-bg: #e2e8f0;            /* App backdrop / outer canvas */
+  --nc-bg-secondary: #eaeff6;  /* Taskbar / title bar / tab bar chrome */
+  --nc-bg-tertiary: #f4f7fb;   /* App content canvas & nested card surface */
+  --nc-bg-quaternary: #ffffff; /* Elevated card / popover / input surface */
+  --nc-muted: #64748b;
+  --nc-text: #0f172a;
+  --nc-text-weak: #64748b;
+  --nc-text-weaker: #94a3b8;
+  --nc-primary: #2563eb;
+  --nc-danger: #dc2626;
+  --nc-warning: #d97706;
+  --nc-success: #16a34a;
 
   /* UI element colors */
-  --nc-border: #1f2937;
-  --nc-button-border: #223042;
-  --nc-button-bg: var(--nc-bg-tertiary);
-  --nc-button-hover: #162332;
-  --nc-button-active: #1d2e42;
-  --nc-overlay-hover: rgba(255, 255, 255, 0.05);
-
-  /* YAML syntax highlighting */
-  --nc-code-string: #f48771;
-  --nc-code-boolean: #7cc5ff;
-  --nc-code-null: #7cc5ff;
-  --nc-code-number: #b5cea8;
-  --nc-code-key: #9cdcfe;
-  --nc-code-comment: #6a9955;
+  --nc-border: #e2e8f0;
+  --nc-button-border: #cbd5e1;
+  --nc-button-bg: var(--nc-bg-quaternary);
+  --nc-button-hover: #f1f5f9;
+  --nc-button-active: #e2e8f0;
+  --nc-input-bg: var(--nc-bg-quaternary);
+  --nc-card-bg: var(--nc-bg-quaternary);
+  --nc-card-nested-bg: var(--nc-bg-tertiary);
 }`}
                 </div>
             </section>
@@ -305,8 +299,9 @@ function ColorSwatch({ variable, label }: { variable: string; label: string }) {
             alignItems: 'center',
             gap: '12px',
             padding: '8px 12px',
-            borderRadius: '6px',
-            background: 'var(--nc-bg-tertiary)'
+            borderRadius: '8px',
+            border: '1px solid var(--nc-border)',
+            background: 'var(--nc-card-bg)'
         }}>
             <div
                 style={{

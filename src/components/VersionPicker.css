@@ -62,7 +62,7 @@
     border: 1px solid var(--nc-border);
     border-radius: 8px;
     background: var(--nc-bg-quaternary);
-    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.22);
+    box-shadow: var(--nc-popover-shadow);
 }
 
 /* Rows inside the popover are flat list items, not uppercase actions. The
