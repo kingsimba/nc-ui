@@ -1337,7 +1337,7 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 }
 
 .nc-dialog-container {
-  background: var(--nc-bg-quaternary);
+  background: var(--nc-bg-tertiary);
   border-radius: 12px;
   border: 1px solid var(--nc-border);
   box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.28), 0 8px 20px -6px rgba(15, 23, 42, 0.14);
