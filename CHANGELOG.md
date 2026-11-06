@@ -1,5 +1,6 @@
 # Changelog
 
+- 2026-11-06 Tabs: Improve vertical tabs active style by removing heavy background
 - 2026-11-04 Theme: Improve surface color hierarchy, card elevation, and control styling
 - 2026-11-03 CategoryPicker: Add searchable two-level selection and reuse it in VersionPicker
 - 2026-10-16 Theme: Make light the default theme, dark opt-in via `dark` class

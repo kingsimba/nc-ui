@@ -1212,8 +1212,9 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 }
 
 .nc-tab-container.nc-vertical .nc-tab-item.nc-active {
-  background: var(--nc-primary);
-  color: white;
+  background: transparent;
+  color: var(--nc-primary);
+  font-weight: 600;
 }
 
 .nc-tab-container.nc-vertical .nc-tab-scroll-indicator {
