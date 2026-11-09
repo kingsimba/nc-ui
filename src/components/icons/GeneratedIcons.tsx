@@ -293,6 +293,28 @@ export function ChevronDownIcon({ size = 24, className, style }: IconProps) {
 }
 
 /**
+ * Chevron up icon for collapsible sections.
+ */
+export function ChevronUpIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      style={style}
+    >
+      <polyline points="18 15 12 9 6 15" />
+    </svg>
+  );
+}
+
+/**
  * Refresh icon for scanning networks. Two 8-unit arcs with 4.44-unit arrow heads,
  * held to an 18x18 ink box rather than filling the frame. Keep the arcs and heads
  * scaled together.
@@ -941,6 +963,33 @@ export function DownloadIcon({ size = 24, className, style }: IconProps) {
       {/* Shaft and head, stopping clear of the line */}
       <path d="M12 3v14" />
       <path d="M7 12l5 5 5-5" />
+    </svg>
+  );
+}
+
+/**
+ * SendToInput icon - Arrow pointing up into a receiving input box slot above.
+ * Used for sending content or prompt history into an input field above.
+ */
+export function SendToInputIcon({ size = 24, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      style={style}
+    >
+      {/* Receiving input box with bottom opening */}
+      <path d="M7.5 10H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-2.5" />
+      {/* Upward arrow docked at the opening */}
+      <path d="M12 21v-11" />
+      <path d="M7.5 14.5L12 10l4.5 4.5" />
     </svg>
   );
 }

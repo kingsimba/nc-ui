@@ -956,9 +956,9 @@ import {
   EditIcon,
   TrashIcon,
   ViewIcon,
-  EyeHiddenIcon,
+  SendToInputIcon,
   SettingsIcon,
-  // ... 50+ more icons
+  // ... 56 icons available
 } from '@kingsimba/nc-ui/icons'
 
 <CloseIcon />
@@ -967,7 +967,16 @@ import {
 <CloseIcon className="custom-class" />
 ```
 
-**Common icons:** Close, Edit, Trash, View, EyeHidden, Settings, Plus, Minus, Check, Arrow (Up/Down/Left/Right), Menu, Search, Download, Upload, etc.
+### Complete Icon List (56 icons)
+
+- **Navigation**: `ChevronDownIcon`, `ChevronLeftIcon`, `ChevronRightIcon`, `ChevronUpIcon`, `ExternalLinkIcon`, `MenuIcon`
+- **View & search**: `EyeHiddenIcon`, `FilterIcon`, `SearchIcon`, `ViewIcon`
+- **Edit & files**: `CopyIcon`, `CopyFilledIcon`, `DownloadIcon`, `EditIcon`, `EmptyFolderIcon`, `SaveIcon`, `TrashIcon`, `TrashFilledIcon`
+- **Actions**: `CloseIcon`, `DoubleClickIcon`, `HistoryIcon`, `MinusIcon`, `MoreHorizontalIcon`, `MoreIcon`, `PlusIcon`, `RefreshIcon`, `RevertIcon`, `SendToInputIcon`
+- **Media**: `PauseIcon`, `PauseFilledIcon`, `PlayIcon`, `PlayFilledIcon`, `StopIcon`, `StopFilledIcon`
+- **Status & theme**: `InfoIcon`, `InfoFilledIcon`, `KeyIcon`, `LockIcon`, `MoonIcon`, `MoonFilledIcon`, `PowerIcon`, `QuestionIcon`, `QuestionFilledIcon`, `StarIcon`, `StarFilledIcon`, `SunIcon`, `SunFilledIcon`, `UnlockIcon`, `WarningIcon`, `WifiIcon`
+- **People**: `UserIcon`
+- **Devices & apps**: `CameraIcon`, `ConsoleIcon`, `HideAppsIcon`, `PieChartIcon`, `SettingsIcon`
 
 ---
 
