@@ -56,6 +56,10 @@
 .nc-menubar-shortcut { margin-inline-start: 20px; color: var(--nc-text-weak); font-size: 12px; white-space: nowrap; }
 .nc-menubar-separator { height: 1px; margin: 5px 8px; background: var(--nc-border); }
 .nc-menubar-label { padding: 6px 32px; font-size: 12px; color: var(--nc-text-weak); }
+.nc-menubar-item.nc-danger:not(:disabled) { color: var(--nc-danger); }
+.nc-menubar-item.nc-primary:not(:disabled) { color: var(--nc-primary); }
+.nc-menubar-item.nc-warning:not(:disabled) { color: var(--nc-warning); }
+.nc-menubar-item.nc-success:not(:disabled) { color: var(--nc-success); }
 
 /* Dark theme (opt-in: add the `dark` class to the root element) */
 :root.dark {

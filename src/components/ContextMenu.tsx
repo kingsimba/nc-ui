@@ -1,183 +1,79 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
+import React, { useEffect, useId, useLayoutEffect, useRef } from 'react';
+import { MenuPopup, type MenuBarItem } from './MenuBar';
 
-export interface ContextMenuOption {
-  id: string;
-  label?: string;
-  icon?: React.ReactNode;
-  onClick?: () => void;
-  disabled?: boolean;
-  variant?: 'default' | 'danger' | 'primary' | 'warning' | 'success';
-  type?: 'item' | 'separator';
+export interface ContextMenuOption extends Omit<MenuBarItem, 'items'> {
+    /** Called when the command is selected. */
+    onClick?: () => void;
+    /** Nested submenu options. */
+    items?: ContextMenuOption[];
 }
 
 export interface ContextMenuProps {
-  /** Whether the context menu is open */
-  open: boolean;
-  /** Called when the menu should close */
-  onClose: () => void;
-  /** Menu options to display */
-  options: ContextMenuOption[];
-  /** Reference element to anchor the menu position, or the element itself */
-  anchorRef?: React.RefObject<HTMLElement>;
-  /** Anchor element directly (alternative to anchorRef) */
-  anchor?: HTMLElement | null;
-  /** Preferred direction: 'down' or 'up' (default: 'down') */
-  preferredDirection?: 'down' | 'up';
+    /** Whether the context menu is open. */
+    open: boolean;
+    /** Called when the menu should close. */
+    onClose: () => void;
+    /** Menu options to display. */
+    options: ContextMenuOption[];
+    /** Reference element to anchor the menu. */
+    anchorRef?: React.RefObject<HTMLElement>;
+    /** Anchor element directly. */
+    anchor?: HTMLElement | null;
+    /** Preferred opening direction. */
+    preferredDirection?: 'down' | 'up';
+    /** Viewport coordinates, taking precedence over the anchor. */
+    position?: { x: number; y: number };
+    /** Reading and keyboard navigation direction. */
+    dir?: 'ltr' | 'rtl';
+    /** Translated accessible menu name. */
+    'aria-label'?: string;
 }
 
-/**
- * A context menu component that pops relative to an anchor element.
- * Automatically detects available space and positions itself accordingly.
- * Default position is right-down, but switches to right-up when space is limited.
- */
-export function ContextMenu({
-  open,
-  onClose,
-  options,
-  anchorRef,
-  anchor,
-  preferredDirection = 'down',
-}: ContextMenuProps) {
-  const menuRef = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({ top: 0, left: 0 });
+function adaptOptions(options: ContextMenuOption[]): MenuBarItem[] {
+    return options.map(option => ({
+        ...option,
+        items: option.items ? adaptOptions(option.items) : undefined,
+        onSelect: () => { option.onClick?.(); option.onSelect?.(); },
+    }));
+}
 
-  // Get the anchor element from either ref or prop
-  const anchorElement = anchor || anchorRef?.current;
+export function ContextMenu({ open, onClose, options, anchorRef, anchor, preferredDirection = 'down', position, dir = 'ltr', 'aria-label': ariaLabel = '' }: ContextMenuProps) {
+    const owner = useId();
+    const previousFocus = useRef<HTMLElement | null>(null);
+    const anchorElement = anchor || anchorRef?.current;
 
-  // Update menu position based on anchor and available space
-  useEffect(() => {
-    if (!open || !anchorElement || !menuRef.current) return;
+    useLayoutEffect(() => {
+        if (!open) return;
+        const focused = document.activeElement;
+        if (focused instanceof HTMLElement && !focused.closest('[data-menubar-owner]')) previousFocus.current = focused;
+        else previousFocus.current = anchorElement || null;
+        const popup = Array.from(document.querySelectorAll<HTMLElement>('[data-menubar-owner]')).find(element => element.dataset.menubarOwner === owner);
+        popup?.querySelector<HTMLElement>('[role^="menuitem"]:not([disabled])')?.focus();
+    }, [open, anchorElement, owner, position?.x, position?.y]);
 
-    const anchorRect = anchorElement.getBoundingClientRect();
-    const menuRect = menuRef.current.getBoundingClientRect();
-    const viewportHeight = window.innerHeight;
-    const viewportWidth = window.innerWidth;
+    useEffect(() => {
+        if (!open) return;
+        const dismissOutside = (event: Event) => {
+            if (event.composedPath().some(node => node instanceof HTMLElement && node.dataset.menubarOwner === owner)) return;
+            if (!position && anchorElement?.contains(event.target as Node)) return;
+            onClose();
+        };
+        document.addEventListener('pointerdown', dismissOutside);
+        document.addEventListener('focusin', dismissOutside);
+        return () => {
+            document.removeEventListener('pointerdown', dismissOutside);
+            document.removeEventListener('focusin', dismissOutside);
+        };
+    }, [open, owner, anchorElement, position, onClose]);
 
-    // Calculate position for down direction (menu below anchor)
-    const downTop = anchorRect.bottom + 8; // 8px gap
-    const downFits = downTop + menuRect.height <= viewportHeight - 8; // 8px bottom margin
-
-    // Determine final direction
-    let finalDirection: 'down' | 'up' = preferredDirection;
-    if (!downFits && preferredDirection === 'down') {
-      finalDirection = 'up';
-    } else if (preferredDirection === 'up' && downFits) {
-      // Only override if explicitly set to 'up' but down fits perfectly
-      finalDirection = 'up';
-    }
-
-    // Calculate final top position
-    let finalTop: number;
-    if (finalDirection === 'down') {
-      finalTop = downTop;
-    } else {
-      // Menu above anchor
-      finalTop = anchorRect.top - menuRect.height - 8;
-    }
-
-    // Horizontal position: default is align menu's left edge with anchor's left edge
-    let finalLeft = anchorRect.left;
-
-    // Check if menu overflows on the right side
-    const rightOverflow = finalLeft + menuRect.width > viewportWidth - 8;
-    if (rightOverflow) {
-      // Align menu's right edge with anchor's right edge
-      finalLeft = anchorRect.right - menuRect.width;
-    }
-
-    setPosition({
-      top: Math.max(8, finalTop), // Ensure minimum 8px from top
-      left: Math.max(8, finalLeft), // Ensure minimum 8px from left
-    });
-  }, [open, anchorElement, preferredDirection]);
-
-  // Handle clicking outside to close
-  useEffect(() => {
-    if (!open) return;
-
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(e.target as Node) &&
-        anchorElement &&
-        !anchorElement.contains(e.target as Node)
-      ) {
+    const restoreFocus = () => {
         onClose();
-      }
+        (previousFocus.current || anchorElement)?.focus();
     };
 
-    const handleEscapeKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
-    };
+    if (!open || (!position && !anchorElement)) return null;
 
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('keydown', handleEscapeKey);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleEscapeKey);
-    };
-  }, [open, onClose, anchorElement]);
-
-  if (!open) return null;
-
-  const handleOptionClick = (option: ContextMenuOption) => {
-    if (option.type === 'separator') return;
-    if (!option.disabled && option.onClick) {
-      option.onClick();
-      onClose();
-    }
-  };
-
-  const hasAnyIcon = options.some((opt) => opt.icon);
-
-  return createPortal(
-    <div
-      ref={menuRef}
-      className="nc-context-menu"
-      style={{
-        position: 'fixed',
-        top: `${position.top}px`,
-        left: `${position.left}px`,
-        zIndex: 10000,
-      }}
-      role="menu"
-    >
-      {options.map((option) => {
-        if (option.type === 'separator') {
-          return (
-            <div
-              key={option.id}
-              className="nc-context-menu-separator"
-              role="separator"
-            />
-          );
-        }
-
-        const itemCls = [
-          'nc-context-menu-item',
-          option.variant && option.variant !== 'default' ? `nc-${option.variant}` : '',
-          option.disabled ? 'nc-disabled' : '',
-          hasAnyIcon && !option.icon ? 'nc-indented' : '',
-        ].filter(Boolean).join(' ');
-
-        return (
-          <button
-            key={option.id}
-            className={itemCls}
-            onClick={() => handleOptionClick(option)}
-            disabled={option.disabled}
-            role="menuitem"
-          >
-            {option.icon && <span className="nc-context-menu-icon">{option.icon}</span>}
-            <span className="nc-context-menu-label">{option.label}</span>
-          </button>
-        );
-      })}
-    </div>,
-    document.body
-  );
+    return <MenuPopup owner={owner} items={adaptOptions(options)} anchor={anchorElement} position={position} focusOnOpen={false}
+        preferredDirection={preferredDirection} dir={dir} label={ariaLabel}
+        onClose={restoreFocus} onDismiss={restoreFocus} onSwitch={() => { }} />;
 }

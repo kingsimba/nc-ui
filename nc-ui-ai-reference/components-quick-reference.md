@@ -835,7 +835,7 @@ function SettingsApp() {
 
 ### ContextMenu
 
-Floating context menu with icons and variants:
+Floating context menu sharing MenuBar styling and keyboard navigation, with icons, nested submenus, checkable items, and variants. Existing anchor-based usage remains supported. For right-click menus, prevent the native `contextmenu` event and pass `position={{ x: event.clientX, y: event.clientY }}`; coordinates take precedence over the anchor.
 
 ```tsx
 import { ContextMenu } from "@kingsimba/nc-ui";
@@ -868,9 +868,9 @@ import { EditIcon, TrashIcon } from "@kingsimba/nc-ui/icons";
 />;
 ```
 
-**Props:** `open`, `onClose`, `options`, `anchor`, `anchorRef`, `preferredDirection`
+**Props:** `open`, `onClose`, `options`, `anchor`, `anchorRef`, `preferredDirection`, `position`, `dir`, `aria-label`
 
-**Option Props:** `id`, `label`, `icon`, `onClick`, `variant`, `disabled`
+**Option Props:** `id`, `label`, `icon`, `onClick`, `onSelect`, `variant`, `disabled`, `items` (recursive options), `shortcut`, `type` (`item`, `separator`, `label`, `checkbox`, `radio`), `checked`, `onCheckedChange`
 
 **Option variants:** `default`, `primary`, `warning`, `success`, `danger`
 

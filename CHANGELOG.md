@@ -1,5 +1,6 @@
 # Changelog
 
+- 2026-11-14 ContextMenu: Add nested menus, right-click positioning, and checkable items with MenuBar styling
 - 2026-11-13 MenuBar: Add desktop menus with nested commands, optional icons, keyboard navigation, and multilingual demo
 - 2026-11-09 Icons: Add SendToInputIcon and ChevronUpIcon
 - 2026-11-06 Tabs: Improve vertical tabs active style by removing heavy background

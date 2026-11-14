@@ -20,6 +20,8 @@ export interface MenuBarItem {
     onCheckedChange?: (checked: boolean) => void;
     /** Called when a command is selected. */
     onSelect?: () => void;
+    /** Semantic command color. */
+    variant?: 'default' | 'danger' | 'primary' | 'warning' | 'success';
     /** Nested submenu commands. */
     items?: MenuBarItem[];
 }
@@ -53,7 +55,9 @@ export interface MenuBarProps {
 interface MenuPopupProps {
     owner: string;
     items: MenuBarItem[];
-    anchor: HTMLElement;
+    anchor?: HTMLElement | null;
+    position?: { x: number; y: number };
+    preferredDirection?: 'down' | 'up';
     submenu?: boolean;
     focusOnOpen?: boolean;
     dir: 'ltr' | 'rtl';
@@ -63,7 +67,7 @@ interface MenuPopupProps {
     onSwitch: (offset: number) => void;
 }
 
-function MenuPopup({ owner, items, anchor, submenu = false, focusOnOpen = true, dir, label, onClose, onDismiss, onSwitch }: MenuPopupProps) {
+export function MenuPopup({ owner, items, anchor, position: coordinates, preferredDirection = 'down', submenu = false, focusOnOpen = true, dir, label, onClose, onDismiss, onSwitch }: MenuPopupProps) {
     const popupRef = useRef<HTMLDivElement>(null);
     const [child, setChild] = useState<{ item: MenuBarItem; anchor: HTMLElement; focusOnOpen: boolean } | null>(null);
     const [position, setPosition] = useState({ top: 0, left: 0 });
@@ -73,13 +77,15 @@ function MenuPopup({ owner, items, anchor, submenu = false, focusOnOpen = true, 
         const popup = popupRef.current;
         if (!popup) return;
         const updatePosition = () => {
-            const bounds = anchor.getBoundingClientRect();
+            const bounds = coordinates ? { left: coordinates.x, right: coordinates.x, top: coordinates.y, bottom: coordinates.y } : anchor?.getBoundingClientRect();
+            if (!bounds) return;
             const size = popup.getBoundingClientRect();
             let left = submenu ? (dir === 'rtl' ? bounds.left - size.width : bounds.right) :
                 (dir === 'rtl' ? bounds.right - size.width : bounds.left);
             if (submenu && left + size.width > window.innerWidth - 8) left = bounds.left - size.width;
             if (submenu && left < 8) left = bounds.right;
-            let top = submenu ? bounds.top : bounds.bottom + 4;
+            let top = submenu || coordinates ? bounds.top : bounds.bottom + 4;
+            if (!submenu && preferredDirection === 'up') top = bounds.top - size.height - (coordinates ? 0 : 4);
             if (!submenu && top + size.height > window.innerHeight - 8) top = bounds.top - size.height - 4;
             setPosition({ left: Math.max(8, Math.min(left, window.innerWidth - size.width - 8)), top: Math.max(8, Math.min(top, window.innerHeight - size.height - 8)) });
         };
@@ -91,7 +97,7 @@ function MenuPopup({ owner, items, anchor, submenu = false, focusOnOpen = true, 
             window.removeEventListener('resize', updatePosition);
             window.removeEventListener('scroll', updatePosition, true);
         };
-    }, [anchor, dir, submenu, focusOnOpen]);
+    }, [anchor, coordinates?.x, coordinates?.y, dir, submenu, focusOnOpen, preferredDirection]);
 
     const handleKeyDown = (event: React.KeyboardEvent) => {
         event.stopPropagation();
@@ -108,7 +114,7 @@ function MenuPopup({ owner, items, anchor, submenu = false, focusOnOpen = true, 
         } else if (event.key === 'Escape' || (submenu && event.key === backward)) {
             event.preventDefault();
             onClose();
-            anchor.focus();
+            anchor?.focus();
         } else if (event.key === forward) {
             event.preventDefault();
             if (buttons[index]?.getAttribute('aria-haspopup')) buttons[index].click();
@@ -137,7 +143,7 @@ function MenuPopup({ owner, items, anchor, submenu = false, focusOnOpen = true, 
                 return <button key={item.id} type="button" role={checkable ? `menuitem${item.type}` : 'menuitem'}
                     aria-checked={checkable ? !!item.checked : undefined} aria-haspopup={item.items ? 'menu' : undefined}
                     aria-expanded={item.items ? child?.item.id === item.id : undefined} disabled={item.disabled}
-                    tabIndex={-1} data-label={item.label} className="nc-menubar-item"
+                    tabIndex={-1} data-label={item.label} className={`nc-menubar-item${item.variant ? ` nc-${item.variant}` : ''}`}
                     onPointerEnter={event => {
                         if (item.disabled) return;
                         event.currentTarget.focus();
