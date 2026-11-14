@@ -1,4 +1,20 @@
 {
+  "menuBar": {
+    "file": "ไฟล์",
+    "newFile": "ไฟล์ใหม่",
+    "openRecent": "เปิดไฟล์ล่าสุด",
+    "more": "เพิ่มเติม",
+    "saveAll": "บันทึกทั้งหมด",
+    "edit": "แก้ไข",
+    "undo": "เลิกทำ",
+    "redo": "ทำซ้ำ",
+    "view": "มุมมอง",
+    "appearance": "ลักษณะที่ปรากฏ",
+    "statusBar": "แถบสถานะ",
+    "icons": "ไอคอน",
+    "applicationMenu": "เมนูแอปพลิเคชัน",
+    "ready": "พร้อม"
+  },
   "common": {
     "default": "ค่าเริ่มต้น",
     "noResults": "ไม่พบผลลัพธ์",

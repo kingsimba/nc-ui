@@ -1,4 +1,20 @@
 {
+  "menuBar": {
+    "file": "文件",
+    "newFile": "新建文件",
+    "openRecent": "打开最近的文件",
+    "more": "更多",
+    "saveAll": "全部保存",
+    "edit": "编辑",
+    "undo": "撤销",
+    "redo": "重做",
+    "view": "视图",
+    "appearance": "外观",
+    "statusBar": "状态栏",
+    "icons": "图标",
+    "applicationMenu": "应用菜单",
+    "ready": "就绪"
+  },
   "common": {
     "default": "默认",
     "noResults": "无结果",

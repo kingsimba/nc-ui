@@ -1,4 +1,20 @@
 {
+  "menuBar": {
+    "file": "Datei",
+    "newFile": "Neue Datei",
+    "openRecent": "Zuletzt geöffnet",
+    "more": "Mehr",
+    "saveAll": "Alle speichern",
+    "edit": "Bearbeiten",
+    "undo": "Rückgängig",
+    "redo": "Wiederholen",
+    "view": "Ansicht",
+    "appearance": "Darstellung",
+    "statusBar": "Statusleiste",
+    "icons": "Symbole",
+    "applicationMenu": "Anwendungsmenü",
+    "ready": "Bereit"
+  },
   "common": {
     "default": "Standard",
     "noResults": "Keine Ergebnisse",

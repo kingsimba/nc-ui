@@ -1,4 +1,20 @@
 {
+  "menuBar": {
+    "file": "Archivo",
+    "newFile": "Nuevo archivo",
+    "openRecent": "Abrir recientes",
+    "more": "Más",
+    "saveAll": "Guardar todo",
+    "edit": "Editar",
+    "undo": "Deshacer",
+    "redo": "Rehacer",
+    "view": "Ver",
+    "appearance": "Apariencia",
+    "statusBar": "Barra de estado",
+    "icons": "Iconos",
+    "applicationMenu": "Menú de la aplicación",
+    "ready": "Listo"
+  },
   "common": {
     "default": "predeterminado",
     "noResults": "Sin resultados",

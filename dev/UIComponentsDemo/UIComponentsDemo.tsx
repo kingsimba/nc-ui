@@ -15,6 +15,7 @@ import { HyperlinkSection } from './sections/HyperlinkSection';
 import { AlertSection } from './sections/AlertSection';
 import { BatterySection } from './sections/BatterySection';
 import { ContextMenuSection } from './sections/ContextMenuSection';
+import { MenuBarSection } from './sections/MenuBarSection';
 import { ButtonGroupSection } from './sections/ButtonGroupSection';
 import { InputSection } from './sections/InputSection';
 import { NumberInputSection } from './sections/NumberInputSection';
@@ -34,7 +35,7 @@ import { NotificationSection } from './sections/NotificationSection';
 import './UIComponentsDemo.css';
 
 type SectionId = 'styles' | 'buttons' | 'activity' | 'checkbox' | 'combobox' | 'buttons-icon' |
-  'hyperlink' | 'alert' | 'battery' | 'context-menu' | 'button-group' | 'input' |
+  'hyperlink' | 'alert' | 'battery' | 'context-menu' | 'menu-bar' | 'button-group' | 'input' |
   'number-input' | 'slider' | 'toggle' | 'multi-select' | 'month-range' | 'version-picker' | 'category-picker' | 'icons' | 'tabs' |
   'list-group' | 'dialog' | 'app-dialog' | 'nav-stack' | 'yaml-textarea' | 'csv-textarea' | 'code-editor' | 'notification';
 
@@ -64,6 +65,7 @@ export function UIComponentsDemo() {
     { id: 'alert', label: 'Alert', component: AlertSection },
     { id: 'battery', label: 'Battery', component: BatterySection },
     { id: 'context-menu', label: 'ContextMenu', component: ContextMenuSection },
+    { id: 'menu-bar', label: 'MenuBar', component: MenuBarSection },
     { id: 'button-group', label: 'ButtonGroup', component: ButtonGroupSection },
     { id: 'input', label: 'Input', component: InputSection },
     { id: 'number-input', label: 'NumberInput', component: NumberInputSection },

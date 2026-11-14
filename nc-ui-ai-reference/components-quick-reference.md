@@ -34,6 +34,37 @@ Use [global-utility-styles.md](./global-utility-styles.md) for examples and usag
 
 ## Core Components
 
+### MenuBar
+
+Traditional desktop application menu bar with portaled submenus, viewport collision handling,
+optional icons, disabled commands, separators, labels, checkboxes and radio items.
+
+```tsx
+import { MenuBar } from '@kingsimba/nc-ui';
+
+<MenuBar
+  aria-label={t('applicationMenu')}
+  menus={[{
+    id: 'file',
+    label: t('file'),
+    items: [
+      { id: 'new', label: t('newFile'), icon: <EditIcon />, shortcut: 'Ctrl+N', onSelect: createFile },
+      { id: 'separator', type: 'separator' },
+      { id: 'recent', label: t('recent'), items: recentFileCommands },
+    ],
+  }]}
+/>
+```
+
+**Props:** `menus`, `aria-label`, `dir` (`ltr` or `rtl`), `className`, `style`.
+Exported types: `MenuBarProps`, `MenuBarMenu`, `MenuBarItem`.
+Supply translated labels from any i18n system and keep IDs stable across languages.
+`shortcut` is display-only; register application shortcuts separately.
+Checkable items use controlled `checked` and `onCheckedChange`; for radio items the application
+owns the mutually exclusive group state. Commands close the menu before invoking `onSelect`.
+Arrow keys navigate menus and submenus, Enter/Space activates commands, Escape returns focus,
+Home/End select the first/last command, and typing locates commands by label.
+
 ### Button
 
 **Replace:** `<button>` → `<Button>`

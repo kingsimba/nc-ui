@@ -1,4 +1,20 @@
 {
+  "menuBar": {
+    "file": "File",
+    "newFile": "New File",
+    "openRecent": "Open Recent",
+    "more": "More",
+    "saveAll": "Save All",
+    "edit": "Edit",
+    "undo": "Undo",
+    "redo": "Redo",
+    "view": "View",
+    "appearance": "Appearance",
+    "statusBar": "Status Bar",
+    "icons": "Icons",
+    "applicationMenu": "Application menu",
+    "ready": "Ready"
+  },
   "common": {
     "default": "default",
     "noResults": "No results",

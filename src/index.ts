@@ -21,6 +21,8 @@ export { ContextMenu } from './components/ContextMenu';
 export { Dialog, DialogClose, useDialog } from './components/Dialog';
 export { Input } from './components/Input';
 export { ListGroup, ListGroupItem } from './components/ListGroup';
+export { MenuBar } from './components/MenuBar';
+export type { MenuBarProps, MenuBarMenu, MenuBarItem } from './components/MenuBar';
 export { MultiSelect } from './components/MultiSelect';
 export { MonthRangePicker } from './components/MonthRangePicker';
 export { NumberInput } from './components/NumberInput';

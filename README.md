@@ -92,6 +92,7 @@ nc-ui provides 23+ ready-to-use components. Click any component to see it in the
 | [Input](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=input)                  | Text input with validation states and prefix/suffix support                                        |
 | [ListGroup](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=list-group)         | Grouped content sections built from `ListGroupItem` children                                       |
 | [MonthRangePicker](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=month-range) | Month range selector with validation (YY-M(M) or YYYY-M(M) format)                                 |
+| [MenuBar](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=menu-bar) | Desktop menu bar with nested menus, optional icons, translated labels and keyboard navigation |
 | [MultiSelect](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=multi-select)     | Multi-selection dropdown with tag display                                                          |
 | [NavStack](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=nav-stack)           | Stack-based navigation for mobile-style settings UIs                                               |
 | [Notification](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=notification)    | Toast-style notifications with auto-dismiss and stacking                                           |
