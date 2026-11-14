@@ -64,6 +64,9 @@ Checkable items use controlled `checked` and `onCheckedChange`; for radio items 
 owns the mutually exclusive group state. Commands close the menu before invoking `onSelect`.
 Arrow keys navigate menus and submenus, Enter/Space activates commands, Escape returns focus,
 Home/End select the first/last command, and typing locates commands by label.
+The leading icon column is reserved only when the menu level contains at least one icon or a
+checkable item. Popups default to `min-width: 240px`; override `--nc-menubar-popup-min-width`
+to fit short menus to their content.
 
 ### Button
 
@@ -868,7 +871,12 @@ import { EditIcon, TrashIcon } from "@kingsimba/nc-ui/icons";
 />;
 ```
 
-**Props:** `open`, `onClose`, `options`, `anchor`, `anchorRef`, `preferredDirection`, `position`, `dir`, `aria-label`
+**Props:** `open`, `onClose`, `options`, `anchor`, `anchorRef`, `preferredDirection`, `position`, `dir`, `aria-label`, `className`
+
+The leading icon column is reserved only when the popup level contains at least one icon or a
+checkable item; an all-text menu starts its labels at the item padding instead.
+Popups default to `min-width: 240px`. Override `--nc-menubar-popup-min-width` from `className`
+(e.g. `--nc-menubar-popup-min-width: 0`) to let a short menu shrink to its content.
 
 **Option Props:** `id`, `label`, `icon`, `onClick`, `onSelect`, `variant`, `disabled`, `items` (recursive options), `shortcut`, `type` (`item`, `separator`, `label`, `checkbox`, `radio`), `checked`, `onCheckedChange`
 

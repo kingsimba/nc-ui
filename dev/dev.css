@@ -170,6 +170,11 @@ body {
     align-items: center;
 }
 
+/* ContextMenu compact width demo: let the popup shrink to its content. */
+.dev-compact-menu {
+    --nc-menubar-popup-min-width: 0;
+}
+
 .dev-item {
     display: flex;
     flex-direction: column;

@@ -62,12 +62,14 @@ interface MenuPopupProps {
     focusOnOpen?: boolean;
     dir: 'ltr' | 'rtl';
     label: string;
+    /** Additional class names applied to the popup and its submenus. */
+    className?: string;
     onClose: () => void;
     onDismiss: () => void;
     onSwitch: (offset: number) => void;
 }
 
-export function MenuPopup({ owner, items, anchor, position: coordinates, preferredDirection = 'down', submenu = false, focusOnOpen = true, dir, label, onClose, onDismiss, onSwitch }: MenuPopupProps) {
+export function MenuPopup({ owner, items, anchor, position: coordinates, preferredDirection = 'down', submenu = false, focusOnOpen = true, dir, label, className, onClose, onDismiss, onSwitch }: MenuPopupProps) {
     const popupRef = useRef<HTMLDivElement>(null);
     const [child, setChild] = useState<{ item: MenuBarItem; anchor: HTMLElement; focusOnOpen: boolean } | null>(null);
     const [position, setPosition] = useState({ top: 0, left: 0 });
@@ -98,6 +100,9 @@ export function MenuPopup({ owner, items, anchor, position: coordinates, preferr
             window.removeEventListener('scroll', updatePosition, true);
         };
     }, [anchor, coordinates?.x, coordinates?.y, dir, submenu, focusOnOpen, preferredDirection]);
+
+    // Only reserve the leading icon column when this popup level actually needs one.
+    const reservesIconColumn = items.some(item => item.icon || item.type === 'checkbox' || item.type === 'radio');
 
     const handleKeyDown = (event: React.KeyboardEvent) => {
         event.stopPropagation();
@@ -135,7 +140,8 @@ export function MenuPopup({ owner, items, anchor, position: coordinates, preferr
     };
 
     return createPortal(
-        <div ref={popupRef} role="menu" aria-label={label} dir={dir} data-menubar-owner={owner} className="nc-menubar-popup" style={position} onKeyDown={handleKeyDown}>
+        <div ref={popupRef} role="menu" aria-label={label} dir={dir} data-menubar-owner={owner} style={position} onKeyDown={handleKeyDown}
+            className={['nc-menubar-popup', !reservesIconColumn && 'nc-no-icon-column', className].filter(Boolean).join(' ')}>
             {items.map(item => {
                 if (item.type === 'separator') return <div key={item.id} role="separator" className="nc-menubar-separator" />;
                 if (item.type === 'label') return <div key={item.id} className="nc-menubar-label">{item.label}</div>;
@@ -155,13 +161,13 @@ export function MenuPopup({ owner, items, anchor, position: coordinates, preferr
                         item.onCheckedChange?.(item.type === 'radio' ? true : !item.checked);
                         item.onSelect?.();
                     }}>
-                    <span className="nc-menubar-icon" aria-hidden="true">{checkable ? (item.checked ? (item.type === 'radio' ? '\u2022' : '\u2713') : null) : item.icon}</span>
+                    {reservesIconColumn && <span className="nc-menubar-icon" aria-hidden="true">{checkable ? (item.checked ? (item.type === 'radio' ? '\u2022' : '\u2713') : null) : item.icon}</span>}
                     <span className="nc-menubar-text">{item.label}</span>
                     {item.shortcut && <span className="nc-menubar-shortcut" aria-hidden="true">{item.shortcut}</span>}
                     {item.items && <span aria-hidden="true">{dir === 'rtl' ? '\u2039' : '\u203a'}</span>}
                 </button>;
             })}
-            {child?.item.items && <MenuPopup key={child.item.id} owner={owner} items={child.item.items} anchor={child.anchor} submenu focusOnOpen={child.focusOnOpen} dir={dir} label={child.item.label || ''} onClose={() => setChild(null)} onDismiss={onDismiss} onSwitch={onSwitch} />}
+            {child?.item.items && <MenuPopup key={child.item.id} owner={owner} items={child.item.items} anchor={child.anchor} submenu focusOnOpen={child.focusOnOpen} dir={dir} label={child.item.label || ''} className={className} onClose={() => setChild(null)} onDismiss={onDismiss} onSwitch={onSwitch} />}
         </div>, document.body
     );
 }

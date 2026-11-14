@@ -7,6 +7,10 @@ export function ContextMenuSection() {
   const [position, setPosition] = useState<{ x: number; y: number }>();
   const [showDetails, setShowDetails] = useState(true);
   const [contextMenuAnchor, setContextMenuAnchor] = useState<HTMLButtonElement | null>(null);
+  const [plainMenuOpen, setPlainMenuOpen] = useState(false);
+  const [plainMenuAnchor, setPlainMenuAnchor] = useState<HTMLButtonElement | null>(null);
+  const [compactMenuOpen, setCompactMenuOpen] = useState(false);
+  const [compactMenuAnchor, setCompactMenuAnchor] = useState<HTMLButtonElement | null>(null);
 
   return (
     <section className="dev-section">
@@ -84,6 +88,51 @@ export function ContextMenuSection() {
               onClick: () => alert('Delete clicked'),
               variant: 'danger',
             },
+          ]}
+        />
+        <button
+          className="nc-button"
+          ref={setPlainMenuAnchor}
+          onClick={() => setPlainMenuOpen(!plainMenuOpen)}
+        >
+          Open Menu Without Icons
+        </button>
+        <ContextMenu
+          open={plainMenuOpen}
+          onClose={() => setPlainMenuOpen(false)}
+          anchor={plainMenuAnchor}
+          aria-label="Editor actions without icons"
+          options={[
+            { id: 'plain-header', type: 'label', label: 'Editor' },
+            { id: 'plain-undo', label: 'Undo', shortcut: 'Ctrl+Z', onClick: () => alert('Undo') },
+            { id: 'plain-redo', label: 'Redo', shortcut: 'Ctrl+Shift+Z', onClick: () => alert('Redo') },
+            { id: 'plain-sep', type: 'separator' },
+            { id: 'plain-select-all', label: 'Select all', shortcut: 'Ctrl+A', onClick: () => alert('Select all') },
+            {
+              id: 'plain-view', label: 'Appearance', items: [
+                { id: 'plain-zoom-in', label: 'Zoom in', shortcut: 'Ctrl+=', onClick: () => alert('Zoom in') },
+                { id: 'plain-zoom-out', label: 'Zoom out', shortcut: 'Ctrl+-', onClick: () => alert('Zoom out') },
+              ],
+            },
+          ]}
+        />
+        <button
+          className="nc-button"
+          ref={setCompactMenuAnchor}
+          onClick={() => setCompactMenuOpen(!compactMenuOpen)}
+        >
+          Compact Menu
+        </button>
+        <ContextMenu
+          open={compactMenuOpen}
+          onClose={() => setCompactMenuOpen(false)}
+          anchor={compactMenuAnchor}
+          className="dev-compact-menu"
+          aria-label="Compact actions"
+          options={[
+            { id: 'compact-copy', label: 'Copy', shortcut: 'Ctrl+C', onClick: () => alert('Copy') },
+            { id: 'compact-cut', label: 'Cut', shortcut: 'Ctrl+X', onClick: () => alert('Cut') },
+            { id: 'compact-paste', label: 'Paste', shortcut: 'Ctrl+V', onClick: () => alert('Paste') },
           ]}
         />
       </div>

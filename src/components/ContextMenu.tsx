@@ -27,6 +27,8 @@ export interface ContextMenuProps {
     dir?: 'ltr' | 'rtl';
     /** Translated accessible menu name. */
     'aria-label'?: string;
+    /** Additional class names applied to the menu and its submenus. */
+    className?: string;
 }
 
 function adaptOptions(options: ContextMenuOption[]): MenuBarItem[] {
@@ -37,7 +39,7 @@ function adaptOptions(options: ContextMenuOption[]): MenuBarItem[] {
     }));
 }
 
-export function ContextMenu({ open, onClose, options, anchorRef, anchor, preferredDirection = 'down', position, dir = 'ltr', 'aria-label': ariaLabel = '' }: ContextMenuProps) {
+export function ContextMenu({ open, onClose, options, anchorRef, anchor, preferredDirection = 'down', position, dir = 'ltr', 'aria-label': ariaLabel = '', className }: ContextMenuProps) {
     const owner = useId();
     const previousFocus = useRef<HTMLElement | null>(null);
     const anchorElement = anchor || anchorRef?.current;
@@ -74,6 +76,6 @@ export function ContextMenu({ open, onClose, options, anchorRef, anchor, preferr
     if (!open || (!position && !anchorElement)) return null;
 
     return <MenuPopup owner={owner} items={adaptOptions(options)} anchor={anchorElement} position={position} focusOnOpen={false}
-        preferredDirection={preferredDirection} dir={dir} label={ariaLabel}
+        preferredDirection={preferredDirection} dir={dir} label={ariaLabel} className={className}
         onClose={restoreFocus} onDismiss={restoreFocus} onSwitch={() => { }} />;
 }
