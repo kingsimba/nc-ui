@@ -97,8 +97,9 @@ nc-ui components pass values directly (not event objects):
 
 **Checkbox**
 
-- Props: `checked`, `onChange`, `label`, `size` (small|default), `disabled`
+- Props: `checked`, `onChange`, `label`, `indeterminate`, `size` (small|tiny|default), `disabled`
 - Usage: `<Checkbox checked={isChecked} onChange={setChecked} label="Agree" />`
+- Select-all: pass `indeterminate={some && !all}`; click still reports `onChange(!checked)`
 
 **Toggle**
 
@@ -107,8 +108,9 @@ nc-ui components pass values directly (not event objects):
 
 **NumberInput**
 
-- Props: `value`, `onChange`, `min`, `max`, `step`, `label`, `size` (small|default), `disabled`
+- Props: `value`, `onChange`, `onChangeConfirmed`, `onCancel`, `allowEmpty`, `placeholder`, `ariaLabel`, `min`, `max`, `step`, `label`, `size` (small|default), `disabled`
 - Usage: `<NumberInput value={num} onChange={setNum} min={0} max={100} step={5} />`
+- `onChange` is the draft callback (per keystroke, and per step while dragging), `onChangeConfirmed` runs once on Enter, blur, spinner click, or drag release — put expensive work there
 
 **Alert**
 

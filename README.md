@@ -96,7 +96,7 @@ nc-ui provides 23+ ready-to-use components. Click any component to see it in the
 | [MultiSelect](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=multi-select)     | Multi-selection dropdown with tag display                                                          |
 | [NavStack](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=nav-stack)           | Stack-based navigation for mobile-style settings UIs                                               |
 | [Notification](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=notification)    | Toast-style notifications with auto-dismiss and stacking                                           |
-| [NumberInput](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=number-input)     | Numeric input with increment/decrement controls                                                    |
+| [NumberInput](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=number-input)     | Numeric input with spinner drag and confirmed-change callbacks                              |
 | [Slider](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=slider)                | Range slider with value display                                                                    |
 | [Tabs](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=tabs)                    | Tabbed navigation component                                                                        |
 | [Toggle](https://kingsimba.github.io/nc-ui/?app=ui-components&tab=toggle)                | Switch/toggle with on/off states                                                                   |

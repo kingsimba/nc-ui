@@ -1,13 +1,28 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const DRAG_PIXELS_PER_STEP = 5;
 const DRAG_THRESHOLD = 3;
 
+/** Text shown for a value, with `undefined` meaning an empty field. */
+function format(value: number | undefined): string {
+  return value === undefined ? '' : String(value);
+}
+
 export interface NumberInputProps {
-  /** Current numeric value */
-  value: number;
-  /** Callback when value changes */
-  onChange: (value: number) => void;
+  /** Current numeric value; `undefined` renders an empty field */
+  value?: number;
+  /** Callback when the draft value changes */
+  onChange?: (value: number) => void;
+  /** Callback when an edit is confirmed with Enter or blur; `undefined` clears an empty-allowed field */
+  onChangeConfirmed?: (value: number | undefined) => void;
+  /** Callback when Esc cancels the edit */
+  onCancel?: () => void;
+  /** Whether an empty field is a valid state instead of falling back to `min` or `0` */
+  allowEmpty?: boolean;
+  /** Placeholder shown while the field is empty */
+  placeholder?: string;
+  /** Accessible name, for a field whose label lives outside the control */
+  ariaLabel?: string;
   /** Minimum allowed value */
   min?: number;
   /** Maximum allowed value */
@@ -26,31 +41,61 @@ export interface NumberInputProps {
   size?: 'default' | 'small';
 }
 
-export function NumberInput({ value, onChange, min, max, step = 1, label, disabled, className = '', style, size = 'default' }: NumberInputProps) {
+export function NumberInput({
+  value,
+  onChange,
+  onChangeConfirmed,
+  onCancel,
+  allowEmpty = false,
+  placeholder,
+  ariaLabel,
+  min,
+  max,
+  step = 1,
+  label,
+  disabled,
+  className = '',
+  style,
+  size = 'default',
+}: NumberInputProps) {
   const isSmall = size === 'small';
   const decimals = (String(step).split('.')[1] || '').length;
   const dragState = useRef<{ startY: number; startValue: number; pointerId: number; hasMoved: boolean; lastValue: number } | null>(null);
   const suppressClick = useRef(false);
   const holdTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const previousValue = useRef(value);
+  // set when Enter or Escape already handled the edit, so the blur that follows does not commit again
+  const editSettledOnBlur = useRef(false);
   const [isDragging, setIsDragging] = useState(false);
-  const [textValue, setTextValue] = useState(() => String(value));
+  const [textValue, setTextValue] = useState(() => format(value));
 
   const round = (v: number) => parseFloat(v.toFixed(decimals));
+  const baseValue = value ?? min ?? 0;
+
+  // an external change wins, unless the pointer is in the field and would lose a half-typed number
+  useEffect(() => {
+    if (previousValue.current === value) return;
+    previousValue.current = value;
+    if (document.activeElement === inputRef.current) return;
+    setTextValue(format(value));
+  }, [value]);
 
   const commitValue = (v: number) => {
     const rounded = round(v);
     setTextValue(String(rounded));
-    onChange(rounded);
+    onChange?.(rounded);
+    onChangeConfirmed?.(rounded);
   };
 
   const decrement = () => {
-    const newValue = value - step;
+    const newValue = round(baseValue - step);
     if (min !== undefined && newValue < min) return;
     commitValue(parseFloat(newValue.toFixed(10)));
   };
 
   const increment = () => {
-    const newValue = value + step;
+    const newValue = round(baseValue + step);
     if (max !== undefined && newValue > max) return;
     commitValue(parseFloat(newValue.toFixed(10)));
   };
@@ -61,25 +106,42 @@ export function NumberInput({ value, onChange, min, max, step = 1, label, disabl
     if (raw === '') return;
     const parsed = parseFloat(raw);
     if (isNaN(parsed)) return;
-    onChange(parsed);
+    onChange?.(parsed);
   };
 
-  const handleBlur = () => {
-    const raw = textValue;
+  const commit = () => {
+    if (disabled) return;
+    const raw = textValue.trim();
+    const unchanged = textValue === format(value);
+
     if (raw === '') {
-      commitValue(min !== undefined ? min : 0);
+      if (allowEmpty) {
+        if (!unchanged) onChangeConfirmed?.(undefined);
+        return;
+      }
+      const fallback = round(min ?? 0);
+      setTextValue(String(fallback));
+      if (fallback !== value) {
+        onChange?.(fallback);
+        onChangeConfirmed?.(fallback);
+      }
       return;
     }
+
     const parsed = parseFloat(raw);
-    if (isNaN(parsed)) {
-      commitValue(min !== undefined ? min : 0);
+    if (!Number.isFinite(parsed)) {
+      setTextValue(format(value));
       return;
     }
-    let clamped = round(parsed);
-    if (min !== undefined) clamped = Math.max(min, clamped);
-    if (max !== undefined) clamped = Math.min(max, clamped);
-    if (clamped !== parsed) commitValue(clamped);
-    else setTextValue(String(clamped));
+
+    let next = round(parsed);
+    if (min !== undefined) next = Math.max(min, next);
+    if (max !== undefined) next = Math.min(max, next);
+    if (next !== parsed) setTextValue(String(next));
+    if (!unchanged || next !== value) {
+      onChange?.(next);
+      onChangeConfirmed?.(next);
+    }
   };
 
   const handleSpinnerPointerDown = (e: React.PointerEvent<HTMLButtonElement>) => {
@@ -88,10 +150,10 @@ export function NumberInput({ value, onChange, min, max, step = 1, label, disabl
     suppressClick.current = false;
     dragState.current = {
       startY: e.clientY,
-      startValue: value,
+      startValue: baseValue,
       pointerId: e.pointerId,
       hasMoved: false,
-      lastValue: value,
+      lastValue: baseValue,
     };
     holdTimer.current = setTimeout(() => { suppressClick.current = true; setIsDragging(true); }, 200);
     e.currentTarget.setPointerCapture(e.pointerId);
@@ -116,10 +178,11 @@ export function NumberInput({ value, onChange, min, max, step = 1, label, disabl
     if (max !== undefined) newValue = Math.min(max, newValue);
     newValue = round(newValue);
 
+    // the draft streams while dragging; the confirmed callback waits for the gesture to end
     if (newValue !== state.lastValue) {
       state.lastValue = newValue;
       setTextValue(String(newValue));
-      onChange(newValue);
+      onChange?.(newValue);
     }
   };
 
@@ -133,6 +196,10 @@ export function NumberInput({ value, onChange, min, max, step = 1, label, disabl
     }
     dragState.current = null;
     setIsDragging(false);
+
+    if (state.lastValue !== state.startValue) {
+      onChangeConfirmed?.(state.lastValue);
+    }
   };
 
   const handleSpinClick = (change: () => void) => (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -145,18 +212,44 @@ export function NumberInput({ value, onChange, min, max, step = 1, label, disabl
   };
 
   const parsed = textValue === '' ? NaN : parseFloat(textValue);
-  const isError = textValue === '' || isNaN(parsed) || (min !== undefined && parsed < min) || (max !== undefined && parsed > max);
+  const isEmpty = textValue === '' && allowEmpty;
+  const isError =
+    !isEmpty &&
+    (textValue === '' || isNaN(parsed) || (min !== undefined && parsed < min) || (max !== undefined && parsed > max));
 
   return (
     <div className={`nc-col nc-number-input-col ${isSmall ? 'nc-small' : ''}`}>
       {label && <span className={`nc-label ${isSmall ? 'nc-small' : ''}`}>{label}</span>}
       <div className={`nc-number-input-container ${isSmall ? 'nc-small' : ''} ${className}`} style={style}>
         <input
+          ref={inputRef}
           className={`nc-input nc-number-input ${isSmall ? 'nc-small' : ''} ${isError ? 'nc-error' : ''}`}
           type="number"
           value={textValue}
+          placeholder={placeholder}
+          aria-label={ariaLabel}
           onChange={handleInputChange}
-          onBlur={handleBlur}
+          onBlur={() => {
+            if (editSettledOnBlur.current) {
+              editSettledOnBlur.current = false;
+              return;
+            }
+            commit();
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              editSettledOnBlur.current = true;
+              commit();
+              e.currentTarget.blur();
+            } else if (e.key === 'Escape') {
+              e.preventDefault();
+              editSettledOnBlur.current = true;
+              setTextValue(format(value));
+              onCancel?.();
+              e.currentTarget.blur();
+            }
+          }}
           min={min}
           max={max}
           step={step}
@@ -172,7 +265,7 @@ export function NumberInput({ value, onChange, min, max, step = 1, label, disabl
             onPointerMove={handleSpinnerPointerMove}
             onPointerUp={handleSpinnerPointerEnd}
             onPointerCancel={handleSpinnerPointerEnd}
-            disabled={disabled || (max !== undefined && value >= max)}
+            disabled={disabled || (max !== undefined && baseValue >= max)}
             tabIndex={-1}
           >
             ▲
@@ -184,7 +277,7 @@ export function NumberInput({ value, onChange, min, max, step = 1, label, disabl
             onPointerMove={handleSpinnerPointerMove}
             onPointerUp={handleSpinnerPointerEnd}
             onPointerCancel={handleSpinnerPointerEnd}
-            disabled={disabled || (min !== undefined && value <= min)}
+            disabled={disabled || (min !== undefined && baseValue <= min)}
             tabIndex={-1}
           >
             ▼

@@ -445,11 +445,33 @@ import { NumberInput } from '@kingsimba/nc-ui'
   onChange={setQty}
   style={{ width: 220 }}
 />
+
+// Commit expensive work only once per edit
+<NumberInput
+  value={timeout}
+  onChangeConfirmed={setTimeout}
+  min={1}
+  max={999}
+  label="Timeout"
+/>
+
+// Optional value: empty means `undefined`, not `min`/`0`
+<NumberInput
+  value={limit}
+  onChangeConfirmed={setLimit}
+  allowEmpty
+  placeholder="No limit"
+  ariaLabel="Rate limit"
+  min={1}
+  label="Rate limit"
+/>
 ```
 
 **Spinner interaction:** Click an arrow to change by one step. Drag the spinner upward to increase or downward to decrease; each 5 pixels changes the value by `step`.
 
-**Props:** `value`, `onChange`, `min`, `max`, `step`, `label`, `disabled`, `className`, `style`
+**Callback timing:** `onChange` is the draft callback — it fires per keystroke while typing and per step while dragging the spinner. `onChangeConfirmed` fires once when the edit is committed (Enter, blur, spinner click, drag release) and is the place for requests or other expensive work. `onCancel` fires on Escape, which also restores the current `value`.
+
+**Props:** `value`, `onChange`, `onChangeConfirmed`, `onCancel`, `allowEmpty`, `placeholder`, `ariaLabel`, `min`, `max`, `step`, `label`, `disabled`, `className`, `style`, `size` (`default` | `small`)
 
 ---
 
@@ -532,6 +554,8 @@ import { Checkbox } from '@kingsimba/nc-ui'
   label="Select all"
 />
 ```
+
+**Indeterminate:** renders a dash instead of the tick and sets `aria-checked="mixed"`. Clicking still calls `onChange(!checked)`, so the parent decides whether to clear or select everything.
 
 **Props:** `checked`, `onChange`, `label`, `indeterminate`, `size`(`default` | `small` | `tiny`), `disabled`
 

@@ -1,5 +1,7 @@
 # Changelog
 
+- 2026-11-16 Checkbox: Add `indeterminate` state
+- 2026-11-16 NumberInput: Add `onChangeConfirmed`, `onCancel`, `allowEmpty`, `placeholder`, and `ariaLabel`
 - 2026-11-14 MenuBar/ContextMenu: Support compact icon-free menus with custom popup styling
 - 2026-11-14 ContextMenu: Add nested menus, right-click positioning, and checkable items with MenuBar styling
 - 2026-11-13 MenuBar: Add desktop menus with nested commands, optional icons, keyboard navigation, and multilingual demo
